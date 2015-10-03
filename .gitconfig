@@ -1,0 +1,32 @@
+[user]
+	name = Shuk
+	email = biz.shuk@gmail.com
+[merge]
+	log = 25
+[color]
+	log = auto
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	logv = log --name-status
+	rollback = checkout
+[pack]
+	windowMemory = 25m
+	SizeLimit = 25m
+	threads = 1
+[log]
+	date = local
+[core]
+	editor = vim
+	quotepath = false
+
+[credential]
+	helper = cache --timeout=3600
+[http]
+	sslVerify = false
