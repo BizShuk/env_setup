@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-PATH="${HOME}/bin:$PATH"
+PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -105,48 +105,6 @@ fi
 export TERM="xterm-256color"
 
 
-PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
 
 
-# /etc/profile: system-wide .profile file for the Bourne shell (sh(1))
-# and Bourne compatible shells (bash(1), ksh(1), ash(1), ...).
-# default /etc/profile
-#if [ "$PS1" ]; then
-#  if [ "$BASH" ] && [ "$BASH" != "/bin/sh" ]; then
-#    # The file bash.bashrc already sets the default PS1.
-#    # PS1='\h:\w\$ '
-#    if [ -f /etc/bash.bashrc ]; then
-#      . /etc/bash.bashrc
-#    fi
-#  else
-#    if [ "`id -u`" -eq 0 ]; then
-#      PS1='# '
-#    else
-#      PS1='$ '
-#    fi
-#  fi
-#fi
-
-# The default umask is now handled by pam_umask.
-# See pam_umask(8) and /etc/login.defs.
-
-if [ -d /etc/profile.d ]; then
-  for i in /etc/profile.d/*.sh; do
-    if [ -r $i ]; then
-      . $i
-    fi
-  done
-  unset i
-fi
-
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
-PATH=${HOME}/bin:$PATH;
 PATH=${HOME}/bin:$PATH;
