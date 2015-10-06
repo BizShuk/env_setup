@@ -104,7 +104,4 @@ fi
 
 export TERM="xterm-256color"
 
-
-
-
 PATH=${HOME}/bin:$PATH;
