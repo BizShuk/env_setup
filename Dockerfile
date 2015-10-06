@@ -11,12 +11,9 @@ RUN     service ssh start
 
 
 ### [root]
-
 #add default user
 RUN     useradd -m -s /bin/bash -G sudo $username
 RUN     echo "$password\n$password\n" | passwd $username
-
-
 
 
 
@@ -30,6 +27,5 @@ RUN     git clone https://github.com/BizShuk/env_setup.git;
 RUN     cd ~/env_setup; /bin/bash -c ./bash_env_setup.sh;
 
 
-
-
-CMD ["/bin/bash"]
+USER root
+CMD ["/usr/sbin/sshd","-D"]
