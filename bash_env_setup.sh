@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# update 
-apt-get install update && apt-get install upgrade -y
-
-# install package
-apt-get install git vim curl wget build-essential screen openssh-server -y
 
 
 # env path
@@ -25,10 +20,6 @@ ln -sf $repo_dir/.vimrc $idir/;
 ln -sf $repo_dir/.gitconfig $idir/;
 ln -sf $repo_dir/.vim $idir/.vim;
 
-
-
-
-service ssh start;
 
 
 exit 0;
