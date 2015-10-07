@@ -7,7 +7,16 @@ ENV password zxcvasdf
 # copy from https://github.com/BizShuk/env_setup.git/ubuntu_update_install.sh
 RUN     apt-get update && apt-get upgrade -y
 RUN     apt-get install git vim curl wget build-essential screen openssh-server -y
+# install lib
+RUN     apt-get install libssl-dev -y
+
 RUN     service ssh start
+
+
+
+
+
+
 
 
 ### [root]
