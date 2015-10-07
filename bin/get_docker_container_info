@@ -7,7 +7,7 @@ c_info=($(docker ps --format="{{.Names}}\\t{{.ID}}"))
 for c_vars in "${c_info[@]}" 
 do
     c_name=$(echo -e "$c_vars" | awk '{print $1}')
-    ip=$(docker exec -it $c_name /bin/bash -c "hostname -I")
+    ip=$(docker exec -i $c_name /bin/bash -c "hostname -I" 2>&1)
     echo -e "$c_vars\t$ip"
 done
 

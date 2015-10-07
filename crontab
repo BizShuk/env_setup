@@ -1,5 +1,7 @@
 SHELL=/bin/bash
-PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin:~/bin
+PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin:/home/shuk/bin
+
+shuk_root=/home/shuk
 
 #1分鐘（0-59）
 #2小時（2-24）
@@ -9,4 +11,4 @@ PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin:~/bin
 #6使用者名（執行命令時以此使用者的身份）
 #7要執行的命令（路徑）
 
-*/1 * * * * shuk ~/env_setup/cron/get_docker_container_info > ~/Public/container_list.txt
+* * * * * get_docker_container_info > $shuk_root/Public/container_list.txt

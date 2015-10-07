@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+# test docker env 
+
+
+
+# show docker image list
+docker images
+echo "[Docker images]:"
+read image_name
+[ -z $image_name ] && echo "please input docker image name..." && exit 1
+
+# enter docker container name
+echo "[Docker container nane]:"
+read container_name
+[ -z $container_name ] && echo "please input container name..." && exit 1
+container_name="--name "$container_name
+
+# enter option
+echo "[Docker options]:"
+read options
+
+# port binding
+echo "[Docker port binding with host]:"
+read port_binding
+[ -z $port_binding ] || port_binding="-p $port_binding"
+
+# cmd
+echo "[Docker cmd]:"
+read cmd
+
+
+container_id=$(docker run $options $port_binding $container_name $image_name $cmd)
+echo "Container ID is   "$container_id
