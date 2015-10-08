@@ -1,3 +1,4 @@
+#!/bin/bash
 From ubuntu:14.04
 MAINTAINER bizshuk <biz.shuk@gmail.com>
 
@@ -6,16 +7,9 @@ ENV password zxcvasdf
 
 # copy from https://github.com/BizShuk/env_setup.git/ubuntu_update_install.sh
 RUN     apt-get update && apt-get upgrade -y
-RUN     apt-get install git vim curl wget build-essential screen openssh-server -y
+RUN     apt-get install git vim curl wget build-essential screen openssh-server automake -y
 # install lib
 RUN     apt-get install libssl-dev -y
-
-RUN     service ssh start
-
-
-
-
-
 
 
 
@@ -37,4 +31,5 @@ RUN     cd ~/env_setup; /bin/bash -c ./bash_env_setup.sh;
 
 
 USER root
+WORKDIR /root
 CMD ["/usr/sbin/sshd","-D"]

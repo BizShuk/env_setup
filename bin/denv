@@ -1,0 +1,141 @@
+#!/bin/bash
+
+# generate shuk test env container
+
+mode=$1
+cname=shuk
+count=5
+
+
+startall(){
+    for ((i=1; i<=$count; i++))
+    do
+        #docker start `docker ps -a -q -f "name=$cname"`
+        docker start "$cname$i"
+        update_dhcp "$cname$i"
+    done
+}
+# stop all container
+stopall(){
+    docker stop `docker ps -q -f "name=$cname"`
+}
+
+# rm containersshuk
+rmall(){
+    docker rm `docker ps -q -f "status=exited"`
+}
+
+create_shuk(){
+    for ((i=1; i<=$count; i++))
+    do
+        
+        docker run -d --name $cname$i -h $cname$i --privileged  --mac-address aa:aa:aa:aa:aa:0$i base 
+        update_dhcp "$cname$i"
+    done
+}
+
+create(){
+    cname = $1
+    hname = $2
+    mac_addr = $3
+    image = $4
+
+    docker run -d --name 
+}
+
+prompt(){
+    echo "docker run [--priviledged for all capibility] -d [-it for /bin/bash] --name -h --mac-address image_name [cmd]";
+    echo ""
+}
+
+create_with_prompt(){
+    # show docker image list
+    docker images && echo ""
+    prompt
+
+##
+## must
+##
+    echo "[Docker images]:"
+    read image_name
+    [ -z $image_name ] && echo "please input docker image name..." && exit 1
+
+    # enter docker container name
+    echo "[Docker container nane and hostname]:"
+    read container_name
+    [ -z $container_name ] && echo "please input container name..." && exit 1
+    container_name="--name $container_name -h $container_name "
+
+##
+## optional
+## 
+
+
+    # mac address
+    echo "[Docker mac address](empty for auto generated):"
+    read mac_addr
+    [ -z $mac_addr ] || mac_addr="--mac-address $mac_address"
+
+    # port binding
+    echo "[Docker port binding with host]:"
+    read port_binding
+    [ -z $port_binding ] || port_binding="-p $port_binding"
+
+    # cmd
+    echo "[Docker cmd](empty for dockerfile default cmd):"
+    read cmd
+
+    # privileged
+    echo "Do you want to active privileged with container(Y/N)?"
+    read privileged 
+    [ "$privileged" -ne "Y" ] &&  privilege=""
+
+    container_id=$(docker run -d $priviledged $port_binding $container_name $mac_addr $image_name $cmd)
+    echo "Container ID is   "$container_id
+}
+
+update_dhcp(){
+    if [ -n "$1" ]; then
+        docker exec -i $cname$i /bin/bash -c "/usr/bin/dhclient -r;/usr/bin/dhclient;/usr/bin/dhclient -r;/usr/bin/dhclient"
+    else
+        echo "lost container name\n"
+    fi
+}
+
+
+
+case $mode in
+start_shuk)
+    startall $cname;
+;;
+stop_shuk)
+    stopall $cname;
+;;
+rm_shuk)
+    rmall $cname;
+;;
+create_shuk)
+    create_shuk $cname;
+;;
+create)
+    create_shuk $cname;
+;;
+create_prompt)
+    create_with_prompt;
+;;
+enter)
+    docker ps
+    echo "[Dodcker please choose container name to operate]:"
+    read cname
+    docker exec -it $cname /bin/bash
+    exit 0
+;;
+prompt)
+    prompt
+;;
+update)
+    update_dhcp $2;
+;;
+esac
+
+
