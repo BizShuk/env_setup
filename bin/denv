@@ -34,16 +34,7 @@ create_shuk(){
     done
 }
 
-create(){
-    cname = $1
-    hname = $2
-    mac_addr = $3
-    image = $4
-
-    docker run -d --name 
-}
-
-prompt(){
+cmdinfo(){
     echo "docker run [--priviledged for all capibility] -d [-it for /bin/bash] --name -h --mac-address image_name [cmd]";
     echo ""
 }
@@ -51,7 +42,7 @@ prompt(){
 create_with_prompt(){
     # show docker image list
     docker images && echo ""
-    prompt
+    cmdinfo
 
 ##
 ## must
@@ -69,7 +60,6 @@ create_with_prompt(){
 ##
 ## optional
 ## 
-
 
     # mac address
     echo "[Docker mac address](empty for auto generated):"
@@ -90,8 +80,9 @@ create_with_prompt(){
     read privileged 
     [ "$privileged" -ne "Y" ] &&  privilege=""
 
-    container_id=$(docker run -d $priviledged $port_binding $container_name $mac_addr $image_name $cmd)
-    echo "Container ID is   "$container_id
+    container_id=$(create $priviledged $port_binding $container_name $mac_addr $image_name $cmd)
+    echo "Container ID   is : $container_id"
+    echo "Container name is : $container_name"
 }
 
 update_dhcp(){
@@ -117,9 +108,8 @@ rm_shuk)
 create_shuk)
     create_shuk $cname;
 ;;
-create)
-    create_shuk $cname;
-;;
+
+
 create_prompt)
     create_with_prompt;
 ;;
@@ -130,20 +120,17 @@ enter)
     docker exec -it $cname /bin/bash
     exit 0
 ;;
-prompt)
-    prompt
+cmdinfo)
+    cmdinfo
 ;;
 psinfo)
-    get_docker_container_info
+    docker-psinfo "${@:2}";
 ;;
-update)
-    update_dhcp $2;
+update_dhcp)
+    update_dhcp "${@:2}";
 ;;
 *)
-    echo -e "
-        
-    
-    "
+    docker "$@"
 ;;
 
 esac

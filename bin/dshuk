@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# generate shuk test env container
+
+mode=$1
+cname=shuk
+count=5
+
+start(){
+    local cname=$1
+    local count=$2
+    for ((i=1; i<=$count; i++))
+    do
+        docker start "$cname$i"
+        update_dhcp "$cname$i"
+    done
+}
+
+# stop all container
+stop(){
+    local cname=$1
+    docker stop `docker ps -q -f "name=$cname"`
+}
+
+# rm containersshuk
+rm(){
+    local cname=$1
+    docker rm `docker ps -q -f "name=$cname" -f "status=exited"`
+}
+
+run(){
+    local cname=$1
+    local count=$2
+    for ((i=1; i<=$count; i++))
+    do
+        
+        docker run -d --name $cname$i -h $cname$i --privileged  --mac-address aa:aa:aa:aa:aa:0$i base 
+        update_dhcp "$cname$i"
+    done
+}
+
+update_dhcp(){
+    if [ -n "$1" ]; then
+        local cname=$1
+        docker exec -i $cname /bin/bash -c "/usr/bin/dhclient -r;/usr/bin/dhclient;/usr/bin/dhclient -r;/usr/bin/dhclient"
+    else
+        echo "lost container name\n"
+    fi
+}
+
+
+
+case $mode in
+start)
+    start $cname $count;
+;;
+stop)
+    stop $cname $count;
+;;
+rm)
+    rm $cname $count;
+;;
+run)
+    run $cname $count;
+;;
+psinfo)
+    docker-psinfo shuk;
+;;
+*)
+    denv "$@"
+;;
+
+esac
+
+

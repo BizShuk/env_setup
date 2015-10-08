@@ -10,7 +10,7 @@ RUN     apt-get update && apt-get upgrade -y
 RUN     apt-get install git vim curl wget build-essential screen openssh-server automake -y
 # install lib
 RUN     apt-get install libssl-dev -y
-
+RUN     cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 
 
 ### [root]
