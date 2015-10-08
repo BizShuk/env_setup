@@ -133,9 +133,19 @@ enter)
 prompt)
     prompt
 ;;
+psinfo)
+    get_docker_container_info
+;;
 update)
     update_dhcp $2;
 ;;
+*)
+    echo -e "
+        
+    
+    "
+;;
+
 esac
 
 
