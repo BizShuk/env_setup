@@ -11,27 +11,27 @@ cmdinfo(){
 }
 
 stop_by_name(){
-    docker ps --format="{{.Names}}"
     
-    echo "[ Docker enter container name to stop ]( N for exit ):"
-    while read cname && [ "$cname" != "N" ]
+    while  
+        docker ps --format="{{.Names}}" | awk '{print NR ": " $0}' && \
+        echo "[ Docker enter container name to stop ]( ctrl+c to exit ):" && \
+        read number && [ "$number" != "N" ]
     do
-        local rm_name=$(docker stop $cname)
+        local rm_name=$(docker stop `docker ps --format="{{.Names}}" | awk NR==$number`)
         echo "$rm_name stoped"
-        docker ps --format="{{.Names}}"
     done
     
 }
 
 rm_by_name(){
-    docker ps -a --format="{{.Names}}" -f="status=exited"
     
-    echo "[ Docker enter container name to rm ]( N for exit ):"
-    while read cname && [ "$cname" != "N" ]
+    while 
+        docker ps -a --format="{{.Names}}" -f="status=exited" -f="status=created" | awk '{print NR ": " $0}' && \
+        echo "[ Docker enter number to rm container ]( ctrl+c to exit ):" && \
+        read number && [ "$number" != "N" ]
     do
-        local rm_name=$(docker rm $cname)
+        local rm_name=$(docker rm `docker ps -a --format="{{.Names}}" -f="status=exited" -f="status=created" | awk NR==$number`)
         echo "$rm_name removed"
-        docker ps -a --format="{{.Names}}" -f="status=exited"
     done
     
 }

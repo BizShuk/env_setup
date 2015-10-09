@@ -35,4 +35,5 @@ RUN     cd ~/env_setup; /bin/bash -c ./bash_env_setup.sh;
 
 USER root
 WORKDIR /root
+
 CMD ["/usr/sbin/sshd","-D"]
