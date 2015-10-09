@@ -14,6 +14,11 @@ RUN     apt-get install libssl-dev -y
 
 # change timezone to Asia/Taipei
 RUN     cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
+# move dhclient to 
+RUN     mv /sbin/dhclient /usr/sbin/dhclient
+
+
+
 
 
 ### [root]
