@@ -36,6 +36,9 @@ rm_by_name(){
     
 }
 
+rmi_none(){
+    docker rmi -f `docker images |grep ^\<none\> | awk '{print $3}'`   
+}
 
 create_prompt(){
     # show docker image list
@@ -91,7 +94,9 @@ rm_by_name)
 stop_by_name)
     stop_by_name
 ;;
-
+rmi_none)
+    rm_none
+;;
 create_prompt)
     create_prompt;
 ;;
