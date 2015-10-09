@@ -5,7 +5,7 @@ MAINTAINER bizshuk <biz.shuk@gmail.com>
 ENV username shuk
 ENV password zxcvasdf
 
-# copy from https://github.com/BizShuk/env_setup.git/ubuntu_update_install.sh
+# copy from https://github.com/BizShuk/env_setup.git/setup_ubuntu_update.sh
 RUN     apt-get update && apt-get upgrade -y
 RUN     apt-get install git vim curl wget build-essential screen openssh-server automake -y
 
@@ -30,7 +30,7 @@ RUN     tar -zvxf /tmp/master.tar.gz -C /tmp && mv /tmp/env_setup-master /home/$
 USER $username
 WORKDIR /home/$username
 
-RUN     cd ~/env_setup; /bin/bash -c ./bash_env_setup.sh;
+RUN     cd ~/env_setup; /bin/bash -c ./setup_bash_env.sh;
 
 
 USER root

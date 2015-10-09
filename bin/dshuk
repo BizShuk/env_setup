@@ -34,7 +34,7 @@ run(){
     for ((i=1; i<=$count; i++))
     do
         
-        docker run -d --name $cname$i -h $cname$i --privileged  --mac-address aa:aa:aa:aa:aa:0$i base 
+        docker run -d --name $cname$i -h $cname$i --privileged  --mac-address aa:aa:aa:aa:aa:0$i bizshuk/env_setup
         update_dhcp "$cname$i"
     done
 }
