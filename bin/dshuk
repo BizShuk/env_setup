@@ -12,7 +12,7 @@ start(){
     for ((i=1; i<=$count; i++))
     do
         docker start "$cname$i"
-        update_dhcp "$cname$i"
+        denv update_dhcp "$cname$i"
     done
 }
 
@@ -35,17 +35,8 @@ run(){
     do
         
         docker run -d --name $cname$i -h $cname$i --privileged  --mac-address aa:aa:aa:aa:aa:0$i bizshuk/env_setup
-        update_dhcp "$cname$i"
+        denv update_dhcp "$cname$i"
     done
-}
-
-update_dhcp(){
-    if [ -n "$1" ]; then
-        local cname=$1
-        docker exec -i $cname /bin/bash -c "/usr/bin/dhclient -r;/usr/bin/dhclient;/usr/bin/dhclient -r;/usr/bin/dhclient"
-    else
-        echo "lost container name\n"
-    fi
 }
 
 

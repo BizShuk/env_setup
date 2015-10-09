@@ -14,19 +14,22 @@ RUN     apt-get install libssl-dev -y
 
 # change timezone to Asia/Taipei
 RUN     cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
-# move dhclient to 
-RUN     mv /sbin/dhclient /usr/sbin/dhclient
+
+# DHCP
+# use bridge and docker run with privileged mode
+# if you want to get right ip by mac and hostname , you need to put dns(dhcp) server domain in /etc/resolv.conf first line
+# and "/usr/bin/dhclient -r && /usr/bin/dhclient" twice
+RUN     cp /sbin/dhclient /usr/bin/dhclient
 
 
 
 
 
-### [root]
 #add default user
 RUN     useradd -m -s /bin/bash -G sudo $username
 RUN     echo "$password\n$password\n" | passwd $username
 
-# basic env setup
+# download env_stup , because file by ADD will be owner root
 ADD     https://github.com/BizShuk/env_setup/archive/master.tar.gz /tmp/master.tar.gz
 RUN     tar -zvxf /tmp/master.tar.gz -C /tmp && mv /tmp/env_setup-master /home/$username/env_setup && chown -R $username /home/$username/env_setup
 
@@ -35,14 +38,16 @@ RUN     tar -zvxf /tmp/master.tar.gz -C /tmp && mv /tmp/env_setup-master /home/$
 USER $username
 WORKDIR /home/$username
 
+# setup bash env
 RUN     cd ~/env_setup; /bin/bash -c ./setup_bash_env.sh;
 
 
 USER root
 WORKDIR /root
 
-RUN mkdir /var/run/sshd
 
+# solution of  sshd problem in docker container
+RUN mkdir /var/run/sshd
 #RUN echo 'root:root' |chpasswd
 #RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 #RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config

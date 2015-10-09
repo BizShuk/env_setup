@@ -63,12 +63,13 @@ create_prompt(){
 ## 
 
     # mac address
-    echo "[Docker mac address](empty for auto generated):"
+    echo "[Docker mac address](e.g. ff:ff:ff:ff:ff:ff)"
     read mac_addr
-    [ -z $mac_addr ] || mac_addr="--mac-address $mac_address"
+    mac_addr=${mac_addr//;/:}
+    [ -z $mac_addr ] || mac_addr="--mac-address $mac_addr"
 
     # port binding
-    echo "[Docker port binding with host]:"
+    echo "[Docker port binding with host](e.g. [host_ip:]host_port:docker_port[ /tpc | /udp ]):"
     read port_binding
     [ -z $port_binding ] || port_binding="-p $port_binding"
 
@@ -77,15 +78,26 @@ create_prompt(){
     read cmd
 
     # privileged
-    echo "Do you want to active privileged with container(Y/N)?"
+    echo "Do you want to active privileged with container(y/n)?"
     read privileged 
-    [ "$privileged" != "Y" ] &&  privilege=""
+    if [ "$privileged" == "y" ]  || [ "$privileged" == "Y" ]; then
+        privileged=" --privileged "
+    else
+        privileged=""
+    fi
 
-    container_id=$(docker run -d $priviledged $port_binding $container_name $mac_addr $image_name $cmd)
+    container_id=$(docker run -d $privileged $port_binding $container_name $mac_addr $image_name $cmd)
     echo "Container ID   is : $container_id"
     echo "Container name is : $container_name"
 }
-
+update_dhcp(){
+    if [ -n "$1" ]; then
+        local cname=$1
+        docker exec -i $cname /bin/bash -c "/usr/bin/dhclient -r;/usr/bin/dhclient;/usr/bin/dhclient -r;/usr/bin/dhclient"
+    else
+        echo "lost container name\n"
+    fi
+}
 
 case $mode in
 rm_by_name)
@@ -97,15 +109,25 @@ stop_by_name)
 rmi_none)
     rm_none
 ;;
+update_dhcp)
+    update_dhcp "${@:2}"
+;;
+
+
 create_prompt)
     create_prompt;
 ;;
 enter)
     docker ps
     echo "[Dodcker please choose container name to operate]:"
-    read cname
-    docker exec -it $cname /bin/bash
-    exit 0
+
+    if [ -n $2 ]; then
+        docker exec -it $2 /bin/bash
+    else
+        read cname
+        docker exec -it $cname /bin/bash
+        exit 0
+    fi
 ;;
 cmdinfo)
     cmdinfo
