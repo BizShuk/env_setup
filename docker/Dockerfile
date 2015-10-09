@@ -21,15 +21,15 @@ RUN     cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 RUN     useradd -m -s /bin/bash -G sudo $username
 RUN     echo "$password\n$password\n" | passwd $username
 
+# basic env setup
+ADD     https://github.com/BizShuk/env_setup/archive/master.tar.gz /tmp/master.tar.gz
+RUN     tar -zvxf /tmp/master.tar.gz -C /tmp && mv /tmp/env_setup-master /home/$username/env_setup && chown -R $username /home/$username/env_setup
 
 
 ### [user]
 USER $username
 WORKDIR /home/$username
 
-
-# basic env setup
-RUN     git clone https://github.com/BizShuk/env_setup.git;
 RUN     cd ~/env_setup; /bin/bash -c ./bash_env_setup.sh;
 
 

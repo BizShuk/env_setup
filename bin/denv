@@ -3,43 +3,41 @@
 # generate shuk test env container
 
 mode=$1
-cname=shuk
-count=5
 
-
-startall(){
-    for ((i=1; i<=$count; i++))
-    do
-        #docker start `docker ps -a -q -f "name=$cname"`
-        docker start "$cname$i"
-        update_dhcp "$cname$i"
-    done
-}
-# stop all container
-stopall(){
-    docker stop `docker ps -q -f "name=$cname"`
-}
-
-# rm containersshuk
-rmall(){
-    docker rm `docker ps -q -f "status=exited"`
-}
-
-create_shuk(){
-    for ((i=1; i<=$count; i++))
-    do
-        
-        docker run -d --name $cname$i -h $cname$i --privileged  --mac-address aa:aa:aa:aa:aa:0$i base 
-        update_dhcp "$cname$i"
-    done
-}
 
 cmdinfo(){
     echo "docker run [--priviledged for all capibility] -d [-it for /bin/bash] --name -h --mac-address image_name [cmd]";
     echo ""
 }
 
-create_with_prompt(){
+stop_by_name(){
+    docker ps --format="{{.Names}}"
+    
+    echo "[ Docker enter container name to stop ]( N for exit ):"
+    while read cname && [ "$cname" != "N" ]
+    do
+        local rm_name=$(docker stop $cname)
+        echo "$rm_name stoped"
+        docker ps --format="{{.Names}}"
+    done
+    
+}
+
+rm_by_name(){
+    docker ps -a --format="{{.Names}}" -f="status=exited"
+    
+    echo "[ Docker enter container name to rm ]( N for exit ):"
+    while read cname && [ "$cname" != "N" ]
+    do
+        local rm_name=$(docker rm $cname)
+        echo "$rm_name removed"
+        docker ps -a --format="{{.Names}}" -f="status=exited"
+    done
+    
+}
+
+
+create_prompt(){
     # show docker image list
     docker images && echo ""
     cmdinfo
@@ -78,40 +76,24 @@ create_with_prompt(){
     # privileged
     echo "Do you want to active privileged with container(Y/N)?"
     read privileged 
-    [ "$privileged" -ne "Y" ] &&  privilege=""
+    [ "$privileged" != "Y" ] &&  privilege=""
 
-    container_id=$(create $priviledged $port_binding $container_name $mac_addr $image_name $cmd)
+    container_id=$(docker run -d $priviledged $port_binding $container_name $mac_addr $image_name $cmd)
     echo "Container ID   is : $container_id"
     echo "Container name is : $container_name"
 }
 
-update_dhcp(){
-    if [ -n "$1" ]; then
-        docker exec -i $cname$i /bin/bash -c "/usr/bin/dhclient -r;/usr/bin/dhclient;/usr/bin/dhclient -r;/usr/bin/dhclient"
-    else
-        echo "lost container name\n"
-    fi
-}
-
-
 
 case $mode in
-start_shuk)
-    startall $cname;
+rm_by_name)
+    rm_by_name
 ;;
-stop_shuk)
-    stopall $cname;
+stop_by_name)
+    stop_by_name
 ;;
-rm_shuk)
-    rmall $cname;
-;;
-create_shuk)
-    create_shuk $cname;
-;;
-
 
 create_prompt)
-    create_with_prompt;
+    create_prompt;
 ;;
 enter)
     docker ps

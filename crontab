@@ -11,4 +11,4 @@ shuk_root=/home/shuk
 #6使用者名（執行命令時以此使用者的身份）
 #7要執行的命令（路徑）
 
-* * * * * get_docker_container_info > $shuk_root/Public/container_list.txt
+* * * * * docker-psinfo shuk > ~/Public/container_list.txt
