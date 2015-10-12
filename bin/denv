@@ -36,6 +36,14 @@ rm_by_name(){
     
 }
 
+image_r(){
+    local remote="10.128.112.11:5000" 
+    if [ -n "$1" ]; then 
+        remote="$1"
+    fi
+    curl http://${remote}/v2/_catalog
+}
+
 rmi_none(){
     docker rmi -f `docker images |grep ^\<none\> | awk '{print $3}'`   
 }
@@ -112,7 +120,9 @@ rmi_none)
 update_dhcp)
     update_dhcp "${@:2}"
 ;;
-
+image_r)
+    image_r "${@:2}"
+;;
 
 create_prompt)
     create_prompt;
