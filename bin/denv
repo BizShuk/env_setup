@@ -115,7 +115,7 @@ stop_by_name)
     stop_by_name
 ;;
 rmi_none)
-    rm_none
+    rmi_none
 ;;
 update_dhcp)
     update_dhcp "${@:2}"
