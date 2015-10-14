@@ -131,13 +131,13 @@ enter)
     docker ps
     echo "[Dodcker please choose container name to operate]:"
 
-    if [ -n $2 ]; then
+    if [ -n "$2" ]; then
         docker exec -it $2 /bin/bash
     else
         read cname
         docker exec -it $cname /bin/bash
-        exit 0
     fi
+    exit 0
 ;;
 cmdinfo)
     cmdinfo
