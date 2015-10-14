@@ -5,7 +5,7 @@
 
 server_name=$1    
 
-server_alive=$(ping -c 1 $server_name )
+server_alive="$(ping -c 1 $server_name  1>&/dev/null)"
 
 if [ "$?" == "0" ]; then 
     echo "[$server_name] alive"
