@@ -1,6 +1,8 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+os="$(uname)"
+
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -65,7 +67,16 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-alias ls="ls --file-type --color=auto"
+
+
+
+
+if [ "$os" == "Darwin" ]; then
+    alias ls="ls -F -G"
+else
+    alias ls="ls --file-type --color=auto"
+fi
+
 alias p="ps axu"
 alias t="top"
 
