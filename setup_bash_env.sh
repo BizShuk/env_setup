@@ -13,6 +13,11 @@ mkdir $idir/lib;
 mkdir $idir/logs;
 
 
+for script_name in $( ls $repo_dir/bin/ )
+do
+    ln -sf $repo_dir/bin/$script_name $idir/bin/;
+done
+
 
 ln -sf $repo_dir/.bashrc $idir/;
 ln -sf $repo_dir/.bash_logout $idir/;

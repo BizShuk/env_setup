@@ -1,0 +1,165 @@
+#!/bin/bash
+
+# generate shuk test env container
+
+mode=$1
+
+
+cmdinfo(){
+    echo "docker run [--priviledged for all capibility] -d [-it for /bin/bash] --name -h --mac-address image_name [cmd]";
+    echo ""
+}
+
+stop-by-name(){
+    
+    while  
+        docker ps --format="{{.Names}}" | awk '{print NR ": " $0}' && \
+        echo "[ Docker enter container name to stop ]( ctrl+c to exit ):" && \
+        read number && [ "$number" != "N" ]
+    do
+        local rm_name=$(docker stop `docker ps --format="{{.Names}}" | awk NR==$number`)
+        echo "$rm_name stoped"
+    done
+    
+}
+
+rm-by-name(){
+    
+    while 
+        docker ps -a --format="{{.Names}}" -f="status=exited" -f="status=created" | awk '{print NR ": " $0}' && \
+        echo "[ Docker enter number to rm container ]( ctrl+c to exit ):" && \
+        read number && [ "$number" != "N" ]
+    do
+        local rm_name=$(docker rm `docker ps -a --format="{{.Names}}" -f="status=exited" -f="status=created" | awk NR==$number`)
+        echo "$rm_name removed"
+    done
+    
+}
+
+image-r(){
+    local remote="10.128.112.11:5000" 
+    if [ -n "$1" ]; then 
+        remote="$1"
+    fi
+    curl http://${remote}/v2/_catalog
+}
+
+rmi-none(){
+    docker rmi -f `docker images |grep ^\<none\> | awk '{print $3}'`   
+}
+
+create-prompt(){
+    # show docker image list
+    docker images && echo ""
+    cmdinfo
+
+##
+## must
+##
+    echo "[Docker images]:"
+    read image_name
+    [ -z $image_name ] && echo "please input docker image name..." && exit 1
+
+    # enter docker container name
+    echo "[Docker container nane and hostname]:"
+    read container_name
+    [ -z $container_name ] && echo "please input container name..." && exit 1
+    container_name="--name $container_name -h $container_name "
+
+##
+## optional
+## 
+
+    # mac address
+    echo "[Docker mac address](e.g. ff:ff:ff:ff:ff:ff)"
+    read mac_addr
+    mac_addr=${mac_addr//;/:}
+    [ -z $mac_addr ] || mac_addr="--mac-address $mac_addr"
+
+    # port binding
+    echo "[Docker port binding with host](e.g. [host_ip:]host_port:docker_port[ /tpc | /udp ]):"
+    read port_binding
+    [ -z $port_binding ] || port_binding="-p $port_binding"
+
+    # cmd
+    echo "[Docker cmd](empty for dockerfile default cmd):"
+    read cmd
+
+    # privileged
+    echo "Do you want to active privileged with container(y/n)?"
+    read privileged 
+    if [ "$privileged" == "y" ]  || [ "$privileged" == "Y" ]; then
+        privileged=" --privileged "
+    else
+        privileged=""
+    fi
+
+    container_id=$(docker run -d $privileged $port_binding $container_name $mac_addr $image_name $cmd)
+    echo "Container ID   is : $container_id"
+    echo "Container name is : $container_name"
+}
+update_dhcp(){
+    if [ -n "$1" ]; then
+        local cname=$1
+        docker exec -i $cname /bin/bash -c "/usr/bin/dhclient -r;/usr/bin/dhclient;/usr/bin/dhclient -r;/usr/bin/dhclient"
+    else
+        echo "lost container name\n"
+    fi
+}
+
+case $mode in
+rm-by-name)
+    rm-by-name
+;;
+stop-by-name)
+    stop-by-name
+;;
+rmi-none)
+    rmi-none
+;;
+update-dhcp)
+    update-dhcp "${@:2}"
+;;
+image-r)
+    image-r "${@:2}"
+;;
+image-commit)
+    docker-image-commit "${@:2}"
+;;
+create-prompt)
+    create-prompt;
+;;
+enter)
+    docker ps
+    echo "[Dodcker please choose container name to operate]:"
+
+    if [ -n "$2" ]; then
+        docker exec -it $2 /bin/bash
+    else
+        read cname
+        docker exec -it $cname /bin/bash
+    fi
+    exit 0
+;;
+cmdinfo)
+    cmdinfo
+;;
+psinfo)
+    docker-psinfo "${@:2}";
+;;
+update-dhcp)
+    update-dhcp "${@:2}";
+;;
+show)
+    echo "rm-by-name ,"
+
+
+
+;;
+*)
+    docker "$@"
+;;
+
+esac
+
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+check_alive disciple 3000
+check_alive shuk4 8000 8001 8888 9000
+check_alive shuk-HP 80
+check_alive 10.128.80.77 6060
+

@@ -1,5 +1,9 @@
-set encoding=utf-8
-set fileencoding=utf-8
+set encoding=utf8
+set fileencoding=utf8
+ 
+""encoding error , try encoding below
+set fileencodings=ucs-bom,gb18030,utf-8,default
+  
 set termencoding=utf-8
 set shiftwidth=4
 set tabstop=8

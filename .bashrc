@@ -2,8 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -68,6 +66,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 alias ls="ls --file-type --color=auto"
+alias p="ps axu"
+alias t="top"
+
+
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -86,6 +88,14 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
+
 export TERM="xterm-256color"
 
+
+export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
+
 PATH=${HOME}/bin:$PATH;
+PATH=/home/shuk/openresty/luajit/bin:$PATH
+export PATH
+
+export KUBECONFIG="/home/shuk/env_setup/config/k8s_config.sample"
