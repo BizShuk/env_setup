@@ -23,7 +23,7 @@ ln -sf $repo_dir/.bashrc $idir/;
 ln -sf $repo_dir/.bash_logout $idir/;
 ln -sf $repo_dir/.vimrc $idir/;
 ln -sf $repo_dir/.gitconfig $idir/;
-ln -sf $repo_dir/.vim $idir/.vim;
+ln -sf $repo_dir/.vim $idir/;
 
 
 
