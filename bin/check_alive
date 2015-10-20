@@ -11,7 +11,7 @@ if [ "$?" == "0" ]; then
     echo "[$server_name] alive"
 else
     echo "[$server_name] dead"
-    exit 0
+    exit 1
 fi
 
 # scan ports

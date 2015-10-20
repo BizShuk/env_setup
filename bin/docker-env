@@ -4,6 +4,11 @@
 
 mode=$1
 
+docker_remote_server="10.128.112.11:5000"
+
+
+
+
 
 cmdinfo(){
     echo "docker run [--priviledged for all capibility] -d [-it for /bin/bash] --name -h --mac-address image_name [cmd]";
@@ -36,8 +41,8 @@ rm-by-name(){
     
 }
 
-image-r(){
-    local remote="10.128.112.11:5000" 
+image-remote(){
+    local remote="$docker_remote_server"
     if [ -n "$1" ]; then 
         remote="$1"
     fi
@@ -128,8 +133,8 @@ rmi-none)
 update-dhcp)
     update-dhcp "${@:2}"
 ;;
-image-r)
-    image-r "${@:2}"
+image-remote)
+    image-remote "${@:2}"
 ;;
 image-commit)
     docker-image-commit "${@:2}"
