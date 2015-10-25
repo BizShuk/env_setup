@@ -108,4 +108,4 @@ export TERM="xterm-256color"
 export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
 
 export PATH=${HOME}/bin:$PATH;
-export KUBECONFIG="/home/shuk/env_setup/config/k8s_config.sample"
+export KUBECONFIG="${HOME}/env_setup/config/k8s_config.sample"
