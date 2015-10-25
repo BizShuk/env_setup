@@ -8,9 +8,9 @@ repo_dir=$idir/env_setup;
 
 
 # structure setup
-mkdir $idir/bin;
-mkdir $idir/lib;
-mkdir $idir/logs;
+[ ! -d $idir/bin  ] && mkdir $idir/bin;
+[ ! -d $idir/lib  ] && mkdir $idir/lib;
+[ ! -d $idir/logs ] && mkdir $idir/logs;
 
 
 for script_name in $( ls $repo_dir/bin/ )
@@ -25,7 +25,7 @@ ln -sf $repo_dir/.vimrc $idir/;
 ln -sf $repo_dir/.gitconfig $idir/;
 ln -sf $repo_dir/.vim $idir/;
 
-
+echo "done"
 
 exit 0;
 

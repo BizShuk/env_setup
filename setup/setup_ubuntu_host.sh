@@ -8,4 +8,4 @@ docker pull bizshuk/env_setup
 docker tag bizshuk/env_setup  base
 
 
-. .setup_bash_env.sh
+./setup_bash_env.sh
