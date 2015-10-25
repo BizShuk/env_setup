@@ -111,7 +111,7 @@ create-prompt(){
     echo "Container ID   is : $container_id"
     echo "Container name is : $container_name"
 }
-update_dhcp(){
+update-dhcp(){
     if [ -n "$1" ]; then
         local cname=$1
         docker exec -i $cname /bin/bash -c "/usr/bin/dhclient -r;/usr/bin/dhclient;/usr/bin/dhclient -r;/usr/bin/dhclient"
@@ -119,6 +119,26 @@ update_dhcp(){
         echo "lost container name\n"
     fi
 }
+
+daemon(){
+#sudo docker daemon -b br0 -p /home/shuk/env_setup/docker/docker.pid >> docker-daemon.log 2>&1
+    daemon_mode=$1
+
+    case $daemon_mode in
+    bridge)
+        source ~/env_setup/docker/br_br0.conf
+        sudo docker daemon -D $DOCKER_OPTS "${@:2}" >> ${DOCKER_log} 2>&1
+    ;;
+    *)
+        sudo service docker $@
+    ;;
+
+    esac
+
+}
+
+
+
 
 case $mode in
 rm-by-name)
@@ -165,10 +185,21 @@ update-dhcp)
 ;;
 show)
     echo "rm-by-name ,"
-
-
-
 ;;
+
+# for daemon
+daemon)
+    daemon "${@:2}";
+;;
+client_set)
+    source ~/env_setup/docker/br_br0.conf
+;;
+
+
+
+
+
+
 *)
     docker "$@"
 ;;

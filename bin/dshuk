@@ -57,6 +57,12 @@ run)
 psinfo)
     docker-psinfo shuk;
 ;;
+update-dhcp)
+    denv update-dhcp shuk1;
+    denv update-dhcp shuk2;
+    denv update-dhcp shuk3_server;
+    denv update-dhcp shuk4;
+;;
 *)
     denv "$@"
 ;;
