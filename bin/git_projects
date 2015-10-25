@@ -1,0 +1,25 @@
+#!/bin/bash
+### to do: auto pull and push and show comflict
+
+
+[ -n "$1" ] && path="$1" || path="${HOME}/projects/*/"
+
+dirs="$(echo ${path})"
+
+check_projects(){
+    need_update=0
+    for dir in ${dirs}
+    do
+        diff_content=$(git -C ${dir} diff remotes/origin/master 2>/dev/null)
+        not_git_repo="$?"
+
+        if [ -n "${diff_content}" ] && [ "$not_git_repo" == "0" ]; then
+            echo $dir
+            need_update=1
+        fi
+    done
+    exit "$need_update"
+}
+
+$(check_projects "$dirs")
+[ "$?" == "0" ] && echo "no need to update projectes" || echo "above need to update"
