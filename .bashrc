@@ -82,4 +82,4 @@ export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput se
 
 # PATH and custom config
 export PATH=${HOME}/bin:$PATH;
-export KUBECONFIG="/home/shuk/env_setup/config/k8s_config.sample"
+export KUBECONFIG="${HOME}/env_setup/config/k8s_config.sample"
