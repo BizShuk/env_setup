@@ -55,34 +55,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-
-
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-
-
-
-if [ "$os" == "Darwin" ]; then
-    alias ls="ls -F -G"
-else
-    alias ls="ls --file-type --color=auto"
-fi
-
-alias p="ps axu"
-alias t="top"
-alias size_disk="df -gH"
-alias size_file="du -sh *"
-alias size_dir="du -sh"
-
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -107,5 +79,7 @@ export TERM="xterm-256color"
 
 export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
 
+
+# PATH and custom config
 export PATH=${HOME}/bin:$PATH;
 export KUBECONFIG="/home/shuk/env_setup/config/k8s_config.sample"

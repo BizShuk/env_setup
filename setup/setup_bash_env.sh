@@ -20,6 +20,7 @@ done
 
 
 ln -sf $repo_dir/.bashrc $idir/;
+ln -sf $repo_dir/.bash_aliases $idir/;
 ln -sf $repo_dir/.bash_logout $idir/;
 ln -sf $repo_dir/.vimrc $idir/;
 ln -sf $repo_dir/.gitconfig $idir/;
