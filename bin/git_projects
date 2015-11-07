@@ -8,18 +8,17 @@ dirs="$(echo ${path})"
 
 check_projects(){
     need_update=0
-    for dir in ${dirs}
+    for dir in ${@}
     do
         diff_content=$(git -C ${dir} diff remotes/origin/master 2>/dev/null)
         not_git_repo="$?"
-
         if [ -n "${diff_content}" ] && [ "$not_git_repo" == "0" ]; then
             echo $dir
             need_update=1
         fi
-    done
-    exit "$need_update"
-}
 
-$(check_projects "$dirs")
+    done
+
+}
+check_projects $dirs
 [ "$?" == "0" ] && echo "no need to update projectes" || echo "above need to update"
