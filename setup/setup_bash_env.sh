@@ -15,7 +15,6 @@ done
 
 
 ln -sf $sdir/.bashrc $idir/;
-[ "$os" == "Darwin" ] && ln -sf $idir/.bashrc $idir/.profile;
 ln -sf $sdir/.bash_aliases $idir/;
 ln -sf $sdir/.bash_logout $idir/;
 ln -sf $sdir/.vimrc $idir/;
