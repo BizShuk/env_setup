@@ -14,12 +14,17 @@ do
 done
 
 
-ln -sf $sdir/.bashrc $idir/;
-ln -sf $sdir/.bash_aliases $idir/;
-ln -sf $sdir/.bash_logout $idir/;
-ln -sf $sdir/.vimrc $idir/;
-ln -sf $sdir/.gitconfig $idir/;
-ln -sf $sdir/.vim $idir/;
+# bash
+ln -sf $sdir/bash/.bashrc $idir/;
+ln -sf $sdir/bash/.bash_aliases $idir/;
+ln -sf $sdir/bash/.bash_logout $idir/;
+
+# git
+ln -sf $sdir/git/.gitconfig $idir/;
+
+# vim
+ln -sf $sdir/vim/.vimrc $idir/;
+ln -sf $sdir/vim/.vim $idir/;
 
 
 

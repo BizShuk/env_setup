@@ -16,3 +16,4 @@ curl -sSL https://get.docker.com/ | sh
 docker pull bizshuk/env_setup
 docker tag bizshuk/env_setup  base
 
+exit 0;
