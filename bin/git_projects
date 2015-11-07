@@ -18,7 +18,8 @@ check_projects(){
         fi
 
     done
-
+    return $need_update
 }
+
 check_projects $dirs
 [ "$?" == "0" ] && echo "no need to update projectes" || echo "above need to update"
