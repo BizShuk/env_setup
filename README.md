@@ -5,7 +5,7 @@ This repo is for bash of ubuntu and Mac.
 ## TODO
 - setup nodejs
 - setup docker
-
+- setup kubernetes
 
 ## What is including?
 - Sublime settings ( markdown syntax )
