@@ -1,10 +1,5 @@
 #!/bin/bash
-
-os=$(uname)
-
-# env path
-idir=$HOME;
-repo_dir=$idir/env_setup;
+source settings.sh
 
 
 # structure setup
@@ -13,19 +8,19 @@ repo_dir=$idir/env_setup;
 [ ! -d $idir/logs ] && mkdir $idir/logs;
 
 
-for script_name in $( ls $repo_dir/bin/ )
+for script_name in $( ls $sdir/bin/ )
 do
-    ln -sf $repo_dir/bin/$script_name $idir/bin/;
+    ln -sf $sdir/bin/$script_name $idir/bin/;
 done
 
 
-ln -sf $repo_dir/.bashrc $idir/;
+ln -sf $sdir/.bashrc $idir/;
 [ "$os" == "Darwin" ] && ln -sf $idir/.bashrc $idir/.profile;
-ln -sf $repo_dir/.bash_aliases $idir/;
-ln -sf $repo_dir/.bash_logout $idir/;
-ln -sf $repo_dir/.vimrc $idir/;
-ln -sf $repo_dir/.gitconfig $idir/;
-ln -sf $repo_dir/.vim $idir/;
+ln -sf $sdir/.bash_aliases $idir/;
+ln -sf $sdir/.bash_logout $idir/;
+ln -sf $sdir/.vimrc $idir/;
+ln -sf $sdir/.gitconfig $idir/;
+ln -sf $sdir/.vim $idir/;
 
 
 
