@@ -1,5 +1,6 @@
 #!/bin/bash
-# output docker container name , ip , and id to file
+# Requirements: docker
+# output: docker container name , ip , and id to file
 
 #CMD: docker-psinfo [ filter name , ]
 

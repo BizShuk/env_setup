@@ -1,4 +1,6 @@
 #!/bin/bash
+# you need to get kubectl first that build by kubernets cluster
+
 ./kubectl config view | grep current-context | awk '{print $2}'
 echo 'rc---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
 ./kubectl get rc
