@@ -20,9 +20,8 @@ This repo is for bash of ubuntu and Mac.
 
 
 ## cmd usage
-- git_projects , this is showing whether git repos need to update or push in $project_dir or not.
-- denv , inherite from docker and add some easy use option
-- 
+- git_projects , this is showing whether git repos need to update or push in $project_dir or not.  
+- denv , inherite from docker and add some easy use option  
 
 
 
