@@ -6,6 +6,7 @@ source settings.sh
 [ ! -d $idir/bin  ] && mkdir $idir/bin;
 [ ! -d $idir/lib  ] && mkdir $idir/lib;
 [ ! -d $idir/logs ] && mkdir $idir/logs;
+[ ! -d $idir/projects ] && mkdir $idir/projects;
 
 
 for script_name in $( ls $sdir/bin/ )
