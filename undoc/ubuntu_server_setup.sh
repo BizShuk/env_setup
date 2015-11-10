@@ -1,61 +1,4 @@
 #!/bin/bash
-#
-# system architecher
-# /home/shuk/nginx
-#                     /ParseDB        # for Parse service
-#                     /web
-#                     /lib            # 3rd party lib,  ex: luajit , pcre-jit
-#                     /logs
-#                     /bin
-#                     /note           # git repo for setup
-#
-# /usr
-#
-#
-#
-# /var
-# /etc/hosts
-#
-# ====== apache ======
-
-
-
-
-
-echo "\n\n ########## Let's start init settings....."
-
-echo "\n\n ########## apt-get updating..."
-sudo apt-get update
-
-#echo "\n\n ##########add user shuk....[似乎密碼有問題]"
-#sudo useradd shuk -m -g sudo -p "zxcvasdf" -S "bash"
-# echo myPassword | sudo -S ls /tmp
-
-
-
-# basic version installation
-sudo apt-get install git vim build-essential curl wget automake  screen -y
-
-
-
-# optional installation
-# sudo apt-get install pppoeconf -y   # for home server only
-
-echo "\n\n base setup..."
-#git clone https://github.com/BizShuk/note.git
-
-
-
-# -s:symbolic , -f:remove existing file
-echo "setup env..."
-cd;mkdir ~/bin;mkdir ~/logs;mkdir ~/lib;
-ln -sf ~/note/files/.bashrc ~/
-. .bashrc
-ln -sf ~/note/files/.vimrc ~/
-ln -sf ~/note/files/.gitconfig ~/
-ln -sf ~/note/files/.bash_logout ~/
-ln -sf ~/note/files/.vim ~/
-
 
 
 
@@ -73,7 +16,7 @@ rm go1.5.linux-amd64.tar.gz
 
 ##### libraries
 
-sudo apt-get install  liblua5.1-0-dev -y
+sudo apt-get install liblua5.1-0-dev -y
 sudo apt-get install libperl-dev -y
 sudo apt-get install libssl-dev -y
 

@@ -84,5 +84,3 @@ export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput se
 export PATH=${HOME}/bin:$PATH;
 export KUBECONFIG="${HOME}/env_setup/server_config/k8s_config.sample"
 
-export NVM_DIR="/Users/shuk/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
