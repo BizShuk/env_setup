@@ -65,6 +65,11 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -f ~/.bash_plugin ]; then
+    . ~/.bash_plugin
+fi
+
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -83,4 +88,3 @@ export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput se
 # PATH and custom config
 export PATH=${HOME}/bin:$PATH;
 export KUBECONFIG="${HOME}/env_setup/server_config/k8s_config.sample"
-

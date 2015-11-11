@@ -5,7 +5,7 @@ ref. [sublime unofficial doc](http://docs.sublimetext.info/)
 ##### User Settings:
 ref. shuk.sublime-settings
 
-### Sublime-Settings Hierarchy
+## Sublime-Settings Hierarchy
     Packages/Default/Preferences.sublime-settings
     Packages/Default/Preferences (Windows).sublime-settings
     Packages/AnyOtherPackage/Preferences.sublime-settings
@@ -19,36 +19,9 @@ ref. shuk.sublime-settings
     Auto-adjusted settings
 
 
-##### Markdown theme for sublime 3
-1. copy packages/MarkdownEditing dir to sublime package location
-2. choose syntax/MarkdownEditing/Markdown for md file
-3. change `packages/MarkdownEditing/Markdown (Standard).sublime-settings` color-theme to MarkdownEditing-Dark.tmTheme
 
 
-
-
-##### install package controller
-
-1. ctrl+`
-
-2. paste below
-
-  import urllib2,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler()) ); by = urllib2.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); open( os.path.join( ipp, pf), 'wb' ).write(by) if dh == h else None; print('Error validating download (got %s instead of %s), please try manual install' % (dh, h) if dh != h else 'Please restart Sublime Text to finish installation')
-
-
-###install package manually
-
-1. copy /note/sublime/package/* to sublime user package dir (by perferences->browser package)
-
-  ex: "C:\Users\Shuk\AppData\Roaming\Sublime Text 2\Packages"
-
-2. select from perferences->code theme->sublime-monokai-extended
-
-
-
-
-
-[shortcut key](http://docs.sublimetext.info/en/latest/reference/keyboard_shortcuts_win.html):
+## [shortcut key](http://docs.sublimetext.info/en/latest/reference/keyboard_shortcuts_win.html):
   ctrl + d      => 選游標當下的字串, 連按=複選相同字串 可一起修改
   alt + F3      => 一次選擇全部相同字串
 
