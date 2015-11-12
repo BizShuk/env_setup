@@ -10,7 +10,7 @@ check_projects(){
     need_update=0
     for dir in ${@}
     do
-        git -C ${dir} fetch
+        git -C ${dir} fetch 1>/dev/null 2>/dev/null
         diff_content=$(git -C ${dir} diff remotes/origin/master 2>/dev/null)
         not_git_repo="$?"
         if [ -n "${diff_content}" ] && [ "$not_git_repo" == "0" ]; then
