@@ -18,6 +18,7 @@ done
 # bash
 ln -sf $sdir/bash/.bashrc $idir/;
 ln -sf $sdir/bash/.bash_aliases $idir/;
+ln -sf $sdir/bash/.bash_function $idir/;
 ln -sf $sdir/bash/.bash_logout $idir/;
 [ ! -e $idir/.bash_plugin ] && echo  '' > $idir/.bash_plugin;   # for install language
 

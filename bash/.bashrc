@@ -91,18 +91,22 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
+## Alias definitions. ##
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
+fi
+
+
+## 
+if [ -f ~/.bash_function ]; then
+    . ~/.bash_function
 fi
 
 if [ -f ~/.bash_plugin ]; then
     . ~/.bash_plugin
 fi
+
 
 
 # enable programmable completion features (you don't need to enable
