@@ -7,6 +7,11 @@
 
 Ref: 
 - [Master Your Unix Shell Env](http://www.cyberciti.biz/howto/shell-primer-configuring-your-linux-unix-osx-environment/)
+- [nixCraft](http://www.cyberciti.biz/nixcraft-rss-feed-syndication/)
+- [15 Useful Linux and Unix Tape Managements Commands For Sysadmins](http://www.cyberciti.biz/hardware/unix-linux-basic-tape-management-commands/)
+- [20 Unix Command Line Tricks ¨C Part I](http://www.cyberciti.biz/open-source/command-line-hacks/20-unix-command-line-tricks-part-i/)
+
+
 
 
 
@@ -17,8 +22,10 @@ undoc:
 - baskup stuff [#22](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
 - debug web server [#15](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
 
-
-
+- ifdata
+- pv
+- cracklib-*
+- [Top 20 OpenSSH Server Best Security Practices](http://www.cyberciti.biz/tips/linux-unix-bsd-openssh-server-best-practices.html)
 
 
 ## Memcached ##
