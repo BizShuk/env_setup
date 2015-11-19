@@ -1,11 +1,49 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+
+## os ##
 os="$(uname)"
 
 
-# If not running interactively, don't do anything
+
+## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
+
+
+
+## set default editor ##
+export EDITOR=vim
+export VISUAL=vim
+export SVN_EDITOR="$VISUAL"
+
+
+
+## About history. Set history length via HISTSIZE and HISTFILESIZE ##
+
+# Dont put duplicate lines in the history
+#HISTCONTROL=ignoreboth
+ 
+# Ignore these commands
+#HISTIGNORE="reboot:shutdown *:ls:pwd:exit:mount:man *:history"
+
+export HISTSIZE=10000
+export HISTFILESIZE=1000
+
+# Add timestamp to history file. #
+export HISTTIMEFORMAT="%F %T "
+
+#Append to history, don't overwrite
+shopt -s histappend
+
+
+  
+## shell timeout for security ##
+#export TMOUT=300
+
+## Set default file permission to 644 ##
+#umask 022
+
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -14,9 +52,6 @@ HISTCONTROL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -79,6 +114,9 @@ fi
 
 
 
+
+
+
 export TERM="xterm-256color"
 
 
@@ -87,4 +125,8 @@ export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput se
 
 # PATH and custom config
 export PATH=${HOME}/bin:$PATH;
+export CDPATH=.:$HOME:$HOME/projects;
 export KUBECONFIG="${HOME}/env_setup/server_config/k8s_config.sample"
+PATH=/home/shuk/openresty/luajit/bin:$PATH 
+PATH=/home/shuk/openresty/luajit/bin:$PATH 
+PATH=/home/shuk/openresty/luajit/bin:$PATH 

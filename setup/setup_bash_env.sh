@@ -30,7 +30,7 @@ ln -sf $sdir/vim/.vim $idir/;
 
 
 
-echo "done"
+echo "done...... please restart terminal"
 
 exit 0;
 

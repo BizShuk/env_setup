@@ -5,7 +5,7 @@ source settings.sh
 apt-get update && apt-get upgrade -y
 
 # install package
-apt-get install git vim curl wget build-essential screen -y
+apt-get install git vim curl wget build-essential screen colordiff -y
 
 # install server package
 apt-get install openssh-server -y
