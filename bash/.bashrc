@@ -11,6 +11,14 @@ os="$(uname)"
 [ -z "$PS1" ] && return
 
 
+## set default env varaible ##
+export TERM="xterm-256color"
+export PATH=${HOME}/bin:$PATH;
+export CDPATH=.:$HOME:$HOME/projects;
+export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
+
+
+
 
 ## set default editor ##
 export EDITOR=vim
@@ -53,6 +61,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 
+
+## undoc yet
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -98,18 +108,18 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 
-## 
+## Bash function ##
 if [ -f ~/.bash_function ]; then
     . ~/.bash_function
 fi
 
+## Bash plugin (for something like 3th-party export) ##
 if [ -f ~/.bash_plugin ]; then
     . ~/.bash_plugin
 fi
 
 
-
-# enable programmable completion features (you don't need to enable
+## enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
@@ -117,20 +127,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-
-
-
-
-export TERM="xterm-256color"
-
-
-export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
-
-
-# PATH and custom config
-export PATH=${HOME}/bin:$PATH;
-export CDPATH=.:$HOME:$HOME/projects;
+## [should move to bash_plugin] PATH and custom config ##
 export KUBECONFIG="${HOME}/env_setup/server_config/k8s_config.sample"
-PATH=/home/shuk/openresty/luajit/bin:$PATH 
-PATH=/home/shuk/openresty/luajit/bin:$PATH 
 PATH=/home/shuk/openresty/luajit/bin:$PATH 
