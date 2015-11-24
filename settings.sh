@@ -12,4 +12,4 @@ sdir=$repo_dir
 
 
 # docker 
-docker_remote_server="10.128.112.11:5000"
+docker_remote_server="10.128.112.15:5000"

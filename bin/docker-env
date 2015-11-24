@@ -39,6 +39,22 @@ rm-by-name(){
     
 }
 
+
+
+rmi-by-name(){
+    
+    while 
+        docker images | awk '{print NR ": " $0}' && \
+        echo "[ Docker enter number to rm image ]( ctrl+c to exit ):" && \
+        read number && [ "$number" != "N" ]
+    do
+        local rm_name=$(docker rmi `docker images | awk NR==$number | awk '{print $1":"$2}'`)
+        echo "$rm_name removed"
+    done
+    
+}
+
+
 image-remote(){
     local remote="$docker_remote_server"
     if [ -n "$1" ]; then 
@@ -141,6 +157,9 @@ daemon(){
 case $mode in
 rm-by-name)
     rm-by-name
+;;
+rmi-by-name)
+    rmi-by-name
 ;;
 stop-by-name)
     stop-by-name

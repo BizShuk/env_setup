@@ -132,5 +132,3 @@ export PATH=${HOME}/bin:$PATH;
 export CDPATH=.:$HOME:$HOME/projects;
 export KUBECONFIG="${HOME}/env_setup/server_config/k8s_config.sample"
 PATH=/home/shuk/openresty/luajit/bin:$PATH 
-PATH=/home/shuk/openresty/luajit/bin:$PATH 
-PATH=/home/shuk/openresty/luajit/bin:$PATH 

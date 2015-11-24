@@ -75,7 +75,7 @@ alias ln='ln -i'
 if [ "$os" == "Darwin" ]; then
     alias ls="ls -F -G"
 else
-    alias ls="ls --file-type --color=auto"
+    alias ls="ls -h --file-type --color=auto"
 fi
 
 

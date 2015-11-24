@@ -39,7 +39,7 @@ USER $username
 WORKDIR /home/$username
 
 # setup bash env
-RUN     cd ~/env_setup; /bin/bash -c ./setup_bash_env.sh;
+RUN     cd ~/env_setup/setup; /bin/bash -c ./setup_bash_env.sh;
 
 
 USER root
