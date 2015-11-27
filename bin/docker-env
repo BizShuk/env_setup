@@ -48,7 +48,7 @@ rmi-by-name(){
         echo "[ Docker enter number to rm image ]( ctrl+c to exit ):" && \
         read number && [ "$number" != "N" ]
     do
-        local rm_name=$(docker rmi `docker images | awk NR==$number | awk '{print $1":"$2}'`)
+        local rm_name=$(docker rmi `docker images | awk NR==$number | awk '{print $1":"$2}'` || docker rmi `docker images | awk NR==$number | awk '{print $3}'`)
         echo "$rm_name removed"
     done
     
