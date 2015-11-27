@@ -5,6 +5,9 @@ ref. [sublime unofficial doc](http://docs.sublimetext.info/)
 ##### User Settings:
 ref. shuk.sublime-settings
 
+## sublime tutorial
+https://scotch.io/bar-talk/the-best-sublime-text-3-themes-of-2014
+
 ## sublime key shortcut
 
 https://scotch.io/bar-talk/sublime-text-keyboard-shortcuts

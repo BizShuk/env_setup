@@ -18,6 +18,12 @@ edit: `less` or `cat <file> | less`
 ### undoc:
 - how to access with big file
 - how to customize `ps` , `netstat` , `route` , `top` ( in bash_aliases)
+ethtool ifac
+cat /var/log/syslog
+nslookup
+cat /etc/resolv.conf
+netstat -rn
+dhclient iface
 
 - netstat [#12](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
 - iptablr [#14](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)

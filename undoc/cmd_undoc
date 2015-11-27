@@ -1,6 +1,0 @@
-ethtool ifac
-cat /var/log/syslog
-nslookup
-cat /etc/resolv.conf
-netstat -rn
-dhclient iface
