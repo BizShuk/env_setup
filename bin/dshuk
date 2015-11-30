@@ -12,14 +12,18 @@ start(){
     for ((i=1; i<=$count; i++))
     do
         docker start "$cname$i"
-        denv update_dhcp "$cname$i"
+        denv update-dhcp "$cname$i"
     done
 }
 
 # stop all container
 stop(){
     local cname=$1
-    docker stop `docker ps -q -f "name=$cname"`
+    local count=$2
+    for ((i=1; i<=$count; i++))
+    do
+        docker stop `docker ps -q -f "name=$cname$i"`
+    done
 }
 
 # rm containersshuk
