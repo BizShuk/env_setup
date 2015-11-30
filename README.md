@@ -6,9 +6,10 @@ This repo is for bash of ubuntu and Mac.
 - setup nodejs
 - setup docker
 - setup kubernetes
+- bash/README.md
 
 ## What is including?
-- Sublime settings ( markdown syntax )
+- Sublime settings ( markdown syntax ) replace manually
 - Git short command
 - Docker useful command ( denv )
 
