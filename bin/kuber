@@ -25,10 +25,25 @@ status(){
     exit 0
 }
 
+change_server(){
+    echo "please execute below:export KUBECONFIG=<config file>"
+}
+
+
+usage(){
+    echo "[Usage]:kuber [get|status|change_server]"    
+    
+}
 
 case $mode in
-    get)        get "${@:2}"    ;;
-    status)     status          ;;
-    *)                          ;;
+    get)            get "${@:2}"            ;;
+    status)         status                  ;;
+    change_server)  change_server "${@:2}"  ;;
+    *)                                      ;;
+
+
+
+
+
 
 esac
