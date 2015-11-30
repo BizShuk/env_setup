@@ -39,6 +39,24 @@ rm-by-name(){
     
 }
 
+image-commits(){
+    
+    DOCKER=`which docker`
+
+    if [ "$#" -ne 1 ]; then
+        echo "Usage: $0 IMAGE"
+        exit 0
+    fi
+
+    for commit in $($DOCKER history $1 | sed 1d | awk '{ print $1 }')
+    do
+        content="$commit
+        $($DOCKER inspect $commit | tr -d '\"' | grep 'Created\|Author\|Comment')"
+        echo "$content"
+    done
+
+
+}
 
 
 rmi-by-name(){
@@ -151,6 +169,24 @@ daemon(){
 
 }
 
+psinfo(){
+    filter_name=$1
+    [ -n $filter_name ] && filter_name="-f='name=$filter_name'"
+
+
+
+    IFS=$'\n'
+    c_info=($(docker ps --format="{{.Names}}\\t{{.ID}}" ${filter_name} ))
+
+    for c_vars in "${c_info[@]}"
+    do
+        c_name=$(echo -e "$c_vars" | awk '{print $1}')
+        ip=$(docker exec -i $c_name /bin/bash -c "hostname -I" 2>&1)
+        echo -e "$c_vars\t$ip"
+    done
+
+}
+
 
 
 
@@ -195,7 +231,7 @@ cmdinfo)
     cmdinfo
 ;;
 psinfo)
-    docker-psinfo "${@:2}";
+    psinfo "${@:2}";
 ;;
 update-dhcp)
     update-dhcp "${@:2}";
@@ -211,7 +247,9 @@ daemon)
 client_set)
     source ~/env_setup/docker/br_br0.conf
 ;;
-
+image-commits)
+    image-commits "${@:2}";
+;;
 
 
 
