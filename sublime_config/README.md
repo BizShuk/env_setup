@@ -5,23 +5,14 @@ ref. [sublime unofficial doc](http://docs.sublimetext.info/)
 ##### User Settings:
 ref. shuk.sublime-settings
 
-## Sublime-Settings Hierarchy
-    Packages/Default/Preferences.sublime-settings
-    Packages/Default/Preferences (Windows).sublime-settings
-    Packages/AnyOtherPackage/Preferences.sublime-settings
-    Packages/AnyOtherPackage/Preferences (Windows).sublime-settings
-    Packages/User/Preferences.sublime-settings
-    Settings from the current project
-    Packages/Python/Python.sublime-settings
-    Packages/Python/Python (Windows).sublime-settings
-    Packages/User/Python.sublime-settings
-    Session data for the current file
-    Auto-adjusted settings
+## sublime tutorial
+https://scotch.io/bar-talk/the-best-sublime-text-3-themes-of-2014
 
+## sublime key shortcut
 
+https://scotch.io/bar-talk/sublime-text-keyboard-shortcuts
 
-
-## [shortcut key](http://docs.sublimetext.info/en/latest/reference/keyboard_shortcuts_win.html):
+[shortcut key](http://docs.sublimetext.info/en/latest/reference/keyboard_shortcuts_win.html):
   ctrl + d      => 選游標當下的字串, 連按=複選相同字串 可一起修改
   alt + F3      => 一次選擇全部相同字串
 
@@ -40,6 +31,25 @@ ref. shuk.sublime-settings
   F6          => 檢測語法
   F11          => 全螢幕
 
+## sublime plugins-and-settings
+https://scotch.io/bar-talk/best-of-sublime-text-3-features-plugins-and-settings
+
+
+
+
+
+## Sublime-Settings Hierarchy
+    Packages/Default/Preferences.sublime-settings
+    Packages/Default/Preferences (Windows).sublime-settings
+    Packages/AnyOtherPackage/Preferences.sublime-settings
+    Packages/AnyOtherPackage/Preferences (Windows).sublime-settings
+    Packages/User/Preferences.sublime-settings
+    Settings from the current project
+    Packages/Python/Python.sublime-settings
+    Packages/Python/Python (Windows).sublime-settings
+    Packages/User/Python.sublime-settings
+    Session data for the current file
+    Auto-adjusted settings
 
 
 

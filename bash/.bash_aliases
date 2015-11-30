@@ -59,8 +59,6 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
-# don't delete / or prompt if deleting more than 3 files at a time #
-alias rm='rm -I --preserve-root'
 
 # confirmation #
 alias mv='mv -i'
@@ -76,6 +74,9 @@ if [ "$os" == "Darwin" ]; then
     alias ls="ls -F -G"
 else
     alias ls="ls -h --file-type --color=auto"
+    
+    # don't delete / or prompt if deleting more than 3 files at a time #
+    alias rm='rm -I --preserve-root'
 fi
 
 
