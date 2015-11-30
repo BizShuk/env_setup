@@ -16,10 +16,15 @@ current_namespace=`kubectl config view | grep current-context | awk '{print $2}'
 get(){
     if [ "$#" == "0" ] || [ "$1" == "-h" ]; then
         echo "Usage: kuber get [rc|po|se|secret|node|serviceaccount|namespace|event]"
+        echo "-l=\"app=lua,name=droi-lua\" , selector for services"
         exit 0;
     fi
     echo "=============== $1 ==============="
-    kubectl get $1
+    kubectl get ${@:1}
+
+
+
+
 }
 
 status(){
