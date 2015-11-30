@@ -3,13 +3,22 @@
 
 mode=$1
 
-kubectl config view | grep current-context | awk '{print $2}'
+`which kubectl`
+[ "$?" != "0"] && echo "kubectl is not existed" && exit 1
+
+
+
+current_namespace=`kubectl config view | grep current-context | awk '{print $2}'`
+
+
+
 
 get(){
     if [ "$#" == "0" ] || [ "$1" == "-h" ]; then
         echo "Usage: kuber get [rc|po|se|secret|node|serviceaccount|namespace|event]"
         exit 0;
     fi
+    echo "=============== $1 ==============="
     kubectl get $1
 }
 
@@ -32,14 +41,16 @@ change_server(){
 
 usage(){
     echo "[Usage]:kuber [get|status|change_server]"    
-    
+ 
+    echo "[yaml syntax]: ref to https://github.com/BizShuk/code_sandbox/tree/master/kubernetes"   
 }
 
 case $mode in
+    usage)          usage                   ;;
     get)            get "${@:2}"            ;;
     status)         status                  ;;
     change_server)  change_server "${@:2}"  ;;
-    *)                                      ;;
+    *)              kubectl "${@:1}"        ;;
 
 
 
@@ -47,3 +58,15 @@ case $mode in
 
 
 esac
+
+
+
+echo -e "\nCurrent Namespace: $current_namespace"
+
+
+
+#undoc
+
+#export KUBECONFIG="/usr/local/etc/config-droi"
+#kubectl delete -f $WORKSPACE/lua_server_app_image/kube-app-se_rc.yaml || true
+#kubectl create -f $WORKSPACE/lua_server_app_image/kube-app-se_rc.yaml
