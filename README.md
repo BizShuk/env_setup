@@ -6,6 +6,7 @@ This repo is for bash of ubuntu and Mac.
 - setup nodejs
 - setup docker
 - setup kubernetes
+- bash/README.md
 
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 It updates /etc/default/locale with provided values.
@@ -24,7 +25,7 @@ sudo dpkg-reconfigure locales
 
 
 ## What is including?
-- Sublime settings ( markdown syntax )
+- Sublime settings ( markdown syntax ) replace manually
 - Git short command
 - Docker useful command ( denv )
 

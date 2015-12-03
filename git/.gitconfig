@@ -1,5 +1,5 @@
 [user]
-	name = Shuk
+	name = shuk
 	email = biz.shuk@gmail.com
 [merge]
 	log = 25
@@ -30,3 +30,5 @@
 	helper = cache --timeout=3600
 [http]
 	sslVerify = false
+[push]
+	default = matching
