@@ -2,7 +2,9 @@
 source settings.sh
 
 ./setup_ubuntu_package.sh
+./setup_ubuntu_locale.sh
 ./setup_bash_env.sh
+
 
 # activate service
 service ssh start;

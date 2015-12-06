@@ -1,4 +1,4 @@
-## note
+## bash
 
 ### Ref: 
 - [Master Your Unix Shell Env](http://www.cyberciti.biz/howto/shell-primer-configuring-your-linux-unix-osx-environment/)
@@ -6,17 +6,27 @@
 - [15 Useful Linux and Unix Tape Managements Commands For Sysadmins](http://www.cyberciti.biz/hardware/unix-linux-basic-tape-management-commands/)
 - [20 Unix Command Line Tricks ¨C Part I](http://www.cyberciti.biz/open-source/command-line-hacks/20-unix-command-line-tricks-part-i/)
 
+### special note
+- `!!` , execute last command 
+- `!$` , last command's parameters
+- `!servive` , run last command beginning with "service" 
 
-- `!!` , execute laster command
-- ``
 
-### deal with big file
-edit: `less` or `cat <file> | less`
 
+### Deal with big file
+
+- Edit with `less` or `cat <file> | less`  
+- Delete a HUGE file  
+    1. `> /path/to/file.log`
+    2. `rm /path/to/file.log`
+
+### variable note
+
+### cmd usage note
+cmd_usage.md
 
 
 ### undoc:
-- how to access with big file
 - how to customize `ps` , `netstat` , `route` , `top` ( in bash_aliases)
 ethtool ifac
 cat /var/log/syslog
