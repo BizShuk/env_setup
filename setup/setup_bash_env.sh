@@ -3,11 +3,7 @@ source settings.sh
 
 
 # structure setup
-[ ! -d $idir/bin  ] && mkdir $idir/bin;
-[ ! -d $idir/lib  ] && mkdir $idir/lib;
-[ ! -d $idir/logs ] && mkdir $idir/logs;
-[ ! -d $idir/projects ] && mkdir $idir/projects;
-
+setup_structure
 
 for script_name in $( ls $sdir/bin/ )
 do

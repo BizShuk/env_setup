@@ -5,7 +5,7 @@
 ## os ##
 os="$(uname)"
 
-
+export LANG="zh_TW.Big5"
 
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return

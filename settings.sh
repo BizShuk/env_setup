@@ -11,9 +11,22 @@ sdir=$repo_dir
 
 
 
+
+
 # docker 
 docker_remote_server="10.128.112.15:5000"
 
+
+# structure setup
+setup_structure(){
+    [ ! -d $idir/bin  ] && mkdir $idir/bin;
+    [ ! -d $idir/lib  ] && mkdir $idir/lib;
+    [ ! -d $idir/logs ] && mkdir $idir/logs;
+    [ ! -d $idir/projects ] && mkdir $idir/projects;
+    [ ! -d $idir/servers ] && mkdir $idir/servers;
+    [ ! -d $idir/servers/samba ] && mkdir $idir/servers/samba;
+    [ ! -d $idir/servers/samba/mnt1 ] && mkdir $idir/servers/samba/mnt1;
+}
 
 
 genpasswd(){
