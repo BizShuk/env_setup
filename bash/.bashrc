@@ -5,11 +5,13 @@
 ## os ##
 os="$(uname)"
 
-export LANG="zh_TW.Big5"
 
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
 
+
+## locale
+export LANG="zh_TW.UTF-8"
 
 ## set default env varaible ##
 export TERM="xterm-256color"
