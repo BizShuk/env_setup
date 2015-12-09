@@ -59,6 +59,12 @@ e.g. `sudo locale-gen zh_TW.UTF-8 zh_CN.UTF-8 ...`
 
 # System
 
+### who
+- -q , show login name list
+- -T , show detail of all login user
+
+
+
 ### umask
 default file permission
 

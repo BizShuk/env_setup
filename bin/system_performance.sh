@@ -2,6 +2,12 @@
 
 
 
+# login user list , 單純顯示登入數 ＋各個帳號與登入時間
+who -q
+
+
+who -T
+
 # system disk 
 echo "--- system disk ---"
 df -h
