@@ -6,8 +6,8 @@
 - [15 Useful Linux and Unix Tape Managements Commands For Sysadmins](http://www.cyberciti.biz/hardware/unix-linux-basic-tape-management-commands/)
 - [20 Unix Command Line Tricks ¨C Part I](http://www.cyberciti.biz/open-source/command-line-hacks/20-unix-command-line-tricks-part-i/)
 
-### special note
-- `!!` , execute last command 
+### special not
+e- `!!` , execute last command 
 - `!$` , last command's parameters
 - `!servive` , run last command beginning with "service" 
 

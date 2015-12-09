@@ -1,8 +1,90 @@
+
+" todo 
+"   snippets ?
+
+
+
+"colorscheme  256-jungle
+colorscheme  asu1dark
+
+" set terminal color mode to 256
+set t_Co=256
+
+" show status at bottom
+set statusline=%4*%<\%m%<[%f\%r%h%w]\ [%{&ff},%{&fileencoding},%Y]%=\[Position=%l,%v,%p%%]
+
+syntax on
+
+" highlight search result after searched
+set hlsearch
+" highlight when searching
+set incsearch
+
+" move cursor to where mouse clicked
+set mouse=a
+
+" 有點類似列出完整的指令 ls a<tab>  :spe<tab>
+set wildmenu
+
+" turn on invisible characters like end of line as $
+" set list
+
+" turn on line number , it will effect copy block and paste
+" set number
+
+" turn on autoindent depend last line
+set autoindent
+
+" tab size
+set ts=4
+
+" ignore case when searching
+set ignorecase
+" set ic  " same as above
+
+
+" 超過畫面不換行
+set nowrap
+
+
+" 捲動捲軸時 游標預留n行捲動
+set scrolloff=5
+
+
+" Map function buttons to commands
+" map <F2> <cmd><CR>
+
+
+" better pasting without pasting tab problem
+set paste
+
+
+" hightlight the line cursor now
+"set cursorline
+
+
+" what is shift key?
+" set shiftwidth=4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 set encoding=utf8
 set fileencoding=utf8
  
-""encoding error , try encoding below
-set fileencodings=ucs-bom,gb18030,utf-8,default
   
 set termencoding=utf-8
 set shiftwidth=4
@@ -13,20 +95,15 @@ set expandtab
 set smartindent
 set backspace=indent,eol,start
 set bg=light
-set wildmenu
 
 set backspace=2  " 在 insert 也可用 backspace
-set ic		 " 設定搜尋忽略大小寫
 set ru           " 第幾行第幾個字
-set hlsearch     " 設定高亮度顯示搜尋結果
-set incsearch    " 在關鍵字還沒完全輸入完畢前就顯示結果
 "set smartindent  " 設定 smartindent
 set confirm      " 操作過程有衝突時，以明確的文字來詢問
 set history=100  " 保留 100 個使用過的指令
-set mouse=a
  
 set laststatus=2
-set statusline=%4*%<\%m%<[%f\%r%h%w]\ [%{&ff},%{&fileencoding},%Y]%=\[Position=%l,%v,%p%%]
+
 
 set foldmethod=indent
 
@@ -35,7 +112,6 @@ nnoremap <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
-syn on
 ""set ts=4
 ""set sw=4
 ""set backspace=indent,eol,start
@@ -56,17 +132,21 @@ syn on
 
 
 
-
+" associate syntax with filea
+" http://vimdoc.sourceforge.net/htmldoc/autocmd.html
+" BufNewFile for editing new file
+" BufRead for editing existing file
 au BufNewFile,BufRead *.wpm setf wpm
 au BufNewFile,BufRead *.jhtml setf java
 au BufNewFile,BufRead *.c,*.cpp,*.java,*.jhtml,*.pl set cin
 au BufNewFile,BufRead *.css set ai
 au BufNewFile,BufRead *.css set nocin
-au BufNewFIle,BufRead *.md set filetype=mkd
 au BufNewFIle,BufRead *.js set filetype=javascript
 au BufNewFIle,BufRead *.html *.htm set filetype=html
 au BufNewFIle,BufRead *.php set filetype=php
 au BufNewFIle,BufRead *.sh set filetype=sh
+au BufNewFIle,BufRead Dockerfile set filetype=Dockerfile
+au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 
 
 
@@ -107,11 +187,7 @@ if version >= 700
   au BufNewFile,BufRead *.txt,*.tex set spell
 end
 
-set hlsearch
 
 map <C-d> "_
 
 
-set t_Co=256
-"colorscheme  256-jungle
-colorscheme  asu1dark
