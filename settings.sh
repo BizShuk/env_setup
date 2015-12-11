@@ -14,7 +14,7 @@ sdir=$repo_dir
 
 
 # docker 
-docker_remote_server="10.128.112.15:5000"
+docker_remote_server="10.128.112.16:5000"
 
 
 # structure setup

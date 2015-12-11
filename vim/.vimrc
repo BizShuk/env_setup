@@ -44,7 +44,7 @@ set ignorecase
 
 
 " 超過畫面不換行
-set nowrap
+" set nowrap
 
 
 " 捲動捲軸時 游標預留n行捲動
@@ -145,7 +145,7 @@ au BufNewFIle,BufRead *.js set filetype=javascript
 au BufNewFIle,BufRead *.html *.htm set filetype=html
 au BufNewFIle,BufRead *.php set filetype=php
 au BufNewFIle,BufRead *.sh set filetype=sh
-au BufNewFIle,BufRead Dockerfile set filetype=Dockerfile
+au BufNewFIle,BufRead Dockerfile* set filetype=Dockerfile
 au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
 
 
