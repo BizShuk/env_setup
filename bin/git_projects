@@ -2,7 +2,7 @@
 ### to do: auto pull and push and show comflict
 
 
-[ -n "$1" ] && path="$1" || path="${HOME}/projects/*/"
+[ -n "$1" ] && path="$1" || path="${project_dir}/*/"
 
 dirs="$(echo ${path})"
 

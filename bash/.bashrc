@@ -15,8 +15,8 @@ export LANG="zh_TW.UTF-8"
 
 ## set default env varaible ##
 export TERM="xterm-256color"
-export PATH=${HOME}/bin:$PATH;
-export CDPATH=.:$HOME:$HOME/projects;
+export PATH=$bin_dir:$PATH;
+export CDPATH=.:$HOME:$project_dir;
 export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
 
 
@@ -131,4 +131,3 @@ fi
 
 ## [should move to bash_plugin] PATH and custom config ##
 export KUBECONFIG="${HOME}/env_setup/server_config/k8s_config.sample"
-PATH=/home/shuk/openresty/luajit/bin:$PATH 
