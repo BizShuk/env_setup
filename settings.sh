@@ -16,7 +16,7 @@ project_dir=$idir/project
 server_dir=$idir/server
 
 
-go_version="go1.5.2.linux-amd64.tar.gz"
+go_version="go1.5.2.linux-amd64"
 go_root="$bin_dir/go"               # go package dir
 go_path="$project_dir/go_project"   # go source dir
 
