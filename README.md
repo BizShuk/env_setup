@@ -1,5 +1,5 @@
 ## enviroment setup
-
+1
 This repo is for bash of ubuntu and Mac.
 
 ## TODO
