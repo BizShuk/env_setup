@@ -194,11 +194,17 @@ case $mode in
 rm-by-name)
     rm-by-name
 ;;
+rm-all)
+    docker rm $(docker ps -a |awk '{print $1}')
+;;
 rmi-by-name)
     rmi-by-name
 ;;
 stop-by-name)
     stop-by-name
+;;
+rmi-all)
+    docker rmi $(docker images -q)
 ;;
 rmi-none)
     rmi-none

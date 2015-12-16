@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./settings.sh
+source settings.sh
 
 setup_structure
 
