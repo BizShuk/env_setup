@@ -24,4 +24,5 @@ df -h
 
 
 
-
+http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/
+google :linux how to monitor system performance
