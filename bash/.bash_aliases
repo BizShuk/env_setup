@@ -61,9 +61,9 @@ alias chgrp='chgrp --preserve-root'
 
 
 # confirmation #
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
+#alias mv='mv -i'
+#alias cp='cp -i'
+#alias ln='ln -i'
 
  
 
