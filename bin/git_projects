@@ -19,7 +19,7 @@ check_projects(){
         if [ -n "${diff_content}" ] && [ "$not_git_repo" == "0" ]; then
             echo $dir
             need_update=1
-            echo $not_git_repo
+            echo $diff_content
         fi
 
     done
