@@ -1,6 +1,7 @@
 偶爾參考練習新快捷鍵
 ref. http://www.howzhi.com/group/it/discuss/10051
 ref. [sublime unofficial doc](http://docs.sublimetext.info/)
+ref. [useful shortcut](https://gist.github.com/eteanga/1736542)
 
 ##### User Settings:
 ref. shuk.sublime-settings

@@ -1,6 +1,11 @@
 ## enviroment setup
-1
 This repo is for bash of ubuntu and Mac.
+
+## md file rule 
+<> for variable
+[] for match one of conditions
+
+
 
 ## TODO
 - setup nodejs
@@ -37,8 +42,10 @@ sudo dpkg-reconfigure locales
 
 
 ## cmd usage
+customized
 - `git_projects` , this is showing whether git repos need to update or push in $project_dir or not.  
 - `denv` , inherite from docker and add some easy use option  
+
 
 
 

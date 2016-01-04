@@ -14,14 +14,15 @@ check_projects(){
 
         
         git -C ${dir} fetch 1>/dev/null 2>/dev/null
-        diff_content=$(git -C ${dir} diff remotes/origin/master 2>/dev/null)
+        diff_content=$(git -C ${dir} diff remotes/origin/master --stat --color 2>/dev/null)
         not_git_repo="$?"
         if [ -n "${diff_content}" ] && [ "$not_git_repo" == "0" ]; then
             echo $dir
             need_update=1
-            echo $diff_content
+            echo "$diff_content" | sed -e 's/^/\t/g'
+            echo 
         fi
-
+        
     done
     return $need_update
 }

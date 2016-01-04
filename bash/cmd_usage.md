@@ -21,6 +21,32 @@ bmon
 
 # system
 
+### utp
+time server
+
+service:
+- /etc/init.d/ntp [start|stop|restart]
+
+related:
+- /etc/ntp.conf
+- /etc/localtime
+- /usr/share/zoneinfo/Asia/Taipei
+- /etc/timezone
+
+### ntpdate 
+set ntp server
+ex: ntpdate <server>
+
+
+### ulimit
+limit resource 
+- -a , show limitation of this shell
+- 
+
+related:
+- /etc/security/limits.conf
+
+
 ### locale 
 - none , 顯示目前語系設定
 - 

@@ -76,7 +76,7 @@ else
     alias ls="ls -h --file-type --color=auto"
     
     # don't delete / or prompt if deleting more than 3 files at a time #
-    alias rm='rm -I --preserve-root'
+    #alias rm='rm -I --preserve-root'
 fi
 
 
