@@ -1,10 +1,10 @@
 #!/bin/bash
-### to do: auto pull and push and show comflict
+
 source settings.sh
 
-[ -n "$1" ] && path="$1" || path="${project_dir}/*/"
+[ -n "$1" ] && path="$1" || path="${project_dir}"
 
-dirs="$(echo ${path})"
+dirs="$(echo ${path}/*)"
 
 check_projects(){
     need_update=0
@@ -14,7 +14,9 @@ check_projects(){
 
         [ -e .git ] || continue
 
-        git -C ${dir} fetch >/dev/null
+        git -C ${dir} fetch 2>/dev/null
+        [ "$?" == "0" ] || continue
+
         diff_content=$(git -C ${dir} diff --stat --color remotes/origin/master 2>/dev/null)
         not_git_repo="$?"
 
@@ -24,14 +26,16 @@ check_projects(){
             echo $dir        
 #            echo "$diff_content" | sed -e 's/^/\t/g'
                 echo -e "\tuncommmited"
-                uncommited=$(git diff --stat | sed -e 's/^/\t\t/g')
+                uncommited=$(git diff --stat --color | sed -e 's/^/\t\t/g')
                 echo "$uncommited"
                 echo -e "\tremote with HEAD"
                 remotediff=$(git diff --stat --color HEAD remotes/origin/master | sed -e 's/^/\t\t/g')
                 echo "$remotediff"
                 echo 
                 if [ -z "$uncommited" ] && [ -n "$remotediff" ]; then
-                    git pull
+                    pullresult=$(git pull 2>&1)
+                    [ "$?" != "0"] && echo pull failed
+
                 fi
 
         fi
