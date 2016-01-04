@@ -10,18 +10,28 @@ check_projects(){
     need_update=0
     for dir in ${@}
     do
-#        [ -e ".git" ] || continue
+        pushd $dir >/dev/null
 
-        
-        git -C ${dir} fetch 1>/dev/null 2>/dev/null
-        diff_content=$(git -C ${dir} diff remotes/origin/master --stat --color 2>/dev/null)
+        [ -e .git ] || continue
+
+        git -C ${dir} fetch >/dev/null
+        diff_content=$(git -C ${dir} diff --stat --color remotes/origin/master 2>/dev/null)
         not_git_repo="$?"
+
         if [ -n "${diff_content}" ] && [ "$not_git_repo" == "0" ]; then
-            echo $dir
+
             need_update=1
-            echo "$diff_content" | sed -e 's/^/\t/g'
-            echo 
+            echo $dir        
+#            echo "$diff_content" | sed -e 's/^/\t/g'
+                echo -e "\tuncommmited"
+                git diff --stat | sed -e 's/^/\t\t/g'
+                echo 
+                echo -e "\tremote with HEAD"
+                git diff --stat --color HEAD remotes/origin/master | sed -e 's/^/\t\t/g'
+                echo 
+
         fi
+        popd >/dev/null
         
     done
     return $need_update
