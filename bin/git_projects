@@ -24,11 +24,15 @@ check_projects(){
             echo $dir        
 #            echo "$diff_content" | sed -e 's/^/\t/g'
                 echo -e "\tuncommmited"
-                git diff --stat | sed -e 's/^/\t\t/g'
-                echo 
+                uncommited=$(git diff --stat | sed -e 's/^/\t\t/g')
+                echo "$uncommited"
                 echo -e "\tremote with HEAD"
-                git diff --stat --color HEAD remotes/origin/master | sed -e 's/^/\t\t/g'
+                remotediff=$(git diff --stat --color HEAD remotes/origin/master | sed -e 's/^/\t\t/g')
+                echo "$remotediff"
                 echo 
+                if [ -z "$uncommited" ] && [ -n "$remotediff" ]; then
+                    git pull
+                fi
 
         fi
         popd >/dev/null
