@@ -9,7 +9,7 @@ uname -r
 
 # login user list , 單純顯示登入數 ＋各個帳號與登入時間
 who -q
-
+users
 
 who -T
 
@@ -18,11 +18,14 @@ echo "--- system disk ---"
 df -h
 
 # du -sh *
-
+tree -h 
 
 # cpu
+lscpu
 
 # memory
+free -h 
+free -th
 
 # network 
 

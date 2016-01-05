@@ -35,7 +35,9 @@ echo ${tc[0]},${tc[1]},${tc[2]},${tc[3]},${tc[4]},${tc[5]}
 - `$#` , parameter's count
 - `$*` , no diff with $@ , but "$@" => "" for each one parameter
 - `$@` , no diff with $* , but "$*" => "" for all parameter together
-
+- `$!` , last job id
+- `$$` , current shell id
+- `$_` , last argument in last command
 
 ## variable operation
 
