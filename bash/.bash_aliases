@@ -71,7 +71,7 @@ alias chgrp='chgrp --preserve-root'
 #   -F = --file-type , show different with file type
 #   -G = --color=auto , with color
 if [ "$os" == "Darwin" ]; then
-    alias ls="ls -F -G"
+    alias ls="ls -h -F -G"
 else
     alias ls="ls -h --file-type --color=auto"
     
