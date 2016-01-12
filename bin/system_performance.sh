@@ -20,6 +20,8 @@ df -h
 # du -sh *
 tree -h 
 
+
+
 # cpu
 lscpu
 
@@ -55,3 +57,13 @@ http://www.coctec.com/docs/linux/show-post-45715.html
 [shuk@shuk]/home/shuk$ vim /var/log/rkhunter.log
 [shuk@shuk]/home/shuk$ sudo vim /var/log/rkhunter.log
 [shuk@shuk]/home/shuk$ sudo vim /var/log/rkhunter.log
+
+
+
+umask
+
+### umask
+default file permission
+
+ex: umask 022
+
