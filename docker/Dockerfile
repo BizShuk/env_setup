@@ -1,5 +1,5 @@
 #!/bin/bash
-From ubuntu:14.04
+FROM ubuntu:14.04
 MAINTAINER bizshuk <biz.shuk@gmail.com>
 
 ENV username shuk
