@@ -40,10 +40,15 @@
             "Markdown",
             "Vintage"
         ],
-    "folder_exclude_patterns": [".git"],    // hide folder
-    "file_exclude_patterns": [".DS_Store","*.swp","*.swo"], // hide file
 
-
+    "folder_exclude_patterns": [            // hide folder
+        ".git"
+    ],
+    "file_exclude_patterns": [              // hide file
+        ".DS_Store",
+        "*.swp",
+        "*.swo"
+    ],
 
     // file settings
     "auto_indent": true,
