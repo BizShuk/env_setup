@@ -5,7 +5,8 @@
 
 
 "colorscheme  256-jungle
-colorscheme  asu1dark
+colorscheme  molokai
+"colorscheme  asu1dark
 
 " set terminal color mode to 256
 set t_Co=256
@@ -71,8 +72,12 @@ set paste
 
 
 
+" execute plugin
+execute pathogen#infect()
 
-
+call plug#begin('~/.vim/plugged')
+Plug 'fatih/vim-go'
+call plug#end() 
 
 
 
@@ -186,8 +191,5 @@ if version >= 700
 
   au BufNewFile,BufRead *.txt,*.tex set spell
 end
-
-
-map <C-d> "_
 
 

@@ -80,21 +80,7 @@ e.g. `sudo locale-gen zh_TW.UTF-8 zh_CN.UTF-8 ...`
 
 
 # System monitor
-
-### memcpu
-
-# System
-
-### who
-- -q , show login name list
-- -T , show detail of all login user
-
-
-
-### umask
-default file permission
-
-ex: umask 022
+ now in bin/system_performance
 
 
 ### chmod 
