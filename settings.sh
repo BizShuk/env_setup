@@ -19,7 +19,7 @@ server_dir=$idir/server
 go_version="go1.5.2.linux-amd64"
 go_root="$bin_dir/go"               # go package dir
 go_path="$project_dir/go_project"   # go source dir
-
+go_project=$go_path                 # go project
 
 # docker 
 docker_remote_server="10.128.112.16:5000"

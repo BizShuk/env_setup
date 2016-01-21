@@ -18,9 +18,10 @@ ln -sf $lib_dir/$go_version $bin_dir/go
 
 echo ""
 echo "append env variable to $idir/.bash_plugin"
-echo "export GOROOT=$go_root" >> $idir/.bash_plugin
+echo "export GOROOT=$go_root" >> $idir/.bash_plugin && mkdir $bin_dir > /dev/null
 echo 'export PATH=$PATH:$GOROOT/bin' >> $idir/.bash_plugin
-echo "export GOPATH=$go_path" >> $idir/.bash_plugin
+echo "export GOPATH=$go_path" >> $idir/.bash_plugin  && mkdir $project_dir/go_project
+
 
 
 echo ""
