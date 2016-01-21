@@ -1,78 +1,67 @@
-
-" todo 
-"   snippets ?
-
+" ref. http://www.study-area.org/tips/vim/Vim-9.html
+" ref. 
 
 
-"colorscheme  256-jungle
-colorscheme  molokai
-"colorscheme  asu1dark
+colorscheme  molokai " 256-jungle , asu1dark
 
-" set terminal color mode to 256
-set t_Co=256
+set t_Co=256        " set terminal color mode to 256
 
-" show status at bottom
-set statusline=%4*%<\%m%<[%f\%r%h%w]\ [%{&ff},%{&fileencoding},%Y]%=\[Position=%l,%v,%p%%]
+set statusline=%4*%<\%m%<[%f\%r%h%w]\ [%{&ff},%{&fileencoding},%Y]%=\[Position=%l,%v,%p%%]  " show status at bottom
 
-syntax on
+syntax on           " syn on
 
-" highlight search result after searched
-set hlsearch
-" highlight when searching
-set incsearch
+set hlsearch        " highlight search result after searched
+set incsearch       " highlight when searching
+set mouse=a         " move cursor to where mouse clicked
+set wildmenu        " 有點類似列出完整的指令 ls a<tab>  :spe<tab>
 
-" move cursor to where mouse clicked
-set mouse=a
+"set list            " turn on invisible characters like end of line as $
 
-" 有點類似列出完整的指令 ls a<tab>  :spe<tab>
-set wildmenu
+"set number          " turn on line number , it will effect copy block and paste
 
-" turn on invisible characters like end of line as $
-" set list
+set ai              " autoidnent , default off
+"set cin             " cindent , default off 
 
-" turn on line number , it will effect copy block and paste
-" set number
-
-" turn on autoindent depend last line
-set autoindent
-
-" tab size
-set ts=4
-
-" ignore case when searching
-set ignorecase
+set ignorecase      " ignore case when searching
 " set ic  " same as above
 
 
-" 超過畫面不換行
-" set nowrap
+set nowrap          " 超過畫面不換行
+set scrolloff=5     " 捲動捲軸時 游標預留n行捲動
+set paste           " better pasting without pasting tab problem
+set cursorline      " hightlight the line cursor now
 
 
-" 捲動捲軸時 游標預留n行捲動
-set scrolloff=5
+" 
+set encoding=utf8
+set fileencoding=utf8
+"set fileencodings=utf8,big5,big5-hkscs
+ 
+  
+set termencoding=utf-8
+set shiftwidth=4        " sw
+set tabstop=4           " ts
+set softtabstop=4
+set expandtab
+set softtabstop=4 
+set smartindent
+set backspace=indent,eol,start
+set bg=light
+
+set backspace=2  " 在 insert 也可用 backspace
+set ru           " 第幾行第幾個字
+"set smartindent  " 設定 smartindent
+set confirm      " 操作過程有衝突時，以明確的文字來詢問
+set history=100  " 保留 100 個使用過的指令
+set laststatus=2
+set foldmethod=indent
 
 
-" Map function buttons to commands
-" map <F2> <cmd><CR>
 
 
-" better pasting without pasting tab problem
-set paste
-
-
-" hightlight the line cursor now
-"set cursorline
-
-
-" what is shift key?
-" set shiftwidth=4
-
-
-
-
-
-
-" execute plugin
+" =========================
+" pathogen plugin in bundle
+" =========================
 execute pathogen#infect()
 
 call plug#begin('~/.vim/plugged')
@@ -82,8 +71,9 @@ call plug#end()
 
 
 
-
+" ==================
 " .vim/plugin/Vim-go
+" ==================
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -118,78 +108,53 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 	"
 	"
 	
-	
+
+
+" =============	
+" NERDTree note
+" =============
+nnoremap <silent> <F5> :NERDTree<CR>
+":NERDTree 開啟
+"? Help
+"i 開在 split 視窗
+"t 開在新的 tab
+"o Open file / directory
+"x close directory
+"q 關掉
+"
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-set encoding=utf8
-set fileencoding=utf8
- 
-  
-set termencoding=utf-8
-set shiftwidth=4
-set tabstop=8
-set softtabstop=4
-set expandtab
-"set softtabstop=8 
-set smartindent
-set backspace=indent,eol,start
-set bg=light
-
-set backspace=2  " 在 insert 也可用 backspace
-set ru           " 第幾行第幾個字
-"set smartindent  " 設定 smartindent
-set confirm      " 操作過程有衝突時，以明確的文字來詢問
-set history=100  " 保留 100 個使用過的指令
- 
-set laststatus=2
-
-
-set foldmethod=indent
-
+" ==========
+" map
+" ==========
+" n : normal only
+" v ; visual and select
+" o : operator-pending
+" x : visual only
+" s : select only
+" i : insert
+" c : command-line
+" l : insert, command-line, regexp-search
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
-""set ts=4
-""set sw=4
-""set backspace=indent,eol,start
-"set termencoding=big5
-"set encoding=big5
-"set fileencodings=utf8,big5,big5-hkscs
-"set fileencoding=
-"set cin
-"set ai
-""set nocin
-"set foldexpr=getline(v:lnum)=~'^[^][{()}]*[)}\\]].*[[{(][^][{()}]*$'?'=':getline(v:lnum)=~'[[{(][^][{()}]*$'?'a1':getline(v:lnum)=~'^[^][{()}]*[])}]'?'s1':'='
-"set foldmethod=expr
-"set foldmethod=indent
-""set bg=light
-""set ruler
-""set wildmenu
-""syn on
 
 
-
-" associate syntax with filea
-" http://vimdoc.sourceforge.net/htmldoc/autocmd.html
-" BufNewFile for editing new file
-" BufRead for editing existing file
+" ===========================
+" autocmd = au
+" ===========================
+" [autocmd doc](http://vimdoc.sourceforge.net/htmldoc/autocmd.html)
+" 
+" au <event>[,<events>] pattern
+" - [events](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events)
+" - [pattern](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#file-pattern)
+"
+"
 au BufNewFile,BufRead *.wpm setf wpm
 au BufNewFile,BufRead *.jhtml setf java
 au BufNewFile,BufRead *.c,*.cpp,*.java,*.jhtml,*.pl set cin
@@ -201,7 +166,6 @@ au BufNewFIle,BufRead *.php set filetype=php
 au BufNewFIle,BufRead *.sh set filetype=sh
 au BufNewFIle,BufRead Dockerfile* set filetype=Dockerfile
 au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
-
 
 
 if version >= 700
@@ -240,5 +204,6 @@ if version >= 700
 
   au BufNewFile,BufRead *.txt,*.tex set spell
 end
+
 
 
