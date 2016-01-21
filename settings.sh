@@ -17,7 +17,7 @@ server_dir=$idir/server
 
 
 go_version="go1.5.2.linux-amd64"
-go_root="$bin_dir/go"               # go package dir
+go_root="$lib_dir/$go_version"      # go package dir
 go_path="$project_dir/go_project"   # go source dir
 go_project=$go_path                 # go project
 
@@ -27,13 +27,13 @@ docker_remote_server="10.128.112.16:5000"
 
 # structure setup
 setup_structure(){
-    [ ! -d $bin_dir               ] && mkdir $bin_dir;
-    [ ! -d $lib_dir               ] && mkdir $lib_dir;
-    [ ! -d $log_dir               ] && mkdir $log_dir;
-    [ ! -d $project_dir           ] && mkdir $project_dir;
-    [ ! -d $server_dir            ] && mkdir $server_dir;
-    [ ! -d $server_dir/samba      ] && mkdir $server_dir/samba;
-    [ ! -d $server_dir/samba/mnt1 ] && mkdir $server_dir/samba/mnt1;
+    [ ! -d $bin_dir               ] && mkdir $bin_dir 2>/dev/null ;
+    [ ! -d $lib_dir               ] && mkdir $lib_dir 2>/dev/null ;
+    [ ! -d $log_dir               ] && mkdir $log_dir 2>/dev/null ;
+    [ ! -d $project_dir           ] && mkdir $project_dir 2>/dev/null ;
+    [ ! -d $server_dir            ] && mkdir $server_dir 2>/dev/null ;
+    [ ! -d $server_dir/samba      ] && mkdir $server_dir/samba 2>/dev/null ;
+    [ ! -d $server_dir/samba/mnt1 ] && mkdir $server_dir/samba/mnt1 2>/dev/null ;
 }
 
 

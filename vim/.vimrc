@@ -77,7 +77,56 @@ execute pathogen#infect()
 
 call plug#begin('~/.vim/plugged')
 Plug 'fatih/vim-go'
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 call plug#end() 
+
+
+
+
+" .vim/plugin/Vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+" let g:go_fmt_command = "goimports" " 把go-fmt 換成 go-import 強烈推薦 :p
+
+        " note for Vim-go option
+	"#Save it and check goimport result
+	":w
+	"
+	"#Build current project
+	":GoBuild 
+	"
+	"#Run it
+	":GoRun
+	"
+	"#Run Go Run directly 
+	"            \r
+	"
+	"#Run Go Build directly
+	"            \b
+	"
+	"#Go to definition
+	"g d
+	"
+	"
+	"
+	
+	
+
+
+
+
+
+
+
+
 
 
 

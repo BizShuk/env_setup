@@ -5,7 +5,14 @@
 sudo fdisk -l #： 列出硬碟分割區
 
 # kernel version
-uname -r
+uname -r # kernel version 
+uname -s # kernel name , Linux Darwin
+uname -m # machine  , x86_64
+uname -p # processor , x86_64 
+uanme -i # hardware , x86_64 , don't work for mac
+uname -o # os , GNU/Linux , don't work for mac
+
+
 
 # login user list , 單純顯示登入數 ＋各個帳號與登入時間
 who -q
