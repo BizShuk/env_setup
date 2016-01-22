@@ -1,1 +1,0 @@
-/Users/shuk/.vim/plugged/gocode/vim/autoload/gocomplete.vim
