@@ -22,7 +22,7 @@ ln -sf $lib_dir/$go_version $bin_dir/go
 
 echo "export GOROOT=$go_root" >> $idir/.bash_plugin
 echo 'export PATH=$PATH:$GOROOT/bin' >> $idir/.bash_plugin
-echo 'alias vimgo="vim -u ~/.vimrc.go"' >> $idir/.bash_plugin
+#echo 'alias vimgo="vim -u ~/.vimrc.go"' >> $idir/.bash_plugin
 
 echo ""
 echo "##########"
