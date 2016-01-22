@@ -55,7 +55,8 @@ set confirm      " 操作過程有衝突時，以明確的文字來詢問
 set history=100  " 保留 100 個使用過的指令
 set laststatus=2
 set foldmethod=indent
-
+" what is ?
+" - tw
 
 
 
@@ -150,9 +151,9 @@ nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 " ===========================
 " [autocmd doc](http://vimdoc.sourceforge.net/htmldoc/autocmd.html)
 " 
-" au <event>[,<events>] pattern
+" au <event>[,<events>] file_pattern
 " - [events](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events)
-" - [pattern](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#file-pattern)
+" - [file_pattern](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#file-pattern)
 "
 "
 au BufNewFile,BufRead *.wpm setf wpm
