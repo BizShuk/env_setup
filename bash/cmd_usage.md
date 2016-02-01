@@ -15,6 +15,11 @@ for Mac
 - -n , show in one line
 
 
+### find
+find --help
+
+
+
 # network
 bmon
 
