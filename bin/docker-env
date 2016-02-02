@@ -83,8 +83,8 @@ image-remote(){
     repos="`curl --silent http://${remote}/v2/_catalog | json | grep -P '"repositories",\d' | awk '{print $2}' `" 
     for repo in $repos
     do
-        echo "${repo:1:-1}"
-        curl --silent http://${remote}/v2/${repo:1:-1}/tags/list | json | grep -P '"tags",\d' | awk '{print $2}' | sed 's|\"\(.*\)\"|-  \1|g'
+        tags=$(curl --silent http://${remote}/v2/${repo:1:-1}/tags/list | json | grep -P '"tags",\d' | awk '{print $2}' | sed 's|\"\(.*\)\"|\1|g' | tr '\n' ' , ' )
+        echo -e  == ${repo:1:-1} "\n\t" "$tags"
     done
 
 }
