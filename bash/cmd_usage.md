@@ -119,4 +119,16 @@ x , other executable
 
 
 
+### apt-get 
+server domain unavailable , change /etc/apt/source.list to other link
+in China : [list](http://wiki.ubuntu.org.cn/%E6%BA%90%E5%88%97%E8%A1%A8)
 
+
+### crontab
+
+
+crontab file sample:
+```
+
+@reboot <username> <command>
+```

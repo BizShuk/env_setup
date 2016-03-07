@@ -133,3 +133,4 @@ fi
 
 ## [should move to bash_plugin] PATH and custom config ##
 export KUBECONFIG="${HOME}/env_setup/server_config/k8s_config.sample"
+export PATH=/home/shuk/project/alpha/clitools:$PATH;
