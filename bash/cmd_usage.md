@@ -24,6 +24,19 @@ find --help
 bmon
 
 
+### ip
+[link](ttp://www.tecmint.com/ip-command-examples/)
+
+
+### route 
+
+### br
+
+### ifdown and ifup
+
+
+###
+
 # system
 
 ### utp
