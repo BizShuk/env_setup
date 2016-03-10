@@ -145,3 +145,49 @@ crontab file sample:
 
 @reboot <username> <command>
 ```
+
+
+
+
+### SSH
+
+1. ssh-keygen ,  
+```
+jsmith@local-host$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/jsmith/.ssh/id_rsa):[Enter key]
+Enter passphrase (empty for no passphrase): [Press enter key]
+Enter same passphrase again: [Pess enter key]
+Your identification has been saved in /home/jsmith/.ssh/id_rsa.
+Your public key has been saved in /home/jsmith/.ssh/id_rsa.pub.
+The key fingerprint is:
+33:b3:fe:af:95:95:18:11:31:d5:de:96:2f:f2:35:f9 jsmith@local-host
+```
+
+2. ssh-copy-id [-i <key.pub>] <remote_host>  
+
+    1. Default public key: ssh-copy-id uses ~/.ssh/identity.pub as the default public key file (i.e when no value is passed to option -i). Instead, I wish it uses id_dsa.pub, or id_rsa.pub, or identity.pub as default keys. i.e If any one of them exist, it should copy that to the remote-host. If two or three of them exist, it should copy identity.pub as default.
+    2. The agent has no identities: When the ssh-agent is running and the ssh-add -L returns “The agent has no identities” (i.e no keys are added to the ssh-agent), the ssh-copy-id will still copy the message “The agent has no identities” to the remote-host’s authorized_keys entry.
+    3. Duplicate entry in authorized_keys: I wish ssh-copy-id validates duplicate entry on the remote-host’s authorized_keys. If you execute ssh-copy-id multiple times on the local-host, it will keep appending the same key on the remote-host’s authorized_keys file without checking for duplicates. Even with duplicate entries everything works as expected. But, I would like to have my authorized_keys file clutter free.
+
+
+
+
+Another way by ssh-agent , ssh-add
+How to do it?
+
+
+
+### rsync
+sync file or directory to other place
+
+
+-a , archive mode
+-v , verbose
+-h , human readble
+-P , show copy progress
+-n , dry-run
+
+--delete , delete extraneous files from dest dirs
+--exclude , exclude file
+--include , include file
