@@ -1,10 +1,10 @@
 #!/bin/bash
 source settings.sh
 
-./setup_ubuntu_package.sh
-./setup_ubuntu_locale.sh
-./setup_bash_env.sh
-
+./ubuntu_package.sh
+./ubuntu_locale.sh
+./bash_env.sh
+./go_installation.sh
 
 # activate service
 service ssh start;

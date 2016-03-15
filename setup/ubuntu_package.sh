@@ -8,12 +8,15 @@ apt-get update && apt-get upgrade -y
 apt-get install git vim curl wget build-essential screen colordiff -y
 
 # install server package
-apt-get install openssh-server -y
+apt-get install openssh-server glances -y
+
+
+
 
 # install docker
-curl -sSL https://get.docker.com/ | sh
+#curl -sSL https://get.docker.com/ | sh
 
-docker pull bizshuk/env_setup
-docker tag bizshuk/env_setup  base
+#docker pull bizshuk/env_setup
+#docker tag bizshuk/env_setup  base
 
 exit 0;
