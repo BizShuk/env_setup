@@ -1,6 +1,6 @@
 #! /bin/bash
 
-sudo update-locale LANG="zh_TW.UTF-8"           # defaul locale if not found
+sudo update-locale LANG="en_US.UTF-8"           # defaul locale if not found
 #sudo update-locale LC_CTYPE="zh_TW.UTF-8"      # 這會影響字元的分類和轉換，若要能輸入中文，就是設定這裡
 #sudo update-locale LC_NUMERIC="en_US.UTF-8"
 sudo update-locale LC_TIME="en_US.UTF-8"        # 這就是日期和時間的顯示格式囉

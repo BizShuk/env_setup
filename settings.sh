@@ -2,6 +2,11 @@
 
 # Darwin for Mac , Linux for ubuntu, linux, ...
 os=$(uname)
+kernel_name=$(uname -s)
+kernel_version=$(uname -r)
+cpu_arch=$(uname -m)
+
+
 
 
 # env path
@@ -16,8 +21,22 @@ project_dir=$idir/project
 server_dir=$idir/server
 
 
-go_version="go1.5.2.linux-amd64"
-go_root="$lib_dir/$go_version"      # go package dir
+go_version="1.6"
+go_arch=""
+case "${cpu_arch}" in
+    x86_64)
+        go_arch="amd64"
+    ;;
+    i386)
+        go_arch="386"
+    ;;
+    *)
+        go_arch=${cpu_arch}
+    ;;
+esac
+
+go_fullversion="go${go_version}.${kernel_name,,}-${go_arch}"
+go_root="$lib_dir/$go_fullversion"      # go package dir
 go_path="$project_dir/go_project"   # go source dir
 go_project=$go_path                 # go project
 
