@@ -19,6 +19,9 @@ ln -sf $sdir/bash/.bash_logout $idir/;
 ln -sf $sdir/bash/settings.sh $idir/;
 [ ! -e $idir/.bash_plugin ] && echo  '#!/bin/bash' > $idir/.bash_plugin;   # for install language
 
+ln -sf /var/log/samba $idir/log/samba
+
+
 # git
 ln -sf $sdir/git/.gitconfig $idir/;
 

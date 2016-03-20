@@ -177,6 +177,9 @@ The key fingerprint is:
 
 
 
+##### remove ssh key for host
+ssh-keygen -R <host>
+
 
 Another way by ssh-agent , ssh-add
 How to do it?
