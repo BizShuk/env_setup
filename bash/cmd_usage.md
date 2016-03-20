@@ -211,11 +211,13 @@ You can set samba user by `smbpasswd -a <user>` and check log at /var/log/samba
 
 ### file system
 
-- what is /etc/fstat?
 
 ##### mount 
 
 mount -t \<fs format\> \<disk\> \<directory\>
+
+
+`/etc/fstab` for automount at bootup , you can check disk UUID and add a line here. It will mount at boot up
 
 
 ##### blkid -s UUID
