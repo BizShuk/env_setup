@@ -218,6 +218,9 @@ You can set samba user by `smbpasswd -a <user>` and check log at /var/log/samba
 mount -t \<fs format\> \<disk\> \<directory\>
 
 
+##### blkid -s UUID
+-s UUID , show all mounted disk UUID
+
 ##### lsblk
 list block devices, show all device ,including partition , with tree struction
 
