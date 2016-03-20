@@ -1,3 +1,8 @@
+# cmd usage
+undoc list:
+- dmesg
+- 
+
 
 ### cd
 
@@ -191,3 +196,59 @@ sync file or directory to other place
 --delete , delete extraneous files from dest dirs
 --exclude , exclude file
 --include , include file
+
+### samba
+
+- install samba with `sudo apt-get install samba samba-common`
+- configure /etc/samba/smb.conf , sample in `server_config/smb.conf` and server_config/smb_note.conf
+- restart service smbd
+
+You can set samba user by `smbpasswd -a <user>` and check log at /var/log/samba
+
+
+### file system
+
+- what is /etc/fstat?
+
+##### mount 
+
+mount -t \<fs format\> \<disk\> \<directory\>
+
+
+##### lsblk
+list block devices, show all device ,including partition , with tree struction
+
+
+##### fsck
+check disk situation and it will ask few questions like "Do you want to recover disk?"
+
+1. umount disk first
+2. fsck -yf \<device\>
+
+
+- -y , yes for all questions
+- -f , force checking 
+- -p , automatic repair
+
+
+##### fdisk
+partition
+
+- -l , list all disks , same functionality as lsblk
+- \<disk\> , operate with that device
+
+##### parted
+same as fdisk , but by GNU
+
+### lvm 2
+
+##### pv
+
+##### vg
+
+##### lv
+
+
+
+##### lsusb
+list USB devices
