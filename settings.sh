@@ -2,7 +2,7 @@
 
 # Darwin for Mac , Linux for ubuntu, linux, ...
 os=$(uname)
-kernel_name=$(uname -s)
+kernel_name=$(uname)
 kernel_version=$(uname -r)
 cpu_arch=$(uname -m)
 
