@@ -2,7 +2,8 @@
 
 # Darwin for Mac , Linux for ubuntu, linux, ...
 os=$(uname)
-kernel_name=$(uname)
+os=$(echo $os | tr '[:upper:]' '[:lower:]')
+kernel_name=$(uname -s)
 kernel_version=$(uname -r)
 cpu_arch=$(uname -m)
 
@@ -35,7 +36,7 @@ case "${cpu_arch}" in
     ;;
 esac
 
-go_fullversion="go${go_version}.${kernel_name,,}-${go_arch}"
+go_fullversion="go${go_version}.${os}-${go_arch}"
 go_root="$lib_dir/$go_fullversion"      # go package dir
 go_path="$project_dir/go_project"   # go source dir
 go_project=$go_path                 # go project
