@@ -1,5 +1,5 @@
 " ref. http://www.study-area.org/tips/vim/Vim-9.html
-" ref. 
+" ref. http://vimdoc.sourceforge.net/htmldoc/help.html
 
 
 colorscheme  molokai " 256-jungle , asu1dark
@@ -66,8 +66,8 @@ set foldmethod=indent
 execute pathogen#infect()
 
 call plug#begin('~/.vim/plugged')
-Plug 'fatih/vim-go'
-Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+" Plug 'fatih/vim-go'
+" Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 call plug#end() 
 
 
@@ -85,6 +85,7 @@ au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
+
 " let g:go_fmt_command = "goimports" " 把go-fmt 換成 go-import 強烈推薦 :p
 
         " note for Vim-go option
@@ -128,21 +129,6 @@ nnoremap <silent> <F5> :NERDTree<CR>
 
 
 
-" ==========
-" map
-" ==========
-" n : normal only
-" v ; visual and select
-" o : operator-pending
-" x : visual only
-" s : select only
-" i : insert
-" c : command-line
-" l : insert, command-line, regexp-search
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
-nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
 
 
@@ -167,6 +153,44 @@ au BufNewFIle,BufRead *.php set filetype=php
 au BufNewFIle,BufRead *.sh set filetype=sh
 au BufNewFIle,BufRead Dockerfile* set filetype=Dockerfile
 au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+au BufNewFile,BufRead *.txt,*.tex set spell
+
+
+
+" ==========
+" map
+" ==========
+" n : normal only
+" v ; visual and select
+" o : operator-pending
+" x : visual only
+" s : select only
+" i : insert
+" c : command-line
+" l : insert, command-line, regexp-search
+"
+" map :  recursive versions of the various mapping 
+" normap: non-recursive versions of the various mapping 
+" 
+
+" select previous or next tab
+nnoremap <C-Left> :tabp<CR>
+nnoremap <C-Right> :tabn<CR>
+
+" create new tab
+nnoremap <C-n> :tabnew<CR>
+nnoremap <C-t> :tabnew<CR>
+
+" write file
+nnoremap <C-w> :w<CR>
+
+" quit
+nnoremap <silent> <A-w> :q<CR>
+
+" move current tab forward or backward
+nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+
 
 
 if version >= 700
@@ -180,30 +204,11 @@ if version >= 700
   map g8 :tabn 8<CR>
   map g9 :tabn 9<CR>
   map g0 :tabn 10<CR>
-  map gm1 :tabm 0<CR>
-  map gm2 :tabm 1<CR>
-  map gm3 :tabm 2<CR>
-  map gm4 :tabm 3<CR>
-  map gm5 :tabm 4<CR>
-  map gm6 :tabm 5<CR>
-  map gm7 :tabm 6<CR>
-  map gm8 :tabm 7<CR>
-  map gm9 :tabm 8<CR>
-  map gm0 :tabm 9<CR>
-  map gc :tabnew<CR>
-  map gn :tabn<CR>
-  map gp :tabp<CR>
-  map <C-o> :tabn<CR>
-  map <C-p> :tabp<CR>
-  imap <C-o> :tabn<CR>
-  imap <C-p> :tabp<CR>
 
   highlight TabLineSel term=bold,underline cterm=bold,underline ctermfg=7 ctermbg=0
   highlight TabLine    term=bold cterm=bold
   highlight clear TabLineFill
   highlight Folded term=bold,underline ctermbg=0
-
-  au BufNewFile,BufRead *.txt,*.tex set spell
 end
 
 
