@@ -9,6 +9,7 @@ set t_Co=256        " set terminal color mode to 256
 set statusline=%4*%<\%m%<[%f\%r%h%w]\ [%{&ff},%{&fileencoding},%Y]%=\[Position=%l,%v,%p%%]  " show status at bottom
 
 syntax on           " syn on
+filetype plugin on  " 
 
 set hlsearch        " highlight search result after searched
 set incsearch       " highlight when searching

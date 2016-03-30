@@ -1,12 +1,6 @@
 [submodule "vim/.vim/bundle/Dockerfile"]
 	path = vim/.vim/bundle/Dockerfile
 	url = https://github.com/ekalinin/Dockerfile.vim.git
-[submodule "vim/.vim/plugged/vim-go"]
-	path = vim/.vim/plugged/vim-go
-	url = https://github.com/fatih/vim-go.git
 [submodule "vim/.vim/bundle/nerdtree"]
 	path = vim/.vim/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/.vim/bundle/vim-gocode"]
-	path = vim/.vim/bundle/vim-gocode
-	url = https://github.com/Blackrush/vim-gocode.git
