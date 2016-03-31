@@ -42,7 +42,7 @@ cat /proc/meminfo
 # network 
 
 uptime
-
+netstat -i
 
 sudo rkhunter --checkall：消滅木馬程式
 
