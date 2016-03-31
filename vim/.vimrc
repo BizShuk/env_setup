@@ -172,7 +172,7 @@ au BufNewFile,BufRead *.txt,*.tex set spell
 "
 " map :  recursive versions of the various mapping 
 " normap: non-recursive versions of the various mapping 
-" 
+" <silent> : don't show operation hint on menu bars 
 
 " select previous or next tab
 nnoremap <C-Left> :tabp<CR>
