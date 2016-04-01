@@ -29,7 +29,8 @@ set ignorecase      " ignore case when searching
 
 set nowrap          " 超過畫面不換行
 set scrolloff=5     " 捲動捲軸時 游標預留n行捲動
-set paste           " better pasting without pasting tab problem
+"set paste           " better pasting without pasting tab problem , this will
+"effect ultisnips
 set cursorline      " hightlight the line cursor now
 
 
@@ -214,5 +215,14 @@ if version >= 700
 end
 
 
-" neocomplete
-let g:neocomplete#enable_at_startup = 1
+
+
+
+" UltiSnips settings
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsListSnippets='<s-tab>'
+let g:UltiSnipsJumpForwardTrigger='<c-j>'
+let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips"
+
+
