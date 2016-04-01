@@ -149,7 +149,7 @@ au BufNewFile,BufRead *.c,*.cpp,*.java,*.jhtml,*.pl set cin
 au BufNewFile,BufRead *.css set ai
 au BufNewFile,BufRead *.css set nocin
 au BufNewFIle,BufRead *.js set filetype=javascript
-au BufNewFIle,BufRead *.html *.htm set filetype=html
+au BufNewFIle,BufRead *.{html,htm} set filetype=html
 au BufNewFIle,BufRead *.php set filetype=php
 au BufNewFIle,BufRead *.sh set filetype=sh
 au BufNewFIle,BufRead Dockerfile* set filetype=Dockerfile
