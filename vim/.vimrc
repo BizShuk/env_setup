@@ -214,4 +214,5 @@ if version >= 700
 end
 
 
-
+" neocomplete
+let g:neocomplete#enable_at_startup = 1
