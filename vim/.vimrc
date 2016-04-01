@@ -217,12 +217,12 @@ end
 
 
 
-
 " UltiSnips settings
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsListSnippets='<s-tab>'
 let g:UltiSnipsJumpForwardTrigger='<c-j>'
 let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips"
+let g:UltiSnipsUsePythonVersion = 3             " depend on python version
 
 
