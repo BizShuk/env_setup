@@ -192,7 +192,8 @@ nnoremap <silent> <A-w> :q<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
-
+" tagbar
+nmap <F8> :TagbarToggle<CR>
 
 if version >= 700
   map g1 :tabn 1<CR>
