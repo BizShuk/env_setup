@@ -29,10 +29,13 @@ tree -h
 
 
 
+procinfo
 # cpu
 lscpu
 nproc , show how many cores of cpu
 cat /proc/cpuinfo
+
+
 
 # memory
 free -h 
