@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source settings.sh
 
 tmpdir=`mktemp -d`
 
@@ -22,6 +23,16 @@ pushd "$tmpdir"
     sudo make install
 popd
 rm -r "$tmpdir"
+
+
+
+# for ctag 
+pushd $repo_dir/lib/ctag-5.8
+    ./configure
+    make
+    sudo make install
+popd
+
 
 echo check :py3 print("yes") and edit tmp.c with for snippets
 
