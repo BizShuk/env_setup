@@ -5,7 +5,7 @@
 ref. .vimrc
 - [Vim9](http://www.study-area.org/tips/vim/Vim-9.html)
 - [VimScript hardway](http://learnvimscriptthehardway.stevelosh.com/)
-
+- [Come home to VIM](http://stevelosh.com/blog/2010/09/coming-home-to-vim/)
 
 ### CMD
 
