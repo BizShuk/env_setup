@@ -1,1 +1,1 @@
-../vim/vim.md
+../vim/README.md

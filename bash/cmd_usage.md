@@ -220,6 +220,14 @@ mount -t \<fs format\> \<disk\> \<directory\>
 `/etc/fstab` for automount at bootup , you can check disk UUID and add a line here. It will mount at boot up
 
 
+for exfat , apt-get install exfat-fuse exfat-utils
+
+
+##### df
+check report file system on disk
+
+-T , print type
+
 ##### blkid -s UUID
 -s UUID , show all mounted disk UUID
 
@@ -245,8 +253,15 @@ partition
 - -l , list all disks , same functionality as lsblk
 - \<disk\> , operate with that device
 
+
+
+
+
 ##### parted
 same as fdisk , but by GNU
+
+parted /dev/sda unit TB print free
+
 
 ### lvm 2
 
