@@ -200,6 +200,9 @@ nmap + <C-w>+<CR>
 nmap _ <C-w>-<CR>
 nmap - <C-kPLus><CR>
 nmap = <C-kMinus><CR>
+nmap w :w<CR>
+nmap q :q<CR>
+
 
 " tagbar
 nmap <F8> :TagbarToggle<CR>
