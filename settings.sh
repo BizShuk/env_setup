@@ -42,7 +42,7 @@ go_path="$project_dir/go_project"   # go source dir
 go_project=$go_path                 # go project
 
 # docker 
-docker_remote_server="10.128.112.16:5000"
+docker_remote_server="dr:5000"
 
 
 # structure setup
