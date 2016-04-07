@@ -275,3 +275,18 @@ parted /dev/sda unit TB print free
 
 ##### lsusb
 list USB devices
+
+
+
+### openssl
+
+```
+openssl genrsa -aes256 -out \<file_name\> 4096
+type pass phase
+```
+
+### package
+
+##### dpkg
+-l , show all packages
+-L <package_name> , show all package files

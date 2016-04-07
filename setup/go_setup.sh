@@ -8,6 +8,8 @@ setup_structure
 echo ""
 echo "append GOPATH to $idir/.bash_plugin"
 echo "export GOPATH=$go_path" >> $idir/.bash_plugin  && mkdir $project_dir/go_project 2>/dev/null
+echo "export gopath=$go_path" >> $idir/.bash_plugin
+echo 'export PATH=$PATH:$GOPATH/bin' >> $idir/.bash_plugin
 
 
 
