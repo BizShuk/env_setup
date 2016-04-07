@@ -11,15 +11,32 @@ ref. .vimrc
 
 ##### to specific line
 :<number>
+:help keycodes
+:[n][nor]map , show map list
 
 
-##### search 
-/
 
-
-##### replace and search
-
-:s (substitute)
+##### /
+##### [[
+##### ]]
+##### ctrl+w ctrl+w
+##### f5 
+##### f8
+##### ctrl + +
+##### ctrl + -
+##### ctrl+w + +
+##### ctrl+w + -
+##### ctrl+w + <
+##### ctrl+w + >
+##### ctrl+w + s (vertical split)
+##### ctrl+w + v (horizontal split)
+##### ctrl+q = :q
+##### ctrl+w + H 
+##### ctrl+w + J
+##### ctrl+w + K 
+##### ctrl+w + L 
+##### :s (substitute)
+replace and search
 
 
 

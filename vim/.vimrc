@@ -183,8 +183,8 @@ nnoremap <C-Right> :tabn<CR>
 nnoremap <C-n> :tabnew<CR>
 nnoremap <C-t> :tabnew<CR>
 
-" write file
-nnoremap <C-w> :w<CR>
+" write file , <C-w> 影響split
+" nnoremap <C-w> :w<CR>
 
 " quit
 nnoremap <silent> <A-w> :q<CR>
@@ -192,6 +192,14 @@ nnoremap <silent> <A-w> :q<CR>
 " move current tab forward or backward
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+
+
+nmap > <C-w>><CR>
+nmap < <C-w><<CR>
+nmap + <C-w>+<CR>
+nmap _ <C-w>-<CR>
+nmap - <C-kPLus><CR>
+nmap = <C-kMinus><CR>
 
 " tagbar
 nmap <F8> :TagbarToggle<CR>
