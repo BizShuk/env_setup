@@ -44,6 +44,10 @@ bmon
 
 # system
 
+### kill
+http://www.linux.org/threads/kill-commands-and-signals.4423/
+
+
 ### utp
 time server
 
@@ -290,3 +294,5 @@ type pass phase
 ##### dpkg
 -l , show all packages
 -L <package_name> , show all package files
+
+

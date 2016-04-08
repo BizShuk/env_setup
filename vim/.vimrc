@@ -180,8 +180,8 @@ nnoremap <C-Left> :tabp<CR>
 nnoremap <C-Right> :tabn<CR>
 
 " create new tab
-nnoremap <C-n> :tabnew<CR>
-nnoremap <C-t> :tabnew<CR>
+nnoremap <C-n> :tabnew
+nnoremap <C-t> :tabnew
 
 " write file , <C-w> 影響split
 " nnoremap <C-w> :w<CR>
