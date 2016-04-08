@@ -50,7 +50,7 @@ netstat -i
 sudo rkhunter --checkall：消滅木馬程式
 
 # network i/o mb
-
+# http://askubuntu.com/questions/20872/how-do-i-limit-internet-bandwidth
 # network request number
 
 
