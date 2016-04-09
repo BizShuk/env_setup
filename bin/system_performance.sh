@@ -53,6 +53,9 @@ sudo rkhunter --checkall：消滅木馬程式
 # http://askubuntu.com/questions/20872/how-do-i-limit-internet-bandwidth
 # network request number
 
+# speedometer
+# iftop, ifstat
+# wondershaper , trickle
 
 
 http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/
