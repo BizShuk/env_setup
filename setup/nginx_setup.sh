@@ -7,12 +7,12 @@ pcre_name="pcre-${pcre_ver}"
 nginx_ver="1.9.14"
 nginx_name="nginx-${nginx_ver}"
 nginx_path="$idir/nginx"
-
+nginx_conf_path="$idir/env_setup/server_config/nginx.conf"
 
 mkdir $idir/lib/$pcre_name
 
 
-push ~/lib
+pushd ~/lib
     wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/${pcre_name}.tar.gz
     tar zxvf $pcre_name.tar.gz && rm $pcre_name.tar.gz
 popd
@@ -34,3 +34,4 @@ popd
 rm -r nginx-release-${nginx_ver}
 
 echo "export PATH=$nginx_path/sbin:\$PATH" >> ~/.bash_plugin
+ln -sf $nginx_conf_path $nginx_path/conf/nginx.conf
