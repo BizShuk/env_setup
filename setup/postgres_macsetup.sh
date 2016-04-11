@@ -30,7 +30,7 @@ pushd postgresql-${psql_ver}
     make install
 popd
 
-echo "PATH=${psql_path}/bin:\$PATH" > .bash_plugin
+echo "export PATH=${psql_path}/bin:\$PATH" >> .bash_plugin
 
 mkdir -P $psql_data && sudo chown postgres:postgres $psql_data
 # init db

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+source settings.sh
+
+pcre_ver="8.38"
+pcre_name="pcre-${pcre_ver}"
+nginx_ver="1.9.14"
+nginx_name="nginx-${nginx_ver}"
+nginx_path="$idir/nginx"
+
+
+mkdir $idir/lib/$pcre_name
+
+
+push ~/lib
+    wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/${pcre_name}.tar.gz
+    tar zxvf $pcre_name.tar.gz && rm $pcre_name.tar.gz
+popd
+
+
+wget http://hg.nginx.org/nginx/archive/release-${nginx_ver}.tar.gz
+tar zxvf release-${nginx_ver}.tar.gz && rm release-${nginx_ver}.tar.gz
+
+pushd nginx-release-${nginx_ver}
+    ./auto/configure --prefix=$nginx_path \
+                    --with-pcre-jit \
+                    --with-pcre=$idir/lib/pcre-8.38 \
+                    --with-http_ssl_module
+
+    make
+    make install
+popd
+
+rm -r nginx-release-${nginx_ver}
+
+echo "export PATH=$nginx_path/sbin:\$PATH" >> ~/.bash_plugin
