@@ -5,18 +5,12 @@ source settings.sh
 apt-get update && apt-get upgrade -y
 
 # install package
-apt-get install git vim curl wget build-essential screen colordiff -y
+apt-get install  curl wget build-essential screen colordiff -y
 
 # install server package
-apt-get install openssh-server glances -y
+apt-get install openssh-server -y
 
 
 
-
-# install docker
-#curl -sSL https://get.docker.com/ | sh
-
-#docker pull bizshuk/env_setup
-#docker tag bizshuk/env_setup  base
 
 exit 0;
