@@ -197,13 +197,20 @@ nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 "nmap < <C-w><<CR>  " effect increase left indent
 nmap + <C-w>+<CR>
 nmap _ <C-w>-<CR>
-nmap - <C-kPLus><CR>
-nmap = <C-kMinus><CR>
+"nmap - <C-kPLus><CR>
+"nmap = <C-kMinus><CR>
 nmap w :w<CR>
 nmap q :q<CR>
 nmap <F6> :noh<CR>
 nmap <C-d> diwi
 imap <C-D> <ESC>diwi
+
+" note
+" ^i 單句開頭插入
+" $i 單句結尾插入
+"
+
+
 
 " tagbar
 nmap <F8> :TagbarToggle<CR>
