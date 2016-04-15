@@ -46,7 +46,6 @@ set tabstop=4           " ts
 set softtabstop=4
 set expandtab
 set softtabstop=4 
-set smartindent
 set backspace=indent,eol,start
 set bg=light
 
@@ -180,8 +179,8 @@ nnoremap <C-Left> :tabp<CR>
 nnoremap <C-Right> :tabn<CR>
 
 " create new tab
-nnoremap <C-n> :tabnew
-nnoremap <C-t> :tabnew
+nnoremap <C-n> :tabnew 
+nnoremap <C-t> :tabnew 
 
 " write file , <C-w> 影響split
 " nnoremap <C-w> :w<CR>
@@ -194,15 +193,17 @@ nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
 
-nmap > <C-w>><CR>
-nmap < <C-w><<CR>
+"nmap > <C-w>><CR>  " effect decrease left indent
+"nmap < <C-w><<CR>  " effect increase left indent
 nmap + <C-w>+<CR>
 nmap _ <C-w>-<CR>
 nmap - <C-kPLus><CR>
 nmap = <C-kMinus><CR>
 nmap w :w<CR>
 nmap q :q<CR>
-
+nmap <F6> :noh<CR>
+nmap <C-d> diwi
+imap <C-D> <ESC>diwi
 
 " tagbar
 nmap <F8> :TagbarToggle<CR>
