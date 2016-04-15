@@ -30,7 +30,7 @@ bmon
 
 
 ### ip
-[link](ttp://www.tecmint.com/ip-command-examples/)
+[link](http://www.tecmint.com/ip-command-examples/)
 
 
 ### route 
