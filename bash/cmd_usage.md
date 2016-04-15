@@ -289,10 +289,21 @@ openssl genrsa -aes256 -out \<file_name\> 4096
 type pass phase
 ```
 
+openssl verify -CAfile="" -in <crt_file> -text -noout
+
+
 ### package
 
 ##### dpkg
 -l , show all packages
 -L <package_name> , show all package files
 
+
+##### pkg-config
+PKG_CONFIG_PATH 
+*.pc file
+
+
+
+##### 
 
