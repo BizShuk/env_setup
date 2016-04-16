@@ -14,7 +14,7 @@
 	ci = commit
 	st = status
 	br = branch
-	logv = log --name-status --graph
+	logv = log --name-status --graph --decorate
 	rollback = checkout
 [pack]
 	windowMemory = 25m

@@ -9,7 +9,7 @@ set t_Co=256        " set terminal color mode to 256
 set statusline=%4*%<\%m%<[%f\%r%h%w]\ [%{&ff},%{&fileencoding},%Y]%=\[Position=%l,%v,%p%%]  " show status at bottom
 
 syntax on           " syn on
-filetype plugin on  " 
+filetype plugin on  "
 
 set hlsearch        " highlight search result after searched
 set incsearch       " highlight when searching
@@ -21,7 +21,7 @@ set wildmenu        " 有點類似列出完整的指令 ls a<tab>  :spe<tab>
 "set number          " turn on line number , it will effect copy block and paste
 
 set ai              " autoidnent , default off
-"set cin             " cindent , default off 
+"set cin             " cindent , default off
 
 set ignorecase      " ignore case when searching
 " set ic  " same as above
@@ -34,18 +34,18 @@ set scrolloff=5     " 捲動捲軸時 游標預留n行捲動
 set cursorline      " hightlight the line cursor now
 
 
-" 
+"
 set encoding=utf8
 set fileencoding=utf8
 "set fileencodings=utf8,big5,big5-hkscs
- 
-  
+
+
 set termencoding=utf-8
 set shiftwidth=4        " sw
 set tabstop=4           " ts
 set softtabstop=4
 set expandtab
-set softtabstop=4 
+set softtabstop=4
 set backspace=indent,eol,start
 set bg=light
 
@@ -69,7 +69,7 @@ execute pathogen#infect()
 call plug#begin('~/.vim/plugged')
 " Plug 'fatih/vim-go'
 " Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-call plug#end() 
+call plug#end()
 
 
 
@@ -94,12 +94,12 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 	":w
 	"
 	"#Build current project
-	":GoBuild 
+	":GoBuild
 	"
 	"#Run it
 	":GoRun
 	"
-	"#Run Go Run directly 
+	"#Run Go Run directly
 	"            \r
 	"
 	"#Run Go Build directly
@@ -110,10 +110,10 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 	"
 	"
 	"
-	
 
 
-" =============	
+
+" =============
 " NERDTree note
 " =============
 nnoremap <silent> <F5> :NERDTree<CR>
@@ -137,7 +137,7 @@ nnoremap <silent> <F5> :NERDTree<CR>
 " autocmd = au
 " ===========================
 " [autocmd doc](http://vimdoc.sourceforge.net/htmldoc/autocmd.html)
-" 
+"
 " au <event>[,<events>] file_pattern
 " - [events](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events)
 " - [file_pattern](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#file-pattern)
@@ -170,17 +170,17 @@ au BufNewFile,BufRead *.txt,*.tex set spell
 " c : command-line
 " l : insert, command-line, regexp-search
 "
-" map :  recursive versions of the various mapping 
-" normap: non-recursive versions of the various mapping 
-" <silent> : don't show operation hint on menu bars 
+" map :  recursive versions of the various mapping
+" normap: non-recursive versions of the various mapping
+" <silent> : don't show operation hint on menu bars
 
 " select previous or next tab
 nnoremap <C-Left> :tabp<CR>
 nnoremap <C-Right> :tabn<CR>
 
 " create new tab
-nnoremap <C-n> :tabnew 
-nnoremap <C-t> :tabnew 
+nnoremap <C-n> :tabnew
+nnoremap <C-t> :tabnew
 
 " write file , <C-w> 影響split
 " nnoremap <C-w> :w<CR>
@@ -271,7 +271,7 @@ let g:UltiSnipsListSnippets='<s-tab>'
 let g:UltiSnipsJumpForwardTrigger='<c-j>'
 let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips"
-let g:UltiSnipsUsePythonVersion = 3             " depend on python version
+let g:UltiSnipsUsePythonVersion = 2             " depend on python version
 
 
 
