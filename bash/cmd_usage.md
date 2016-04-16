@@ -28,6 +28,68 @@ find --help
 # network
 bmon
 
+### dig
+
+##### dig [domain] [@dns]
+options
+
+command line option  Usage
+- -x dot-notation shortcut for reverse lookups
+- -i  use IP6.INT for IPv6 reverse lookups
+- -f filename Batch mode
+- -b address[#port]   Bind to source address/port
+- -p port Specify port number
+- -q name Specify query name
+- -t type Specify query type
+- -c class    Specify query class
+- -k keyfile  Specify tsig key file
+- -y [hmac:]name:key  Specify named base64 tsig key
+- -4  Use IPv4 query transport only
+- -6  Use IPv6 query transport only
+- -m  Enable memory usage debugging
+ 
+Option  Usage
+- +[no]vc TCP mode
+- +[no]tcp    TCP mode, alternate syntax
+- +time=###   Set query timeout [5]
+- +tries=###  Set number of UDP attempts [3]
+- +retry=###  Set number of UDP retries [2]
+- +domain=### Set default domainname
+- +bufsize=###    Set EDNS0 Max UDP packet size
+- +ndots=###  Set NDOTS value
+- +edns=###   Set EDNS version
+- +[no]search Set whether to use searchlist
+- +[no]showsearch Search with intermediate results
+- +[no]defname    Ditto
+- +[no]recurse    Recursive mode
+- +[no]ignore Don’t revert to TCP for TC responses.
+- +[no]fail   Don’t try next server on SERVFAIL
+- +[no]besteffort Try to parse even illegal messages
+- +[no]aaonly Set AA flag in query +[no]aaflag
+- +[no]adflag Set AD flag in query
+- +[no]cdflag Set CD flag in query
+- +[no]cl Control display of class in records
+- +[no]cmd    Control display of command line
+- +[no]comments   Control display of comment lines
+- +[no]question   Control display of question
+- +[no]answer Control display of answer
+- +[no]authority  Control display of authority
+- +[no]additional Control display of additional
+- +[no]stats  Control display of statistics
+- +[no]short  Disable everything except shortform of answer
+- +[no]ttlid  Control display of ttls in records
+- +[no]all    Set or clear all display flags
+- +[no]qr Print question before sending
+- +[no]nssearch   Search all authoritative nameservers
+- +[no]identify   ID responders in short answers
+- +[no]trace  Trace delegation down from root
+- +[no]dnssec Request DNSSEC records
+- +[no]nsid   Request Name Server ID
+- +[no]multiline  Print records in an expanded format
+- +[no]onesoa AXFR prints only one soa record
+
+### nslookup server DNS
+
 
 ### ip
 [link](http://www.tecmint.com/ip-command-examples/)
@@ -305,5 +367,12 @@ PKG_CONFIG_PATH
 
 
 
-##### 
+##### Write image
+`dd bs=1m if=<img_file> of=<output_file>`
+bs, block size for ibs and obs block size
+ibs , input block size
+obs , output block size
+
+### diskutil on mac
+diskutil umount /dev/disk2s1 
 

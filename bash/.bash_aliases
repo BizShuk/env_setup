@@ -7,7 +7,8 @@ os="$(uname)"
 ## alias cmd ##
 #ref: [30 Handy Bash Shell Aliases](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
 
-
+## customized alias ##
+alias tp='cd ~/project/code_sandbox'
 
 
 
@@ -91,4 +92,6 @@ fi
 if [ -x /usr/bin/dircolors ]; then
         test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
+
+
 

@@ -163,8 +163,9 @@ au BufNewFile,BufRead *.txt,*.tex set spell
 " ==========
 " n : normal only
 " v ; visual and select
-" o : operator-pending
+" o : insert next new line
 " x : visual only
+" a : append
 " s : select only
 " i : insert
 " c : command-line

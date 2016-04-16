@@ -47,13 +47,13 @@ docker_remote_server="dr:5000"
 
 # structure setup
 setup_structure(){
-    [ ! -d $bin_dir               ] && mkdir $bin_dir 2>/dev/null ;
-    [ ! -d $lib_dir               ] && mkdir $lib_dir 2>/dev/null ;
-    [ ! -d $log_dir               ] && mkdir $log_dir 2>/dev/null ;
-    [ ! -d $project_dir           ] && mkdir $project_dir 2>/dev/null ;
-    [ ! -d $server_dir            ] && mkdir $server_dir 2>/dev/null ;
-    [ ! -d $server_dir/samba      ] && mkdir $server_dir/samba 2>/dev/null ;
-    [ ! -d $server_dir/samba/mnt1 ] && mkdir $server_dir/samba/mnt1 2>/dev/null ;
+    [ ! -d $bin_dir               ]     && mkdir $bin_dir 2>/dev/null ;
+    [ ! -d $lib_dir               ]     && mkdir $lib_dir 2>/dev/null ;
+    [ ! -d $log_dir               ]     && mkdir $log_dir 2>/dev/null ;
+    [ ! -d $project_dir           ]     && mkdir $project_dir 2>/dev/null ;
+    [ ! -d $server_dir            ]     && mkdir $server_dir 2>/dev/null ;
+    [ ! -d $server_dir/samba/mnt1 ]     && mkdir -p $server_dir/samba/mnt1 2>/dev/null ;
+    [ ! -d $server_dir/server_status ]  && mkdir $server_dir/server_status 2>/dev/null ;
 }
 
 
