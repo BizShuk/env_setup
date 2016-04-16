@@ -2,15 +2,18 @@
 source settings.sh
 
 # update and upgrade
-apt-get update && apt-get upgrade -y
+sudo apt-get update && apt-get upgrade -y
 
 # install package
-apt-get install  curl wget build-essential screen colordiff -y
+sudo apt-get install curl wget build-essential screen colordiff python-dev python3-dev -y
+
+
 
 # install server package
-apt-get install openssh-server -y
+sudo apt-get install openssh-server libssl-dev -y
 
 
-
+# unnessesary
+sudo apt-get install -y dnsutils
 
 exit 0;

@@ -18,6 +18,8 @@ pushd ~/lib
 popd
 
 
+sudo apt-get install -y libssl-dev
+
 wget http://hg.nginx.org/nginx/archive/release-${nginx_ver}.tar.gz
 tar zxvf release-${nginx_ver}.tar.gz && rm release-${nginx_ver}.tar.gz
 
