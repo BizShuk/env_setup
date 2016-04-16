@@ -10,7 +10,7 @@ pushd "$tmpdir"
     tar zxf v7.4.1692.tar.gz
     cd vim-7.4.1692
     ./configure --enable-pythoninterp \
-        --with-python-config-dir=/usr/lib/python2.7/config \
+        --with-python-config-dir=/usr/lib/python2.7/config-arm-linux-gnueabihf \
         --enable-perlinterp \
         --with-features=huge \
         --enable-cscope \
