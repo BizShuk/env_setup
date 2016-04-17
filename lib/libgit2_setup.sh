@@ -4,6 +4,9 @@ source settings.sh
 
 libgit2_ver="v0.24.1"
 
+
+# Need cmake, pkg-config,
+
 git submodule init
 git submodule update
 

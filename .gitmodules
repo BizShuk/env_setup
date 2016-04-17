@@ -19,3 +19,6 @@
 [submodule "vim/.vim/bundle/vim-go"]
 	path = vim/.vim/bundle/vim-go
 	url = https://github.com/fatih/vim-go
+[submodule "lib/libgit2"]
+	path = lib/libgit2
+	url = https://github.com/libgit2/libgit2.git
