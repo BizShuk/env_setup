@@ -16,5 +16,5 @@ make
 make install
 
 echo "# openssl" >> $idir/.bash_plugin
-echo "export PATH=\$openssl_path/bin:\$PATH" >> $idir/.bash_plugin
-echo "export MANPATH=\$openssl_path/ssl/man:\$MANPATH" >> $idir/.bash_plugin
+echo "export PATH=$openssl_path/bin:\$PATH" >> $idir/.bash_plugin
+echo "export MANPATH=$openssl_path/ssl/man:\$MANPATH" >> $idir/.bash_plugin

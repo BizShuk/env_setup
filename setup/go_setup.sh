@@ -25,7 +25,7 @@ ln -sf $lib_dir/$go_fullversion $bin_dir/go
 
 echo "export GOROOT=${go_root}" >> $idir/.bash_plugin
 echo "export goroot=${go_root}" >> $idir/.bash_plugin
-echo "export PATH=\$PATH:\$GOROOT/bin" >> $idir/.bash_plugin
+echo "export PATH=\$PATH:$GOROOT/bin" >> $idir/.bash_plugin
 
 source ~/.bashrc 
 go get -u github.com/jstemmer/gotags

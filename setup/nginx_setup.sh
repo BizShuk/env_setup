@@ -35,5 +35,5 @@ popd
 rm -r nginx-release-${nginx_ver}
 
 echo "# NGINX" >> $idir/.bash_plugin
-echo "export PATH=\$nginx_path/sbin:\$PATH" >> $idir/.bash_plugin
+echo "export PATH=$nginx_path/sbin:\$PATH" >> $idir/.bash_plugin
 ln -sf $nginx_conf_path $nginx_path/conf/nginx.conf
