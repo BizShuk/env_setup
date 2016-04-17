@@ -35,7 +35,7 @@ popd
 
 
 # for ctag
-./ctags_setup.sh
+../lib/ctags_setup.sh
 
 
 echo check :py print("yes") and edit tmp.c with for snippets

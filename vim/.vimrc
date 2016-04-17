@@ -203,8 +203,13 @@ nmap _ <C-w>-<CR>
 nmap w :w<CR>
 nmap q :q<CR>
 nmap <F6> :noh<CR>
-nmap <C-d> diwi
-imap <C-D> <ESC>diwi
+
+" delete current term
+nmap <C-d> <ESC>diwi
+imap <C-d> <ESC>diwi  
+" copy current term
+nmap <C-c> <ESC>viwp
+imap <C-C> <ESC>viwp
 
 " note
 " ^i 單句開頭插入

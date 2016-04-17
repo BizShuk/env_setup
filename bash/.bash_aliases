@@ -9,7 +9,7 @@ os="$(uname)"
 
 ## customized alias ##
 alias tp='cd ~/project/code_sandbox'
-
+alias droi='cd ~/project/Droi'
 
 
 ## system operator ##
