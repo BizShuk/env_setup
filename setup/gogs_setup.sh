@@ -16,4 +16,4 @@ popd
 
 echo append gogs path...
 echo "# gogs" >> $idir/.bash_plugin
-echo "PATH=$gogs_path:\$PATH" >> $idir/bash_plugin
+echo "PATH=$gogs_path:\$PATH" >> $idir/.bash_plugin
