@@ -28,12 +28,12 @@ pushd nginx-release-${nginx_ver}
                     --with-pcre-jit \
                     --with-pcre=$idir/lib/pcre-8.38 \
                     --with-http_ssl_module
-
     make
     make install
 popd
 
 rm -r nginx-release-${nginx_ver}
 
-echo "export PATH=$nginx_path/sbin:\$PATH" >> ~/.bash_plugin
+echo "# NGINX" >> $idir/.bash_plugin
+echo "export PATH=\$nginx_path/sbin:\$PATH" >> $idir/.bash_plugin
 ln -sf $nginx_conf_path $nginx_path/conf/nginx.conf

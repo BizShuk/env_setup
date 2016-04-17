@@ -15,6 +15,6 @@ cd openssl-1.0.2f
 make
 make install
 
-
-echo "export PATH=$openssl_path/bin:\$PATH" >> ~/.bash_plugin
-echo "export MANPATH=$openssl_path/ssl/man:\$MANPATH" >> ~/.bash_plugin
+echo "# openssl" >> $idir/.bash_plugin
+echo "export PATH=\$openssl_path/bin:\$PATH" >> $idir/.bash_plugin
+echo "export MANPATH=\$openssl_path/ssl/man:\$MANPATH" >> $idir/.bash_plugin

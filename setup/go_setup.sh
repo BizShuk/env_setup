@@ -5,7 +5,7 @@ setup_structure
 
 
 
-echo ""
+echo "# Golang" >> $idir/.bash_plugin
 echo "append GOPATH to $idir/.bash_plugin"
 echo "export GOPATH=$go_path" >> $idir/.bash_plugin  && mkdir $project_dir/go_project 2>/dev/null
 echo "export gopath=$go_path" >> $idir/.bash_plugin
@@ -24,7 +24,8 @@ mv /tmp/go $lib_dir/$go_fullversion
 ln -sf $lib_dir/$go_fullversion $bin_dir/go
 
 echo "export GOROOT=${go_root}" >> $idir/.bash_plugin
-echo 'export PATH=$PATH:$GOROOT/bin' >> $idir/.bash_plugin
+echo "export goroot=${go_root}" >> $idir/.bash_plugin
+echo "export PATH=\$PATH:\$GOROOT/bin" >> $idir/.bash_plugin
 
 source ~/.bashrc 
 go get -u github.com/jstemmer/gotags
