@@ -25,9 +25,9 @@
 [core]
 	editor = vim
 	quotepath = false
-
 [credential]
-	helper = cache --timeout=3600
+    helper = cache --timeout=3600
+#    helper = store         # save credential forever , with option "--file <file>"
 [http]
 	sslVerify = false
 [push]
