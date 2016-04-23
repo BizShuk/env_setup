@@ -18,5 +18,5 @@ popd
 rm -rf $tmp_dir
 
 
-echo sample config file under "server_config/dnsmasq.conf"
+echo sample config file under "pkg/dnsmasq/dnsmasq.conf"
 echo ref:https://github.com/bizshuk/tech/dns.md

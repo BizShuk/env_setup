@@ -12,11 +12,14 @@ idir=$HOME;                 # install dir
 repo_dir=$idir/env_setup;   # source dir
 sdir=$repo_dir
 
+# installed dir
 bin_dir=$idir/bin
 lib_dir=$idir/lib
 log_dir=$idir/log
 project_dir=$idir/project
 server_dir=$idir/server
+
+
 
 
 # Go env

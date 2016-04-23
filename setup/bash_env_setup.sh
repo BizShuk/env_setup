@@ -23,18 +23,28 @@ ln -sf /var/log/samba $idir/log/samba
 
 
 # git
-ln -sf $sdir/git/.gitconfig $idir/;
+ln -sf $sdir/pkg/git/.gitconfig $idir/;
 
 # vim
-ln -sf $sdir/vim/.vimrc $idir/;
-ln -sf $sdir/vim/.vim $idir/;
+ln -sf $sdir/pkg/vim/.vimrc $idir/;
+ln -sf $sdir/pkg/vim/.vim $idir/;
+
+
+# ssh
+ln -sf $sdir/pkg/sshd/.ssh $idir/
 
 # for mac
 ln -sf $idir/.bashrc $idir/.profile
 
 
 # ln for env_setup to project
-ln -sf $idir/env_setup $idir/project/env_setup
+if [ ! -d $idir/env_setup ] || [ ! -d $idir/project/env_setup ] ; then
+    if [ -d $idir/env_setup ]; then
+        ln -sf $idir/env_setup $idir/project/env_setup
+    else
+        ln -sf $idir/project/env_setup $idir/env_setup
+    fi
+fi
 
 echo "Done...... Restart terminal"
 

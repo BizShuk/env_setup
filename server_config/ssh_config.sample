@@ -1,8 +1,0 @@
-# this for ssh config
-# how to use?
-
-Host <domain ,ip or regex>
-    User <username>
-    Hostname <domain>
-    PreferredAuthentications publickey
-    IdentityFile ~/.ssh/id_rsa

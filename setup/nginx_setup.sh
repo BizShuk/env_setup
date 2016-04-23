@@ -7,7 +7,7 @@ pcre_name="pcre-${pcre_ver}"
 nginx_ver="1.9.14"
 nginx_name="nginx-${nginx_ver}"
 nginx_path="$idir/nginx"
-nginx_conf_path="$idir/env_setup/server_config/nginx.conf"
+nginx_conf_path="$sdir/pkg/nginx/nginx.conf"
 
 mkdir $idir/lib/$pcre_name
 

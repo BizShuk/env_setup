@@ -269,7 +269,7 @@ sync file or directory to other place
 ### samba
 
 - install samba with `sudo apt-get install samba samba-common`
-- configure /etc/samba/smb.conf , sample in `server_config/smb.conf` and server_config/smb_note.conf
+- configure /etc/samba/smb.conf , sample in `pkg/smb.conf` and pkg/smb_note.conf
 - restart service smbd
 
 You can set samba user by `smbpasswd -a <user>` and check log at /var/log/samba
