@@ -29,11 +29,14 @@ ln -sf $sdir/git/.gitconfig $idir/;
 ln -sf $sdir/vim/.vimrc $idir/;
 ln -sf $sdir/vim/.vim $idir/;
 
+# for mac
+ln -sf $idir/.bashrc $idir/.profile
 
 
-echo "done...... please restart terminal"
+# ln for env_setup to project
+ln -sf $idir/env_setup $idir/project/env_setup
 
-exit 0;
+echo "Done...... Restart terminal"
 
 
 

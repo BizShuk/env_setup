@@ -4,25 +4,21 @@
 
 source settings.sh
 
-## os ##
-os="$(uname)"
-
 
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
 
+## customized env
+export dr="dr:5000"
 
 ## locale
-export LANG="zh_TW.UTF-8"
+export LANG="en_US.UTF-8"
 
 ## set default env varaible ##
 export TERM="xterm-256color"
 export PATH=$bin_dir:$PATH;
-export CDPATH=.:$HOME:$project_dir;
+#export CDPATH=.:$HOME:$project_dir;
 export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
-
-
-
 
 ## set default editor ##
 export EDITOR=vim
@@ -31,11 +27,12 @@ export SVN_EDITOR="$VISUAL"
 
 
 
+
 ## About history. Set history length via HISTSIZE and HISTFILESIZE ##
 
 # Dont put duplicate lines in the history
 #HISTCONTROL=ignoreboth
- 
+
 # Ignore these commands
 #HISTIGNORE="reboot:shutdown *:ls:pwd:exit:mount:man *:history"
 
@@ -49,7 +46,7 @@ export HISTTIMEFORMAT="%F %T "
 shopt -s histappend
 
 
-  
+
 ## shell timeout for security ##
 #export TMOUT=300
 
@@ -105,22 +102,14 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 
-## Alias definitions. ##
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
+## Alias definitions. ## See /usr/share/doc/bash-doc/examples in the bash-doc package.
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
 
 ## Bash function ##
-if [ -f ~/.bash_function ]; then
-    . ~/.bash_function
-fi
+[ -f ~/.bash_function ] && . ~/.bash_function
 
-## Bash plugin (for something like 3th-party export) ##
-if [ -f ~/.bash_plugin ]; then
-    . ~/.bash_plugin
-fi
+## Bash plugin ## (for something like 3th-party export)
+[ -f ~/.bash_plugin ] && . ~/.bash_plugin
 
 
 ## enable programmable completion features (you don't need to enable
@@ -131,5 +120,3 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
-## [should move to bash_plugin] PATH and custom config ##
-export KUBECONFIG="${HOME}/env_setup/server_config/k8s_config.sample"

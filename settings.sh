@@ -1,13 +1,10 @@
 #!/bin/bash
 
-# Darwin for Mac , Linux for ubuntu, linux, ...
-os=$(uname)
-os=$(echo $os | tr '[:upper:]' '[:lower:]')
+# darwin for Mac , linux for ubuntu, linux, ...
+os=$( uname | tr '[:upper:]' '[:lower:]')
 kernel_name=$(uname -s)
 kernel_version=$(uname -r)
 cpu_arch=$(uname -m)
-
-
 
 
 # env path
@@ -22,17 +19,18 @@ project_dir=$idir/project
 server_dir=$idir/server
 
 
+# Go env
 go_version="1.6"
 go_arch=""
 case "${cpu_arch}" in
-    x86_64)
-        go_arch="amd64"
-    ;;
     i386)
         go_arch="386"
     ;;
-    *)
+    armv6l)
         go_arch=${cpu_arch}
+    ;;
+    *)
+        go_arch="amd64" # x86_64
     ;;
 esac
 
@@ -40,9 +38,6 @@ go_fullversion="go${go_version}.${os}-${go_arch}"
 go_root="$lib_dir/$go_fullversion"      # go package dir
 go_path="$project_dir/go_project"   # go source dir
 go_project=$go_path                 # go project
-
-# docker 
-docker_remote_server="dr:5000"
 
 
 # structure setup
@@ -56,12 +51,4 @@ setup_structure(){
     [ ! -d $server_dir/server_status ]  && mkdir $server_dir/server_status 2>/dev/null ;
 }
 
-
-genpasswd(){
-    local l=$1
-    [ "$1" == "" ] && l=16    
-
-    tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${1} | xargs
-
-}
 
