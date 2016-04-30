@@ -21,6 +21,8 @@ sudo apt-get install -y screen colordiff wget curl
 
 # unnessesary
 sudo apt-get install -y dnsutils
+sudo apt-get install -y ibus-chewing
+
 
 
 #####
@@ -70,6 +72,13 @@ echo "Do you want to install Docker [ y/n(default) ]"
 read intall_docker
 install_docker=`echo "$install_docker" | tr '[:upper:]' '[:lower:]'`
 [ "$install_docker" == "y" ] && . ./ubuntu_docker.sh
+
+
+#####
+##### postgre sql
+#####
+./ubuntu_postgres.sh
+
 
 
 #####

@@ -3,13 +3,17 @@ source settings.sh
 
 
 sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates
-sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58
-echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' | sudo tee /etc
-sudo apt-get update
-sudo apt-get install -y docker-engine
-sudo apt-get purge lxc-docker
-sudo apt-cache policy docker-engine
+
+wget -qO- https://get.docker.com/ | sh
+
+
+#sudo apt-get install apt-transport-https ca-certificates
+#sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58
+#echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' | sudo tee /etc
+#sudo apt-get update
+#sudo apt-get install -y docker-engine
+#sudo apt-get purge lxc-docker
+#sudo apt-cache policy docker-engine
 
 
 sudo service docker restart
