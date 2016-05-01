@@ -21,7 +21,7 @@ sudo apt-get install -y screen colordiff wget curl
 
 # unnessesary
 sudo apt-get install -y dnsutils
-sudo apt-get install -y ibus-chewing
+sudo apt-get install -y ibus-chewing    # 新酷音
 
 
 
