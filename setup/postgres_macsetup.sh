@@ -6,46 +6,47 @@ source settings.sh
 psql_ver="9.5.2"
 psql_name="postgresql-${psql_ver}"
 psql_path="$idir/lib/${psql_name}"
-
+psql_log="$idir/log/postgre.log"
 psql_data="$idir/data/postgres"
 
-# create user and group
-sudo dscl . -create /Users/postgres UniqueID 174
-sudo dscl . -create /Users/postgres PrimaryGroupID 174
-sudo dscl . -create /Users/postgres HomeDirectory /usr/local/pgsql
-sudo dscl . -create /Users/postgres UserShell /usr/bin/false
-sudo dscl . -create /Users/postgres RealName "PostgreSQL Administrator"
-sudo dscl . -create /Users/postgres Password \*
-dscl . -read /Users/postgres
-sudo dscl . -create /Groups/postgres PrimaryGroupID 174
-sudo dscl . -create /Groups/postgres Password \*
-dscl . -read /Groups/postgres
 
+user="$(whoami)"
 tmp_dir=`mktemp -d`
 
-wget https://ftp.postgresql.org/pub/source/v${psql_ver}/${psql_name}.tar.gz -O
-tar zxvf ${psql_name}.tar.gz && rm ${psql_name}.tar.gz
 
-psql_name=${psql_name:0:${#psql_name}-2}        # remove 9.5.2 to 9.5
+sudo apt-get install libreadline-dev # libreadline6-dev 
 
-pushd ${psql_name}
-    ./configure --prefix=${psql_path} 
-    make 
-    make install
+pushd $tmp_dir
+    wget https://ftp.postgresql.org/pub/source/v${psql_ver}/${psql_name}.tar.gz
+    tar zxvf ${psql_name}.tar.gz && rm ${psql_name}.tar.gz
+
+    pushd ${psql_name}
+        ./configure --prefix=${psql_path} 
+        make 
+        make install
+    popd
 popd
-rm -rf - ${psql_name}
 
-echo "export PATH=${psql_path}/bin:\$PATH" >> .bash_plugin
+rm -rf ${tmp_dir}
 
-mkdir -P $psql_data && sudo chown postgres:postgres $psql_data
+
+echo "# Postgres" >> ~/.bash_plugin
+echo "export PATH=${psql_path}/bin:\$PATH" >> ~/.bash_plugin
+echo "export PGDATA=${psql_data}" >> ~/.bash_plugin
+echo "export PGLOG=$psql_log" >> ~/.bash_plugin
+source ~/.bash_plugin
+
+mkdir -p $psql_data
+
 # init db
-sudo -u postgres $psql_path/bin/initdb -D $psql_data
+$psql_path/bin/initdb -U $user
 # start service
-sudo -u postgres $psql_path/bin/pg_ctl -D $psql_data start  
+#sudo -u postgres $psql_path/bin/pg_ctl start  
 # stop service
-sudo -u postgres $psql_path/bin/pg_ctl -D $psql_data stop
+#sudo -u postgres $psql_path/bin/pg_ctl stop
 
 
+echo "If data directory is not specific , env PGDATA will be used."
 echo "connect with psql -U <username> -W [-W for passwd prompt]" 
 echo "psql list commands: http://alvinalexander.com/blog/post/postgresql/what-are-available-listing-commands-in-postgresql"
 

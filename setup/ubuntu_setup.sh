@@ -11,8 +11,12 @@ sudo apt-get update && apt-get upgrade -y
 
 # Dev package
 sudo apt-get install -y build-essential
+sudo apt-get install -y autoconf make cmake
 sudo apt-get install -y python-dev python3-dev
 sudo apt-get install -y openssh-server libssl-dev
+
+
+
 
 # User
 # jq ,https://stedolan.github.io/jq/tutorial/
