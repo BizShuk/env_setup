@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# customized parameter
+default_user="shuk"
+default_passwd="zxcvasdf"
+
+
 # darwin for Mac , linux for ubuntu, linux, ...
 os=$( uname | tr '[:upper:]' '[:lower:]')
 kernel_name=$(uname -s)

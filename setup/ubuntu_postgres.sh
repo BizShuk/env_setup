@@ -43,7 +43,9 @@ mkdir -p $psql_data
 $psql_path/bin/initdb -U $user
 # start service
 $psql_path/bin/pg_ctl start  
-$psql_path/bin/psql -c "create database shuk" postgres      # init user database
+$psql_path/bin/psql -c "create database $default_user" postgres                         # init user database
+$psql_path/bin/psql -c "create database gogs"                                           # for gogs database
+$psql_path/bin/psql -c "alter user ${default_user} with PASSWORD '${default_passwd}'"   # change default user passwd
 
 
 echo "If data directory is not specific , env PGDATA will be used."
