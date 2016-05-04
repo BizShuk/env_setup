@@ -132,6 +132,9 @@ limit resource
 - -a , show limitation of this shell
 - 
 
+ulimit -Hn
+ulimit -Sn
+
 related:
 - /etc/security/limits.conf
 

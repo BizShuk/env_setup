@@ -67,3 +67,7 @@ Change each 'foo' (case sensitive due to the I flag) to 'bar'; ask for confirmat
 - `:%s/foo\C/bar/gc`  
 is the same because \C makes the search case sensitive. 
 This may be wanted after using :set ignorecase to make searches case insensitive.
+
+- `:g/<matching>/d`
+Delete matched line
+
