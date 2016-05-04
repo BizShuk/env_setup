@@ -12,7 +12,7 @@
 alias tp='cd ~/project/code_sandbox'
 alias droi='cd ~/project/Droi'
 alias biz='cd ~/project/bizshuk.github.io'
-alias
+alias tmp='cd ~/tmp'
 
 
 

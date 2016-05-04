@@ -16,6 +16,8 @@ ref. .vimrc
 
 
 
+
+
 ##### /
 ##### [[ , 上一個function
 ##### ]] , 下一個function

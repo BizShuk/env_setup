@@ -10,7 +10,7 @@
 - `!!` , execute last command 
 - `!$` , last command's parameters
 - `!servive` , run last command beginning with "service" 
-
+- `ctrl+z + [fg|bg]` , make process to background or foreground
 
 
 ### Deal with big file
