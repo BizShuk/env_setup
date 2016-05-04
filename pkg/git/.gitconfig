@@ -13,7 +13,11 @@
 	co = checkout
 	ci = commit
 	st = status
-	br = branch
+    br = branch
+    ca = cat-file
+    lt = ls-tree -r
+    lr = ls-remote
+    lf = ls-files
 	logv = log --name-status --graph --decorate
 	rollback = checkout
 [pack]
