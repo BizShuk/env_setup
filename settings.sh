@@ -58,6 +58,8 @@ setup_structure(){
     [ ! -d $server_dir/samba/mnt1 ]     && mkdir -p $server_dir/samba/mnt1 2>/dev/null ;
     [ ! -d $server_dir/server_status ]  && mkdir $server_dir/server_status 2>/dev/null ;
     [ ! -d $server_dir/web ]  && mkdir $server_dir/web 2>/dev/null ;
+    [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
+
 }
 
 

@@ -379,3 +379,11 @@ obs , output block size
 ### diskutil on mac
 diskutil umount /dev/disk2s1 
 
+
+### net socket
+
+### netcat
+server:`netcat -l <port> > <output_file>`
+client:`netcat <host> <port> < <input_file>`
+
+
