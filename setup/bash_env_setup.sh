@@ -29,6 +29,8 @@ ln -sf $sdir/pkg/git/.gitconfig $idir/;
 ln -sf $sdir/pkg/vim/.vimrc $idir/;
 ln -sf $sdir/pkg/vim/.vim $idir/;
 
+# top
+ln -sf $sdir/pkg/top/.toprc $idir/;
 
 # ssh
 ln -sf $sdir/pkg/sshd/.ssh $idir/
