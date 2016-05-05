@@ -16,11 +16,12 @@ cpu_arch=$(uname -m)
 idir=$HOME;                 # install dir
 repo_dir=$idir/env_setup;   # source dir
 sdir=$repo_dir
+pkg_sdir=$sdir/pkg
 
 # installed dir
 bin_dir=$idir/bin
 lib_dir=$idir/lib
-log_dir=$idir/log
+log_dir=$idir/logs
 project_dir=$idir/project
 server_dir=$idir/server
 

@@ -30,10 +30,10 @@ set ignorecase      " ignore case when searching
 " set ic  " same as above
 
 
-set nowrap          " 超過畫面不換行
+" set nowrap          " 超過畫面不換行
+
 set scrolloff=5     " 捲動捲軸時 游標預留n行捲動
-"set paste           " better pasting without pasting tab problem , this will
-"effect ultisnips
+"set paste           " better pasting without pasting tab problem , this will effect ultisnips
 set cursorline      " hightlight the line cursor now
 
 
@@ -44,8 +44,8 @@ set fileencoding=utf8
 
 
 set termencoding=utf-8
-set shiftwidth=4        " sw
-set tabstop=4           " ts
+set sw=4        " shiftwidth
+set ts=4           " tabstop
 set softtabstop=4
 set expandtab
 set softtabstop=4
@@ -59,8 +59,6 @@ set confirm      " 操作過程有衝突時，以明確的文字來詢問
 set history=100  " 保留 100 個使用過的指令
 set laststatus=2
 set foldmethod=indent
-" what is ?
-" - tw
 
 
 
@@ -145,19 +143,22 @@ nnoremap <silent> <F5> :NERDTree<CR>
 " - [events](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events)
 " - [file_pattern](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#file-pattern)
 "
+" setf = set ft?
+"
+"
 au BufNewFile,BufRead *.wpm setf wpm
 au BufNewFile,BufRead *.jhtml setf java
 au BufNewFile,BufRead *.c,*.cpp,*.java,*.jhtml,*.pl set cin
 au BufNewFile,BufRead *.css set ai
 au BufNewFile,BufRead *.css set nocin
-au BufNewFIle,BufRead *.js set filetype=javascript
-au BufNewFIle,BufRead *.{html,htm} set filetype=html
-au BufNewFIle,BufRead *.php set filetype=php
-au BufNewFIle,BufRead *.sh set filetype=sh
-au BufNewFIle,BufRead Dockerfile* set filetype=Dockerfile
-au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+au BufNewFIle,BufRead *.js set ft=javascript
+au BufNewFIle,BufRead *.{html,htm} set ft=html
+au BufNewFIle,BufRead *.php set ft=php
+au BufNewFIle,BufRead *.sh set ft=sh
+au BufNewFIle,BufRead Dockerfile* set ft=Dockerfile
+au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set ft=markdown
 au BufNewFile,BufRead *.txt,*.tex set spell
-
+au BufRead,BufNewFile *.conf set ft=conf
 
 
 " Map
@@ -209,7 +210,7 @@ nmap <F6> :noh<CR>
 
 " delete current term
 nmap <C-d> <ESC>diwi
-imap <C-d> <ESC>diwi  
+imap <C-d> <ESC>diwi
 " copy current term
 nmap <C-c> <ESC>viwp
 imap <C-C> <ESC>viwp
@@ -226,6 +227,23 @@ if version >= 700
   map g9 :tabn 9<CR>
   map g0 :tabn 10<CR>
 end
+
+" Default hot key
+"
+"dl"    delete character (alias: "x")       |dl|
+"diw"   delete inner word                   *diw*
+"daw"   delete a word                       *daw*
+"diW"   delete inner WORD (see |WORD|)      *diW*
+"daW"   delete a WORD (see |WORD|)          *daW*
+"dd"    delete one line                     |dd|
+"dis"   delete inner sentence               *du*
+"das"   delete a sentence                   *das*
+"dib"   delete inner '(' ')' block          *dib*
+"dab"   delete a '(' ')' block              *dab*
+"dip"   delete inner paragraph              *dip*
+"dap"   delete a paragraph                  *dap*
+"diB"   delete inner '{' '}' block          *diB*
+"daB"   delete a '{' '}' block              *daB*
 
 
 

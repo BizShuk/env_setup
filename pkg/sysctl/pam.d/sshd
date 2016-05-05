@@ -1,0 +1,3 @@
+# /etc/pam.d/sshd
+# ensure pam includes our limits
+session required pam_limits.so
