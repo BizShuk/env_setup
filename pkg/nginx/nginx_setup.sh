@@ -46,3 +46,4 @@ rm -rf $tmpdir
 echo "# NGINX" >> $idir/.bash_plugin
 echo "export PATH=$nginx_path/sbin:\$PATH" >> $idir/.bash_plugin
 ln -sf $nginx_conf_path $nginx_path/conf/nginx.conf
+ln -sf $nginx_path/logs $log_dir/nginx

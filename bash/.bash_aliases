@@ -55,7 +55,7 @@ alias vi='vim'
 alias edit='vim'
 alias ping='ping -c 5'              # Stop after sending count ECHO_REQUEST packets
 alias pingfast='ping -c 100 -s.2'   # Do not wait interval 1 second, go fast
-
+alias wget='wget --show-progress'
 # confirmation #
 #alias mv='mv -i'
 #alias cp='cp -i'

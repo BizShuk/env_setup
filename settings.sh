@@ -60,6 +60,7 @@ setup_structure(){
     [ ! -d $server_dir/server_status ]  && mkdir $server_dir/server_status 2>/dev/null ;
     [ ! -d $server_dir/web ]  && mkdir $server_dir/web 2>/dev/null ;
     [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
+    [ -d $idir/Desktop ] && mv $idir/Downloads $idir/Downloads.bak && ln -sf $idir/Desktop $idir/Downloads;
 
 }
 

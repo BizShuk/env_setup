@@ -1,1 +1,0 @@
-../pkg/mongo/test.sh
