@@ -14,7 +14,7 @@ wget -qO- https://get.docker.com/ | sh
 #sudo apt-get install -y docker-engine
 #sudo apt-get purge lxc-docker
 #sudo apt-cache policy docker-engine
-sudo ln -sf $pkg_sdir/docker/docker /etc/default/docker 
+cat $pkg_sdir/docker/docker | sudo tee -a /etc/default/docker 
 
 sudo service docker restart
 
