@@ -33,7 +33,8 @@ ln -sf $sdir/pkg/vim/.vim $idir/;
 ln -sf $sdir/pkg/top/.toprc $idir/;
 
 # ssh
-ln -sf $sdir/pkg/sshd/.ssh $idir/
+mkdir $idir/.ssh
+cat $pkg_sdir/sshd/.ssh/id_rsa.pub >> $idir/.ssh/authorized_keys
 
 # for mac
 ln -sf $idir/.bashrc $idir/.profile
