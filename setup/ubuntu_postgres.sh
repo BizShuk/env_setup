@@ -34,13 +34,13 @@ rm -rf ${tmp_dir}
 echo "# Postgres" >> ~/.bash_plugin
 echo "export PATH=${psql_path}/bin:\$PATH" >> ~/.bash_plugin
 echo "export PGDATA=${psql_data}" >> ~/.bash_plugin
-echo "export PGLOG=$psql_log" >> ~/.bash_plugin
 source ~/.bash_plugin
 
 mkdir -p $psql_data
 
 # init db
 $psql_path/bin/initdb -U $user
+ln -sf $pkg_sdir/pkg/postgresql/postgresql.conf ${psql_data}/postgresql.conf
 # start service
 $psql_path/bin/pg_ctl start  
 $psql_path/bin/psql -c "create database $user" postgres                         # init user database
