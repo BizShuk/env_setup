@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # customized parameter
-default_user="shuk"
-default_passwd="zxcvasdf"
-
+user="shuk"
+passwd="zxcvasdf"
+email="biz.shuk@gmail.com"
 
 # darwin for Mac , linux for ubuntu, linux, ...
 os=$( uname | tr '[:upper:]' '[:lower:]')
