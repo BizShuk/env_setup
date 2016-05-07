@@ -386,4 +386,6 @@ diskutil umount /dev/disk2s1
 server:`netcat -l <port> > <output_file>`
 client:`netcat <host> <port> < <input_file>`
 
-
+### cut
+-d , delimit
+-f , field list = column list , -f 1,2,3,4
