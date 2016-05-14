@@ -60,6 +60,8 @@ alias wget='wget --show-progress'
 #alias mv='mv -i'
 #alias cp='cp -i'
 #alias ln='ln -i'
+alias diff='colordiff'
+
 
 ## ls ##
 #   -F = --file-type , show different with file type
@@ -72,7 +74,7 @@ else
     # don't delete / or prompt if deleting more than 3 files at a time #
     #alias rm='rm -I --preserve-root'
 fi
-
+alias ll="ls -lF --color=auto"
 
 
 
