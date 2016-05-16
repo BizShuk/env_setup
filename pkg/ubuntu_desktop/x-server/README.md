@@ -1,4 +1,4 @@
-
+# x-server
 
 
 sudo service lightdm [start|stop]

@@ -5,12 +5,14 @@
 - [nixCraft](http://www.cyberciti.biz/nixcraft-rss-feed-syndication/)
 - [15 Useful Linux and Unix Tape Managements Commands For Sysadmins](http://www.cyberciti.biz/hardware/unix-linux-basic-tape-management-commands/)
 - [20 Unix Command Line Tricks ¨C Part I](http://www.cyberciti.biz/open-source/command-line-hacks/20-unix-command-line-tricks-part-i/)
+- [bash hotkey](http://ss64.com/bash/syntax-keyboard.html)
+
 
 ### special not
 - `!!` , execute last command 
 - `!$` , last command's parameters
 - `!servive` , run last command beginning with "service" 
-
+- `ctrl+z + [fg|bg]` , make process to background or foreground
 
 
 ### Deal with big file

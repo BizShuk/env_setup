@@ -2,6 +2,9 @@
 " ref. http://vimdoc.sourceforge.net/htmldoc/help.html
 
 
+
+
+
 colorscheme  molokai " 256-jungle , asu1dark
 
 set t_Co=256        " set terminal color mode to 256
@@ -29,8 +32,7 @@ set ignorecase      " ignore case when searching
 
 "set nowrap          " 超過畫面不換行
 set scrolloff=5     " 捲動捲軸時 游標預留n行捲動
-"set paste           " better pasting without pasting tab problem , this will
-"effect ultisnips
+"set paste           " better pasting without pasting tab problem , this will effect ultisnips
 set cursorline      " hightlight the line cursor now
 
 
@@ -41,8 +43,8 @@ set fileencoding=utf8
 
 
 set termencoding=utf-8
-set shiftwidth=4        " sw
-set tabstop=4           " ts
+set sw=4        " shiftwidth
+set ts=4           " tabstop
 set softtabstop=4
 set expandtab
 set softtabstop=4
@@ -56,14 +58,13 @@ set confirm      " 操作過程有衝突時，以明確的文字來詢問
 set history=100  " 保留 100 個使用過的指令
 set laststatus=2
 set foldmethod=indent
-" what is ?
-" - tw
 
 
 
-" =========================
-" pathogen plugin in bundle
-" =========================
+" Pathogen 
+"
+" plugin in bundle
+
 execute pathogen#infect()
 
 call plug#begin('~/.vim/plugged')
@@ -73,9 +74,10 @@ call plug#end()
 
 
 
-" ==================
-" .vim/plugin/Vim-go
-" ==================
+
+" Vim-go
+"
+" vim/plugin/vim-go
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -113,9 +115,8 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 
 
 
-" =============
-" NERDTree note
-" =============
+" NERDTree
+" 
 nnoremap <silent> <F5> :NERDTree<CR>
 ":NERDTree 開啟
 "? Help
@@ -133,14 +134,15 @@ nnoremap <silent> <F5> :NERDTree<CR>
 
 
 
-" ===========================
-" autocmd = au
-" ===========================
+" Autocmd = au
+"
 " [autocmd doc](http://vimdoc.sourceforge.net/htmldoc/autocmd.html)
 "
 " au <event>[,<events>] file_pattern
 " - [events](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#autocmd-events)
 " - [file_pattern](http://vimdoc.sourceforge.net/htmldoc/autocmd.html#file-pattern)
+"
+" setf = set ft?
 "
 "
 au BufNewFile,BufRead *.wpm setf wpm
@@ -148,19 +150,18 @@ au BufNewFile,BufRead *.jhtml setf java
 au BufNewFile,BufRead *.c,*.cpp,*.java,*.jhtml,*.pl set cin
 au BufNewFile,BufRead *.css set ai
 au BufNewFile,BufRead *.css set nocin
-au BufNewFIle,BufRead *.js set filetype=javascript
-au BufNewFIle,BufRead *.{html,htm} set filetype=html
-au BufNewFIle,BufRead *.php set filetype=php
-au BufNewFIle,BufRead *.sh set filetype=sh
-au BufNewFIle,BufRead Dockerfile* set filetype=Dockerfile
-au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+au BufNewFIle,BufRead *.js set ft=javascript
+au BufNewFIle,BufRead *.{html,htm} set ft=html
+au BufNewFIle,BufRead *.php set ft=php
+au BufNewFIle,BufRead *.sh set ft=sh
+au BufNewFIle,BufRead Dockerfile* set ft=Dockerfile
+au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set ft=markdown
 au BufNewFile,BufRead *.txt,*.tex set spell
+au BufRead,BufNewFile *.conf set ft=conf
 
 
-
-" ==========
-" map
-" ==========
+" Map
+" 
 " n : normal only
 " v ; visual and select
 " o : insert next new line
@@ -170,6 +171,8 @@ au BufNewFile,BufRead *.txt,*.tex set spell
 " i : insert
 " c : command-line
 " l : insert, command-line, regexp-search
+" ^ : 游標移至行頭
+" $ : 游標移至行尾
 "
 " map :  recursive versions of the various mapping
 " normap: non-recursive versions of the various mapping
@@ -206,19 +209,46 @@ nmap <F6> :noh<CR>
 
 " delete current term
 nmap <C-d> <ESC>diwi
-imap <C-d> <ESC>diwi  
+imap <C-d> <ESC>diwi
 " copy current term
 nmap <C-c> <ESC>viwp
 imap <C-C> <ESC>viwp
 
-" note
-" ^i 單句開頭插入
-" $i 單句結尾插入
+if version >= 700
+  map g1 :tabn 1<CR>
+  map g2 :tabn 2<CR>
+  map g3 :tabn 3<CR>
+  map g4 :tabn 4<CR>
+  map g5 :tabn 5<CR>
+  map g6 :tabn 6<CR>
+  map g7 :tabn 7<CR>
+  map g8 :tabn 8<CR>
+  map g9 :tabn 9<CR>
+  map g0 :tabn 10<CR>
+end
+
+" Default hot key
 "
+"dl"    delete character (alias: "x")       |dl|
+"diw"   delete inner word                   *diw*
+"daw"   delete a word                       *daw*
+"diW"   delete inner WORD (see |WORD|)      *diW*
+"daW"   delete a WORD (see |WORD|)          *daW*
+"dd"    delete one line                     |dd|
+"dis"   delete inner sentence               *du*
+"das"   delete a sentence                   *das*
+"dib"   delete inner '(' ')' block          *dib*
+"dab"   delete a '(' ')' block              *dab*
+"dip"   delete inner paragraph              *dip*
+"dap"   delete a paragraph                  *dap*
+"diB"   delete inner '{' '}' block          *diB*
+"daB"   delete a '{' '}' block              *daB*
 
 
 
-" tagbar
+
+" Tagbar
+"
 nmap <F8> :TagbarToggle<CR>
 " For go tag , https://github.com/jstemmer/gotags
 let g:tagbar_type_go = {
@@ -250,28 +280,12 @@ let g:tagbar_type_go = {
 \ }
 
 
-if version >= 700
-  map g1 :tabn 1<CR>
-  map g2 :tabn 2<CR>
-  map g3 :tabn 3<CR>
-  map g4 :tabn 4<CR>
-  map g5 :tabn 5<CR>
-  map g6 :tabn 6<CR>
-  map g7 :tabn 7<CR>
-  map g8 :tabn 8<CR>
-  map g9 :tabn 9<CR>
-  map g0 :tabn 10<CR>
-
-  highlight TabLineSel term=bold,underline cterm=bold,underline ctermfg=7 ctermbg=0
-  highlight TabLine    term=bold cterm=bold
-  highlight clear TabLineFill
-  highlight Folded term=bold,underline ctermbg=0
-end
 
 
 
 
-" UltiSnips settings
+" UltiSnips
+"
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsListSnippets='<s-tab>'
 let g:UltiSnipsJumpForwardTrigger='<c-j>'
@@ -282,14 +296,59 @@ let g:UltiSnipsUsePythonVersion = 2             " depend on python version
 
 
 
-
-"hi User1 guifg=#eea040 guibg=#222222
-"hi User2 guifg=#dd3333 guibg=#222222
-"hi User3 guifg=#ff66ff guibg=#222222
-"hi User4 guifg=#a0ee40 guibg=#222222
-"hi User5 guifg=#eeee40 guibg=#222222
+" Highlight  =  hi
+" 
+" highlight target :
+" - Visual
+" - TabLineSel
+" - TabLine
+" - clear
+" - Folded
+" - SpecialKey
+" - Title
+" - CursorLine
+" - CursorColumn
+" - MatchParen
+" - PmenuSel
+" - Comment
 "
-" statusline = toolbar = menubar
+" Normal terminal
+" - term    , {attr-list}
+" - termfg  , {color-nr}
+" - termbg  , {color-nr}
+"
+" GUI
+" - gui
+" - guibg
+" - guifg
+"
+" Colorful terminal
+" - cterm   , {attr-list}
+" - ctermfg , {color-nr}
+" - ctermbg , {color-nr}
+"
+"
+"hi TabLineSel term=bold,underline cterm=bold,underline ctermfg=7 ctermbg=0
+"hi TabLine    term=bold cterm=bold
+"hi clear TabLineFill
+"hi Folded term=bold,underline ctermbg=0
+hi Visual ctermbg=White
+
+
+" Visual
+"
+" How to select?
+" - v , select with char
+" - V , select with line
+" - ctrl + v , select with block
+"
+" Operations
+"
+"
+
+
+" Statusline
+"
 " samples:
 " http://got-ravings.blogspot.tw/2008/08/vim-pr0n-making-statuslines-that-own.html
 " set statusline=%<%f%m\ \[%{&ff}:%{&fenc}:%Y]\ %{getcwd()}\ \ \[%{strftime('%Y/%b/%d\ %a\ %I:%M\ %p')}\]\ %=\ Line:%l\/%L\ Column:%c%V\ %P
@@ -304,5 +363,3 @@ let g:UltiSnipsUsePythonVersion = 2             " depend on python version
 " set statusline +=%2*/%L%*               "total lines
 " set statusline +=%1*%4v\ %*             "virtual column number
 " set statusline +=%2*0x%04B\ %*          "character under cursor
-
-

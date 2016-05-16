@@ -12,7 +12,7 @@
 alias tp='cd ~/project/code_sandbox'
 alias droi='cd ~/project/Droi'
 alias biz='cd ~/project/bizshuk.github.io'
-alias
+alias tmp='cd ~/tmp'
 
 
 
@@ -55,11 +55,13 @@ alias vi='vim'
 alias edit='vim'
 alias ping='ping -c 5'              # Stop after sending count ECHO_REQUEST packets
 alias pingfast='ping -c 100 -s.2'   # Do not wait interval 1 second, go fast
-
+alias wget='wget --show-progress'
 # confirmation #
 #alias mv='mv -i'
 #alias cp='cp -i'
 #alias ln='ln -i'
+alias diff='colordiff'
+
 
 ## ls ##
 #   -F = --file-type , show different with file type
@@ -72,7 +74,7 @@ else
     # don't delete / or prompt if deleting more than 3 files at a time #
     #alias rm='rm -I --preserve-root'
 fi
-
+alias ll="ls -lF --color=auto"
 
 
 

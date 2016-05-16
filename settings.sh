@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # customized parameter
-default_user="shuk"
-default_passwd="zxcvasdf"
-
+user="shuk"
+passwd="zxcvasdf"
+email="biz.shuk@gmail.com"
 
 # darwin for Mac , linux for ubuntu, linux, ...
 os=$( uname | tr '[:upper:]' '[:lower:]')
@@ -16,11 +16,12 @@ cpu_arch=$(uname -m)
 idir=$HOME;                 # install dir
 repo_dir=$idir/env_setup;   # source dir
 sdir=$repo_dir
+pkg_sdir=$sdir/pkg
 
 # installed dir
 bin_dir=$idir/bin
 lib_dir=$idir/lib
-log_dir=$idir/log
+log_dir=$idir/logs
 project_dir=$idir/project
 server_dir=$idir/server
 
@@ -58,6 +59,9 @@ setup_structure(){
     [ ! -d $server_dir/samba/mnt1 ]     && mkdir -p $server_dir/samba/mnt1 2>/dev/null ;
     [ ! -d $server_dir/server_status ]  && mkdir $server_dir/server_status 2>/dev/null ;
     [ ! -d $server_dir/web ]  && mkdir $server_dir/web 2>/dev/null ;
+    [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
+    [ -d $idir/Desktop ] && mv $idir/Downloads $idir/Downloads.bak && ln -sf $idir/Desktop $idir/Downloads;
+
 }
 
 

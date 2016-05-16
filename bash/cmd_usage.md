@@ -132,6 +132,9 @@ limit resource
 - -a , show limitation of this shell
 - 
 
+ulimit -Hn
+ulimit -Sn
+
 related:
 - /etc/security/limits.conf
 
@@ -376,3 +379,13 @@ obs , output block size
 ### diskutil on mac
 diskutil umount /dev/disk2s1 
 
+
+### net socket
+
+### netcat
+server:`netcat -l <port> > <output_file>`
+client:`netcat <host> <port> < <input_file>`
+
+### cut
+-d , delimit
+-f , field list = column list , -f 1,2,3,4

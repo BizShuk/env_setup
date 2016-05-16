@@ -19,7 +19,7 @@ ln -sf $sdir/bash/.bash_logout $idir/;
 ln -sf $sdir/bash/settings.sh $idir/;
 [ ! -e $idir/.bash_plugin ] && echo  '#!/bin/bash' > $idir/.bash_plugin;   # for install language
 
-ln -sf /var/log/samba $idir/log/samba
+ln -sf /var/log/samba $log_dir/samba
 
 
 # git
@@ -29,9 +29,12 @@ ln -sf $sdir/pkg/git/.gitconfig $idir/;
 ln -sf $sdir/pkg/vim/.vimrc $idir/;
 ln -sf $sdir/pkg/vim/.vim $idir/;
 
+# top
+ln -sf $sdir/pkg/top/.toprc $idir/;
 
 # ssh
-ln -sf $sdir/pkg/sshd/.ssh $idir/
+mkdir $idir/.ssh
+cat $pkg_sdir/sshd/.ssh/id_rsa.pub >> $idir/.ssh/authorized_keys
 
 # for mac
 ln -sf $idir/.bashrc $idir/.profile
