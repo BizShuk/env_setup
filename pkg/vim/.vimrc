@@ -30,8 +30,7 @@ set ignorecase      " ignore case when searching
 " set ic  " same as above
 
 
-" set nowrap          " 超過畫面不換行
-
+"set nowrap          " 超過畫面不換行
 set scrolloff=5     " 捲動捲軸時 游標預留n行捲動
 "set paste           " better pasting without pasting tab problem , this will effect ultisnips
 set cursorline      " hightlight the line cursor now
