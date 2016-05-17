@@ -3,6 +3,12 @@ ref. http://www.howzhi.com/group/it/discuss/10051
 ref. [sublime unofficial doc](http://docs.sublimetext.info/)
 ref. [useful shortcut](https://gist.github.com/eteanga/1736542)
 
+
+### sublime config
+
+- sublime 3 , `~/.config/sublime-text-3/`
+- sublime 2 , 
+
 ##### User Settings:
 ref. shuk.sublime-settings
 

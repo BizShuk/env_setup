@@ -37,7 +37,7 @@ set scrolloff=5     " 捲動捲軸時 游標預留n行捲動
 set cursorline      " hightlight the line cursor now
 
 
-"
+" setting file encoding 
 set encoding=utf8
 set fileencoding=utf8
 "set fileencodings=utf8,big5,big5-hkscs

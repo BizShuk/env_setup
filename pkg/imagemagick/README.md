@@ -1,5 +1,9 @@
 # imagemagick
 
+### compress image
+`./compress_img.sh -s <size> images...`
+
+
 ### identify
 show details of image
 

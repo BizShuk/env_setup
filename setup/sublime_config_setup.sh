@@ -1,0 +1,1 @@
+../pkg/sublime/sublime_config_setup.sh
