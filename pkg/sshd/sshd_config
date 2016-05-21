@@ -11,20 +11,20 @@
 # default value.
 
 # See sshd_config(5) for details on setting the Port and Listen values on Mac OS X
-#Port 22
+Port 22
 #AddressFamily any
-#ListenAddress 0.0.0.0
-#ListenAddress ::
+ListenAddress 0.0.0.0
+ListenAddress ::
 
 # The default requires explicit activation of protocol 1
-#Protocol 2
+Protocol 2
 
 # HostKey for protocol version 1
-#HostKey /etc/ssh/ssh_host_key
+HostKey /etc/ssh/ssh_host_key
 # HostKeys for protocol version 2
-#HostKey /etc/ssh/ssh_host_rsa_key
-#HostKey /etc/ssh/ssh_host_dsa_key
-#HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
 
 # Lifetime and size of ephemeral version 1 server key
 #KeyRegenerationInterval 1h
@@ -38,7 +38,7 @@ SyslogFacility AUTHPRIV
 # Authentication:
 
 #LoginGraceTime 2m
-PermitRootLogin no
+PermitRootLogin no      # prohibit-password
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
@@ -48,7 +48,7 @@ PubkeyAuthentication yes
 
 # The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2
 # but this is overridden so installations will only check .ssh/authorized_keys
-AuthorizedKeysFile	.ssh/authorized_keys
+AuthorizedKeysFile	%h/.ssh/authorized_keys
 
 #AuthorizedPrincipalsFile none
 
@@ -57,13 +57,16 @@ AuthorizedKeysFile	.ssh/authorized_keys
 
 # For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
 #RhostsRSAAuthentication no
+
 # similar for protocol version 2
-#HostbasedAuthentication no
+HostbasedAuthentication no
+
 # Change to yes if you don't trust ~/.ssh/known_hosts for
 # RhostsRSAAuthentication and HostbasedAuthentication
 #IgnoreUserKnownHosts no
+
 # Don't read the user's ~/.rhosts and ~/.shosts files
-#IgnoreRhosts yes
+IgnoreRhosts yes
 
 # To disable tunneled clear text passwords both PasswordAuthentication and
 # ChallengeResponseAuthentication must be set to "no".
@@ -112,8 +115,10 @@ UsePAM yes
 UsePrivilegeSeparation sandbox		# Default for new installations.
 #PermitUserEnvironment no
 #Compression delayed
-#ClientAliveInterval 0
-#ClientAliveCountMax 3
+
+ClientAliveInterval 1200
+ClientAliveCountMax 4
+
 #UseDNS yes
 #PidFile /var/run/sshd.pid
 #MaxStartups 10:30:100
@@ -125,7 +130,7 @@ UsePrivilegeSeparation sandbox		# Default for new installations.
 AcceptEnv LANG LC_*
 
 # no default banner path
-#Banner none
+Banner /etc/issue
 
 # override default of no subsystems
 Subsystem	sftp	/usr/libexec/sftp-server
@@ -135,3 +140,9 @@ Subsystem	sftp	/usr/libexec/sftp-server
 #	X11Forwarding no
 #	AllowTcpForwarding no
 #	ForceCommand cvs server
+
+
+AllowUsers shuk
+AllowGroups shuk
+DenyUsers root
+DenyGroups root
