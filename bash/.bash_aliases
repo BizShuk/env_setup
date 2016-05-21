@@ -48,7 +48,7 @@ alias dir_size="du -sh"
 
 #alias dir='dir --color=auto'        # = ls
 #alias vdir='vdir --color=auto'      # = ls -l
-alias grep='grep --color=auto'
+alias grep='grep --color=auto -P -n'   # -x , line-regexp  ,  -i , ignore case  , -n , show line number
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias vi='vim'

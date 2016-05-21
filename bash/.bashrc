@@ -120,3 +120,19 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 
+
+
+# Automatically Logout BASH / TCSH / SSH Users After a Period of Inactivity
+
+# for linux
+#TMOUT=300
+#readonly TMOUT
+#export TMOUT
+
+### for tcsh/csh
+#set -r autologout 5
+
+### for ssh clients at /etc/ssh/sshd_config
+#ClientAliveInterval 300
+#ClientAliveCountMax 0
+
