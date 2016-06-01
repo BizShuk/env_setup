@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: lua-server
+  labels:
+    name: lua-server
+#    app: droi-market
+spec:
+  replicas: 1
+  selector:
+    name: lua-server
+#    app: droi-market
+  template:
+    metadata:
+      labels:
+        name: lua-server
+#        app: droi-market
+    spec:
+      containers:
+      - name: lua-server
+        image: 10.128.112.11:5000/lua_server:v3.4
+        ports:
+        - containerPort: 8000
+          name: lua
+        - containerPort: 8001
+          name: lua-market-old
+        - containerPort: 8888
+          name: lua-test
