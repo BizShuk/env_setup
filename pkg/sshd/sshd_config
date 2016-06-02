@@ -76,7 +76,7 @@ PasswordAuthentication no
 PermitEmptyPasswords no
 
 # Change to no to disable s/key passwords
-#ChallengeResponseAuthentication no
+ChallengeResponseAuthentication no
 
 # Kerberos options
 #KerberosAuthentication no
