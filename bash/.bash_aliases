@@ -52,6 +52,7 @@ alias dir_size="du -sh"
 alias grep='grep --color=auto -P -n'   # -x , line-regexp  ,  -i , ignore case  , -n , show line number
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias e='egrep'
 alias vi='vim'
 alias edit='vim'
 alias ping='ping -c 5'              # Stop after sending count ECHO_REQUEST packets
