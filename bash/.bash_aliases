@@ -5,7 +5,8 @@
 ## alias cmd ##
 #ref: [30 Handy Bash Shell Aliases](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
 
-
+## code ###
+alias g++='g++ -std=c++11'
 
 
 ## customized alias ##
@@ -29,9 +30,9 @@ alias h='history'
 alias j='jobs -l'
 
 # don't change /'s owner group and mod
-alias chown='chown --preserve-root'
-alias chmod='chmod --preserve-root'
-alias chgrp='chgrp --preserve-root'
+#alias chown='chown --preserve-root'
+#alias chmod='chmod --preserve-root'
+#alias chgrp='chgrp --preserve-root'
 
 #size of disks , dirs , and files
 #   -h , for human readable
