@@ -6,6 +6,8 @@
 #ref: [30 Handy Bash Shell Aliases](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
 
 
+## compile ##
+alias eclipse="~/project/eclipse/eclipse"
 
 
 ## customized alias ##

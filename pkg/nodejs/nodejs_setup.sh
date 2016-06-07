@@ -1,7 +1,7 @@
 #!/bin/bash
 # [NVM github](https://github.com/creationix/nvm)
 
-node_version="v5.0.0"
+node_version="v4.4.5"  #  v4.4.5 LTS
 
 rm -rf ~/.nvm
 git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
