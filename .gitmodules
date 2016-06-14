@@ -10,9 +10,6 @@
 [submodule "vim-ultisnips"]
 	path = pkg/vim/.vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
-[submodule "vim-snippets"]
-	path = pkg/vim/.vim/bundle/vim-snippets
-	url = https://github.com/honza/vim-snippets
 [submodule "vim-powerline"]
 	path = pkg/vim/.vim/bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
