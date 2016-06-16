@@ -19,3 +19,6 @@
 [submodule "libgit2"]
 	path = pkg/libgit2
 	url = https://github.com/libgit2/libgit2.git
+[submodule "pkg/vim/.vim/bundle/vim-snippets"]
+	path = pkg/vim/.vim/bundle/vim-snippets
+	url = https://github.com/BizShuk/vim-snippets.git
