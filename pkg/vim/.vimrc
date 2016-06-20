@@ -157,8 +157,8 @@ au BufNewFIle,BufRead *.sh set ft=sh
 au BufNewFIle,BufRead Dockerfile* set ft=Dockerfile
 au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set ft=markdown
 au BufNewFile,BufRead *.txt,*.tex set spell
+au BufNewFile,BufRead *.make set ft=make
 au BufRead,BufNewFile *.conf set ft=conf
-
 
 " Map
 " 
