@@ -22,3 +22,6 @@
 [submodule "pkg/vim/.vim/bundle/vim-snippets"]
 	path = pkg/vim/.vim/bundle/vim-snippets
 	url = https://github.com/BizShuk/vim-snippets.git
+[submodule "pkg/vim/.vim/bundle/vim-autoformat"]
+	path = pkg/vim/.vim/bundle/vim-autoformat
+	url = https://github.com/Chiel92/vim-autoformat

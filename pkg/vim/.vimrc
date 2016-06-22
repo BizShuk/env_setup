@@ -159,6 +159,8 @@ au BufNewFIle,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn} set ft=markdown
 au BufNewFile,BufRead *.txt,*.tex set spell
 au BufNewFile,BufRead *.make set ft=make
 au BufRead,BufNewFile *.conf set ft=conf
+" for autoformat
+au BufWrite * :Autoformat       
 
 " Map
 " 
@@ -213,6 +215,9 @@ imap <C-d> <ESC>diwi
 " copy current term
 nmap <C-c> <ESC>viwp
 imap <C-C> <ESC>viwp
+
+
+
 
 if version >= 700
   map g1 :tabn 1<CR>
@@ -280,7 +285,20 @@ let g:tagbar_type_go = {
 \ }
 
 
+" Vim-Autoformat https://github.com/Chiel92/vim-autoformat
+"
+" For customized format program
+"let g:formatterpath = ['/some/path/to/a/folder', '/home/superman/formatters']
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 0
 
+" To disable or re-enable these option for specific buffers, use the buffer local variants: b:autoformat_autoindent, b:autoformat_retab and b:autoformat_remove_trailing_spaces. So to disable autoindent for filetypes that have incompetent indent files, use
+"autocmd FileType vim,tex let b:autoformat_autoindent=0
+" You can manually autoindent, retab or remove trailing whitespace with the following respective commands.
+"gg=G
+":retab
+":RemoveTrailingSpaces
 
 
 
