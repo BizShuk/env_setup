@@ -25,3 +25,6 @@
 [submodule "pkg/vim/.vim/bundle/vim-autoformat"]
 	path = pkg/vim/.vim/bundle/vim-autoformat
 	url = https://github.com/Chiel92/vim-autoformat
+[submodule "pkg/vim/.vim/bundle/vim-jsx"]
+	path = pkg/vim/.vim/bundle/vim-jsx
+	url = https://github.com/mxw/vim-jsx.git

@@ -9,7 +9,7 @@
 ## code ##
 alias eclipse="~/project/eclipse/eclipse"
 alias g++='g++ -std=c++11'
-
+alias webpack-dev-server='webpack-dev-server --devtool eval --progress --colors --hot --content-base build'
 
 ## customized alias ##
 alias tp='cd ~/project/code_sandbox'

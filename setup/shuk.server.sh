@@ -11,6 +11,8 @@ pushd "$project_dir"
     [ ! -d "$project_dir/bizshuk.github.io" ] && git clone https://github.com/bizshuk/bizshuk.github.io 
     [ ! -d "$project_dir/static" ] && git cloe https://github.com/bizshuk/static
     [ ! -d "$project_dir/code_sandbox" ] && git clone https://github.com/bizshuk/code_sandbox 
+    [ ! -d "$project_dir/code_alog" ] && git clone https://github.com/bizshuk/code_algo
+    [ ! -d "$project_dir/code_concept" ] && git clone https://github.com/bizshuk/code_concept
 popd
 
 

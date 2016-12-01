@@ -1,0 +1,36 @@
+/*
+
+*/
+{
+
+    "name": "<app_name>",   //
+    "version": "0.0.1",     // app version
+    "description": "<desc>",// app desc
+    "main": "index.js",     //
+    "private": true,        //
+
+    "scripts":{             //
+        "build":"webpack",
+        "test":"command line",
+        "dev": "webpack-dev-server --devtool eval --progress --colors",
+        "deploy": "NODE_ENV=production webpack -p"
+    },
+
+   "dependencies": {        //
+        "express": "2.5.5",
+        "coffee-script": "latest",
+        "mongoose": ">= 2.5.3"
+    },
+
+    "repository":{          // project repository
+        "type":"git",
+        "url":"<github_url>"
+    },
+
+    "keywords":[],          // just like tags
+    "bugs":{
+        "url":"<issue_url>"
+    },
+    "homepage": "<official site url>"
+}
+

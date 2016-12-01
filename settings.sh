@@ -62,6 +62,9 @@ setup_structure(){
     [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
     [ -d $idir/Desktop ] && mv $idir/Downloads $idir/Downloads.bak && ln -sf $idir/Desktop $idir/Downloads;
 
+
+
+    ln -s /home/shuk/project/videochannel /home/shuk/server/videochannel
 }
 
 
