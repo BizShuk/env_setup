@@ -2,16 +2,19 @@
 	"folders":
 	[
 		{
-			"path": "/Users/shuk/project/bizshuk.github.io"
+			"path": "/home/shuk/project/bizshuk.github.io"
 		},
 		{
-			"path": "/Users/shuk/env_setup"
+			"path": "/home/shuk/project/env_setup"
 		},
 		{
-			"path": "/Users/shuk/project"
+			"path": "/home/shuk/project/code_algo"
 		},
 		{
-			"path": "/Users/shuk/project/code_sandbox"
+			"path": "/home/shuk/project/code_concept"
+		},
+		{
+			"path": "/home/shuk/project/code_sandbox"
 		}
 	]
 }
