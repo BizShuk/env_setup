@@ -21,7 +21,7 @@ pkg_sdir=$sdir/pkg
 # installed dir
 bin_dir=$idir/bin
 lib_dir=$idir/lib
-log_dir=$idir/logs
+log_dir=$idir/log
 project_dir=$idir/project
 server_dir=$idir/server
 
