@@ -160,7 +160,7 @@ au BufNewFile,BufRead *.txt,*.tex set spell
 au BufNewFile,BufRead *.make set ft=make
 au BufRead,BufNewFile *.conf set ft=conf
 " for autoformat
-au BufWrite * :Autoformat       
+au BufWrite * :Autoformat
 
 " Map
 " 

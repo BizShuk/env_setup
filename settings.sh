@@ -54,7 +54,7 @@ go_project=$go_path                 # go project
 setup_structure(){
     [ ! -d $bin_dir               ]     && mkdir $bin_dir 2>/dev/null ;
     [ ! -d $lib_dir               ]     && mkdir $lib_dir 2>/dev/null ;
-    [ ! -d $log_dir               ]     && ln -s $conf_dir/log $log_dir 2>/dev/null ;
+    [ ! -d $log_dir               ]     && ln -s $conf_sdir/log $log_dir 2>/dev/null ;
     [ ! -d $project_dir           ]     && mkdir $project_dir 2>/dev/null ;
     [ ! -d $server_dir            ]     && mkdir $server_dir 2>/dev/null ;
     [ ! -d $server_dir/samba/mnt1 ]     && mkdir -p $server_dir/samba/mnt1 2>/dev/null ;

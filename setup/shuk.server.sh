@@ -13,18 +13,28 @@ pushd "$project_dir"
     [ ! -d "$project_dir/code_sandbox" ] && git clone https://github.com/bizshuk/code_sandbox 
     [ ! -d "$project_dir/code_alog" ] && git clone https://github.com/bizshuk/code_algo
     [ ! -d "$project_dir/code_concept" ] && git clone https://github.com/bizshuk/code_concept
+    [ ! -d "$project_dir/slURL" ] && git clone https://github.com/bizshuk/slURL
+    [ ! -d "$project_dir/test" ] && git clone https://github.com/bizshuk/test
+    [ ! -d "$project_dir/videochannel" ] && git clone https://github.com/bizshuk/videochannel
+
 popd
 
 
 pushd "$idir/server"
     ln -sf $idir/project/bizshuk.github.io $idir/server/ 
     ln -sf $idir/project/static $idir/server/ 
+    ln -sf $idir/project/test $idir/server/ 
+    ln -sf $idir/project/slURL $idir/server/ 
+    ln -sf $idir/project/videochannel $idir/server/ 
 popd
 
 hosts="
-127.0.1.1   shuk.info.t                                                         
-127.0.1.1   biz.shuk.info.t
-127.0.1.1   code_sandbox.shuk.info.t
+127.0.1.1   t.shuk.info                                                       
+127.0.1.1   test.t.shuk.info
+127.0.1.1   videochannel.t.shuk.info
+127.0.1.1   slurl.t.shuk.info
+127.0.1.1   l.t.shuk.info
+127.0.1.1   staitc.t.shuk.info
 "
 ori_hosts="`cat /etc/hosts`"
 

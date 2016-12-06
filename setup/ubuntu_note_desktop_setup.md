@@ -1,5 +1,9 @@
 ### desktop_setup
 
+### chinese input typing
+install ibus and select icon on top right for text entry
+
+
 ##### ubuntu mate Gui
 ```
 sudo apt-add-repository ppa:ubuntu-mate-dev/ppa

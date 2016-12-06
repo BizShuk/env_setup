@@ -30,6 +30,8 @@ PATH
 - `$FUNCNAME` , function name
 
 ### variable operation
+http://www.thegeekstuff.com/2010/07/bash-string-manipulation/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+TheGeekStuff+(The+Geek+Stuff)
+
 subsititution:  
 - `${var:start:length}` , get substring  
 - `${var//search/substitude}` , replace substring  

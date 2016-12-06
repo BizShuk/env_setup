@@ -10,6 +10,7 @@ npm install -g webpack
 npm install -g express-generator
 
 
+exit 0
 
 ### webpack set ###
 # maybe change all of these to ~/.node_modules , require testing
