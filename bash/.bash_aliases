@@ -9,6 +9,7 @@
 ## code ##
 alias eclipse="~/project/eclipse/eclipse"
 alias g++='g++ -std=c++11'
+alias webpack='webpack --display-error-details'
 alias webpack-dev-server='webpack-dev-server --devtool eval --progress --colors --hot --content-base build'
 
 if which python5 > /dev/null ; then

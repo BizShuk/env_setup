@@ -11,7 +11,7 @@ do
 done
 
 
-# bash
+### bash ###
 ln -sf $sdir/bash/.bashrc $idir/;
 ln -sf $sdir/bash/.bash_aliases $idir/;
 ln -sf $sdir/bash/.bash_function $idir/;
@@ -19,24 +19,22 @@ ln -sf $sdir/bash/.bash_logout $idir/;
 ln -sf $sdir/bash/settings.sh $idir/;
 [ ! -e $idir/.bash_plugin ] && echo  '#!/bin/bash' > $idir/.bash_plugin;   # for install language
 
-ln -sf /var/log/samba $log_dir/samba
 
-
-# git
+### git ###
 ln -sf $sdir/pkg/git/.gitconfig $idir/;
 
-# vim
+### vim ###
 ln -sf $sdir/pkg/vim/.vimrc $idir/;
 ln -sf $sdir/pkg/vim/.vim $idir/;
 
-# top
+### top ###
 ln -sf $sdir/pkg/top/.toprc $idir/;
 
-# ssh
+### ssh ###
 mkdir $idir/.ssh
 cat $pkg_sdir/sshd/.ssh/id_rsa.pub >> $idir/.ssh/authorized_keys
 
-# for mac
+### for mac ###
 ln -sf $idir/.bashrc $idir/.profile
 
 
@@ -49,7 +47,25 @@ if [ ! -d $idir/env_setup ] || [ ! -d $idir/project/env_setup ] ; then
     fi
 fi
 
-echo "Done...... Restart terminal"
+### server project ###
+mkdir $idir/server/server_status        # general static server status 
+ln -sf $idir/project/bizshuk.github.io  $idir/server/
+ln -sf $idir/project/test               $idir/server/
+ln -sf $idir/project/slURL              $idir/server/
+ln -sf $idir/project/VideoChannel       $idir/server/
+ln -sf $idir/project/static             $idir/server/
+ln -sf $idir/project/stat               $idir/server/
+ln -sf $idir/project/podcastWeb         $idir/server/
+ln -sf $idir/project/MissOld            $idir/server/
+ln -sf $idir/project/Gifting            $idir/server/
+ln -sf $idir/project/FascinatingMap     $idir/server/
+ln -sf $idir/project/elfVision          $idir/server/
+ln -sf $idir/project/treeMonitor        $idir/server/
+ln -sf $idir/project/treeMonitor        $idir/server/
+
+
+
+echo "Done...... Restart terminal or source ~/.bashrc"
 
 
 

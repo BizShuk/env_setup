@@ -17,6 +17,7 @@ idir=$HOME;                 # install dir
 repo_dir=$idir/env_setup;   # source dir
 sdir=$repo_dir
 pkg_sdir=$sdir/pkg
+conf_sdir=$sdir/config
 
 # installed dir
 bin_dir=$idir/bin
@@ -53,12 +54,10 @@ go_project=$go_path                 # go project
 setup_structure(){
     [ ! -d $bin_dir               ]     && mkdir $bin_dir 2>/dev/null ;
     [ ! -d $lib_dir               ]     && mkdir $lib_dir 2>/dev/null ;
-    [ ! -d $log_dir               ]     && mkdir $log_dir 2>/dev/null ;
+    [ ! -d $log_dir               ]     && ln -s $conf_dir/log $log_dir 2>/dev/null ;
     [ ! -d $project_dir           ]     && mkdir $project_dir 2>/dev/null ;
     [ ! -d $server_dir            ]     && mkdir $server_dir 2>/dev/null ;
     [ ! -d $server_dir/samba/mnt1 ]     && mkdir -p $server_dir/samba/mnt1 2>/dev/null ;
-    [ ! -d $server_dir/server_status ]  && mkdir $server_dir/server_status 2>/dev/null ;
-    [ ! -d $server_dir/web ]  && mkdir $server_dir/web 2>/dev/null ;
     [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
     [ -d $idir/Desktop ] && mv $idir/Downloads $idir/Downloads.bak && ln -sf $idir/Desktop $idir/Downloads;
 

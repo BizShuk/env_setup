@@ -10,10 +10,9 @@
     "private": true,        //
 
     "scripts":{             //
-        "build":"webpack",
+        "build":"NODE_ENV=production webpack -p",
         "test":"command line",
         "dev": "webpack-dev-server --devtool eval --progress --colors",
-        "deploy": "NODE_ENV=production webpack -p",
         "start": "ndoe ./bin/www"
     },
     // package version
@@ -21,8 +20,9 @@
     //      Minor releases: 1 or 1.x or ^1.0.4
     //      Major releases: * or x
     //
-    "dependencies": { },     // append by npm install <packages> --save
-    "devDependencies": { }, // append by npm install <packages> --save-dev
+    "dependencies": { },      // append by npm install <packages> --save
+    "devDependencies": { },   // append by npm install <packages> --save-dev
+    "optionalDependencies" {} // for to skip unsupport platform
 
     "repository":{          // project repository
         "type":"git",
@@ -37,6 +37,9 @@
     "bugs":{
         "url":"<issue_url>"
     },
-    "homepage": "<official site url>"
+    "homepage": "<official site url>",
+    "license" : "MIT",
+
+
 }
 

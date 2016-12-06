@@ -58,7 +58,7 @@ sudo cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 
 
 #####
-##### Add account
+##### Add user and group
 #####
 id -u shuk
 if [ "$?" != "0" ]; then
@@ -68,26 +68,14 @@ if [ "$?" != "0" ]; then
     ## ?? usermod --password PASSWORD USERNAME
 fi
 
-
-#####
-##### Docker
-#####
-echo "Do you want to install Docker [ y/n(default) ]"
-read intall_docker
-install_docker=`echo "$install_docker" | tr '[:upper:]' '[:lower:]'`
-[ "$install_docker" == "y" ] && . ./ubuntu_docker.sh
-
-
-#####
-##### postgre sql
-#####
-./ubuntu_postgres.sh
-
-
+getent group shuk
+if [ "$?" != "0" ]; then
+    sudo groupadd shuk
+fi
 
 #####
 ##### Activate service
 #####
-sudo service ssh start;
+#sudo service ssh start;
 
 
