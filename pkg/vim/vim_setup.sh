@@ -39,6 +39,8 @@ popd
 # for ctag
 . ./ctags_setup.sh
 
+git submodule init
+git submodule update
 
 echo check :py print("yes") and edit tmp.c with for snippets
 #echo check :py3 print("yes") and edit tmp.c with for snippets

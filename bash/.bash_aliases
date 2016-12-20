@@ -9,6 +9,8 @@
 ## code ##
 alias eclipse="~/project/eclipse/eclipse"
 alias g++='g++ -std=c++11'
+alias webpack='webpack --display-error-details'
+alias webpack-dev-server='webpack-dev-server --devtool eval --progress --colors --hot --content-base build'
 
 if which python3 > /dev/null ; then
     alias python='python3'
@@ -22,13 +24,6 @@ alias py='python'
 alias py-config='python-config'
 
 
-
-
-## customized alias ##
-alias tp='cd ~/project/code_sandbox'
-alias droi='cd ~/project/Droi'
-alias biz='cd ~/project/bizshuk.github.io'
-alias tmp='cd ~/tmp'
 
 
 

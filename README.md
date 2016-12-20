@@ -1,5 +1,17 @@
 # Server setup
 
+
+
+
+
+
+
+
+
+
+
+
+
 ### md file rule 
 <> for variable
 [] for match one of conditions
