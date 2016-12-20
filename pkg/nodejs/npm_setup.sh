@@ -29,6 +29,9 @@ npm install --save-dev babel-preset-react   # webpack 1.3 resolveloader cannot w
 npm install --save-dev babel-preset-es2015  # webpack 1.3 resolveloader cannot work , -g instead
 npm install --save-dev img-loader
 npm install --save-dev url-loader
+npm install --save-dev expect
+npm install --save-dev deepfreeze
+npm install --save-dev redux-devtools
 #npm install --save-dev clipboard
 
 ### Production for express basic
@@ -40,6 +43,7 @@ npm install --save body-parser
 npm install --save node-sass-middleware
 npm install --save debug
 npm install --save jade
+npm install --save react-redux
 
 ### production ###
 npm install --save es6-promise

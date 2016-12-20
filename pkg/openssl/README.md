@@ -1,8 +1,15 @@
 # OpenSSL
 
+### conclusion ###
+free CA only one domain at a time => multiple pem for each domain is too hard to manag.  Wildcard CA is too expensive
+
+stop for this moment.
+
+
 ### unknown
 - extension?
 - serial file?
+- https://www.sslforfree.com/
 
 ### definition ###
 http://serverfault.com/a/9717
@@ -24,6 +31,18 @@ http://serverfault.com/a/9717
 ### how to make ca.crt pem key ###
 http://www.ichiayi.com/wiki/tech/openssl_caserver
 
+### pem trust chain ###
+```
+-----BEGIN CERTIFICATE----- 
+(Your Primary SSL certificate: your_domain_name.crt) 
+-----END CERTIFICATE----- 
+-----BEGIN CERTIFICATE----- 
+(Your Intermediate certificate: DigiCertCA.crt) 
+-----END CERTIFICATE----- 
+-----BEGIN CERTIFICATE----- 
+(Your Root certificate: TrustedRoot.crt) 
+-----END CERTIFICATE-----
+```
 
 ### cli ###
 [source](http://ijecorp.blogspot.tw/2014/03/openssl.html)
@@ -46,3 +65,10 @@ http://www.ichiayi.com/wiki/tech/openssl_caserver
 
 無論你是透過 CA 取得憑證或是自行產生 self-signed 的憑證, 都可以透過 openssl 指令來檢測憑證的內容，透過以下的指令：
 `openssl x509 -text -in self-signed.crt -noout`
+
+
+
+
+
+### bugs ###
+http://stackoverflow.com/questions/94445/using-openssl-what-does-unable-to-write-random-state-mean

@@ -21,11 +21,20 @@ popd
 
 
 pushd "$idir/server"
-    ln -sf $idir/project/bizshuk.github.io $idir/server/ 
-    ln -sf $idir/project/static $idir/server/ 
-    ln -sf $idir/project/test $idir/server/ 
-    ln -sf $idir/project/slURL $idir/server/ 
-    ln -sf $idir/project/videochannel $idir/server/ 
+    ln -sf $idir/project/bizshuk.github.io $idir/server/
+    ln -sf $idir/project/static $idir/server/
+    ln -sf $idir/project/test $idir/server/
+    ln -sf $idir/project/slURL $idir/server/
+    ln -sf $idir/project/bookland $idir/server/BookLand
+    ln -sf $idir/project/elfVision $idir/server/elfVision
+    ln -sf $idir/project/missOld $idir/server/MissOld
+    ln -sf $idir/project/podcastWeb $idir/server/
+    ln -sf $idir/project/stat $idir/server/
+    ln -sf $idir/project/treeMonitor $idir/server/
+    ln -sf $idir/project/videochannel $idir/server/VideoChannel
+    ln -sf $idir/project/triplive $idir/server/TripLive
+    ln -sf $idir/project/giftingfred $idir/server/GiftingFred
+    ln -sf $idir/project/pickHIST $idir/server/pickHIST
 popd
 
 hosts="

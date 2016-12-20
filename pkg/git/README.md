@@ -7,6 +7,7 @@ git show-ref , show referenece
 git reflog , show all commit list with sequential
 git describe --tag --abbrev=0 , Show tags
 
+[git stash](http://dev.housetrip.com/2013/05/13/git-stashing/)
 ### github
 
 
