@@ -10,7 +10,7 @@
 alias eclipse="~/project/eclipse/eclipse"
 alias g++='g++ -std=c++11'
 
-if which python5 > /dev/null ; then
+if which python3 > /dev/null ; then
     alias python='python3'
     alias python-config='python3-config'
 else
