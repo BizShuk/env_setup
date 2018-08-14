@@ -1,0 +1,1076 @@
+Last login: Fri Mar 10 11:41:17 on ttys000
+[shuk@shukdeMacBook-Air]/Users/shuk$ cd project/
+[shuk@shukdeMacBook-Air]/Users/shuk/project$ ls
+bizshuk.github.io/ code_sandbox/      go_project/
+code_concept/      env_setup@
+[shuk@shukdeMacBook-Air]/Users/shuk/project$ mkdir scripts
+[shuk@shukdeMacBook-Air]/Users/shuk/project$ cd scripts/
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ ls
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ vim dw_ibtOT_listening.sh
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ chmod +x dw_ibtOT_listening.sh 
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ ./dw_ibtOT_listening.sh 
+-bash: ./dw_ibtOT_listening.sh: /usr/bin/bash: bad interpreter: No such file or directory
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ /usr/bin/b
+banner         bg             bison          bunzip2        bzgrep
+base64         biff           bitesize.d     bzcat          bzip2
+basename       binhex         brctl          bzcmp          bzip2recover
+bashbug        binhex.pl      bsdtar         bzdiff         bzless
+batch          binhex5.18.pl  bspatch        bzegrep        bzmore
+bc             bioutil        btmmdiagnose   bzfgrep        
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ /usr/bin/b
+banner         bg             bison          bunzip2        bzgrep
+base64         biff           bitesize.d     bzcat          bzip2
+basename       binhex         brctl          bzcmp          bzip2recover
+bashbug        binhex.pl      bsdtar         bzdiff         bzless
+batch          binhex5.18.pl  bspatch        bzegrep        bzmore
+bc             bioutil        btmmdiagnose   bzfgrep        
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ /usr/bin/bas
+base64    basename  bashbug   
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ /usr/bin/bas
+base64    basename  bashbug   
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ /usr/bin/ba
+banner    base64    basename  bashbug   batch     
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ which bash
+/bin/bash
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ vim dw_ibtOT_listening.sh 
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ vim /usr/bin/en
+enc2xs            enc2xs5.18        env               
+enc2xs5.16        encode_keychange  
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ vim /usr/bin/en
+enc2xs            enc2xs5.18        env               
+enc2xs5.16        encode_keychange  
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ vim /usr/bin/env 
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ vim dw_ibtOT_listening.sh 
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ ./dw_ibtOT_listening.sh 
+--2017-03-10 14:51:55--  http://img.kmf.com/toefl/listening/partC/partC-01.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 290528 (284K) [audio/mpeg]
+Saving to: ‘partC-01.mp3’
+
+partC-01.mp3          100%[=========================>] 283.72K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:55 (2.52 MB/s) - ‘partC-01.mp3’ saved [290528/290528]
+
+--2017-03-10 14:51:55--  http://img.kmf.com/toefl/listening/partC/partC-02.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 362288 (354K) [audio/mpeg]
+Saving to: ‘partC-02.mp3’
+
+partC-02.mp3          100%[=========================>] 353.80K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:55 (2.67 MB/s) - ‘partC-02.mp3’ saved [362288/362288]
+
+--2017-03-10 14:51:55--  http://img.kmf.com/toefl/listening/partC/partC-03.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 418968 (409K) [audio/mpeg]
+Saving to: ‘partC-03.mp3’
+
+partC-03.mp3          100%[=========================>] 409.15K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:55 (2.79 MB/s) - ‘partC-03.mp3’ saved [418968/418968]
+
+--2017-03-10 14:51:55--  http://img.kmf.com/toefl/listening/partC/partC-04.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 306024 (299K) [audio/mpeg]
+Saving to: ‘partC-04.mp3’
+
+partC-04.mp3          100%[=========================>] 298.85K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:56 (2.76 MB/s) - ‘partC-04.mp3’ saved [306024/306024]
+
+--2017-03-10 14:51:56--  http://img.kmf.com/toefl/listening/partC/partC-05.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 428640 (419K) [audio/mpeg]
+Saving to: ‘partC-05.mp3’
+
+partC-05.mp3          100%[=========================>] 418.59K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:56 (3.98 MB/s) - ‘partC-05.mp3’ saved [428640/428640]
+
+--2017-03-10 14:51:56--  http://img.kmf.com/toefl/listening/partC/partC-06.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 355320 (347K) [audio/mpeg]
+Saving to: ‘partC-06.mp3’
+
+partC-06.mp3          100%[=========================>] 346.99K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:56 (3.05 MB/s) - ‘partC-06.mp3’ saved [355320/355320]
+
+--2017-03-10 14:51:56--  http://img.kmf.com/toefl/listening/partC/partC-07.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 329008 (321K) [audio/mpeg]
+Saving to: ‘partC-07.mp3’
+
+partC-07.mp3          100%[=========================>] 321.30K  --.-KB/s    in 0.08s   
+
+2017-03-10 14:51:56 (3.82 MB/s) - ‘partC-07.mp3’ saved [329008/329008]
+
+--2017-03-10 14:51:56--  http://img.kmf.com/toefl/listening/partC/partC-08.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 334624 (327K) [audio/mpeg]
+Saving to: ‘partC-08.mp3’
+
+partC-08.mp3          100%[=========================>] 326.78K  --.-KB/s    in 0.08s   
+
+2017-03-10 14:51:56 (3.81 MB/s) - ‘partC-08.mp3’ saved [334624/334624]
+
+--2017-03-10 14:51:56--  http://img.kmf.com/toefl/listening/partC/partC-09.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 239464 (234K) [audio/mpeg]
+Saving to: ‘partC-09.mp3’
+
+partC-09.mp3          100%[=========================>] 233.85K  --.-KB/s    in 0.07s   
+
+2017-03-10 14:51:56 (3.49 MB/s) - ‘partC-09.mp3’ saved [239464/239464]
+
+--2017-03-10 14:51:56--  http://img.kmf.com/toefl/listening/partC/partC-10.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 424272 (414K) [audio/mpeg]
+Saving to: ‘partC-10.mp3’
+
+partC-10.mp3          100%[=========================>] 414.33K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:57 (3.13 MB/s) - ‘partC-10.mp3’ saved [424272/424272]
+
+--2017-03-10 14:51:57--  http://img.kmf.com/toefl/listening/partC/partC-11.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 270040 (264K) [audio/mpeg]
+Saving to: ‘partC-11.mp3’
+
+partC-11.mp3          100%[=========================>] 263.71K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:57 (2.31 MB/s) - ‘partC-11.mp3’ saved [270040/270040]
+
+--2017-03-10 14:51:57--  http://img.kmf.com/toefl/listening/partC/partC-12.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 374560 (366K) [audio/mpeg]
+Saving to: ‘partC-12.mp3’
+
+partC-12.mp3          100%[=========================>] 365.78K   671KB/s    in 0.5s    
+
+2017-03-10 14:51:57 (671 KB/s) - ‘partC-12.mp3’ saved [374560/374560]
+
+--2017-03-10 14:51:57--  http://img.kmf.com/toefl/listening/partC/partC-13.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 371960 (363K) [audio/mpeg]
+Saving to: ‘partC-13.mp3’
+
+partC-13.mp3          100%[=========================>] 363.24K  2.05MB/s    in 0.2s    
+
+2017-03-10 14:51:58 (2.05 MB/s) - ‘partC-13.mp3’ saved [371960/371960]
+
+--2017-03-10 14:51:58--  http://img.kmf.com/toefl/listening/partC/partC-14.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 314032 (307K) [audio/mpeg]
+Saving to: ‘partC-14.mp3’
+
+partC-14.mp3          100%[=========================>] 306.67K   763KB/s    in 0.4s    
+
+2017-03-10 14:51:58 (763 KB/s) - ‘partC-14.mp3’ saved [314032/314032]
+
+--2017-03-10 14:51:58--  http://img.kmf.com/toefl/listening/partC/partC-15.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 407528 (398K) [audio/mpeg]
+Saving to: ‘partC-15.mp3’
+
+partC-15.mp3          100%[=========================>] 397.98K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:58 (2.94 MB/s) - ‘partC-15.mp3’ saved [407528/407528]
+
+--2017-03-10 14:51:58--  http://img.kmf.com/toefl/listening/partC/partC-16.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 480640 (469K) [audio/mpeg]
+Saving to: ‘partC-16.mp3’
+
+partC-16.mp3          100%[=========================>] 469.38K  2.76MB/s    in 0.2s    
+
+2017-03-10 14:51:59 (2.76 MB/s) - ‘partC-16.mp3’ saved [480640/480640]
+
+--2017-03-10 14:51:59--  http://img.kmf.com/toefl/listening/partC/partC-17.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 348872 (341K) [audio/mpeg]
+Saving to: ‘partC-17.mp3’
+
+partC-17.mp3          100%[=========================>] 340.70K  --.-KB/s    in 0.09s   
+
+2017-03-10 14:51:59 (3.55 MB/s) - ‘partC-17.mp3’ saved [348872/348872]
+
+--2017-03-10 14:51:59--  http://img.kmf.com/toefl/listening/partC/partC-18.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 268896 (263K) [audio/mpeg]
+Saving to: ‘partC-18.mp3’
+
+partC-18.mp3          100%[=========================>] 262.59K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:51:59 (1.88 MB/s) - ‘partC-18.mp3’ saved [268896/268896]
+
+--2017-03-10 14:51:59--  http://img.kmf.com/toefl/listening/partC/partC-19.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 256208 (250K) [audio/mpeg]
+Saving to: ‘partC-19.mp3’
+
+partC-19.mp3          100%[=========================>] 250.20K   833KB/s    in 0.3s    
+
+2017-03-10 14:51:59 (833 KB/s) - ‘partC-19.mp3’ saved [256208/256208]
+
+--2017-03-10 14:51:59--  http://img.kmf.com/toefl/listening/partC/partC-20.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 313408 (306K) [audio/mpeg]
+Saving to: ‘partC-20.mp3’
+
+partC-20.mp3          100%[=========================>] 306.06K  --.-KB/s    in 0.09s   
+
+2017-03-10 14:51:59 (3.37 MB/s) - ‘partC-20.mp3’ saved [313408/313408]
+
+--2017-03-10 14:51:59--  http://img.kmf.com/toefl/listening/partC/partC-21.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 295208 (288K) [audio/mpeg]
+Saving to: ‘partC-21.mp3’
+
+partC-21.mp3          100%[=========================>] 288.29K  --.-KB/s    in 0.09s   
+
+2017-03-10 14:52:00 (3.31 MB/s) - ‘partC-21.mp3’ saved [295208/295208]
+
+--2017-03-10 14:52:00--  http://img.kmf.com/toefl/listening/partC/partC-22.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 293128 (286K) [audio/mpeg]
+Saving to: ‘partC-22.mp3’
+
+partC-22.mp3          100%[=========================>] 286.26K   619KB/s    in 0.5s    
+
+2017-03-10 14:52:00 (619 KB/s) - ‘partC-22.mp3’ saved [293128/293128]
+
+--2017-03-10 14:52:00--  http://img.kmf.com/toefl/listening/partC/partC-23.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 339408 (331K) [audio/mpeg]
+Saving to: ‘partC-23.mp3’
+
+partC-23.mp3          100%[=========================>] 331.45K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:00 (3.33 MB/s) - ‘partC-23.mp3’ saved [339408/339408]
+
+--2017-03-10 14:52:00--  http://img.kmf.com/toefl/listening/partC/partC-24.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 333272 (325K) [audio/mpeg]
+Saving to: ‘partC-24.mp3’
+
+partC-24.mp3          100%[=========================>] 325.46K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:01 (2.16 MB/s) - ‘partC-24.mp3’ saved [333272/333272]
+
+--2017-03-10 14:52:01--  http://img.kmf.com/toefl/listening/partC/partC-25.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 252776 (247K) [audio/mpeg]
+Saving to: ‘partC-25.mp3’
+
+partC-25.mp3          100%[=========================>] 246.85K   740KB/s    in 0.3s    
+
+2017-03-10 14:52:02 (740 KB/s) - ‘partC-25.mp3’ saved [252776/252776]
+
+--2017-03-10 14:52:02--  http://img.kmf.com/toefl/listening/partC/partC-26.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 245184 (239K) [audio/mpeg]
+Saving to: ‘partC-26.mp3’
+
+partC-26.mp3          100%[=========================>] 239.44K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:02 (1.93 MB/s) - ‘partC-26.mp3’ saved [245184/245184]
+
+--2017-03-10 14:52:02--  http://img.kmf.com/toefl/listening/partC/partC-27.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 456512 (446K) [audio/mpeg]
+Saving to: ‘partC-27.mp3’
+
+partC-27.mp3          100%[=========================>] 445.81K   708KB/s    in 0.6s    
+
+2017-03-10 14:52:03 (708 KB/s) - ‘partC-27.mp3’ saved [456512/456512]
+
+--2017-03-10 14:52:03--  http://img.kmf.com/toefl/listening/partC/partC-28.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 184448 (180K) [audio/mpeg]
+Saving to: ‘partC-28.mp3’
+
+partC-28.mp3          100%[=========================>] 180.12K   709KB/s    in 0.3s    
+
+2017-03-10 14:52:03 (709 KB/s) - ‘partC-28.mp3’ saved [184448/184448]
+
+--2017-03-10 14:52:03--  http://img.kmf.com/toefl/listening/partC/partC-29.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 300616 (294K) [audio/mpeg]
+Saving to: ‘partC-29.mp3’
+
+partC-29.mp3          100%[=========================>] 293.57K   797KB/s    in 0.4s    
+
+2017-03-10 14:52:04 (797 KB/s) - ‘partC-29.mp3’ saved [300616/300616]
+
+--2017-03-10 14:52:04--  http://img.kmf.com/toefl/listening/partC/partC-30.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 373000 (364K) [audio/mpeg]
+Saving to: ‘partC-30.mp3’
+
+partC-30.mp3          100%[=========================>] 364.26K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:04 (2.59 MB/s) - ‘partC-30.mp3’ saved [373000/373000]
+
+--2017-03-10 14:52:04--  http://img.kmf.com/toefl/listening/partC/partC-31.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 333896 (326K) [audio/mpeg]
+Saving to: ‘partC-31.mp3’
+
+partC-31.mp3          100%[=========================>] 326.07K   603KB/s    in 0.5s    
+
+2017-03-10 14:52:05 (603 KB/s) - ‘partC-31.mp3’ saved [333896/333896]
+
+--2017-03-10 14:52:05--  http://img.kmf.com/toefl/listening/partC/partC-32.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 303424 (296K) [audio/mpeg]
+Saving to: ‘partC-32.mp3’
+
+partC-32.mp3          100%[=========================>] 296.31K   757KB/s    in 0.4s    
+
+2017-03-10 14:52:05 (757 KB/s) - ‘partC-32.mp3’ saved [303424/303424]
+
+--2017-03-10 14:52:05--  http://img.kmf.com/toefl/listening/partC/partC-33.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 347624 (339K) [audio/mpeg]
+Saving to: ‘partC-33.mp3’
+
+partC-33.mp3          100%[=========================>] 339.48K   846KB/s    in 0.4s    
+
+2017-03-10 14:52:06 (846 KB/s) - ‘partC-33.mp3’ saved [347624/347624]
+
+--2017-03-10 14:52:06--  http://img.kmf.com/toefl/listening/partC/partC-34.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 373624 (365K) [audio/mpeg]
+Saving to: ‘partC-34.mp3’
+
+partC-34.mp3          100%[=========================>] 364.87K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:06 (2.48 MB/s) - ‘partC-34.mp3’ saved [373624/373624]
+
+--2017-03-10 14:52:06--  http://img.kmf.com/toefl/listening/partC/partC-35.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 406904 (397K) [audio/mpeg]
+Saving to: ‘partC-35.mp3’
+
+partC-35.mp3          100%[=========================>] 397.37K   577KB/s    in 0.7s    
+
+2017-03-10 14:52:07 (577 KB/s) - ‘partC-35.mp3’ saved [406904/406904]
+
+--2017-03-10 14:52:07--  http://img.kmf.com/toefl/listening/partC/partC-36.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 284080 (277K) [audio/mpeg]
+Saving to: ‘partC-36.mp3’
+
+partC-36.mp3          100%[=========================>] 277.42K   699KB/s    in 0.4s    
+
+2017-03-10 14:52:08 (699 KB/s) - ‘partC-36.mp3’ saved [284080/284080]
+
+--2017-03-10 14:52:08--  http://img.kmf.com/toefl/listening/partC/partC-37.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 311744 (304K) [audio/mpeg]
+Saving to: ‘partC-37.mp3’
+
+partC-37.mp3          100%[=========================>] 304.44K   710KB/s    in 0.4s    
+
+2017-03-10 14:52:08 (710 KB/s) - ‘partC-37.mp3’ saved [311744/311744]
+
+--2017-03-10 14:52:08--  http://img.kmf.com/toefl/listening/partC/partC-38.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 325368 (318K) [audio/mpeg]
+Saving to: ‘partC-38.mp3’
+
+partC-38.mp3          100%[=========================>] 317.74K   590KB/s    in 0.5s    
+
+2017-03-10 14:52:09 (590 KB/s) - ‘partC-38.mp3’ saved [325368/325368]
+
+--2017-03-10 14:52:09--  http://img.kmf.com/toefl/listening/partC/partC-39.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 341384 (333K) [audio/mpeg]
+Saving to: ‘partC-39.mp3’
+
+partC-39.mp3          100%[=========================>] 333.38K   697KB/s    in 0.5s    
+
+2017-03-10 14:52:09 (697 KB/s) - ‘partC-39.mp3’ saved [341384/341384]
+
+--2017-03-10 14:52:10--  http://img.kmf.com/toefl/listening/partC/partC-40.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 381008 (372K) [audio/mpeg]
+Saving to: ‘partC-40.mp3’
+
+partC-40.mp3          100%[=========================>] 372.08K   745KB/s    in 0.5s    
+
+2017-03-10 14:52:10 (745 KB/s) - ‘partC-40.mp3’ saved [381008/381008]
+
+--2017-03-10 14:52:10--  http://img.kmf.com/toefl/listening/partC/partC-41.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 325888 (318K) [audio/mpeg]
+Saving to: ‘partC-41.mp3’
+
+partC-41.mp3          100%[=========================>] 318.25K   730KB/s    in 0.4s    
+
+2017-03-10 14:52:11 (730 KB/s) - ‘partC-41.mp3’ saved [325888/325888]
+
+--2017-03-10 14:52:11--  http://img.kmf.com/toefl/listening/partC/partC-42.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 313408 (306K) [audio/mpeg]
+Saving to: ‘partC-42.mp3’
+
+partC-42.mp3          100%[=========================>] 306.06K   571KB/s    in 0.5s    
+
+2017-03-10 14:52:11 (571 KB/s) - ‘partC-42.mp3’ saved [313408/313408]
+
+--2017-03-10 14:52:11--  http://img.kmf.com/toefl/listening/partC/partC-43.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 356048 (348K) [audio/mpeg]
+Saving to: ‘partC-43.mp3’
+
+partC-43.mp3          100%[=========================>] 347.70K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:12 (3.45 MB/s) - ‘partC-43.mp3’ saved [356048/356048]
+
+--2017-03-10 14:52:12--  http://img.kmf.com/toefl/listening/partC/partC-44.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 363640 (355K) [audio/mpeg]
+Saving to: ‘partC-44.mp3’
+
+partC-44.mp3          100%[=========================>] 355.12K   760KB/s    in 0.5s    
+
+2017-03-10 14:52:12 (760 KB/s) - ‘partC-44.mp3’ saved [363640/363640]
+
+--2017-03-10 14:52:12--  http://img.kmf.com/toefl/listening/partC/partC-45.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 402120 (393K) [audio/mpeg]
+Saving to: ‘partC-45.mp3’
+
+partC-45.mp3          100%[=========================>] 392.70K   591KB/s    in 0.7s    
+
+2017-03-10 14:52:13 (591 KB/s) - ‘partC-45.mp3’ saved [402120/402120]
+
+--2017-03-10 14:52:13--  http://img.kmf.com/toefl/listening/partC/partC-46.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 282520 (276K) [audio/mpeg]
+Saving to: ‘partC-46.mp3’
+
+partC-46.mp3          100%[=========================>] 275.90K   615KB/s    in 0.4s    
+
+2017-03-10 14:52:14 (615 KB/s) - ‘partC-46.mp3’ saved [282520/282520]
+
+--2017-03-10 14:52:14--  http://img.kmf.com/toefl/listening/partC/partC-47.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 289800 (283K) [audio/mpeg]
+Saving to: ‘partC-47.mp3’
+
+partC-47.mp3          100%[=========================>] 283.01K   600KB/s    in 0.5s    
+
+2017-03-10 14:52:14 (600 KB/s) - ‘partC-47.mp3’ saved [289800/289800]
+
+--2017-03-10 14:52:14--  http://img.kmf.com/toefl/listening/partC/partC-48.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 371024 (362K) [audio/mpeg]
+Saving to: ‘partC-48.mp3’
+
+partC-48.mp3          100%[=========================>] 362.33K  --.-KB/s    in 0.09s   
+
+2017-03-10 14:52:14 (3.84 MB/s) - ‘partC-48.mp3’ saved [371024/371024]
+
+--2017-03-10 14:52:14--  http://img.kmf.com/toefl/listening/partC/partC-49.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 335352 (327K) [audio/mpeg]
+Saving to: ‘partC-49.mp3’
+
+partC-49.mp3          100%[=========================>] 327.49K   601KB/s    in 0.5s    
+
+2017-03-10 14:52:15 (601 KB/s) - ‘partC-49.mp3’ saved [335352/335352]
+
+--2017-03-10 14:52:15--  http://img.kmf.com/toefl/listening/partC/partC-50.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 356360 (348K) [audio/mpeg]
+Saving to: ‘partC-50.mp3’
+
+partC-50.mp3          100%[=========================>] 348.01K   580KB/s    in 0.6s    
+
+2017-03-10 14:52:16 (580 KB/s) - ‘partC-50.mp3’ saved [356360/356360]
+
+--2017-03-10 14:52:16--  http://img.kmf.com/toefl/listening/partC/partC-51.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 538880 (526K) [audio/mpeg]
+Saving to: ‘partC-51.mp3’
+
+partC-51.mp3          100%[=========================>] 526.25K   807KB/s    in 0.7s    
+
+2017-03-10 14:52:17 (807 KB/s) - ‘partC-51.mp3’ saved [538880/538880]
+
+--2017-03-10 14:52:17--  http://img.kmf.com/toefl/listening/partC/partC-52.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 467016 (456K) [audio/mpeg]
+Saving to: ‘partC-52.mp3’
+
+partC-52.mp3          100%[=========================>] 456.07K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:17 (3.64 MB/s) - ‘partC-52.mp3’ saved [467016/467016]
+
+--2017-03-10 14:52:17--  http://img.kmf.com/toefl/listening/partC/partC-53.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 270456 (264K) [audio/mpeg]
+Saving to: ‘partC-53.mp3’
+
+partC-53.mp3          100%[=========================>] 264.12K  --.-KB/s    in 0.07s   
+
+2017-03-10 14:52:17 (3.65 MB/s) - ‘partC-53.mp3’ saved [270456/270456]
+
+--2017-03-10 14:52:17--  http://img.kmf.com/toefl/listening/partC/partC-54.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 389536 (380K) [audio/mpeg]
+Saving to: ‘partC-54.mp3’
+
+partC-54.mp3          100%[=========================>] 380.41K   710KB/s    in 0.5s    
+
+2017-03-10 14:52:18 (710 KB/s) - ‘partC-54.mp3’ saved [389536/389536]
+
+--2017-03-10 14:52:18--  http://img.kmf.com/toefl/listening/partC/partC-55.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 310704 (303K) [audio/mpeg]
+Saving to: ‘partC-55.mp3’
+
+partC-55.mp3          100%[=========================>] 303.42K  --.-KB/s    in 0.08s   
+
+2017-03-10 14:52:18 (3.65 MB/s) - ‘partC-55.mp3’ saved [310704/310704]
+
+--2017-03-10 14:52:18--  http://img.kmf.com/toefl/listening/partC/partC-56.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 391720 (383K) [audio/mpeg]
+Saving to: ‘partC-56.mp3’
+
+partC-56.mp3          100%[=========================>] 382.54K  --.-KB/s    in 0.09s   
+
+2017-03-10 14:52:18 (3.99 MB/s) - ‘partC-56.mp3’ saved [391720/391720]
+
+--2017-03-10 14:52:18--  http://img.kmf.com/toefl/listening/partC/partC-57.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 470240 (459K) [audio/mpeg]
+Saving to: ‘partC-57.mp3’
+
+partC-57.mp3          100%[=========================>] 459.22K  2.33MB/s    in 0.2s    
+
+2017-03-10 14:52:18 (2.33 MB/s) - ‘partC-57.mp3’ saved [470240/470240]
+
+--2017-03-10 14:52:18--  http://img.kmf.com/toefl/listening/partC/partC-58.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 348768 (341K) [audio/mpeg]
+Saving to: ‘partC-58.mp3’
+
+partC-58.mp3          100%[=========================>] 340.59K  --.-KB/s    in 0.09s   
+
+2017-03-10 14:52:18 (3.60 MB/s) - ‘partC-58.mp3’ saved [348768/348768]
+
+--2017-03-10 14:52:18--  http://img.kmf.com/toefl/listening/partC/partC-59.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 365512 (357K) [audio/mpeg]
+Saving to: ‘partC-59.mp3’
+
+partC-59.mp3          100%[=========================>] 356.95K   672KB/s    in 0.5s    
+
+2017-03-10 14:52:19 (672 KB/s) - ‘partC-59.mp3’ saved [365512/365512]
+
+--2017-03-10 14:52:19--  http://img.kmf.com/toefl/listening/partC/partC-60.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 338056 (330K) [audio/mpeg]
+Saving to: ‘partC-60.mp3’
+
+partC-60.mp3          100%[=========================>] 330.13K   879KB/s    in 0.4s    
+
+2017-03-10 14:52:19 (879 KB/s) - ‘partC-60.mp3’ saved [338056/338056]
+
+--2017-03-10 14:52:19--  http://img.kmf.com/toefl/listening/partC/partC-61.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 437584 (427K) [audio/mpeg]
+Saving to: ‘partC-61.mp3’
+
+partC-61.mp3          100%[=========================>] 427.33K   718KB/s    in 0.6s    
+
+2017-03-10 14:52:20 (718 KB/s) - ‘partC-61.mp3’ saved [437584/437584]
+
+--2017-03-10 14:52:20--  http://img.kmf.com/toefl/listening/partC/partC-62.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 384648 (376K) [audio/mpeg]
+Saving to: ‘partC-62.mp3’
+
+partC-62.mp3          100%[=========================>] 375.63K   743KB/s    in 0.5s    
+
+2017-03-10 14:52:21 (743 KB/s) - ‘partC-62.mp3’ saved [384648/384648]
+
+--2017-03-10 14:52:21--  http://img.kmf.com/toefl/listening/partC/partC-63.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 431032 (421K) [audio/mpeg]
+Saving to: ‘partC-63.mp3’
+
+partC-63.mp3          100%[=========================>] 420.93K   599KB/s    in 0.7s    
+
+2017-03-10 14:52:22 (599 KB/s) - ‘partC-63.mp3’ saved [431032/431032]
+
+--2017-03-10 14:52:22--  http://img.kmf.com/toefl/listening/partC/partC-64.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 434776 (425K) [audio/mpeg]
+Saving to: ‘partC-64.mp3’
+
+partC-64.mp3          100%[=========================>] 424.59K   550KB/s    in 0.8s    
+
+2017-03-10 14:52:23 (550 KB/s) - ‘partC-64.mp3’ saved [434776/434776]
+
+--2017-03-10 14:52:23--  http://img.kmf.com/toefl/listening/partC/partC-65.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 340344 (332K) [audio/mpeg]
+Saving to: ‘partC-65.mp3’
+
+partC-65.mp3          100%[=========================>] 332.37K   756KB/s    in 0.4s    
+
+2017-03-10 14:52:23 (756 KB/s) - ‘partC-65.mp3’ saved [340344/340344]
+
+--2017-03-10 14:52:23--  http://img.kmf.com/toefl/listening/partC/partC-66.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 374144 (365K) [audio/mpeg]
+Saving to: ‘partC-66.mp3’
+
+partC-66.mp3          100%[=========================>] 365.38K   601KB/s    in 0.6s    
+
+2017-03-10 14:52:24 (601 KB/s) - ‘partC-66.mp3’ saved [374144/374144]
+
+--2017-03-10 14:52:24--  http://img.kmf.com/toefl/listening/partC/partC-67.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 339824 (332K) [audio/mpeg]
+Saving to: ‘partC-67.mp3’
+
+partC-67.mp3          100%[=========================>] 331.86K   609KB/s    in 0.5s    
+
+2017-03-10 14:52:24 (609 KB/s) - ‘partC-67.mp3’ saved [339824/339824]
+
+--2017-03-10 14:52:24--  http://img.kmf.com/toefl/listening/partC/partC-68.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 352304 (344K) [audio/mpeg]
+Saving to: ‘partC-68.mp3’
+
+partC-68.mp3          100%[=========================>] 344.05K   567KB/s    in 0.6s    
+
+2017-03-10 14:52:25 (567 KB/s) - ‘partC-68.mp3’ saved [352304/352304]
+
+--2017-03-10 14:52:25--  http://img.kmf.com/toefl/listening/partC/partC-69.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 338368 (330K) [audio/mpeg]
+Saving to: ‘partC-69.mp3’
+
+partC-69.mp3          100%[=========================>] 330.44K   608KB/s    in 0.5s    
+
+2017-03-10 14:52:26 (608 KB/s) - ‘partC-69.mp3’ saved [338368/338368]
+
+--2017-03-10 14:52:26--  http://img.kmf.com/toefl/listening/partC/partC-70.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 375288 (366K) [audio/mpeg]
+Saving to: ‘partC-70.mp3’
+
+partC-70.mp3          100%[=========================>] 366.49K   701KB/s    in 0.5s    
+
+2017-03-10 14:52:26 (701 KB/s) - ‘partC-70.mp3’ saved [375288/375288]
+
+--2017-03-10 14:52:26--  http://img.kmf.com/toefl/listening/partC/partC-71.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 412000 (402K) [audio/mpeg]
+Saving to: ‘partC-71.mp3’
+
+partC-71.mp3          100%[=========================>] 402.34K  --.-KB/s    in 0.09s   
+
+2017-03-10 14:52:27 (4.55 MB/s) - ‘partC-71.mp3’ saved [412000/412000]
+
+--2017-03-10 14:52:27--  http://img.kmf.com/toefl/listening/partC/partC-72.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 399832 (390K) [audio/mpeg]
+Saving to: ‘partC-72.mp3’
+
+partC-72.mp3          100%[=========================>] 390.46K   705KB/s    in 0.6s    
+
+2017-03-10 14:52:27 (705 KB/s) - ‘partC-72.mp3’ saved [399832/399832]
+
+--2017-03-10 14:52:27--  http://img.kmf.com/toefl/listening/partC/partC-73.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 354176 (346K) [audio/mpeg]
+Saving to: ‘partC-73.mp3’
+
+partC-73.mp3          100%[=========================>] 345.88K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:27 (2.84 MB/s) - ‘partC-73.mp3’ saved [354176/354176]
+
+--2017-03-10 14:52:27--  http://img.kmf.com/toefl/listening/partC/partC-74.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 365616 (357K) [audio/mpeg]
+Saving to: ‘partC-74.mp3’
+
+partC-74.mp3          100%[=========================>] 357.05K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:28 (3.52 MB/s) - ‘partC-74.mp3’ saved [365616/365616]
+
+--2017-03-10 14:52:28--  http://img.kmf.com/toefl/listening/partC/partC-75.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 307168 (300K) [audio/mpeg]
+Saving to: ‘partC-75.mp3’
+
+partC-75.mp3          100%[=========================>] 299.97K  --.-KB/s    in 0.09s   
+
+2017-03-10 14:52:28 (3.28 MB/s) - ‘partC-75.mp3’ saved [307168/307168]
+
+--2017-03-10 14:52:28--  http://img.kmf.com/toefl/listening/partC/partC-76.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 406384 (397K) [audio/mpeg]
+Saving to: ‘partC-76.mp3’
+
+partC-76.mp3          100%[=========================>] 396.86K  --.-KB/s    in 0.1s    
+
+2017-03-10 14:52:28 (3.47 MB/s) - ‘partC-76.mp3’ saved [406384/406384]
+
+--2017-03-10 14:52:28--  http://img.kmf.com/toefl/listening/partC/partC-77.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 293752 (287K) [audio/mpeg]
+Saving to: ‘partC-77.mp3’
+
+partC-77.mp3          100%[=========================>] 286.87K   721KB/s    in 0.4s    
+
+2017-03-10 14:52:28 (721 KB/s) - ‘partC-77.mp3’ saved [293752/293752]
+
+--2017-03-10 14:52:28--  http://img.kmf.com/toefl/listening/partC/partC-78.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 363016 (355K) [audio/mpeg]
+Saving to: ‘partC-78.mp3’
+
+partC-78.mp3          100%[=========================>] 354.51K   522KB/s    in 0.7s    
+
+2017-03-10 14:52:29 (522 KB/s) - ‘partC-78.mp3’ saved [363016/363016]
+
+--2017-03-10 14:52:29--  http://img.kmf.com/toefl/listening/partC/partC-79.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 340344 (332K) [audio/mpeg]
+Saving to: ‘partC-79.mp3’
+
+partC-79.mp3          100%[=========================>] 332.37K   646KB/s    in 0.5s    
+
+2017-03-10 14:52:30 (646 KB/s) - ‘partC-79.mp3’ saved [340344/340344]
+
+--2017-03-10 14:52:30--  http://img.kmf.com/toefl/listening/partC/partC-80.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 284912 (278K) [audio/mpeg]
+Saving to: ‘partC-80.mp3’
+
+partC-80.mp3          100%[=========================>] 278.23K   536KB/s    in 0.5s    
+
+2017-03-10 14:52:31 (536 KB/s) - ‘partC-80.mp3’ saved [284912/284912]
+
+--2017-03-10 14:52:31--  http://img.kmf.com/toefl/listening/partC/partC-81.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 416264 (407K) [audio/mpeg]
+Saving to: ‘partC-81.mp3’
+
+partC-81.mp3          100%[=========================>] 406.51K   570KB/s    in 0.7s    
+
+2017-03-10 14:52:32 (570 KB/s) - ‘partC-81.mp3’ saved [416264/416264]
+
+--2017-03-10 14:52:32--  http://img.kmf.com/toefl/listening/partC/partC-82.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 363328 (355K) [audio/mpeg]
+Saving to: ‘partC-82.mp3’
+
+partC-82.mp3          100%[=========================>] 354.81K   583KB/s    in 0.6s    
+
+2017-03-10 14:52:32 (583 KB/s) - ‘partC-82.mp3’ saved [363328/363328]
+
+--2017-03-10 14:52:32--  http://img.kmf.com/toefl/listening/partC/partC-83.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 372688 (364K) [audio/mpeg]
+Saving to: ‘partC-83.mp3’
+
+partC-83.mp3          100%[=========================>] 363.95K   602KB/s    in 0.6s    
+
+2017-03-10 14:52:33 (602 KB/s) - ‘partC-83.mp3’ saved [372688/372688]
+
+--2017-03-10 14:52:33--  http://img.kmf.com/toefl/listening/partC/partC-84.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 389016 (380K) [audio/mpeg]
+Saving to: ‘partC-84.mp3’
+
+partC-84.mp3          100%[=========================>] 379.90K   614KB/s    in 0.6s    
+
+2017-03-10 14:52:34 (614 KB/s) - ‘partC-84.mp3’ saved [389016/389016]
+
+--2017-03-10 14:52:34--  http://img.kmf.com/toefl/listening/partC/partC-85.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 322768 (315K) [audio/mpeg]
+Saving to: ‘partC-85.mp3’
+
+partC-85.mp3          100%[=========================>] 315.20K   805KB/s    in 0.4s    
+
+2017-03-10 14:52:35 (805 KB/s) - ‘partC-85.mp3’ saved [322768/322768]
+
+--2017-03-10 14:52:35--  http://img.kmf.com/toefl/listening/partC/partC-86.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 291672 (285K) [audio/mpeg]
+Saving to: ‘partC-86.mp3’
+
+partC-86.mp3          100%[=========================>] 284.84K   592KB/s    in 0.5s    
+
+2017-03-10 14:52:35 (592 KB/s) - ‘partC-86.mp3’ saved [291672/291672]
+
+--2017-03-10 14:52:35--  http://img.kmf.com/toefl/listening/partC/partC-87.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 391512 (382K) [audio/mpeg]
+Saving to: ‘partC-87.mp3’
+
+partC-87.mp3          100%[=========================>] 382.34K   613KB/s    in 0.6s    
+
+2017-03-10 14:52:36 (613 KB/s) - ‘partC-87.mp3’ saved [391512/391512]
+
+--2017-03-10 14:52:36--  http://img.kmf.com/toefl/listening/partC/partC-88.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 299784 (293K) [audio/mpeg]
+Saving to: ‘partC-88.mp3’
+
+partC-88.mp3          100%[=========================>] 292.76K   775KB/s    in 0.4s    
+
+2017-03-10 14:52:36 (775 KB/s) - ‘partC-88.mp3’ saved [299784/299784]
+
+--2017-03-10 14:52:36--  http://img.kmf.com/toefl/listening/partC/partC-89.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 301344 (294K) [audio/mpeg]
+Saving to: ‘partC-89.mp3’
+
+partC-89.mp3          100%[=========================>] 294.28K   623KB/s    in 0.5s    
+
+2017-03-10 14:52:37 (623 KB/s) - ‘partC-89.mp3’ saved [301344/301344]
+
+--2017-03-10 14:52:37--  http://img.kmf.com/toefl/listening/partC/partC-90.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 368320 (360K) [audio/mpeg]
+Saving to: ‘partC-90.mp3’
+
+partC-90.mp3          100%[=========================>] 359.69K   676KB/s    in 0.5s    
+
+2017-03-10 14:52:38 (676 KB/s) - ‘partC-90.mp3’ saved [368320/368320]
+
+--2017-03-10 14:52:38--  http://img.kmf.com/toefl/listening/partC/partC-91.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 297600 (291K) [audio/mpeg]
+Saving to: ‘partC-91.mp3’
+
+partC-91.mp3          100%[=========================>] 290.62K   645KB/s    in 0.5s    
+
+2017-03-10 14:52:38 (645 KB/s) - ‘partC-91.mp3’ saved [297600/297600]
+
+--2017-03-10 14:52:38--  http://img.kmf.com/toefl/listening/partC/partC-92.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 278048 (272K) [audio/mpeg]
+Saving to: ‘partC-92.mp3’
+
+partC-92.mp3          100%[=========================>] 271.53K   586KB/s    in 0.5s    
+
+2017-03-10 14:52:39 (586 KB/s) - ‘partC-92.mp3’ saved [278048/278048]
+
+--2017-03-10 14:52:39--  http://img.kmf.com/toefl/listening/partC/partC-93.mp3
+Resolving img.kmf.com... 61.221.181.46, 61.221.181.18
+Connecting to img.kmf.com|61.221.181.46|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 337120 (329K) [audio/mpeg]
+Saving to: ‘partC-93.mp3’
+
+partC-93.mp3          100%[=========================>] 329.22K   823KB/s    in 0.4s    
+
+2017-03-10 14:52:39 (823 KB/s) - ‘partC-93.mp3’ saved [337120/337120]
+
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ wget http://img.kmf.com/toefl/listening/partC/partC-92.txt
+--2017-03-10 15:48:39--  http://img.kmf.com/toefl/listening/partC/partC-92.txt
+Resolving img.kmf.com... 61.221.181.18, 61.221.181.46
+Connecting to img.kmf.com|61.221.181.18|:80... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2017-03-10 15:48:39 ERROR 404: Not Found.
+
+[shuk@shukdeMacBook-Air]/Users/shuk/project/scripts$ wget http://img.k
+

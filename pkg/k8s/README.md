@@ -1,3 +1,21 @@
+# Kubernetes
+
+### Issues
+
+##### Kubernetes with IPVS
+from [IPVS for Scaled Private Cloud Load Balancing [I] - Kimberly Messimer, Comcast VIPER](https://www.youtube.com/watch?v=KJ-A8LYriGI)
+1. Address Resolution Protocol problem
+2. Master/Backend colocation
+3. iptable contention
+4. Hariping mode problem
+
+
+
+
+
+
+
+
    livenessProbe:
       # an http probe
       httpGet:
