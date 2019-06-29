@@ -100,7 +100,8 @@ alias nowdate='date +"%d-%m-%Y"'
 
 
 
-
+## Npm ##
+alias lt1="config ls -l"
 
 
 # undoc
