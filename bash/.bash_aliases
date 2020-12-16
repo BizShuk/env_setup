@@ -98,6 +98,8 @@ alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 
 
+## Terraform
+alias tf='terraform'
 
 
 ## Npm ##

@@ -30,7 +30,7 @@ server_dir=$idir/server
 
 
 # Go env
-go_version="1.6"
+go_version="1.15.5"
 go_arch=""
 case "${cpu_arch}" in
     i386)
