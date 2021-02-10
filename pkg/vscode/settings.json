@@ -1,0 +1,212 @@
+{
+    // editor
+    "editor.autoIndent": "full",
+    "editor.showFoldingControls": "always",
+    "editor.find.seedSearchStringFromSelection": true,
+    "editor.fontSize": 15,
+    "editor.lineNumbers": "on",
+    "editor.tabCompletion": "on",
+    "editor.tabSize": 4,
+    "editor.accessibilitySupport": "auto",
+    "editor.formatOnPaste": true,
+    // "editor.multiCursorModifier": "ctrlCmd", // don't work on Mac
+    "editor.snippetSuggestions": "top",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.organizeImports": true
+    },
+    "editor.comments.insertSpace": true,
+    "diffEditor.ignoreTrimWhitespace": true,
+    // workbench
+    "workbench.editor.tabCloseButton": "right",
+    "workbench.iconTheme": "material-icon-theme",
+    // windows
+    "window.openFoldersInNewWindow": "on",
+    "window.zoomLevel": 0,
+    "window.title": "${activeEditorFull}${separator}${rootName}",
+    // files
+    "files.autoSave": "off",
+    "files.eol": "\n",
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.mvn": true,
+        "**/target": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*_test.go": true,
+        "**/bin": true,
+        "**/.gitlab": true,
+        "**/.devops": true,
+        "**/coverage": true
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/node_modules/**": true,
+        "**/.git/subtree-cache/**": true,
+    },
+    // explore
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    // Git
+    "git.enableSmartCommit": true,
+    "git.showPushSuccessNotification": true,
+    "git.autofetch": true,
+    "git.fetchOnPull": true,
+    "git.autoStash": true,
+    "git.confirmSync": false,
+    // javascript
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    // search
+    "search.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.mvn": true,
+        "**/target": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "**/node_modules": true,
+        "**/bower_components": true,
+    },
+    "search.showLineNumbers": true,
+    "search.smartCase": true,
+    // html
+    "html.format.enable": true,
+    // yaml
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "gitlens.codeLens.scopes": [
+            "document"
+        ],
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        }
+    },
+    // Go
+    "go.buildOnSave": "workspace",
+    "go.useLanguageServer": true,
+    "[go]": {
+        "editor.insertSpaces": false,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "gopls": {
+        "formatting.gofumpt": false
+    },
+    "go.testOnSave": true,
+    "go.coverOnSave": true,
+    "go.coverOnSingleTestFile": true,
+    "go.coverageDecorator": {
+        "type": "gutter",
+        "coveredBorderColor": "rgba(64,128,128,0.5)",
+        "uncoveredBorderColor": "rgba(128,64,64,0.25)",
+        "coveredGutterStyle": "blockblue",
+        "uncoveredGutterStyle": "blockyellow"
+    },
+    "go.lintTool": "golangci-lint",
+    // java
+    // "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+    // "java.format.settings.url": "file:///Users/shuk/eclipse-java-google-style.xml",
+    // "java.format.settings.profile": "GoogleStyle",
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/Users/shuk/.vscode/extensions/gabrielbb.vscode-lombok-1.0.1/server/lombok.jar\"",
+    "java.project.importOnFirstTimeStartup": "automatic",
+    "java.checkstyle.autocheck": true,
+    "java.checkstyle.configuration": "/google_checks.xml",
+    // maven
+    "maven.view": "hierarchical",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    // npm
+    "npm.runInTerminal": true,
+    "eslint.options": {
+        "rules": {
+            "no-console": false
+        }
+    },
+    // Launch.json
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Go Launch file",
+                "type": "go",
+                "request": "launch",
+                "mode": "debug",
+                "program": "${file}"
+            },
+            {
+                "name": "Go Launch Package",
+                "type": "go",
+                "request": "launch",
+                "mode": "debug",
+                "program": "${workspaceFolder}"
+            },
+            {
+                "command": "npm start",
+                "name": "nodejs: Run npm start",
+                "request": "launch",
+                "type": "node-terminal",
+                "env": {}
+            },
+            {
+                "type": "java",
+                "name": "Java: Launch Current File",
+                "request": "launch",
+                "mainClass": "${file}",
+                "env": {}
+            },
+            {
+                "name": "Launch Chrome",
+                "request": "launch",
+                "type": "chrome",
+                "url": "http://localhost:3000",
+                "webRoot": "${workspaceFolder}"
+            }
+        ],
+        "compounds": []
+    },
+    "terminal.integrated.shell.windows": null, // point to git-bash/binbash.exe
+    "terminal.integrated.shell.osx": "/bin/bash",
+    "debug.toolBarLocation": "floating",
+    "sonarlint.rules": {
+        "java:S112": {
+            "level": "off"
+        },
+        "java:S1075": {
+            "level": "off"
+        }
+    },
+    "markdownlint.config": {
+        "default": true,
+        "MD001": false,
+        "MD009": {
+            "br_spaces": 2
+        }
+    },
+    "todo-tree.tree.showScanModeButton": false,
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false,
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": false
+    },
+}

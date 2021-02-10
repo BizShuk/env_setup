@@ -1,0 +1,76 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "command": "${workspaceFolder}/mvnw",
+            "type": "shell",
+            "label": "Maven verify (validate compile test package)",
+            "args": [
+                "-B",
+                "clean",
+                "verify"
+            ],
+            "presentation": {
+                "clear": true
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "command": "${workspaceFolder}/mvnw",
+            "type": "shell",
+            "label": "Maven compile",
+            "args": [
+                "-B",
+                "clean",
+                "compile"
+            ],
+            "presentation": {
+                "clear": true
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "command": "${workspaceFolder}/mvnw",
+            "type": "shell",
+            "label": "Maven package",
+            "args": [
+                "-B",
+                "package"
+            ],
+            "presentation": {
+                "clear": true
+            },
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "command": "${workspaceFolder}/mvnw",
+            "type": "shell",
+            "label": "Maven test",
+            "args": [
+                "-B",
+                "test"
+            ],
+            "presentation": {
+                "clear": true
+            },
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "command": "mvnw",
+            "type": "shell",
+            "label": "clean install",
+            "args": [
+                "clean install -U"
+            ],
+            "presentation": {
+                "clear": true
+            },
+            "group": "none",
+            "problemMatcher": []
+        }
+    ]
+}
