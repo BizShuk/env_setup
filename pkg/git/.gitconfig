@@ -35,6 +35,6 @@
 [http]
 	sslVerify = false
 [push]
-    default = matching
+	default = current
 [commit]
     template = ~/.gitmessage
