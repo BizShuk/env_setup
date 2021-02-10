@@ -22,6 +22,7 @@ ln -sf $sdir/bash/settings.sh $idir/;
 
 ### git ###
 ln -sf $sdir/pkg/git/.gitconfig $idir/;
+ln -sf $sdir/pkg/git/.gitmessage $idir/;
 
 ### vim ###
 ln -sf $sdir/pkg/vim/.vimrc $idir/;

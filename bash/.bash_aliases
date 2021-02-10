@@ -96,7 +96,9 @@ alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
-
+alias tree='tree -N --noreport'
+alias mdtree="tree -tf --charset utf8 | sed -E  -e 's:\./::g' -e 's:─ (.*)/(.*)$:─ [\2](\1/\2):g' -e 's/^(.── )(.*)$/\1[\2](\2)/g' -e 's/$/  /g'"
+alias genREADME="echo '#' $(basename $(pwd)) > README.md; mdtree >> README.md;"
 
 ## Terraform
 alias tf='terraform'
