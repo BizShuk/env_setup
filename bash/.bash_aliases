@@ -7,11 +7,6 @@
 
 
 ## code ##
-alias eclipse="~/project/eclipse/eclipse"
-alias g++='g++ -std=c++11'
-alias webpack='webpack --display-error-details'
-alias webpack-dev-server='webpack-dev-server --devtool eval --progress --colors --hot --content-base build'
-
 if which python3 > /dev/null ; then
     alias python='python3'
     alias python-config='python3-config'
@@ -20,7 +15,6 @@ else
     alias python-config='python2.7-config'
 fi
 
-alias py='python'
 alias py-config='python-config'
 
 
@@ -59,9 +53,11 @@ alias dir_size="du -sh"
 
 #alias dir='dir --color=auto'        # = ls
 #alias vdir='vdir --color=auto'      # = ls -l
-alias grep='grep --color=auto -P -n'   # -x , line-regexp  ,  -i , ignore case  , -n , show line number
+alias grep='grep --color=auto -e'   # -x , line-regexp  ,  -i , ignore case  , -n , show line number
 alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+if [ "$os" == "darwin" ]; then
+    alias grep='egrep --color=auto'
+fi
 alias e='egrep'
 alias vi='vim'
 alias edit='vim'
@@ -97,7 +93,7 @@ alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 alias tree='tree -N --noreport'
-alias mdtree="tree -tf --charset utf8 | sed -E  -e 's:\./::g' -e 's:─ (.*)/(.*)$:─ [\2](\1/\2):g' -e 's/^(.── )(.*)$/\1[\2](\2)/g' -e 's/$/  /g'"
+alias mdtree="tree -f --charset utf8 | sed -E  -e 's:\./::g' -e 's:─ (.*)/(.*)$:─ [\2](\1/\2):g' -e 's/^(.── )(.*)$/\1[\2](\2)/g' -e 's/$/  /g'"
 alias genREADME="echo '#' $(basename $(pwd)) > README.md; mdtree >> README.md;"
 
 ## Terraform

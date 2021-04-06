@@ -45,7 +45,7 @@ case "${cpu_arch}" in
 esac
 
 go_fullversion="go${go_version}.${os}-${go_arch}"
-go_root="$lib_dir/$go_fullversion"      # go package dir
+go_root="$lib_dir/$go_fullversion"  # go package dir
 go_path="$project_dir/go_project"   # go source dir
 go_project=$go_path                 # go project
 
@@ -61,9 +61,6 @@ setup_structure(){
     [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
     [ -d $idir/Desktop ] && mv $idir/Downloads $idir/Downloads.bak && ln -sf $idir/Desktop $idir/Downloads;
 
-
-
-    ln -s /home/shuk/project/videochannel /home/shuk/server/videochannel
 }
 
 

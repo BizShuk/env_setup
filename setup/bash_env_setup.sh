@@ -48,23 +48,6 @@ if [ ! -d $idir/env_setup ] || [ ! -d $idir/project/env_setup ] ; then
     fi
 fi
 
-### server project ###
-mkdir $idir/server/server_status        # general static server status 
-ln -sf $idir/project/bizshuk.github.io  $idir/server/
-ln -sf $idir/project/test               $idir/server/
-ln -sf $idir/project/slURL              $idir/server/
-ln -sf $idir/project/VideoChannel       $idir/server/
-ln -sf $idir/project/static             $idir/server/
-ln -sf $idir/project/stat               $idir/server/
-ln -sf $idir/project/podcastWeb         $idir/server/
-ln -sf $idir/project/MissOld            $idir/server/
-ln -sf $idir/project/Gifting            $idir/server/
-ln -sf $idir/project/FascinatingMap     $idir/server/
-ln -sf $idir/project/elfVision          $idir/server/
-ln -sf $idir/project/treeMonitor        $idir/server/
-ln -sf $idir/project/treeMonitor        $idir/server/
-
-
 
 echo "Done...... Restart terminal or source ~/.bashrc"
 

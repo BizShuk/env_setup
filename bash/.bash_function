@@ -17,3 +17,6 @@ git_trace_off () {
     unset GIT_TRACE
     unset GIT_CURL_VERBOSE
 }
+go_project_test () {
+    echo 1
+}

@@ -8,9 +8,6 @@ source ~/settings.sh
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
 
-## customized env
-export dr="dr:5000"
-
 ## locale
 export LANG="en_US.UTF-8"
 
