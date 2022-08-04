@@ -3,17 +3,6 @@ source settings.sh
 
 setup_structure
 
-
-
-echo "# Golang" >> $idir/.bash_plugin
-echo "append GOPATH to $idir/.bash_plugin"
-echo "export GOPATH=$go_path" >> $idir/.bash_plugin  && mkdir $project_dir/go_project 2>/dev/null
-echo "export gopath=$go_path" >> $idir/.bash_plugin
-echo 'export PATH=$PATH:$GOPATH/bin' >> $idir/.bash_plugin
-
-
-
-
 [ -e $lib_dir/$go_fullversion ] && echo "$go_fullversion has already installed" && exit 0
 [ -e $bin_dir/go ]          && echo "go has already installed , now install $go_fullversion"
 
@@ -25,8 +14,9 @@ ln -sf $lib_dir/$go_fullversion $bin_dir/go
 
 echo "export GOROOT=${go_root}" >> $idir/.bash_plugin
 echo "export goroot=${go_root}" >> $idir/.bash_plugin
-echo "export PATH=\$PATH:\$GOROOT/bin" >> $idir/.bash_plugin
-
+echo "export PATH=\$GOROOT/bin:\$GOPATH/bin:\$PATH" >> $idir/.bash_plugin
+echo "# GOVCS control which version control tool is used for go get from 1.16"
+echo "export GOVCS=git"
 source ~/.bashrc 
 go get -u github.com/jstemmer/gotags
 
