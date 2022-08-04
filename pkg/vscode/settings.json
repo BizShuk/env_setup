@@ -1,18 +1,18 @@
 {
-    // windows
+    // [windows]
     "window.openFoldersInNewWindow": "on",
     "window.title": "${activeEditorFull}${separator}${rootName}",
-    // security
+    // [security]
     "security.workspace.trust.untrustedFiles": "open",
-    // workbench
+    // [workbench]
     "workbench.startupEditor": "none",
     "workbench.editor.tabCloseButton": "right",
     "workbench.iconTheme": "material-icon-theme",
-    // explorer
+    // [explorer]
     "explorer.openEditors.visible": 0,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
-    // editor
+    // [editor]
     "editor.wordWrap": "on",
     "editor.fontSize": 14,
     "editor.autoIndent": "full",
@@ -30,10 +30,10 @@
         "source.organizeImports": true
     },
     "editor.comments.insertSpace": true,
-    // diff editor
+    // [diff editor]
     "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.codeLens": true,
-    // files
+    // [files]
     "files.autoSave": "off",
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
@@ -61,7 +61,7 @@
         "**/.git/**": true,
         "**/node_modules/**": true,
     },
-    // search
+    // [search]
     "search.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -79,7 +79,7 @@
     },
     "search.showLineNumbers": true,
     "search.smartCase": true,
-    // Launch
+    // [Launch]
     "launch": {
         "version": "0.2.0",
         "configurations": [
@@ -116,10 +116,10 @@
         ],
         "compounds": []
     },
-    // debug
+    // [debug]
     "debug.toolBarLocation": "floating",
     "debug.console.fontSize": 14,
-    // terminal
+    // [terminal]
     "terminal.integrated.fontSize": 14,
     // [git]
     "git.enableSmartCommit": true,
@@ -132,6 +132,7 @@
     "git.pruneOnFetch": true,
     "git.untrackedChanges": "separate",
     "git.autofetchPeriod": 1800,
+    "git.ignoreSubmodules": true,
     // [go]
     "go.toolsManagement.autoUpdate": true,
     "go.buildOnSave": "package",
@@ -159,14 +160,14 @@
         "coveredGutterStyle": "blockblue",
         "uncoveredGutterStyle": "slashred"
     },
-    // javascript + npm + typescript
+    // [javascript] [npm] [node] [typescript]
     "javascript.updateImportsOnFileMove.enabled": "always",
     "eslint.options": {
         "rules": {
             "no-console": false
         }
     },
-    // Markdown
+    // [Markdown]
     "markdownlint.config": {
         "default": true,
         "MD001": false,
@@ -184,7 +185,7 @@
         },
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
-    // [todo][highlight]
+    // [todo] [highlight]
     "highlight.regexes": {
         "(// |# )(Notice)(:)": [
             {},
