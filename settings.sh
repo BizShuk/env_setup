@@ -30,7 +30,7 @@ server_dir=$idir/server
 
 
 # Go env
-go_version="1.15.5"
+go_version="1.18.4"
 go_arch=""
 case "${cpu_arch}" in
     i386)
@@ -59,7 +59,6 @@ setup_structure(){
     [ ! -d $server_dir            ]     && mkdir $server_dir 2>/dev/null ;
     [ ! -d $server_dir/samba/mnt1 ]     && mkdir -p $server_dir/samba/mnt1 2>/dev/null ;
     [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
-    [ -d $idir/Desktop ] && mv $idir/Downloads $idir/Downloads.bak && ln -sf $idir/Desktop $idir/Downloads;
 
 }
 
