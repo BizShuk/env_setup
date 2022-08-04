@@ -2,75 +2,170 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "command": "${workspaceFolder}/mvnw",
+            "label": "Setup: All",
             "type": "shell",
-            "label": "Maven verify (validate compile test package)",
-            "args": [
-                "-B",
-                "clean",
-                "verify"
-            ],
-            "presentation": {
-                "clear": true
-            },
-            "group": "build",
-            "problemMatcher": []
+            "command": "echo Check default setup",
+            "dependsOn": [
+                "Setup: ${$userHome}/.env"
+            ]
         },
         {
-            "command": "${workspaceFolder}/mvnw",
+            "label": "Setup: ${$userHome}/.env",
             "type": "shell",
-            "label": "Maven compile",
-            "args": [
-                "-B",
-                "clean",
-                "compile"
-            ],
-            "presentation": {
-                "clear": true
-            },
+            "command": "p=${userHome}/.env; [[ ! -f $p ]] && echo profile=local > $p"
+        },
+        { // Go
+            "label": "Go: Project mod init",
+            "type": "shell",
+            "command": "go mod init ${input:modulename}",
             "group": "build",
-            "problemMatcher": []
+            "presentation": {
+                "focus": true,
+            },
         },
         {
-            "command": "${workspaceFolder}/mvnw",
+            "label": "Go: Project mod tidy",
             "type": "shell",
-            "label": "Maven package",
-            "args": [
-                "-B",
-                "package"
-            ],
-            "presentation": {
-                "clear": true
-            },
-            "group": "build",
-            "problemMatcher": []
+            "command": "go mod tidy",
+            "group": "build"
         },
         {
-            "command": "${workspaceFolder}/mvnw",
+            "label": "Go: Get module",
             "type": "shell",
-            "label": "Maven test",
-            "args": [
-                "-B",
-                "test"
-            ],
+            "command": "go get -u ${input:modulename}",
+            "group": "build",
             "presentation": {
-                "clear": true
+                "focus": true,
             },
+        },
+        { // https://blog.seriesci.com/how-to-measure-code-coverage-in-go/
+            "label": "Go: Test default",
+            "type": "shell",
+            "command": "go test -covermode=count  -coverprofile=out/cover.out ./... && go tool cover -func out/cover.out",
             "group": "test",
-            "problemMatcher": []
+            "presentation": {
+                "focus": true,
+            },
+            "dependsOn": [
+                "Go: Test All on Testing Explorer"
+            ]
         },
         {
-            "command": "mvnw",
-            "type": "shell",
-            "label": "clean install",
-            "args": [
-                "clean install -U"
-            ],
+            "label": "Go: Test All on Testing Explorer",
+            "type": "process",
+            "command": "${command:testing.runAll}",
+            "group": "test",
             "presentation": {
-                "clear": true
+                "echo": false,
+                "reveal": "never",
+                "close": true
+            }
+        },
+        { // Git
+            "label": "Git: generate version file from git",
+            "type": "shell",
+            "command": "versions=($(git tag --points-at HEAD)); versions+=($(git log --pretty=format:'%h' -n 1)); echo -n \"${versions[*]}\" > version",
+            "group": "build",
+            "presentation": {
+                "focus": true,
             },
-            "group": "none",
-            "problemMatcher": []
+        },
+        {
+            "label": "Git: Generate .pre-commit-config.yaml if not exists",
+            "type": "shell",
+            "command": "p=${workspaceFolder}/.pre-commit-config.yaml; [[ ! -f $p ]] && pre-commit sample-config > $p",
+            "group": "build",
+            "presentation": {
+                "focus": true,
+            },
+        },
+        { // Node
+            "label": "Node: Upgrade version",
+            "type": "shell",
+            "command": "nvm install --lts",
+            "presentation": {
+                "close": false,
+                "focus": true,
+            },
+        },
+        // {
+        //     "command": "${workspaceFolder}/mvnw",
+        //     "type": "shell",
+        //     "label": "Maven verify (validate compile test package)",
+        //     "args": [
+        //         "-B",
+        //         "clean",
+        //         "verify"
+        //     ],
+        //     "presentation": {
+        //         "clear": true,
+        //         "focus": true,
+        //     },
+        //     "group": "build",
+        //     "problemMatcher": []
+        // },
+        // {
+        //     "command": "${workspaceFolder}/mvnw",
+        //     "type": "shell",
+        //     "label": "Maven compile",
+        //     "args": [
+        //         "-B",
+        //         "clean",
+        //         "compile"
+        //     ],
+        //     "presentation": {
+        //         "clear": true
+        //     },
+        //     "group": "build",
+        //     "problemMatcher": []
+        // },
+        // {
+        //     "command": "${workspaceFolder}/mvnw",
+        //     "type": "shell",
+        //     "label": "Maven package",
+        //     "args": [
+        //         "-B",
+        //         "package"
+        //     ],
+        //     "presentation": {
+        //         "clear": true
+        //     },
+        //     "group": "build",
+        //     "problemMatcher": []
+        // },
+        // {
+        //     "command": "${workspaceFolder}/mvnw",
+        //     "type": "shell",
+        //     "label": "Maven test",
+        //     "args": [
+        //         "-B",
+        //         "test"
+        //     ],
+        //     "presentation": {
+        //         "clear": true
+        //     },
+        //     "group": "test",
+        //     "problemMatcher": []
+        // },
+        // {
+        //     "command": "mvnw",
+        //     "type": "shell",
+        //     "label": "clean install",
+        //     "args": [
+        //         "clean install -U"
+        //     ],
+        //     "presentation": {
+        //         "clear": true
+        //     },
+        //     "group": "none",
+        //     "problemMatcher": []
+        // }
+    ],
+    "inputs": [
+        {
+            "id": "modulename",
+            "description": "Module name",
+            "type": "promptString",
         }
     ]
 }
