@@ -1,0 +1,7 @@
+TODO:
+    ☐ Move out notes under bash/
+    ☐ Move scripts under bin/ to .bash_function
+    ☐ Note down guideline
+    ☐ Clean up docker/
+    ☐ Clean up error/
+    ☐ Move some function under setup to .bash_function
