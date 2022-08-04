@@ -7,7 +7,7 @@ if [ "$?" != "0" ]; then
     ./go_setup.sh
 fi
 
-gogs_path="$idir/project/go_project/src/github.com/gogits/gogs"
+gogs_path="$INSTALL_DIR/project/go_project/src/github.com/gogits/gogs"
 
 go get github.com/gogits/gogs
 pushd $gogs_path
@@ -15,10 +15,10 @@ pushd $gogs_path
 popd
 
 echo append gogs path...
-echo "# gogs" >> $idir/.bash_plugin
-echo "PATH=$gogs_path:\$PATH" >> $idir/.bash_plugin
+echo "# gogs" >> $INSTALL_DIR/.bash_plugin
+echo "PATH=$gogs_path:\$PATH" >> $INSTALL_DIR/.bash_plugin
 
 
 # config
 mkdir -p $gogs_path/custom/conf
-ln -sf $sdir/pkg/gogs/conf/app.ini $gogs_path/custom/conf/
+ln -sf $REPO_DIR/pkg/gogs/conf/app.ini $gogs_path/custom/conf/

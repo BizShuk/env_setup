@@ -6,10 +6,10 @@ pcre_ver="8.38"
 pcre_name="pcre-${pcre_ver}"
 nginx_ver="1.9.14"
 nginx_name="nginx-${nginx_ver}"
-nginx_path="$idir/nginx"
-nginx_conf_path="$sdir/pkg/nginx/nginx.conf"
+nginx_path="$INSTALL_DIR/nginx"
+nginx_conf_path="$REPO_DIR/pkg/nginx/nginx.conf"
 
-mkdir $idir/lib/$pcre_name
+mkdir $INSTALL_DIR/lib/$pcre_name
 
 
 pushd ~/lib
@@ -30,7 +30,7 @@ pushd "$tmpdir"
     pushd nginx-release-${nginx_ver}
         ./auto/configure --prefix=$nginx_path \
                         --with-pcre-jit \
-                        --with-pcre=$lib_dir/pcre-8.38 \
+                        --with-pcre=$USER_LIB/pcre-8.38 \
                         --with-http_ssl_module \
                         --with-poll_module \
                         --with-ipv6
@@ -43,7 +43,7 @@ pushd "$tmpdir"
 popd
 rm -rf $tmpdir
 
-echo "# NGINX" >> $idir/.bash_plugin
-echo "export PATH=$nginx_path/sbin:\$PATH" >> $idir/.bash_plugin
+echo "# NGINX" >> $INSTALL_DIR/.bash_plugin
+echo "export PATH=$nginx_path/sbin:\$PATH" >> $INSTALL_DIR/.bash_plugin
 ln -sf $nginx_conf_path $nginx_path/conf/nginx.conf
-ln -sf $nginx_path/logs $log_dir/nginx
+ln -sf $nginx_path/logs $USER_LOG/nginx

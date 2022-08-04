@@ -2,7 +2,7 @@
 source settings.sh
 
 
-GIT_VERSION="2.32.0"
+GIT_VERSION=${GIT_VERSION:-2.32.0}
 GIT_DISTRIBUTION="git-${GIT_VERSION}"
 
 sudo apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev

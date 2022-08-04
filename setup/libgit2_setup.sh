@@ -9,7 +9,7 @@ source settings.sh
 
 libgit2_ver="v0.24.1"
 
-pushd $sdir/pkg/libgit2
+pushd $REPO_DIR/pkg/libgit2
     git reset --hard ${libgit2_ver}
     mkdir build && cd build
 
@@ -19,7 +19,7 @@ pushd $sdir/pkg/libgit2
     echo "FIND_PACKAGE(Threads REQUIRED)" >> CMakeLists.txt
 
     cmake ..
-    cmake -build . 
+    cmake -build .
     make
     sudo make install
 popd

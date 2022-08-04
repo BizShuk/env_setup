@@ -12,30 +12,28 @@ kernel_version=$(uname -r)
 cpu_arch=$(uname -m)
 
 
-# env path
-idir=$HOME;                 # install dir
-repo_dir=$idir/env_setup;   # source dir
-sdir=$repo_dir
-pkg_sdir=$sdir/pkg
-conf_sdir=$sdir/config
+# Install path
+INSTALL_DIR=$HOME;
 
-# installed dir
-bin_dir=$idir/bin
-lib_dir=$idir/lib
-log_dir=$idir/log
-project_dir=$idir/project
-server_dir=$idir/server
+# env_setup path
+REPO_DIR=$INSTALL_DIR/env_setup;
+REPO_PKG=$REPO_DIR/pkg
+
+# User-releated folders
+USER_BIN=$INSTALL_DIR/bin
+USER_LIB=$INSTALL_DIR/lib
+USER_LOG=$INSTALL_DIR/log
+USER_PROJECT=$USER_PROJECT
+USER_TMP=$USER_TMP
 
 
 # structure setup
 setup_structure(){
-    [ ! -d $bin_dir               ]     && mkdir $bin_dir 2>/dev/null ;
-    [ ! -d $lib_dir               ]     && mkdir $lib_dir 2>/dev/null ;
-    [ ! -d $log_dir               ]     && ln -s $conf_sdir/log $log_dir 2>/dev/null ;
-    [ ! -d $project_dir           ]     && mkdir $project_dir 2>/dev/null ;
-    [ ! -d $server_dir            ]     && mkdir $server_dir 2>/dev/null ;
-    [ ! -d $server_dir/samba/mnt1 ]     && mkdir -p $server_dir/samba/mnt1 2>/dev/null ;
-    [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
+    [ ! -d $USER_BIN              ]     && mkdir $USER_BIN      2>/dev/nll;
+    [ ! -d $USER_LIB              ]     && mkdir $USER_LIB      2>/dev/nul;
+    [ ! -d $USER_LOG              ]     && mkdir $USER_LOG      2>/dev/null;
+    [ ! -d $USER_PROJECT          ]     && mkdir $USER_PROJECT  2>/dev/null;
+    [ ! -d $USER_TMP              ]     && mkdir $USER_TMP      2>/dev/null;
 }
 
 

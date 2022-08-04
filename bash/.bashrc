@@ -23,7 +23,7 @@ export LANG="en_US.UTF-8"
 
 ## set default env varaible ##
 export TERM="xterm-256color"
-export PATH=$bin_dir:$PATH;
+export PATH=$USER_BIN:$PATH;
 #export CDPATH=.:$HOME:$project_dir;
 export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
 
@@ -161,15 +161,10 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-
-## Alias definitions. ## See /usr/share/doc/bash-doc/examples in the bash-doc package.
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases
-
-## Bash function ##
-[ -f ~/.bash_function ] && . ~/.bash_function
-
-## Bash plugin ## (for something like 3th-party export)
-[ -f ~/.bash_plugin ] && . ~/.bash_plugin
+# Bash config
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases     # Alias for existing command
+[ -f ~/.bash_function ] && . ~/.bash_function   # Custom bash function
+[ -f ~/.bash_plugin ] && . ~/.bash_plugin       # Third-party config
 
 
 ## enable programmable completion features (you don't need to enable
