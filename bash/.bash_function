@@ -10,13 +10,19 @@ genpasswd() {
 # for more detail check: [Git Internal Environment Variables](https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables)
 git_trace_on () {
     export GIT_TRACE = 1
-    export GIT_CURL_VERBOSE = 1 
+    export GIT_CURL_VERBOSE = 1
 }
 
 git_trace_off () {
     unset GIT_TRACE
     unset GIT_CURL_VERBOSE
 }
+
 go_project_test () {
-    echo 1
+    go test --covermode=count --coverprofile=out/conver.out ./... && go tool cover -func=out/cover.out
+}
+
+load_nvm () {
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 }

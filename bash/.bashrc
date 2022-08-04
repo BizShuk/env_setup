@@ -5,6 +5,16 @@
 source ~/settings.sh
 
 
+# Bash hotkey
+# - ctrl + a,   Move to the start of the command line
+# - ctrl + e,   Move to the end of the command line
+# - ctrl + b,   Move one character backward
+# - ctrl + f,   Move one character forward
+# - ctrl + r,   Incremental reverse search of bash history
+# - ctrl + w, 	Removes the command/argument before the cursor
+
+
+
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
 
