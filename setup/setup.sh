@@ -18,6 +18,4 @@ fi
 . ./bash_env_setup.sh
 
 . ./go_setup.sh
-. ./gogs_setup.sh
-. ./nginx_setup.sh
 

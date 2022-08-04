@@ -1,1 +1,1 @@
-/home/shuk/env_setup/pkg/nodejs/npm_setup.sh
+../pkg/nodejs/npm_setup.sh
