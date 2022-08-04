@@ -27,29 +27,6 @@ project_dir=$idir/project
 server_dir=$idir/server
 
 
-
-
-# Go env
-go_version="1.18.4"
-go_arch=""
-case "${cpu_arch}" in
-    i386)
-        go_arch="386"
-    ;;
-    armv6l)
-        go_arch=${cpu_arch}
-    ;;
-    *)
-        go_arch="amd64" # x86_64
-    ;;
-esac
-
-go_fullversion="go${go_version}.${os}-${go_arch}"
-go_root="$lib_dir/$go_fullversion"  # go package dir
-go_path="$project_dir/go_project"   # go source dir
-go_project=$go_path                 # go project
-
-
 # structure setup
 setup_structure(){
     [ ! -d $bin_dir               ]     && mkdir $bin_dir 2>/dev/null ;
@@ -59,7 +36,6 @@ setup_structure(){
     [ ! -d $server_dir            ]     && mkdir $server_dir 2>/dev/null ;
     [ ! -d $server_dir/samba/mnt1 ]     && mkdir -p $server_dir/samba/mnt1 2>/dev/null ;
     [ ! -d $idir/tmp ]  && mkdir $idir/tmp 2>/dev/null ;
-
 }
 
 
