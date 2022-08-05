@@ -5,9 +5,10 @@ source settings.sh
 # structure setup
 setup_structure
 
+# ln scripts in to $USER_BIN
 for script_name in $( ls $REPO_DIR/bin/ )
 do
-    ln -sf $REPO_DIR/bin/$script_name $INSTALL_DIR/bin/;
+    ln -sf $REPO_DIR/bin/$script_name $USER_BIN;
 done
 
 
@@ -17,7 +18,7 @@ ln -sf $REPO_DIR/bash/.bash_aliases $INSTALL_DIR/;
 ln -sf $REPO_DIR/bash/.bash_function $INSTALL_DIR/;
 ln -sf $REPO_DIR/bash/.bash_logout $INSTALL_DIR/;
 ln -sf $REPO_DIR/bash/settings.sh $INSTALL_DIR/;
-[ ! -e $INSTALL_DIR/.bash_plugin ] && echo  '#!/bin/bash' > $INSTALL_DIR/.bash_plugin;   # for install language
+[ ! -e $INSTALL_DIR/.bash_plugin ] && echo  '#!/bin/bash' > $INSTALL_DIR/.bash_plugin;
 
 
 ### git ###
