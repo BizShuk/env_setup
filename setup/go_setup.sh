@@ -6,12 +6,12 @@ setup_structure
 # Go env
 GO_VER=${GO_VER:-1.19}
 GO_ARCH=""
-case "${cpu_arch}" in
+case "${CPU_ARCH}" in
     i386)
         GO_ARCH="386"
     ;;
     armv6l)
-        GO_ARCH=${cpu_arch}
+        GO_ARCH=${CPU_ARCH}
     ;;
     *)
         GO_ARCH="amd64" # x86_64

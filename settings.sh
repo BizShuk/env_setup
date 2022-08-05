@@ -7,9 +7,9 @@ email="biz.shuk@gmail.com"
 
 # darwin for Mac , linux for ubuntu, linux, ...
 os=$( uname | tr '[:upper:]' '[:lower:]')
-kernel_name=$(uname -s)
-kernel_version=$(uname -r)
-cpu_arch=$(uname -m)
+KERNEL_NAME=$(uname -s)
+KERNEL_VER=$(uname -r)
+CPU_ARCH=$(uname -m)
 
 
 # Install path
