@@ -100,13 +100,6 @@
                 "envFile": "${userHome}/.env",
             },
             {
-                "name": "Nodejs: Run npm start",
-                "type": "node-terminal",
-                "request": "launch",
-                "command": "npm start",
-                "env": {}
-            },
-            {
                 "name": "Launch Chrome",
                 "request": "launch",
                 "type": "chrome",
@@ -161,7 +154,7 @@
         "coveredGutterStyle": "blockblue",
         "uncoveredGutterStyle": "slashred"
     },
-    // [javascript] [npm] [node] [typescript]
+    // [javascript] [npm] [node] [typescript] [js]
     "javascript.updateImportsOnFileMove.enabled": "always",
     "eslint.options": {
         "rules": {
@@ -233,7 +226,7 @@
             }
         ],
     },
-    "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|Notice|TODO|FIXME|FIX|BUG|UGLY|HACK|NOTE|IDEA|REVIEW|DEBUG|OPTIMIZE)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
+    "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|Notice|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
     "todo.file.include": [
         "**/*.todo",
         "**/*.task",
@@ -252,7 +245,6 @@
             "strings": true
         }
     },
-    "window.zoomLevel": -1,
     "redhat.telemetry.enabled": false,
     "[jsonc]": {
         "editor.quickSuggestions": {
@@ -260,5 +252,5 @@
         },
         "editor.suggest.insertMode": "replace"
     },
-    "debug.javascript.autoAttachFilter": "smart",
+    "debug.javascript.autoAttachFilter": "disabled",
 }
