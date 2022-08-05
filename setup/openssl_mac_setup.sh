@@ -2,16 +2,17 @@
 
 source settings.sh
 
-openssl_ver="1.0.2f"
-openssl_name="openssl-$openssl_ver"
-opensll_path="$INSTALL_DIR/lib/openssl"
+OPENSSL_VER="1_1_1q"
+OPEN_SSL_FULLVER="OpenSSL_${OPENSSL_VER}.tar.gz"
+OPENSSL_PATH="$INSTALL_DIR/lib/openssl"
 
-cd $INSTALL_DIR/lib
-curl --remote-name http://www.openssl.org/source/$openssl_name.tar.gz
-tar -xzvf openssl-1.0.2f.tar.gz
-cd openssl-1.0.2f
+cd $USER_LIB
+# Warning: It redirect download link in Github, -L option is required. -O option is for remote-name
+curl -LO https://github.com/openssl/openssl/archive/refs/tags/${OPEN_SSL_FULLVER}
+tar -xzvf ${OPEN_SSL_FULLVER}
+cd openssl-${OPEN_SSL_FULLVER%.tar.gz}
 
-./configure darwin64-x86_64-cc --prefix=$INSTALL_DIR/lib/openssl
+./configure darwin64-x86_64-cc --prefix=${OPENSSL_PATH}
 make
 make install
 
