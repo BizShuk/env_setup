@@ -7,7 +7,7 @@ if [ "$?" != "0" ]; then
     ./go_setup.sh
 fi
 
-gogs_path="$INSTALL_DIR/project/go_project/src/github.com/gogits/gogs"
+gogs_path="$USER_PROJECT/go_project/src/github.com/gogits/gogs"
 
 go get github.com/gogits/gogs
 pushd $gogs_path

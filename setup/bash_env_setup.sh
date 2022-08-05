@@ -40,11 +40,11 @@ ln -sf $INSTALL_DIR/.bashrc $INSTALL_DIR/.profile
 
 
 # ln for env_setup to project
-if [ ! -d $INSTALL_DIR/env_setup ] || [ ! -d $INSTALL_DIR/project/env_setup ] ; then
+if [ ! -d $INSTALL_DIR/env_setup ] || [ ! -d $USER_PROJECT/env_setup ] ; then
     if [ -d $INSTALL_DIR/env_setup ]; then
-        ln -sf $INSTALL_DIR/env_setup $INSTALL_DIR/project/env_setup
+        ln -sf $INSTALL_DIR/env_setup $USER_PROJECT/env_setup
     else
-        ln -sf $INSTALL_DIR/project/env_setup $INSTALL_DIR/env_setup
+        ln -sf $USER_PROJECT/env_setup $INSTALL_DIR/env_setup
     fi
 fi
 
