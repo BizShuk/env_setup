@@ -194,3 +194,5 @@ JAVA_HOME="/usr/bin/java"
 #ClientAliveInterval 300
 #ClientAliveCountMax 0
 
+# supress zsh in mac
+export BASH_SILENCE_DEPRECATION_WARNING=1
