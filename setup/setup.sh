@@ -14,7 +14,6 @@ else
     echo No Matched OS.
 fi
 
-. ./vim_setup.sh
 . ./bash_env_setup.sh
 . ./go_setup.sh
 
