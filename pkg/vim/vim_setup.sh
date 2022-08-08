@@ -16,11 +16,11 @@ python_config_dir=${python_config_dir:2}
 
 sudo apt-get install -y ncurses-dev # terminal library
 
-vim_name="v7.4.1692"
+VIM_VER="v7.4.1692"
 pushd "$tmpdir"
     wget https://github.com/vim/vim/archive/v7.4.1692.tar.gz
-    tar zxf ${vim_name}.tar.gz
-    cd vim-7.4.1692
+    tar zxf ${VIM_VER}.tar.gz
+    cd vim-${VIM_VER:1}
     ./configure --enable-pythoninterp \
         --with-python-config-dir=${python_config_dir} \
         --enable-perlinterp \
@@ -29,7 +29,7 @@ pushd "$tmpdir"
         --prefix=/usr
     make
     sudo make install
-    rm -r $vim_name && rm ${vim_name}.tar.gz
+    rm -r ${VIM_VER} && rm ${VIM_VER}.tar.gz
 popd
 # --enable-python3interp
 # --with-python3-config-dir
