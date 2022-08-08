@@ -5,7 +5,7 @@
     // [security]
     "security.workspace.trust.untrustedFiles": "open",
     // [workbench]
-    "workbench.startupEditor": "none",
+    // "workbench.startupEditor": "none",
     "workbench.editor.tabCloseButton": "right",
     "workbench.iconTheme": "material-icon-theme",
     // [explorer]
@@ -38,22 +38,22 @@
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
     "files.exclude": {
-        "**/.git": false,
-        "**/.svn": false,
-        "**/.hg": false,
-        "**/CVS": false,
-        "**/.DS_Store": false,
-        "**/.mvn": false,
-        "**/target": false,
-        "**/.classpath": false,
-        "**/.project": false,
-        "**/.settings": false,
-        "**/.factorypath": false,
-        "**/node_modules": false,
-        "**/bower_components": false,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/.mvn": true,
+        "**/target": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+        "**/node_modules": true,
+        "**/bower_components": true,
         "**/*_test.go": false,
         "**/bin": false,
-        "**/.gitlab": false,
+        "**/.gitlab": true,
         "**/.devops": false,
         "**/coverage": false
     },
@@ -141,14 +141,18 @@
     "gopls": {
         "formatting.gofumpt": false,
     },
+    "go.lintTool": "golangci-lint", // [go linter]
+    // [go test]
     "go.testOnSave": true,
     "go.testExplorer.showOutput": false,
-    "go.lintTool": "golangci-lint",
+    // [go cover]
     "go.coverShowCounts": true,
     "go.coverOnSave": true,
+    "go.coverOnSingleTest": true,
     "go.coverageOptions": "showBothCoveredAndUncoveredCode",
-    "go.coverOnTestPackage": true,
-    "go.coverMode": "count",
+    "go.coverOnSingleTestFile": false,
+    "go.coverOnTestPackage": false,
+    // "go.coverMode": "count", // ???
     "go.coverageDecorator": {
         "type": "gutter",
         "coveredGutterStyle": "blockblue",
@@ -226,7 +230,7 @@
             }
         ],
     },
-    "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|Notice|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
+    "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
     "todo.file.include": [
         "**/*.todo",
         "**/*.task",
@@ -253,4 +257,5 @@
         "editor.suggest.insertMode": "replace"
     },
     "debug.javascript.autoAttachFilter": "disabled",
+    "terminal.integrated.enableMultiLinePasteWarning": false,
 }
