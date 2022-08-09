@@ -1,22 +1,17 @@
 #!/bin/bash
 
 source settings.sh
-
-tmpdir=`mktemp -d`
-
-which python-config
-if [ "$?" != "0" ]; then
-    echo python config dir is not existed
-    exit 1
-fi
+source ~/project_tmp/UbuntuDoc/alias/python-config.sh
 
 
-python_config_dir=`python-config --ldflags |awk '{print $1}'`
-python_config_dir=${python_config_dir:2}
+python_config_dir=$(get_python-config-dir)
 
 sudo apt-get install -y ncurses-dev # terminal library
 
 VIM_VER="v7.4.1692"
+
+
+tmpdir=`mktemp -d`
 pushd "$tmpdir"
     wget https://github.com/vim/vim/archive/v7.4.1692.tar.gz
     tar zxf ${VIM_VER}.tar.gz

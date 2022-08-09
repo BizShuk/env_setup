@@ -5,7 +5,6 @@
 ## alias cmd ##
 #ref: [30 Handy Bash Shell Aliases](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
 
-
 ## code ##
 if which python3 > /dev/null ; then
     alias python='python3'
@@ -112,4 +111,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 
-
+alias k=kubectl
+alias kgc="k config get-contexts"
+alias kuc="k config set-context "
+alias kn="k config set-context --current --namespace "
