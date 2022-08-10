@@ -5,7 +5,7 @@
     // [security]
     "security.workspace.trust.untrustedFiles": "open",
     // [workbench]
-    // "workbench.startupEditor": "none",
+    "workbench.startupEditor": "none",
     "workbench.editor.tabCloseButton": "right",
     "workbench.iconTheme": "material-icon-theme",
     // [explorer]
