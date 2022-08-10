@@ -221,9 +221,23 @@
         "(\\<.+?\\>)()": [ // placeholder, usually necessary
             {
                 "color": "orange",
-                "backgroundColor": ""
             },
             {}
+        ],
+        "(\".+?\")": [ // string
+            {
+                "color": "orange",
+            }
+        ],
+        "('.+?')": [ // string
+            {
+                "color": "orange",
+            }
+        ],
+        "(`.+?`)": [ // string
+            {
+                "color": "orange",
+            }
         ],
         "(// |# )(TODO)(:)(.*)": [
             {},
