@@ -185,16 +185,7 @@
     },
     // [todo] [highlight]
     "highlight.regexes": {
-        "(// |# )(Notice)(:)": [ // Need to mention
-            {},
-            {
-                "color": "yellow",
-                "backgroundColor": ""
-            },
-            {}
-        ],
-        "(// |# )(Warning)(:)(.*)": [
-            {},
+        "(Warning)(:)(.*)": [
             {
                 "color": "pink",
                 "backgroundColor": ""
@@ -204,25 +195,29 @@
                 "color": "red"
             }
         ],
-        "(\\[.+?\\])()": [ // todo+ tag, optional
+        "(\\[.+?\\])": [ // todo+ tag, optional
             {
-                "color": "yellow",
-                "backgroundColor": ""
-            },
-            {}
+                "color": "yellow"
+            }
+        ],
+        "([#] ===== .+? =====)": [ // headline1
+            {
+                "backgroundColor": "rgba(255,255,255, 0.2)",
+            }
         ],
         "(===== )(.+?)( =====)": [ // headline1
             {},
             {
-                "color": "yellow"
+                "color": "yellow",
+                "fontWeight": "bold",
+                "fontStyle": "italic",
             },
             {}
         ],
-        "(\\<.+?\\>)()": [ // placeholder, usually necessary
+        "(\\<.+?\\>)": [ // placeholder, usually necessary
             {
                 "color": "orange",
-            },
-            {}
+            }
         ],
         "(\".+?\")": [ // string
             {
@@ -239,16 +234,14 @@
                 "color": "orange",
             }
         ],
-        "(// |# )(TODO)(:)(.*)": [
-            {},
+        "(TODO)(:)(.*)": [
             {
                 "color": "white"
             },
             {},
             {}
         ],
-        "(// |# )(BUG|FIX|FIXME)(:)": [
-            {},
+        "(BUG|FIX|FIXME)(:)": [
             {
                 "backgroundColor": "red",
                 "color": "white"

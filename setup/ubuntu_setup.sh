@@ -14,7 +14,7 @@ sudo apt-get install -y build-essential
 sudo apt-get install -y autoconf make cmake
 sudo apt-get install -y python-dev python3-dev
 sudo apt-get install -y openssh-server libssl-dev
-
+sudo apt-get install -y whois
 
 
 

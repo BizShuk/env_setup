@@ -1,0 +1,5 @@
+Access services from host:
+    ☐ use ip cmd to route k8s network through docker containers
+    https://dustinspecker.com/posts/resolving-kubernetes-services-from-host-when-using-kind/
+    ☐ kubectl proxy
+    ☐ kubectl port-forward
