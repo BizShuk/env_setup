@@ -185,7 +185,7 @@
     },
     // [todo] [highlight]
     "highlight.regexes": {
-        "(// |# )(Notice)(:)": [
+        "(// |# )(Notice)(:)": [ // Need to mention
             {},
             {
                 "color": "yellow",
@@ -204,9 +204,23 @@
                 "color": "red"
             }
         ],
-        "(\\[.+?\\])()": [
+        "(\\[.+?\\])()": [ // todo+ tag, optional
             {
                 "color": "yellow",
+                "backgroundColor": ""
+            },
+            {}
+        ],
+        "(===== )(.+?)( =====)": [ // headline1
+            {},
+            {
+                "color": "yellow"
+            },
+            {}
+        ],
+        "(\\<.+?\\>)()": [ // placeholder, usually necessary
+            {
+                "color": "orange",
                 "backgroundColor": ""
             },
             {}
@@ -219,7 +233,7 @@
             {},
             {}
         ],
-        "(// |# )(BUG|Bug|bug)(:)": [
+        "(// |# )(BUG|FIX|FIXME)(:)": [
             {},
             {
                 "backgroundColor": "red",
