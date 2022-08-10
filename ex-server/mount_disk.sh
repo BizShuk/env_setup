@@ -1,5 +1,9 @@
 #!/bin/bash
 
+### show device uuid
+lsblk -f
+sudo blkid
+
 ### proejct folder
 mount /dev/sda1 /home/shuk/project
 
