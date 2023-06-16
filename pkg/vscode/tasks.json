@@ -7,21 +7,26 @@
             "command": "echo Check default setup",
             "dependsOn": [
                 "Setup: ${$userHome}/.env"
-            ]
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
         },
         {
             "label": "Setup: ${$userHome}/.env",
             "type": "shell",
-            "command": "p=${userHome}/.env; [[ ! -f $p ]] && echo profile=local > $p"
+            "command": "p=${userHome}/.env; [[ ! -f $p ]] && echo profile=local > $p; echo setup"
         },
-        { // Go
+        {
             "label": "Go: Project mod init",
             "type": "shell",
             "command": "go mod init ${input:modulename}",
             "group": "build",
             "presentation": {
-                "focus": true,
-            },
+                "focus": true
+            }
         },
         {
             "label": "Go: Project mod tidy",
@@ -35,16 +40,16 @@
             "command": "go get -u ${input:modulename}",
             "group": "build",
             "presentation": {
-                "focus": true,
-            },
+                "focus": true
+            }
         },
-        { // https://blog.seriesci.com/how-to-measure-code-coverage-in-go/
+        {
             "label": "Go: Test default",
             "type": "shell",
             "command": "go test -covermode=count  -coverprofile=out/cover.out ./... && go tool cover -func out/cover.out",
             "group": "test",
             "presentation": {
-                "focus": true,
+                "focus": true
             },
             "dependsOn": [
                 "Go: Test All on Testing Explorer"
@@ -61,14 +66,14 @@
                 "close": true
             }
         },
-        { // Git
+        {
             "label": "Git: generate version file from git",
             "type": "shell",
             "command": "versions=($(git tag --points-at HEAD)); versions+=($(git log --pretty=format:'%h' -n 1)); echo -n \"${versions[*]}\" > version",
             "group": "build",
             "presentation": {
-                "focus": true,
-            },
+                "focus": true
+            }
         },
         {
             "label": "Git: Generate .pre-commit-config.yaml if not exists",
@@ -76,90 +81,18 @@
             "command": "p=${workspaceFolder}/.pre-commit-config.yaml; [[ ! -f $p ]] && pre-commit sample-config > $p",
             "group": "build",
             "presentation": {
-                "focus": true,
-            },
+                "focus": true
+            }
         },
-        { // Node
+        {
             "label": "Node: Upgrade version",
             "type": "shell",
             "command": "nvm install --lts",
             "presentation": {
                 "close": false,
-                "focus": true,
-            },
-        },
-        // {
-        //     "command": "${workspaceFolder}/mvnw",
-        //     "type": "shell",
-        //     "label": "Maven verify (validate compile test package)",
-        //     "args": [
-        //         "-B",
-        //         "clean",
-        //         "verify"
-        //     ],
-        //     "presentation": {
-        //         "clear": true,
-        //         "focus": true,
-        //     },
-        //     "group": "build",
-        //     "problemMatcher": []
-        // },
-        // {
-        //     "command": "${workspaceFolder}/mvnw",
-        //     "type": "shell",
-        //     "label": "Maven compile",
-        //     "args": [
-        //         "-B",
-        //         "clean",
-        //         "compile"
-        //     ],
-        //     "presentation": {
-        //         "clear": true
-        //     },
-        //     "group": "build",
-        //     "problemMatcher": []
-        // },
-        // {
-        //     "command": "${workspaceFolder}/mvnw",
-        //     "type": "shell",
-        //     "label": "Maven package",
-        //     "args": [
-        //         "-B",
-        //         "package"
-        //     ],
-        //     "presentation": {
-        //         "clear": true
-        //     },
-        //     "group": "build",
-        //     "problemMatcher": []
-        // },
-        // {
-        //     "command": "${workspaceFolder}/mvnw",
-        //     "type": "shell",
-        //     "label": "Maven test",
-        //     "args": [
-        //         "-B",
-        //         "test"
-        //     ],
-        //     "presentation": {
-        //         "clear": true
-        //     },
-        //     "group": "test",
-        //     "problemMatcher": []
-        // },
-        // {
-        //     "command": "mvnw",
-        //     "type": "shell",
-        //     "label": "clean install",
-        //     "args": [
-        //         "clean install -U"
-        //     ],
-        //     "presentation": {
-        //         "clear": true
-        //     },
-        //     "group": "none",
-        //     "problemMatcher": []
-        // }
+                "focus": true
+            }
+        }
     ],
     "inputs": [
         {

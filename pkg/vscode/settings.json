@@ -1,9 +1,5 @@
 {
-    // [windows]
-    "window.openFoldersInNewWindow": "on",
     "window.title": "${activeEditorFull}${separator}${rootName}",
-    // [security]
-    "security.workspace.trust.untrustedFiles": "open",
     // [workbench]
     "workbench.startupEditor": "none",
     "workbench.editor.tabCloseButton": "right",
@@ -30,6 +26,7 @@
         "source.organizeImports": true
     },
     "editor.comments.insertSpace": true,
+    "editor.linkedEditing": true,
     // [diff editor]
     "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.codeLens": true,
@@ -51,34 +48,42 @@
         "**/.factorypath": true,
         "**/node_modules": true,
         "**/bower_components": true,
-        "**/*_test.go": false,
-        "**/bin": false,
+        "**/*_test.go": true,
+        "**/bin": true,
         "**/.gitlab": true,
-        "**/.devops": false,
-        "**/coverage": false
+        "**/.devops": true,
+        "**/coverage": true,
+        ".vscode": true
     },
     "files.watcherExclude": {
         "**/.git/**": true,
         "**/node_modules/**": true,
     },
+    "files.associations": {
+        "*.sh": "shellscript",
+        "*.bosun": "bosun",
+    },
     // [search]
     "search.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "**/.mvn": true,
-        "**/target": true,
         "**/.classpath": true,
+        "**/.DS_Store": true,
+        "**/.factorypath": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.mvn": true,
         "**/.project": true,
         "**/.settings": true,
-        "**/.factorypath": true,
-        "**/node_modules": true,
+        "**/.svn": true,
+        "**/*.mod": true,
+        "**/*.sum": true,
         "**/bower_components": true,
+        "**/CVS": true,
+        "**/node_modules": true,
+        "**/target": true
     },
     "search.showLineNumbers": true,
-    "search.smartCase": true,
+    "search.collapseResults": "auto",
+    // "search.smartCase": true,
     // [Launch]
     "launch": {
         "version": "0.2.0",
@@ -105,7 +110,7 @@
                 "type": "chrome",
                 "url": "http://localhost:3000",
                 "webRoot": "${workspaceFolder}"
-            },
+            }
         ],
         "compounds": []
     },
@@ -141,7 +146,11 @@
     "gopls": {
         "formatting.gofumpt": false,
     },
-    "go.lintTool": "golangci-lint", // [go linter]
+    // "go.lintTool": "golangci-lint", // [go linter]
+    "go.lintFlags": [
+        "--fast"
+    ],
+    "go.formatTool": "goimports",
     // [go test]
     "go.testOnSave": true,
     "go.testExplorer.showOutput": false,
@@ -166,12 +175,20 @@
         }
     },
     // [Markdown]
+    "markdown.copyFiles.destination": {
+        "**/*": "assets/images/md/${documentBaseName}"
+    },
     "markdownlint.config": {
         "default": true,
         "MD001": false,
         "MD009": {
             "br_spaces": 2
-        }
+        },
+        "MD028": false,
+        "MD029": false,
+        "MD045": false,
+        "MD053": false,
+        "SA9003": false
     },
     "[markdown]": {
         "files.trimTrailingWhitespace": false,
@@ -183,7 +200,6 @@
         },
         "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
-    // [todo] [highlight]
     "highlight.regexes": {
         "(Warning)(:)(.*)": [
             {
@@ -195,71 +211,131 @@
                 "color": "red"
             }
         ],
-        "(\\[.+?\\])": [ // todo+ tag, optional
+        "(\\[.+?\\])": [
             {
                 "color": "yellow"
             }
         ],
-        "([#] ===== .+? =====)": [ // headline1
+        "([#] ===== .+? =====)": [
             {
-                "backgroundColor": "rgba(255,255,255, 0.2)",
+                "backgroundColor": "rgba(255,255,255, 0.2)"
             }
         ],
-        "(===== )(.+?)( =====)": [ // headline1
+        "(===== )(.+?)( =====)": [
             {},
             {
                 "color": "yellow",
                 "fontWeight": "bold",
-                "fontStyle": "italic",
+                "fontStyle": "italic"
             },
             {}
         ],
-        "(\\<.+?\\>)": [ // placeholder, usually necessary
+        "(\\<.+?\\>)": [
             {
-                "color": "orange",
+                "color": "orange"
             }
         ],
-        "(\".+?\")": [ // string
+        "(\".+?\")": [
             {
-                "color": "orange",
+                "color": "orange"
             }
         ],
-        "('.+?')": [ // string
+        "('.+?')": [
             {
-                "color": "orange",
+                "color": "orange"
             }
         ],
-        "(`.+?`)": [ // string
+        "(`.+?`)": [
             {
-                "color": "orange",
+                "color": "orange"
             }
         ],
-        "(TODO)(:)(.*)": [
+        "(TODO)(.*)": [
             {
                 "color": "white"
+            },
+            {}
+        ],
+        "(NOTE)(:)(.*)": [
+            {
+                "color": "yellow"
             },
             {},
             {}
         ],
-        "(BUG|FIX|FIXME)(:)": [
+        "(BUG|FIX|FIXME|ISSUE)(:)": [
             {
-                "backgroundColor": "red",
-                "color": "white"
+                "color": "red"
             },
+            {}
+        ],
+        "(\\?\\?\\?)": [
             {
                 "color": "red"
             }
         ],
+        "(\\@)([a-zA-Z0-9-_\\.\\[\\]\\{\\}\\(\\)]+)": [
+            {
+                "color": "Gray",
+            },
+            {
+                "color": "Lime",
+            }
+        ],
     },
-    "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
+    // "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
+    "todo.embedded.regex": "(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|\\[FIX\\]|\\[BUG\\]|\\[NOTE\\]|\\[REVIEW\\|ISSUE]|\\[Deprecated\\]|\\?\\?\\?)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
     "todo.file.include": [
         "**/*.todo",
-        "**/*.task",
-        "**/*.md",
+        "**/*.task"
     ],
-    // html
+    "todo.embedded.exclude": [
+        "**/.*",
+        "**/.*/**",
+        "**/_output/**",
+        "**/bower_components/**",
+        "**/build/**",
+        "**/dist/**",
+        "**/venv/**",
+        "**/node_modules/**",
+        "**/out/**",
+        "**/output/**",
+        "**/release/**",
+        "**/releases/**",
+        "**/static/**",
+        "**/target/**",
+        "**/third_party/**",
+        "**/vendor/**",
+        "**/CHANGELOG",
+        "**/CHANGELOG.*",
+        "**/*.min.*",
+        "**/*.map",
+        "**/*.{3ds,3g2,3gp,7z,a,aac,adp,ai,aif,aiff,alz,ape,apk,ar,arj,asf,au,avi,bak,baml,bh,bin,bk,bmp,btif,bz2,bzip2,cab,caf,cgm,class,cmx,cpio,cr2,csv,cur,dat,dcm,deb,dex,djvu,dll,dmg,dng,doc,docm,docx,dot,dotm,dra,DS_Store,dsk,dts,dtshd,dvb,dwg,dxf,ecelp4800,ecelp7470,ecelp9600,egg,eol,eot,epub,exe,f4v,fbs,fh,fla,flac,fli,flv,fpx,fst,fvt,g3,gif,graffle,gz,gzip,h261,h263,h264,icns,ico,ief,img,ipa,iso,jar,jpeg,jpg,jpgv,jpm,jxr,key,ktx,lha,lib,lvp,lz,lzh,lzma,lzo,m3u,m4a,m4v,mar,mdi,mht,mid,midi,mj2,mka,mkv,mmr,mng,mobi,mov,movie,mp3,mp4,mp4a,mpeg,mpg,mpga,mxu,nef,npx,numbers,o,oga,ogg,ogv,otf,pages,pbm,pcx,pdb,pdf,pea,pgm,pic,png,pnm,pot,potm,potx,ppa,ppam,ppm,pps,ppsm,ppsx,ppt,pptm,pptx,psd,pya,pyc,pyo,pyv,qt,rar,ras,raw,resources,rgb,rip,rlc,rmf,rmvb,rtf,rz,s3m,s7z,scpt,sgi,shar,sil,sketch,slk,smv,so,sub,swf,tar,tbz,tbz2,tga,tgz,thmx,tif,tiff,tlz,ttc,ttf,txz,udf,uvh,uvi,uvm,uvp,uvs,uvu,viv,vob,war,wav,wax,wbmp,wdp,weba,webm,webp,whl,wim,wm,wma,wmv,wmx,woff,woff2,wvx,xbm,xif,xla,xlam,xls,xlsb,xlsm,xlsx,xlt,xltm,xltx,xm,xmind,xpi,xpm,xwd,xz,z,zip,zipx}",
+        "**/config/bin/**",
+        "**/config/go/**"
+    ],
+    "todo.file.exclude": [
+        "**/.!(todo|todos|task|tasks)/**",
+        "**/_output/**",
+        "**/bower_components/**",
+        "**/build/**",
+        "**/dist/**",
+        "**/venv/**",
+        "**/node_modules/**",
+        "**/out/**",
+        "**/output/**",
+        "**/release/**",
+        "**/releases/**",
+        "**/static/**",
+        "**/target/**",
+        "**/third_party/**",
+        "**/vendor/**",
+        "**/config/bin/**",
+        "**/config/go/**"
+    ],
+    // [html]
     "html.format.enable": true,
-    // yaml
+    // [yaml]
     "[yaml]": {
         "editor.insertSpaces": true,
         "editor.tabSize": 4,
@@ -270,7 +346,6 @@
             "strings": true
         }
     },
-    "redhat.telemetry.enabled": false,
     "[jsonc]": {
         "editor.quickSuggestions": {
             "strings": true
@@ -293,4 +368,42 @@
             "query": "state:open repo:${owner}/${repository} sort:updated-desc"
         }
     ],
+    "editor.copyWithSyntaxHighlighting": false,
+    // [SQL]
+    "sqltools.format": {
+        "language": "sql",
+        "linesBetweenQueries": 2,
+        "reservedWordCase": "upper"
+    },
+    // [New]
+    "gallery.extensions.recommendations": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "window.openFoldersInNewWindow": "on",
+    "git.openRepositoryInParentFolders": "never",
+    "cmake.configureOnOpen": true,
+    "redhat.telemetry.enabled": false,
+    "diffEditor.renderSideBySide": false,
+    "extensions.supportUntrustedWorkspaces": {
+        "byted-ide.dev-environment-manager": {
+            "supported": true
+        }
+    },
+    "remote.SSH.defaultExtensions": [
+        "byted-ide.gallery"
+    ],
+    "githubPullRequests.queries": [
+        {
+            "label": "Waiting For My Review",
+            "query": "is:open review-requested:${user}"
+        },
+        {
+            "label": "Assigned To Me",
+            "query": "is:open assignee:${user}"
+        },
+        {
+            "label": "Created By Me",
+            "query": "is:open author:${user}"
+        }
+    ],
+    "githubPullRequests.pushBranch": "always",
 }

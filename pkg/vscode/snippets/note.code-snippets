@@ -1,0 +1,48 @@
+{
+	"Pattern": {
+		"prefix": "pt",
+		"body": [
+			"[Pattern]: [${1:Pattern Category}] ${2:description}",
+			"$0"
+		],
+		"description": "Note for Pattern"
+	},
+	"Variant": {
+		"prefix": "vt",
+		"body": [
+			"[Variant]: [${1:Pattern Category}] ${2:question}",
+			"$0"
+		],
+		"description": "Note for Pattern"
+	},
+	"Hint": {
+		"prefix": "ht",
+		"body": [
+			"[Hint]: $0",
+		],
+		"description": "Note for Hint"
+	},
+	"Tip": {
+		"prefix": "tp",
+		"body": [
+			"[Tip]: $0",
+		],
+		"description": "Note for Tip"
+	},
+	"Time Complexity": {
+		"prefix": "tc",
+		"body": [
+			"[Time Complexity]: best: $1, avg: $2, worst: $3",
+			"$0"
+		],
+		"description": "Note for Time Complexity"
+	},
+	"Space Complexity": {
+		"prefix": "sc",
+		"body": [
+			"[Space Complexity]: best: $1, avg: $2, worst: $3",
+			"$0"
+		],
+		"description": "Note for Space Complexity"
+	},
+}

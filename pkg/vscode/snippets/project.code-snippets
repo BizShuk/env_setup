@@ -6,12 +6,40 @@
 	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
 	// Placeholders with the same ids are connected.
 	// Example:
-	"headline": {
-		"prefix": "hl",
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"project template": {
+		"scope": "markdown",
+		"prefix": "project",
 		"body": [
-			"===== $1 =====",
-			"$0"
+			"# ${1}",
+			"",
+			"TODO: STAR${2}",
+			"",
+			"## Description",
+			"",
+			"${3}",
+			"## Situation",
+			"",
+			"${4}",
+			"## Challenge",
+			"",
+			"- ${5}",
+			"## Plan",
+			"",
+			"- ${6}",
+			"## Result",
+			"",
+			"${7}",
+			"${0}",
 		],
-		"description": "headline1"
+		"description": "Project Analysis template"
 	}
 }

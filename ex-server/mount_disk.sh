@@ -13,3 +13,8 @@ mount /dev/sda1 ${PROJECT_PATH}
 ### Config folder
 mount /dev/sda5  ${PROJECT_CONFIG_PATH}
 
+### eject device
+
+eject <device>
+
+

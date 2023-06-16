@@ -115,3 +115,7 @@ alias k=kubectl
 alias kgc="k config get-contexts"
 alias kuc="k config set-context "
 alias kn="k config set-context --current --namespace "
+
+
+## Music player : mplayer
+alias music_play="mplyaer -shuffle -- */**.mp3"
