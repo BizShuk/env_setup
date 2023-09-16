@@ -119,3 +119,6 @@ alias kn="k config set-context --current --namespace "
 
 ## Music player : mplayer
 alias music_play="mplyaer -shuffle -- */**.mp3"
+
+### npm bin
+PATH=$(npm bin):$PATH

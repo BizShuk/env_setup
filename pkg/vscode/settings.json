@@ -1,26 +1,40 @@
 {
     "window.title": "${activeEditorFull}${separator}${rootName}",
+    "window.openFoldersInNewWindow": "on",
     // [workbench]
     "workbench.startupEditor": "none",
     "workbench.editor.tabCloseButton": "right",
     "workbench.iconTheme": "material-icon-theme",
+    "security.workspace.trust.untrustedFiles": "open",
     // [explorer]
-    "explorer.openEditors.visible": 0,
+    "explorer.openEditors.visible": 1,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+        "go.mod": "go.sum",
+        "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql",
+        "*": "${capture}.bak,${capture}.read,${capture}.fake",
+        "package.json": "*.json,*.ts",
+        "*.ts": "${capture}.js",
+        "README.md": "LICENSE,TODO.task,.gitignore"
+    },
     // [editor]
-    "editor.wordWrap": "on",
+    "editor.wordWrap": "off",
     "editor.fontSize": 14,
     "editor.autoIndent": "full",
     "editor.showFoldingControls": "always",
     "editor.find.seedSearchStringFromSelection": "selection",
     "editor.lineNumbers": "on",
     "editor.tabCompletion": "on",
+    "editor.insertSpaces": true,
     "editor.tabSize": 4,
-    "editor.accessibilitySupport": "auto",
+    "editor.accessibilitySupport": "off",
+    "editor.snippetSuggestions": "inline",
+    "editor.copyWithSyntaxHighlighting": false,
     "editor.formatOnPaste": true,
-    "editor.snippetSuggestions": "top",
     "editor.formatOnSave": true,
+    "editor.inlineSuggest.enabled": true,
     "editor.codeActionsOnSave": {
         "source.fixAll": true,
         "source.organizeImports": true
@@ -30,61 +44,49 @@
     // [diff editor]
     "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.codeLens": true,
+    "diffEditor.renderSideBySide": false,
     // [files]
     "files.autoSave": "off",
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
     "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
+        "**/{.git,.gitlab,.venv,.vscode,.devops,.settings}": true,
+        "**/{.mvn,bin,node_modules,__pycache__}": true,
+        "**/{target,out,dist,output}": true,
+        "**/{.classpath,.project}": true,
         "**/.DS_Store": true,
-        "**/.mvn": true,
-        "**/target": true,
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true,
-        "**/node_modules": true,
-        "**/bower_components": true,
-        "**/*_test.go": true,
-        "**/bin": true,
-        "**/.gitlab": true,
-        "**/.devops": true,
-        "**/coverage": true,
-        ".vscode": true
+        "**/archive": true
     },
     "files.watcherExclude": {
-        "**/.git/**": true,
-        "**/node_modules/**": true,
+        "**/{.git,.gitlab,.venv,.vscode,.devops,.settings}/**": true,
+        "**/{.mvn,bin,node_modules,__pycache__}/**": true,
+        "**/{target,out,dist,output}/**": true,
+        "**/{.classpath,.project}": true,
+        "**/.DS_Store": true, // mac
+        "**/*.sum": true // go
     },
     "files.associations": {
         "*.sh": "shellscript",
         "*.bosun": "bosun",
     },
     // [search]
+    "search.useIgnoreFiles": false,
+    "search.followSymlinks": false,
     "search.exclude": {
-        "**/.classpath": true,
-        "**/.DS_Store": true,
-        "**/.factorypath": true,
-        "**/.git": true,
-        "**/.hg": true,
-        "**/.mvn": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.svn": true,
-        "**/*.mod": true,
-        "**/*.sum": true,
-        "**/bower_components": true,
-        "**/CVS": true,
-        "**/node_modules": true,
-        "**/target": true
+        "**/{.git,.gitlab,.venv,.vscode,.devops,.settings}/**": true,
+        "**/{.mvn,bin,node_modules,__pycache__}/**": true,
+        "**/{target,out,dist,output}/**": true,
+        "**/{.classpath,.project}": true,
+        "**/.DS_Store": true, // mac
+        "**/*.sum": true, // go
+        "**/package-lock.json": true // js
     },
     "search.showLineNumbers": true,
     "search.collapseResults": "auto",
     // "search.smartCase": true,
-    // [Launch]
+    // [Debug]
+    "debug.toolBarLocation": "floating",
+    "debug.console.fontSize": 14,
     "launch": {
         "version": "0.2.0",
         "configurations": [
@@ -110,15 +112,24 @@
                 "type": "chrome",
                 "url": "http://localhost:3000",
                 "webRoot": "${workspaceFolder}"
-            }
+            },
+            { // Should setup ts-node `npm i -d ts-node; npm i -g typescript`
+                "type": "node",
+                "name": "ts file",
+                "request": "launch",
+                "runtimeArgs": [
+                    "-r",
+                    "ts-node/register"
+                ],
+                "program": "${file}",
+                "envFile": "${userHome}/.env",
+            },
         ],
         "compounds": []
     },
-    // [debug]
-    "debug.toolBarLocation": "floating",
-    "debug.console.fontSize": 14,
     // [terminal]
     "terminal.integrated.fontSize": 14,
+    "terminal.integrated.enableMultiLinePasteWarning": false,
     // [git]
     "git.enableSmartCommit": true,
     "git.showPushSuccessNotification": true,
@@ -132,17 +143,10 @@
     "git.autofetchPeriod": 1800,
     "git.ignoreSubmodules": true,
     "git.detectSubmodules": false,
+    "git.openRepositoryInParentFolders": "always",
     // [go]
     "go.toolsManagement.autoUpdate": true,
-    "go.buildOnSave": "package",
     "go.useLanguageServer": true,
-    "[go]": {
-        "editor.insertSpaces": true,
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        }
-    },
     "gopls": {
         "formatting.gofumpt": false,
     },
@@ -167,16 +171,12 @@
         "coveredGutterStyle": "blockblue",
         "uncoveredGutterStyle": "slashred"
     },
-    // [javascript] [npm] [node] [typescript] [js]
+    // [javascript] [npm] [node] [typescript] [js] [jest]
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "eslint.options": {
-        "rules": {
-            "no-console": false
-        }
-    },
+    "jest.jestCommandLine": "jest",
     // [Markdown]
     "markdown.copyFiles.destination": {
-        "**/*": "assets/images/md/${documentBaseName}"
+        "**/*": "assets/images/md/${documentBaseName}-${fileName}"
     },
     "markdownlint.config": {
         "default": true,
@@ -190,16 +190,7 @@
         "MD053": false,
         "SA9003": false
     },
-    "[markdown]": {
-        "files.trimTrailingWhitespace": false,
-        "editor.wordWrap": "on",
-        "editor.quickSuggestions": {
-            "comments": "off",
-            "strings": "off",
-            "other": "off"
-        },
-        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
-    },
+    // [highlight] [todo]
     "highlight.regexes": {
         "(Warning)(:)(.*)": [
             {
@@ -284,7 +275,7 @@
         ],
     },
     // "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
-    "todo.embedded.regex": "(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|\\[FIX\\]|\\[BUG\\]|\\[NOTE\\]|\\[REVIEW\\|ISSUE]|\\[Deprecated\\]|\\?\\?\\?)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
+    "todo.embedded.regex": "(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]| TODO:|FIXME|\\[FIX\\]|\\[BUG\\]|\\[NOTE\\]|\\[REVIEW\\|ISSUE]|\\[Deprecated\\]|\\?\\?\\?)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
     "todo.file.include": [
         "**/*.todo",
         "**/*.task"
@@ -335,25 +326,26 @@
     ],
     // [html]
     "html.format.enable": true,
-    // [yaml]
-    "[yaml]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 4,
-        "editor.autoIndent": "advanced",
-        "editor.quickSuggestions": {
-            "other": true,
-            "comments": false,
-            "strings": true
-        }
-    },
-    "[jsonc]": {
-        "editor.quickSuggestions": {
-            "strings": true
-        },
-        "editor.suggest.insertMode": "replace"
-    },
     "debug.javascript.autoAttachFilter": "disabled",
-    "terminal.integrated.enableMultiLinePasteWarning": false,
+    // [SQL]
+    "sqltools.format": {
+        "language": "sql",
+        "linesBetweenQueries": 2,
+        "reservedWordCase": "upper"
+    },
+    "sqltools.useNodeRuntime": true,
+    // [playwright]
+    "playwright.reuseBrowser": false,
+    "playwright.showTrace": false,
+    // [github]
+    "githubPullRequests.pushBranch": "always",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "typescript": true
+    },
     "githubIssues.queries": [
         {
             "label": "My Issues",
@@ -367,29 +359,6 @@
             "label": "Recent Issues",
             "query": "state:open repo:${owner}/${repository} sort:updated-desc"
         }
-    ],
-    "editor.copyWithSyntaxHighlighting": false,
-    // [SQL]
-    "sqltools.format": {
-        "language": "sql",
-        "linesBetweenQueries": 2,
-        "reservedWordCase": "upper"
-    },
-    // [New]
-    "gallery.extensions.recommendations": false,
-    "security.workspace.trust.untrustedFiles": "open",
-    "window.openFoldersInNewWindow": "on",
-    "git.openRepositoryInParentFolders": "never",
-    "cmake.configureOnOpen": true,
-    "redhat.telemetry.enabled": false,
-    "diffEditor.renderSideBySide": false,
-    "extensions.supportUntrustedWorkspaces": {
-        "byted-ide.dev-environment-manager": {
-            "supported": true
-        }
-    },
-    "remote.SSH.defaultExtensions": [
-        "byted-ide.gallery"
     ],
     "githubPullRequests.queries": [
         {
@@ -405,5 +374,36 @@
             "query": "is:open author:${user}"
         }
     ],
-    "githubPullRequests.pushBranch": "always",
+    // [Editor by Language]
+    "[yaml]": {
+        "editor.tabSize": 4,
+        "editor.autoIndent": "advanced",
+        "editor.quickSuggestions": {
+            "comments": false,
+            "strings": true
+        }
+    },
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false,
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "notebook.lineNumbers": "on",
+    "tabnine.experimentalAutoImports": true,
+    "workbench.colorCustomizations": {},
+    "cSpell.userWords": [
+        "byted",
+        "dbatman",
+        "Guoco",
+        "MALIVA",
+        "shuk",
+        "sqlalchemy",
+        "Wallich"
+    ],
+    "codeium.enableConfig": {
+        "*": false
+    },
+    // [New]
 }
