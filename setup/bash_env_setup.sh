@@ -12,11 +12,11 @@ echo -e "\n# [Default USER_BIN]" >>${INSTALL_DIR}/.bash_plugin
 echo export PATH=${USER_BIN}:\$PATH >>${INSTALL_DIR}/.bash_plugin
 
 ### [bash config alias] ###
-ln -sf ${REPO_DIR}/bash/.bashrc ${INSTALL_DIR}/
-ln -sf ${REPO_DIR}/bash/.bash_aliases ${INSTALL_DIR}/
-ln -sf ${REPO_DIR}/bash/.bash_function ${INSTALL_DIR}/
-ln -sf ${REPO_DIR}/bash/.bash_logout ${INSTALL_DIR}/
-ln -sf ${REPO_DIR}/bash/settings.sh ${INSTALL_DIR}/
+ln -sf ${REPO_DIR}/config/.bashrc ${INSTALL_DIR}/
+ln -sf ${REPO_DIR}/config/.bash_aliases ${INSTALL_DIR}/
+ln -sf ${REPO_DIR}/config/.bash_function ${INSTALL_DIR}/
+ln -sf ${REPO_DIR}/config/.bash_logout ${INSTALL_DIR}/
+ln -sf ${REPO_DIR}/config/settings.sh ${INSTALL_DIR}/
 
 ### [git] ###
 ln -sf ${REPO_DIR}/pkg/git/.gitconfig ${INSTALL_DIR}/
