@@ -1,1 +1,0 @@
-../pkg/nodejs/npm_setup.sh

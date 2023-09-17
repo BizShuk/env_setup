@@ -4,6 +4,8 @@
 # .bashrc will not execute , but .bash_profile will
 # need to restart terminal or source .bash_profile
 
+./bash_env_setup.sh
+
 ~/project/env_setup/pkg/mac/brew.sh
 source ~/.profile
 

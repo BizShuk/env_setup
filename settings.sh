@@ -24,15 +24,3 @@ USER_LIB=${INSTALL_DIR}/lib
 USER_LOG=${INSTALL_DIR}/log
 USER_PROJECT=${INSTALL_DIR}/project
 USER_TMP=${INSTALL_DIR}/tmp
-
-# structure setup
-setup_structure() {
-    [ ! -d $USER_BIN ] && mkdir ${USER_BIN} 2>/dev/nll
-    [ ! -d $USER_LIB ] && mkdir ${USER_LIB} 2>/dev/nul
-    [ ! -d $USER_LOG ] && mkdir ${USER_LOG} 2>/dev/null
-    [ ! -d $USER_PROJECT ] && mkdir ${USER_PROJECT} 2>/dev/null
-    [ ! -d $USER_TMP ] && mkdir ${USER_TMP} 2>/dev/null
-
-    # [Default USER_BIN]
-    echo export PATH=${USER_BIN}:\$PATH >>~/.bash_plugin
-}
