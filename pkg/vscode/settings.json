@@ -405,5 +405,6 @@
     "codeium.enableConfig": {
         "*": false
     },
+    "window.zoomLevel": 1,
     // [New]
 }

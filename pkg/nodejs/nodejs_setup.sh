@@ -1,25 +1,33 @@
 #!/bin/bash
 # [NVM github](https://github.com/creationix/nvm)
 
+source settings.sh
+
 NODE_VER=${NODE_VER:-v18.7.0}
-NVM_DIR=~/.nvm
+NVM_DIR=${USER_LIB}/nvm
 
+rm -rf ${NVM_DIR}
+mkdir ${NVM_DIR}
 
-### NVM installation """
-[ ! -d $NVM_DIR ] && git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
+git clone https://github.com/creationix/nvm.git ${NVM_DIR}
+
+cd ${NVM_DIR} && git checkout $(git describe --abbrev=0 --tags)
 
 . $NVM_DIR/nvm.sh
 
-### NODE installation """
+# NODE installation """
+
 nvm install --lts
 nvm install $NODE_VER
 nvm use $NODE_VER
 nvm alias default $NODE_VER
 
+cat <<EOF >>~/.bash_plugin
 
-### Add NODE to PATH
-cat <<EOF >> ~/.bash_plugin
-# Node
-export NVM_DIR=~/.nvm
-export PATH=\$NVM_DIR/versions/node/$NODE_VER/bin:\$PATH
+# [NodeJs:nvm]
+export NVM_DIR=${NVM_DIR}
+source ${NVM_DIR}/nvm.sh
+export PATH=\${NVM_DIR}/versions/node/${NODE_VER}/bin:\${PATH}
 EOF
+
+curl http://npmjs.org/install.sh | sh

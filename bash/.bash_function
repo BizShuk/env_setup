@@ -3,26 +3,26 @@
 genpasswd() {
     local l=$1
     [ "$l" == "" ] && l=16
-    tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+    tr -dc A-Za-z0-9_ </dev/urandom | head -c ${l} | xargs
 }
 
 # git env variable
 # for more detail check: [Git Internal Environment Variables](https://git-scm.com/book/en/v2/Git-Internals-Environment-Variables)
-git_trace_on () {
+git_trace_on() {
     export GIT_TRACE = 1
     export GIT_CURL_VERBOSE = 1
 }
 
-git_trace_off () {
+git_trace_off() {
     unset GIT_TRACE
     unset GIT_CURL_VERBOSE
 }
 
-go_project_test () {
+gotest() {
     go test --covermode=count --coverprofile=out/conver.out ./... && go tool cover -func=out/cover.out
 }
 
-load_nvm () {
+load_nvm() {
     export NVM_DIR=~/.nvm
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 }
@@ -31,7 +31,7 @@ exit_on_error() {
     exit_code=$1
     last_command=${@:2}
     if [ $exit_code -ne 0 ]; then
-        >&2 echo "\"${last_command}\" command failed with exit code ${exit_code}."
+        echo >&2 "\"${last_command}\" command failed with exit code ${exit_code}."
         exit $exit_code
     fi
 }
