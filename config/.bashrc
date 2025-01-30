@@ -4,7 +4,6 @@
 
 source ~/settings.sh
 
-
 # Bash hotkey
 # - ctrl + a,   Move to the start of the command line
 # - ctrl + e,   Move to the end of the command line
@@ -12,8 +11,6 @@ source ~/settings.sh
 # - ctrl + f,   Move one character forward
 # - ctrl + r,   Incremental reverse search of bash history
 # - ctrl + w, 	Removes the command/argument before the cursor
-
-
 
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
@@ -23,11 +20,9 @@ export LANG="en_US.UTF-8"
 
 ## set default env varaible ##
 export TERM="xterm-256color"
-export PATH=$USER_BIN:$PATH;
+export PATH=$USER_BIN:$PATH
 #export CDPATH=.:$HOME:$project_dir;
 export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
-
-
 
 #Foreground & background colour commands
 #tput setab [1-7] # Set the background colour using ANSI escape
@@ -72,21 +67,14 @@ export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput se
 #tput ich N   # Insert N characters (moves rest of line forward!)
 #tput il N    # Insert N lines
 
-
 #Other commands
 #tput sgr0    # Reset text format to the terminal's default
 #tput bel     # Play a bell
-
-
-
 
 ## set default editor ##
 export EDITOR=vim
 export VISUAL=vim
 export SVN_EDITOR="$VISUAL"
-
-
-
 
 ## About history. Set history length via HISTSIZE and HISTFILESIZE ##
 
@@ -105,14 +93,11 @@ export HISTTIMEFORMAT="%F %T "
 #Append to history, don't overwrite
 shopt -s histappend
 
-
-
 ## shell timeout for security ##
 #export TMOUT=300
 
 ## Set default file permission to 644 ##
 #umask 022
-
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -120,8 +105,6 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
-
-
 
 ## undoc yet
 # check the window size after each command and, if necessary,
@@ -137,12 +120,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+xterm-color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -151,34 +134,32 @@ esac
 force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-  # We have color support; assume it's compliant with Ecma-48
-  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-  # a case would tend to support setf rather than setaf.)
-  color_prompt=yes
-    else
-  color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
 
 # Bash config
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases     # Alias for existing command
-[ -f ~/.bash_function ] && . ~/.bash_function   # Custom bash function
-[ -f ~/.bash_plugin ] && . ~/.bash_plugin       # Third-party config
-
+# shellcheck source=~/.bash_aliases
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases   # Alias for existing command
+[ -f ~/.bash_function ] && . ~/.bash_function # Custom bash function
+[ -f ~/.bash_plugin ] && . ~/.bash_plugin     # Third-party config
 
 ## enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+  . /etc/bash_completion
 fi
 
 # Use bash-completion, if available
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-        . /usr/share/bash-completion/bash_completion
-
-JAVA_HOME="/usr/bin/java"
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
+  . /usr/share/bash-completion/bash_completion
 
 # Automatically Logout BASH / TCSH / SSH Users After a Period of Inactivity
 
@@ -196,5 +177,3 @@ JAVA_HOME="/usr/bin/java"
 
 # supress zsh in mac
 export BASH_SILENCE_DEPRECATION_WARNING=1
-
-

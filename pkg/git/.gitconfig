@@ -38,3 +38,5 @@
 	default = current
 [commit]
     template = ~/.gitmessage
+[pull]
+	rebase = true
