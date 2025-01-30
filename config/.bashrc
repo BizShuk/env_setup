@@ -1,8 +1,10 @@
+#!/bin/bash
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-source ~/settings.sh
+source ./settings.sh
 
 # Bash hotkey
 # - ctrl + a,   Move to the start of the command line
@@ -138,28 +140,27 @@ if [ -n "$force_color_prompt" ]; then
     # We have color support; assume it's compliant with Ecma-48
     # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
     # a case would tend to support setf rather than setaf.)
-    color_prompt=yes
+    export color_prompt=yes
   else
-    color_prompt=
+    export color_prompt=no
   fi
 fi
 
 # Bash config
-# shellcheck source=~/.bash_aliases
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases   # Alias for existing command
-[ -f ~/.bash_function ] && . ~/.bash_function # Custom bash function
-[ -f ~/.bash_plugin ] && . ~/.bash_plugin     # Third-party config
+[ -f ~/.bash_aliases ] && source "${HOME}/.bash_aliases"   # Alias for existing command
+[ -f ~/.bash_function ] && source "${HOME}/.bash_function" # Custom bash function
+[ -f ~/.bash_plugin ] && source "${HOME}/.bash_plugin"     # Third-party config
 
 ## enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-  . /etc/bash_completion
+  source /etc/bash_completion 2>/dev/null
 fi
 
 # Use bash-completion, if available
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
-  . /usr/share/bash-completion/bash_completion
+  source /usr/share/bash-completion/bash_completion 2>/dev/null
 
 # Automatically Logout BASH / TCSH / SSH Users After a Period of Inactivity
 
