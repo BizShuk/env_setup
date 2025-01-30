@@ -1,39 +1,44 @@
 # cmd usage
-undoc list:
-- dmesg
-- 
 
+undoc list:
+
+- dmesg
+-
 
 ### cd
 
 - `cd -` , switch with your last directory
 - `cd ~` = `cd` , to home directory
-- 
+-
 
 ### readlink
+
 `readlink [options]... [Files]...` , read symbolic link recursively to target
+
 - -f , show all target path
 - -e , show all existed targets
 - -m , ?not sure
 
 for Mac
+
 - -n , show in one line
 
-
 ### find
+
 find --help
 
-
-
 # network
+
 bmon
 
 ### dig
 
 ##### dig [domain] [@dns]
+
 options
 
 command line option  Usage
+
 - -x dot-notation shortcut for reverse lookups
 - -i  use IP6.INT for IPv6 reverse lookups
 - -f filename Batch mode
@@ -47,8 +52,9 @@ command line option  Usage
 - -4  Use IPv4 query transport only
 - -6  Use IPv6 query transport only
 - -m  Enable memory usage debugging
- 
+
 Option  Usage
+
 - +[no]vc TCP mode
 - +[no]tcp    TCP mode, alternate syntax
 - +time=###   Set query timeout [5]
@@ -90,58 +96,61 @@ Option  Usage
 
 ### nslookup server DNS
 
-
 ### ip
+
 [link](http://www.tecmint.com/ip-command-examples/)
 
-
-### route 
+### route
 
 ### br
 
 ### ifdown and ifup
-
 
 ###
 
 # system
 
 ### kill
-http://www.linux.org/threads/kill-commands-and-signals.4423/
-
+<http://www.linux.org/threads/kill-commands-and-signals.4423/>
 
 ### utp
+
 time server
 
 service:
+
 - /etc/init.d/ntp [start|stop|restart]
 
 related:
+
 - /etc/ntp.conf
 - /etc/localtime
 - /usr/share/zoneinfo/Asia/Taipei
 - /etc/timezone
 
-### ntpdate 
+### ntpdate
+
 set ntp server
 ex: ntpdate <server>
 
-
 ### ulimit
-limit resource 
+
+limit resource
+
 - -a , show limitation of this shell
-- 
+-
 
 ulimit -Hn
 ulimit -Sn
 
 related:
+
 - /etc/security/limits.conf
 
+### locale
 
-### locale 
 - none , 顯示目前語系設定
-- 
+-
 - -a , 列出系統已經安裝的語系
 
 use locale-gen 安裝語系
@@ -166,17 +175,18 @@ LC_MESSAGES=zh_TW.UTF-8
 LC_TIME=en_US.UTF-8
 
 ### locale-gen
-install locale 
+
+install locale
 
 e.g. `sudo locale-gen zh_TW.UTF-8 zh_CN.UTF-8 ...`
 
-
 # System monitor
+
  now in bin/system_performance
 
+### chmod
 
-### chmod 
-change authorization 
+change authorization
 `drwxrwxrwx`
 d , directory or not  
 r , owner readable  
@@ -189,43 +199,26 @@ r , other readable
 w , other writable  
 x , other executable  
 
-
 `chmod 0000 <directory>` , lock directory but only root can access
 
+### apt-get
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-### apt-get 
 server domain unavailable , change /etc/apt/source.list to other link
 in China : [list](http://wiki.ubuntu.org.cn/%E6%BA%90%E5%88%97%E8%A1%A8)
 
-
 ### crontab
 
-
 crontab file sample:
+
 ```
 
 @reboot <username> <command>
 ```
 
-
-
-
 ### SSH
 
 1. ssh-keygen ,  
+
 ```
 jsmith@local-host$ ssh-keygen
 Generating public/private rsa key pair.
@@ -244,20 +237,16 @@ The key fingerprint is:
     2. The agent has no identities: When the ssh-agent is running and the ssh-add -L returns “The agent has no identities” (i.e no keys are added to the ssh-agent), the ssh-copy-id will still copy the message “The agent has no identities” to the remote-host’s authorized_keys entry.
     3. Duplicate entry in authorized_keys: I wish ssh-copy-id validates duplicate entry on the remote-host’s authorized_keys. If you execute ssh-copy-id multiple times on the local-host, it will keep appending the same key on the remote-host’s authorized_keys file without checking for duplicates. Even with duplicate entries everything works as expected. But, I would like to have my authorized_keys file clutter free.
 
-
-
 ##### remove ssh key for host
-ssh-keygen -R <host>
 
+ssh-keygen -R <host>
 
 Another way by ssh-agent , ssh-add
 How to do it?
 
-
-
 ### rsync
-sync file or directory to other place
 
+sync file or directory to other place
 
 -a , archive mode
 -v , verbose
@@ -277,60 +266,53 @@ sync file or directory to other place
 
 You can set samba user by `smbpasswd -a <user>` and check log at /var/log/samba
 
-
 ### file system
 
-
-##### mount 
+##### mount
 
 mount -t \<fs format\> \<disk\> \<directory\>
 
-
 `/etc/fstab` for automount at bootup , you can check disk UUID and add a line here. It will mount at boot up
-
 
 for exfat , apt-get install exfat-fuse exfat-utils
 
-
 ##### df
+
 check report file system on disk
 
 -T , print type
 
 ##### blkid -s UUID
+
 -s UUID , show all mounted disk UUID
 
 ##### lsblk
+
 list block devices, show all device ,including partition , with tree struction
 
-
 ##### fsck
+
 check disk situation and it will ask few questions like "Do you want to recover disk?"
 
 1. umount disk first
 2. fsck -yf \<device\>
 
-
 - -y , yes for all questions
-- -f , force checking 
+- -f , force checking
 - -p , automatic repair
 
-
 ##### fdisk
+
 partition
 
 - -l , list all disks , same functionality as lsblk
 - \<disk\> , operate with that device
 
-
-
-
-
 ##### parted
+
 same as fdisk , but by GNU
 
 parted /dev/sda unit TB print free
-
 
 ### lvm 2
 
@@ -340,12 +322,9 @@ parted /dev/sda unit TB print free
 
 ##### lv
 
-
-
 ##### lsusb
+
 list USB devices
-
-
 
 ### openssl
 
@@ -356,36 +335,37 @@ type pass phase
 
 openssl verify -CAfile="" -in <crt_file> -text -noout
 
-
 ### package
 
 ##### dpkg
+
 -l , show all packages
 -L <package_name> , show all package files
 
-
 ##### pkg-config
-PKG_CONFIG_PATH 
+
+PKG_CONFIG_PATH
 *.pc file
 
-
-
 ##### Write image
+
 `dd bs=1m if=<img_file> of=<output_file>`
 bs, block size for ibs and obs block size
 ibs , input block size
 obs , output block size
 
 ### diskutil on mac
-diskutil umount /dev/disk2s1 
 
+diskutil umount /dev/disk2s1
 
 ### net socket
 
 ### netcat
+
 server:`netcat -l <port> > <output_file>`
 client:`netcat <host> <port> < <input_file>`
 
 ### cut
+
 -d , delimit
 -f , field list = column list , -f 1,2,3,4
