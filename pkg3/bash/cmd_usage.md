@@ -39,19 +39,19 @@ options
 
 command line option  Usage
 
-- -x dot-notation shortcut for reverse lookups
-- -i  use IP6.INT for IPv6 reverse lookups
-- -f filename Batch mode
-- -b address[#port]   Bind to source address/port
-- -p port Specify port number
-- -q name Specify query name
-- -t type Specify query type
-- -c class    Specify query class
-- -k keyfile  Specify tsig key file
-- -y [hmac:]name:key  Specify named base64 tsig key
-- -4  Use IPv4 query transport only
-- -6  Use IPv6 query transport only
-- -m  Enable memory usage debugging
+- `-x`, dot-notation shortcut for reverse lookups
+- `-i`,  use IP6.INT for IPv6 reverse lookups
+- `-f`, filename Batch mode
+- `-b`, address[#port]   Bind to source address/port
+- `-p`, port Specify port number
+- `-q`, name Specify query name
+- `-t`, type Specify query type
+- `-c`, class    Specify query class
+- `-k`, keyfile  Specify tsig key file
+- `-y`, [hmac:]name:key  Specify named base64 tsig key
+- `-4`,  Use IPv4 query transport only
+- `-6`,  Use IPv6 query transport only
+- `-m`,  Enable memory usage debugging
 
 Option  Usage
 
@@ -111,6 +111,7 @@ Option  Usage
 # system
 
 ### kill
+
 <http://www.linux.org/threads/kill-commands-and-signals.4423/>
 
 ### utp
