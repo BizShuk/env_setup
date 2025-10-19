@@ -19,6 +19,7 @@ ln -sf "${REPO_DIR}/config/.bash_logout" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/config/settings.sh" "${INSTALL_DIR}/"
 
 ### [git] ###
+ln -sf "${REPO_DIR}/pkg/git/.gitignore" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/pkg/git/.gitconfig" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/pkg/git/.gitmessage" "${INSTALL_DIR}/"
 

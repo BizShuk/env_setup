@@ -6,7 +6,7 @@
 
 ./bash_env_setup.sh
 
-~/project/env_setup/pkg/mac/brew.sh
+~/projects/env_setup/pkg/mac/brew.sh
 source ~/.profile
 
 # [Basic]

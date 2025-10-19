@@ -1,0 +1,60 @@
+# How to execute
+# git config --global core.excludesFile "~/.gitignore"
+
+# ⭐ Mac General ⭐
+.DS_Store
+.AppleDouble
+.LSOverride
+.Trash
+
+## Icon must end with two \r
+Icon
+
+## Thumbnails
+._*
+
+## Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ⭐ Google Drive ⭐
+.Encrypted
+.file-revisions-by-id
+.shortcut-targets-by-id
+
+# ⭐ Go ⭐
+go.sum
+
+# ⭐ Project Meta ⭐
+.classpath
+.project
+*.code-workspace
+
+# ⭐ Module Dependencies ⭐
+.git
+.gitlab
+.venv
+.devops
+.settings
+.mvn
+.npm
+node_modules
+__pycache__
+
+# ⭐ Output Files ⭐
+target
+out
+dist
+output

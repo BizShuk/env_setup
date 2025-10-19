@@ -20,7 +20,7 @@ sudo mount -t exfat /etc/sdc1 /home/shuk/transcend -o uid=shuk,gid=shuk
 
 sudo apt-get install smartmontools
 sudo smartctl -a /dev/sdc
-# shuk@shuk-LIVA-Z:~/project/env_setup/setup$ sudo smartctl -a /dev/sdc1
+# shuk@shuk-LIVA-Z:~/projects/env_setup/setup$ sudo smartctl -a /dev/sdc1
 # smartctl 7.4 2023-08-01 r5530 [x86_64-linux-6.8.0-52-generic] (local build)
 # Copyright (C) 2002-23, Bruce Allen, Christian Franke, www.smartmontools.org
 

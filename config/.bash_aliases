@@ -48,7 +48,7 @@ alias fgrep='fgrep --color=auto'
 if [ "$os" == "darwin" ]; then
     alias grep='egrep --color=auto'
 fi
-alias e='egrep'
+alias e='egrep --color=auto'
 alias vi='vim'
 alias edit='vim'
 alias ping='ping -c 5'            # Stop after sending count ECHO_REQUEST packets
@@ -82,8 +82,6 @@ alias tree='tree -N --noreport'
 alias mdtree="tree -f --charset utf8 | sed -E  -e 's:\./::g' -e 's:─ (.*)/(.*)$:─ [\2](\1/\2):g' -e 's/^(.── )(.*)$/\1[\2](\2)/g' -e 's/$/  /g'"
 alias genREADME="echo '#' $(basename $(pwd)) > README.md; mdtree >> README.md;"
 
-## Terraform
-alias tf='terraform'
 
 ## Npm ##
 alias lt1="config ls -l"
@@ -94,11 +92,6 @@ alias lt1="config ls -l"
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
-
-alias k=kubectl
-alias kgc="k config get-contexts"
-alias kuc="k config set-context "
-alias kn="k config set-context --current --namespace "
 
 ## Music player : mplayer
 alias music_play="mplyaer -shuffle -- */**.mp3"

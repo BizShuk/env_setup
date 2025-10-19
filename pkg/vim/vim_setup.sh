@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source settings.sh
-source ~/project/ubuntu_setup/alias/python-config.sh
+source ~/projects/ubuntu_setup/alias/python-config.sh
 
 python_config_dir=$(get_python-config-dir)
 

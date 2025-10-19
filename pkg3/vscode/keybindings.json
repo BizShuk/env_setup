@@ -1,39 +1,107 @@
 // Place your key bindings in this file to override the defaults
 [
+    // Pnael Previous/Next
     {
         "key": "alt+right",
         "command": "workbench.action.navigateForward",
-        "when": "canNavigateForward"
+        "when": "editorFocus && canNavigateForward"
     },
     {
         "key": "alt+left",
         "command": "workbench.action.navigateBack",
-        "when": "canNavigateBack"
+        "when": "editorFocus && canNavigateBack"
     },
     {
         "key": "ctrl+pageup",
-        "command": "workbench.action.previousEditor"
-    },
-    {
-        "key": "ctrl+pagedown",
-        "command": "workbench.action.nextEditor"
-    },
-    {
-        "key": "ctrl+tab",
-        "command": "workbench.action.nextEditor"
+        "command": "workbench.action.previousEditor",
+        "when": "editorFocus"
     },
     {
         "key": "ctrl+shift+tab",
-        "command": "workbench.action.previousEditor"
+        "command": "workbench.action.previousEditor",
+        "when": "editorFocus"
     },
+    {
+        "key": "ctrl+pagedown",
+        "command": "workbench.action.nextEditor",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.focusNextGroup",
+        "when": "multipleEditorGroups && editorFocus"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.focusPreviousGroup",
+        "when": "editorFocus && multipleEditorGroups"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+    },
+    {
+        "key": "ctrl+pagedown",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.terminal.focusNextPane",
+        "when": "terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.terminal.focusPreviousPane",
+        "when": "terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive"
+    },
+    // Create Terminal
+    {
+        "key": "cmd+n",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalFocus"
+    },
+    // Remove Default
+    {
+        "key": "ctrl+tab",
+        "command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
+        "when": "inEditorsPicker && inQuickOpen"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+        "when": "!activeEditorGroupEmpty"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "-workbench.action.quickOpenLeastRecentlyUsedEditorInGroup",
+        "when": "!activeEditorGroupEmpty"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "-workbench.action.quickOpenNavigatePreviousInEditorPicker",
+        "when": "inEditorsPicker && inQuickOpen"
+    },
+    // Rest
     {
         "key": "ctrl+u",
         "command": "editor.action.transformToTitlecase"
-    },
-    {
-        "key": "shift+cmd+c",
-        "command": "-workbench.action.terminal.openNativeConsole",
-        "when": "!terminalFocus"
     },
     {
         "key": "alt+c",
@@ -55,4 +123,70 @@
         "command": "-frontMatter.insertSnippet",
         "when": "editorTextFocus"
     },
+    {
+        "key": "shift+cmd+v",
+        "command": "-frontMatter.insertSnippet",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+cmd+e",
+        "command": "markdown.showPreview"
+    },
+    // Maximize Panel
+    {
+        "key": "cmd+k cmd+m",
+        "command": "workbench.action.toggleMaximizeEditorGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "cmd+k cmd+m",
+        "command": "-workbench.action.toggleMaximizeEditorGroup",
+        "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups"
+    },
+    {
+        "key": "cmd+k cmd+m",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "panelFocus"
+    },
+    {
+        "key": "cmd+k cmd+m",
+        "command": "workbench.action.toggleMaximizedAuxiliaryBar",
+        "when": "auxiliaryBarFocus"
+    },
+    // Focus Panel
+    {
+        "key": "cmd+0",
+        "command": "workbench.action.focusSideBar",
+        "when": "!sideBarFocus"
+    },
+    {
+        "key": "cmd+0",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "sideBarFocus"
+    },
+    {
+        "key": "cmd+1",
+        "command": "workbench.action.focusActiveEditorGroup"
+    },
+    {
+        "key": "cmd+2",
+        "command": "workbench.action.focusPanel",
+        "when": "!panelFocus"
+    },
+    {
+        "key": "cmd+2",
+        "command": "workbench.action.togglePanel",
+        "when": "panelFocus"
+    },
+    {
+        "key": "cmd+3",
+        "command": "workbench.action.focusAuxiliaryBar",
+        "when": "!auxiliaryBarFocus"
+    },
+    {
+        "key": "cmd+3",
+        "command": "workbench.action.toggleAuxiliaryBar",
+        "when": "auxiliaryBarFocus"
+    },
+    // New Bindings
 ]

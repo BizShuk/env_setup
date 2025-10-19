@@ -4,7 +4,7 @@
 lsblk -f
 sudo blkid
 
-PROJECT_PATH="/home/shuk/project"
+PROJECT_PATH="/home/shuk/projects"
 PROJECT_CONFIG_PATH="/home/shuk/project_config"
 
 ### proejct folder
