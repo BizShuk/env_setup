@@ -43,13 +43,13 @@
     },
     {
         "key": "ctrl+tab",
-        "command": "workbench.action.terminal.focusNext",
-        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+        "command": "workbench.action.nextPanelView",
+        "when": "panelFocus"
     },
     {
         "key": "ctrl+shift+tab",
-        "command": "workbench.action.terminal.focusPrevious",
-        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+        "command": "workbench.action.previousPanelView",
+        "when": "panelFocus"
     },
     {
         "key": "ctrl+pagedown",
@@ -156,7 +156,7 @@
     // Focus Panel
     {
         "key": "cmd+0",
-        "command": "workbench.action.focusSideBar",
+        "command": "workbench.action.focusActivityBar",
         "when": "!sideBarFocus"
     },
     {
@@ -189,4 +189,8 @@
         "when": "auxiliaryBarFocus"
     },
     // New Bindings
+    {
+        "key": "shift+cmd+alt+f",
+        "command": "workbench.action.replaceInFiles"
+    }
 ]
