@@ -1,0 +1,6 @@
+# System -> General -> Login Items & Extensions -> Allow in the Background
+/Library/LaunchAgents
+/Library/LaunchDaemons
+/System/Library/LaunchAgents
+/System/Library/LaunchDaemons
+/Users/shuk/Library/LaunchAgents
