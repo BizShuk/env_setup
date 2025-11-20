@@ -17,3 +17,7 @@ echo "export PATH=$(brew --prefix curl)/bin:\${PATH}" >>~/.bash_plugin
 
 # [Go]
 ./go_setup.sh
+
+
+# [Local LaunchAgent]
+cp ../config/mac/LaunchAgents/* ~/Library/LaunchAgents/

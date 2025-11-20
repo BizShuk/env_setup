@@ -17,6 +17,7 @@ ln -sf "${REPO_DIR}/config/.bash_aliases" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/config/.bash_function" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/config/.bash_logout" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/config/settings.sh" "${INSTALL_DIR}/"
+ln -sf "${REPO_DIR}/config/backup.ignore" "${INSTALL_DIR}/"
 
 ### [git] ###
 ln -sf "${REPO_DIR}/pkg/git/.gitignore" "${INSTALL_DIR}/"

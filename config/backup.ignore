@@ -1,0 +1,36 @@
+# Exclude list for rsync
+
+# Version control systems
+.git/
+.svn/
+
+# Temporary files and folders
+tmp/
+*.tmp
+*~
+
+# macOS specific files
+.DS_Store
+
+# Node.js dependencies
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VSCode settings
+.vscode/
+
+# Custom excludes from backup.sh
+CapCut/User Data
+default/Documents
+default/Downloads
+default/Desktop
+
+# Skip files for diff command
+.*
+Documents
+Downloads
+Desktop
+User\ Data

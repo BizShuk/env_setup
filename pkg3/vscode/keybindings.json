@@ -129,11 +129,6 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+cmd+e",
-        "command": "markdown.showPreview"
-    },
-    // Maximize Panel
-    {
         "key": "cmd+k cmd+m",
         "command": "workbench.action.toggleMaximizeEditorGroup",
         "when": "editorFocus"
@@ -160,31 +155,36 @@
         "when": "!sideBarFocus"
     },
     {
-        "key": "cmd+0",
+        "key": "cmd+1",
+        "command": "workbench.action.focusSideBar",
+        "when": "!sideBarFocus"
+    },
+    {
+        "key": "cmd+1",
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "sideBarFocus"
     },
     {
-        "key": "cmd+1",
+        "key": "cmd+2",
         "command": "workbench.action.focusActiveEditorGroup"
     },
     {
-        "key": "cmd+2",
+        "key": "cmd+3",
         "command": "workbench.action.focusPanel",
         "when": "!panelFocus"
     },
     {
-        "key": "cmd+2",
+        "key": "cmd+3",
         "command": "workbench.action.togglePanel",
         "when": "panelFocus"
     },
     {
-        "key": "cmd+3",
+        "key": "cmd+4",
         "command": "workbench.action.focusAuxiliaryBar",
         "when": "!auxiliaryBarFocus"
     },
     {
-        "key": "cmd+3",
+        "key": "cmd+4",
         "command": "workbench.action.toggleAuxiliaryBar",
         "when": "auxiliaryBarFocus"
     },
@@ -192,5 +192,35 @@
     {
         "key": "shift+cmd+alt+f",
         "command": "workbench.action.replaceInFiles"
+    },
+    // Markdown Preview
+    {
+        "key": "ctrl+cmd+e",
+        "command": "-office.markdown.switch",
+        "when": "editorTextFocus && editorLangId == 'markdown'"
+    },
+    {
+        "key": "shift+cmd+v",
+        "command": "-markdown-preview-enhanced.openPreview",
+        "when": "editorLangId == 'markdown'"
+    },
+    {
+        "key": "ctrl+cmd+1",
+        "command": "-workbench.action.moveEditorToFirstGroup"
+    },
+    {
+        "key": "shift+alt+cmd+right",
+        "command": "-cursorColumnSelectRight",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "shift+alt+cmd+left",
+        "command": "-cursorColumnSelectLeft",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+cmd+f",
+        "command": "-workbench.action.toggleFullScreen",
+        "when": "!isIOS"
     }
 ]

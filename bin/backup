@@ -1,0 +1,45 @@
+#!/bin/bash
+
+set -e
+
+# backup -i <input_path> to assign input_path to variable(input_path) if -i <input_path> is passed as argument
+
+
+# if 1 param passed, then assign it to backup_path
+backup_path=""
+backup_ignore_path="${HOME}/backup.ignore"
+
+if [ ! -f "$backup_ignore_path" ]; then
+    echo "backup.ignore file does not exist. Create a empty in ${backup_ignore_path}"
+    touch "$backup_ignore_path"
+fi
+
+if [ "$#" -eq 1 ]; then
+    backup_path="$1"
+fi
+
+# verify the backup path exists or not or whether it's empty
+if [ -z "$backup_path" ]; then
+    echo "Backup path is empty. Exiting. format like '/Volumes/backup_all'"
+    exit 1
+fi
+
+if [ ! -d "$backup_path" ]; then
+    echo "Backup path $backup_path does not exist. Exiting."
+    exit 1
+fi
+
+# remove if there is trailing slash
+if [[ "$backup_path" == */ ]]; then
+    exit 1
+fi
+
+
+
+rsync -avL --progress --exclude-from="${backup_ignore_path}" ~/Documents/Archive/ "${backup_path}"
+
+echo ""
+echo "Start diffing..."
+
+diff -r -X "${backup_ignore_path}" ~/Documents/Archive "${backup_path}" > tmp/archive.diff
+echo "Finished diffing. Check tmp/archive.diff for details."
