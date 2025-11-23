@@ -3,24 +3,24 @@
 
 source settings.sh
 
-NODE_VER=${NODE_VER:-v18.7.0}
+NODE_VER=${NODE_VER:-v24.11.1}
 NVM_DIR=${USER_LIB}/nvm
 
-rm -rf ${NVM_DIR}
-mkdir ${NVM_DIR}
+rm -rf "${NVM_DIR}"
+mkdir "${NVM_DIR}"
 
-git clone https://github.com/creationix/nvm.git ${NVM_DIR}
+git clone https://github.com/creationix/nvm.git "${NVM_DIR}"
 
-cd ${NVM_DIR} && git checkout $(git describe --abbrev=0 --tags)
+cd "${NVM_DIR}" && git checkout $(git describe --abbrev=0 --tags)
 
-. $NVM_DIR/nvm.sh
+. "$NVM_DIR"/nvm.sh
 
 # NODE installation """
 
 nvm install --lts
-nvm install $NODE_VER
-nvm use $NODE_VER
-nvm alias default $NODE_VER
+nvm install "$NODE_VER"
+nvm use "$NODE_VER"
+nvm alias default "$NODE_VER"
 
 cat <<EOF >>~/.bash_plugin
 

@@ -1,1 +1,1 @@
-../settings.sh
+./bash/settings.sh

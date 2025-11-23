@@ -1,1 +1,0 @@
-../pkg/postgresql/postgres_macsetup.sh

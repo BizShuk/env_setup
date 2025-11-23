@@ -1,5 +1,0 @@
-#!/bin/bash
-
-pushd ../detect || exit
-
-./ls_sys_path.py <sys_path

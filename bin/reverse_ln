@@ -1,0 +1,29 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <path>"
+    exit 1
+fi
+
+path="$1"
+
+if ! [ -e "$path" ]; then
+    echo "Error: Path '$path' does not exist."
+    exit 1
+fi
+
+target_name=$(basename "$path")
+# Copy target to current location
+echo "Copying '$path' to '$target_name'"
+cp -r "$path" ./
+
+
+target_name=$(basename "$path")
+
+# Delete target
+echo "Deleting original path: '$path'"
+sudo rm -rf "$path"
+
+# ln local one to target
+echo "Creating symlink from '$path' to '$(pwd)/$target_name'"
+ln -s "$(pwd)/$target_name" "$path"

@@ -1,1 +1,0 @@
-../pkg/mongo/mongo_setup.sh

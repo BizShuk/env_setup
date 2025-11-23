@@ -1,1 +1,0 @@
-../pkg/postgresql/ubuntu_postgres.sh

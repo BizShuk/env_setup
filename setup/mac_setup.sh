@@ -6,11 +6,11 @@
 
 ./bash_env_setup.sh
 
-~/projects/env_setup/pkg/mac/brew.sh
+~/projects/env_setup/pkg/homwbrew/brew.sh
 source ~/.profile
 
 # [Basic]
-brew install git curl wget jq
+brew install curl wget jq
 
 echo -e "\n# [curl]" >>~/.bash_plugin
 echo "export PATH=$(brew --prefix curl)/bin:\${PATH}" >>~/.bash_plugin
@@ -18,6 +18,3 @@ echo "export PATH=$(brew --prefix curl)/bin:\${PATH}" >>~/.bash_plugin
 # [Go]
 ./go_setup.sh
 
-
-# [Local LaunchAgent]
-cp ../config/mac/LaunchAgents/* ~/Library/LaunchAgents/

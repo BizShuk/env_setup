@@ -1,0 +1,178 @@
+{
+    " USB DISK 2.0" = 1;
+    " USB DISK 3.0" = 1;
+    AKDeviceUnlockState = 0;
+    AKLastIDMSEnvironment = 0;
+    AKLastLocale = "en_TW";
+    "Android Android" = 1;
+    "Apple Inc. iPhone" = 1;
+    AppleActionOnDoubleClick = Maximize;
+    AppleAntiAliasingThreshold = 4;
+    AppleAquaColorVariant = 1;
+    AppleICUForce24HourTime = 1;
+    AppleIconAppearanceTheme = RegularAutomatic;
+    AppleInterfaceStyle = Dark;
+    AppleKeyboardUIMode = 0;
+    AppleLanguages =     (
+        "en-TW",
+        "zh-Hant-TW",
+        "zh-Hans-TW"
+    );
+    AppleLanguagesDidMigrate = "13.5.2";
+    AppleLanguagesSchemaVersion = 5400;
+    AppleLocale = "en_TW";
+    AppleMeasurementUnits = Centimeters;
+    AppleMenuBarFontSize = large;
+    AppleMenuBarVisibleInFullscreen = 0;
+    AppleMetricUnits = 1;
+    AppleMiniaturizeOnDoubleClick = 1;
+    AppleShowAllExtensions = 1;
+    AppleShowScrollBars = WhenScrolling;
+    AppleSpacesSwitchOnActivate = 0;
+    AppleTemperatureUnit = Celsius;
+    AppleWindowTabbingMode = fullscreen;
+    "Canon MX720 series" = 1;
+    ContextMenuGesture = 1;
+    "General USB Flash Disk" = 1;
+    "Generic Mass Storage Device" = 1;
+    "Generic PCSC Smartcard Reader" = 1;
+    "HUAWEI ALE-L21" = 1;
+    InitialKeyRepeat = 15;
+    "KB_DoubleQuoteOption" = "\\U201cabc\\U201d";
+    "KB_SingleQuoteOption" = "\\U2018abc\\U2019";
+    "KB_SpellingLanguage" =     {
+        "KB_SpellingLanguageIsAutomatic" = 1;
+    };
+    KeyRepeat = 2;
+    "Kingston DataTraveler 3.0" = 1;
+    "NOVATEK DEMO1" = 1;
+    NSAutomaticCapitalizationEnabled = 1;
+    NSAutomaticDashSubstitutionEnabled = 1;
+    NSAutomaticPeriodSubstitutionEnabled = 1;
+    NSAutomaticQuoteSubstitutionEnabled = 1;
+    NSAutomaticSpellingCorrectionEnabled = 1;
+    NSAutomaticTextCompletionEnabled = 1;
+    NSCloseAlwaysConfirmsChanges = 1;
+    NSLinguisticDataAssetsRequestLastInterval = 86400;
+    NSLinguisticDataAssetsRequestTime = "2025-11-22 14:50:50 +0000";
+    NSLinguisticDataAssetsRequested =     (
+        zh,
+        "zh_Hant",
+        "zh_TW",
+        en,
+        "en_TW",
+        "zh_Hans",
+        de,
+        it,
+        nl,
+        "en_US",
+        nb,
+        nn,
+        ko,
+        pt
+    );
+    NSLinguisticDataAssetsRequestedByChecker =     (
+        en,
+        nb,
+        nn,
+        de,
+        it,
+        ko,
+        pt
+    );
+    NSNavPanelFileLastListModeForOpenModeKey = 2;
+    NSNavPanelFileLastListModeForSaveModeKey = 2;
+    NSNavPanelFileListModeForOpenMode2 = 2;
+    NSNavPanelFileListModeForSaveMode2 = 2;
+    NSNavPanelSidebarKeyForOpen =     (
+    );
+    NSPersonNameDefaultDisplayNameOrder = 0;
+    NSPersonNameDefaultShortNameFormat = 0;
+    NSPersonNameDefaultShouldPreferNicknamesPreference = 0;
+    NSPreferredWebServices =     {
+        NSWebServicesProviderWebSearch =         {
+            NSDefaultDisplayName = Google;
+            NSProviderIdentifier = "com.google.www";
+        };
+    };
+    NSQuitAlwaysKeepsWindows = 0;
+    NSSpellCheckerContainerTransitionComplete = 1;
+    NSSpellCheckerDictionaryContainerTransitionComplete = 1;
+    NSSpellCheckerInputAnalyticsTime = "2024-11-16 23:22:59 +0000";
+    NSTableViewDefaultSizeMode = 2;
+    NSUserDictionaryReplacementItems =     (
+                {
+            on = 1;
+            replace = wow;
+            with = "\\Ud83e\\Udd29";
+        },
+                {
+            on = 1;
+            replace = rss;
+            with = resource;
+        },
+                {
+            on = 1;
+            replace = idk;
+            with = "I don't know!!";
+        },
+                {
+            on = 1;
+            replace = omw;
+            with = "On my way!";
+        }
+    );
+    NSUserKeyEquivalents =     {
+        "Enter Full Screen" = "@~^f";
+    };
+    NSUserQuotesArray =     (
+        "\\U201c",
+        "\\U201d",
+        "\\U2018",
+        "\\U2019"
+    );
+    NavPanelFileListModeForOpenMode = 2;
+    NavPanelFileListModeForSaveMode = 2;
+    NavPanelSpotlightSearchScopeMode = 2;
+    "Realtek USB 10/100/1000 LAN" = 1;
+    "SRT USB" = 1;
+    "SanDisk Cruzer Switch" = 1;
+    "Sony D6653" = 1;
+    "StoreJet Transcend StoreJet Transcend" = 1;
+    TISRomanSwitchState = 0;
+    WebAutomaticSpellingCorrectionEnabled = 1;
+    "_AKBAACertMarkerKey" = {length = 32, bytes = 0x5175a917 3fe4daa8 afa90fc2 8ed14f9b ... 1f8fbb57 50df136f };
+    "_HIHideMenuBar" = 0;
+    "asus SDM636-MTP _SN:36A8FBC6" = 1;
+    "com.apple.Preferences.keyboard.fnState" = 1;
+    "com.apple.finder.SyncExtensions" =     {
+        collaborationMap =         {
+            "com.google.drivefs.finderhelper.findersync" = 0;
+        };
+        dirMap =         {
+            "com.google.drivefs.finderhelper.findersync" =             (
+                "file:///Users/shuk/My%20Drive/",
+                "file:///"
+            );
+        };
+    };
+    "com.apple.gms.availability.accessNotGrantedUseCases" = {length = 42, bytes = 0x62706c69 73743030 a0080000 00000000 ... 00000000 00000009 };
+    "com.apple.gms.availability.disabledUseCases" = {length = 82, bytes = 0x62706c69 73743030 a1015f10 23636f64 ... 00000000 00000030 };
+    "com.apple.gms.availability.disallowedUseCases" = {length = 42, bytes = 0x62706c69 73743030 a0080000 00000000 ... 00000000 00000009 };
+    "com.apple.gms.availability.essentialAssetReadiness" = {length = 4, bytes = 0x74727565};
+    "com.apple.gms.availability.key" = {length = 46, bytes = 0x62706c69 73743030 a1011000 080a0000 ... 00000000 0000000c };
+    "com.apple.gms.availability.useCasesWhoseAssetsAreOutOfStorage" = {length = 42, bytes = 0x62706c69 73743030 a0080000 00000000 ... 00000000 00000009 };
+    "com.apple.gms.availability.useCasesWhoseAssetsNotReady" = {length = 42, bytes = 0x62706c69 73743030 a0080000 00000000 ... 00000000 00000009 };
+    "com.apple.keyboard.fnState" = 1;
+    "com.apple.mouse.scaling" = 3;
+    "com.apple.scrollwheel.scaling" = "0.5";
+    "com.apple.sound.beep.feedback" = 0;
+    "com.apple.sound.beep.flash" = 0;
+    "com.apple.sound.beep.sound" = "/System/Library/Sounds/Basso.aiff";
+    "com.apple.sound.beep.volume" = "0.719245";
+    "com.apple.springing.delay" = "0.5";
+    "com.apple.springing.enabled" = 1;
+    "com.apple.swipescrolldirection" = 0;
+    "com.apple.trackpad.scaling" = 2;
+    shouldShowRSVPDataDetectors = 0;
+}

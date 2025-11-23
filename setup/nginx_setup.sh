@@ -1,1 +1,0 @@
-../pkg/nginx/nginx_setup.sh
