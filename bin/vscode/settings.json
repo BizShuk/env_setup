@@ -70,6 +70,7 @@
         // api_tiktok
         "{gen/**}": true,
         "homebrew/": true,
+        "**/{*test.go}": true,
     },
     "files.watcherExclude": {
         // "**": true
@@ -561,4 +562,5 @@
         "*",
         "go"
     ],
+    "window.newWindowProfile": "ByteDance",
 }
