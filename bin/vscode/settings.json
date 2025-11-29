@@ -555,12 +555,10 @@
     },
     "chat.mcp.gallery.enabled": true,
     "geminicodeassist.codeGenerationPaneViewEnabled": true,
-    "chat.disableAIFeatures": true,
     "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
     "geminicodeassist.inlineSuggestions.suggestionSpeed": "Fast",
     "geminicodeassist.languages": [
         "*",
         "go"
     ],
-    "window.newWindowProfile": "ByteDance",
 }

@@ -17,6 +17,7 @@ node_modules/
 
 # Python cache
 __pycache__/
+__pycache__
 *.pyc
 
 # VSCode settings
@@ -24,6 +25,11 @@ __pycache__/
 
 # Custom excludes from backup.sh
 CapCut/User Data
+CapCut/JianyingPro Drafts
+CapCut/com.lemon.database
+CapCut/JianyingPro Prerender
+CapCut/JianyingPro Presets
+CapCut/JianyingPro Materials
 default/Documents
 default/Downloads
 default/Desktop
