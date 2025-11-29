@@ -561,4 +561,6 @@
         "*",
         "go"
     ],
+    "chat.disableAIFeatures": true,
+    "window.newWindowProfile": "Default",
 }
