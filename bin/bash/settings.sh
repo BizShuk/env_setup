@@ -27,7 +27,7 @@ INSTALL_DIR=${HOME}
 
 # User-releated folders
 export USER_PROJECT=${INSTALL_DIR}/projects
-[ ! -d "$USER_PROJECT" ] && mdkir "$USER_PROJECT"
+[ ! -d "$USER_PROJECT" ] && mkdir "$USER_PROJECT"
 
 
 export USER_BIN=${INSTALL_DIR}/bin
