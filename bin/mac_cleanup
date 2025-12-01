@@ -26,5 +26,8 @@ rm -rf /Users/shuk/Music/*
 # Whatapps
 rm -rf /Users/shuk/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/Message/Media/*
 
+# WeChat
+rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat/Data
+rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat.WeChatMacShare/Data
 
 brew bundle cleanup

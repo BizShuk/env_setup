@@ -7,6 +7,7 @@ set -e
 
 # if 1 param passed, then assign it to backup_path
 backup_path=""
+backup_ignore_path="${HOME}/backup.ignore"
 
 if [ "$#" -eq 1 ]; then
     backup_path="$1"
@@ -36,11 +37,12 @@ read -p "Type 'yes' to continue: " force_continue
 # Check whether force_continue match string yes
 [[ ! $force_continue == "yes" ]] && exit 1
 
-
-rsync -avL --progress --delete $(pwd) "${backup_path}"
+echo "From: $(pwd)/"
+echo "To: ${backup_path}"
+rsync -avL --progress --delete "$(pwd)/" "${backup_path}"
 
 echo ""
 echo "Start diffing..."
 
-diff -r -X "${backup_ignore_path}" $(pwd) "${backup_path}" > tmp/archive.diff
+diff -r $(pwd) "${backup_path}" > tmp/archive.diff
 echo "Finished diffing. Check tmp/archive.diff for details."
