@@ -1,0 +1,1 @@
+/home/shuk/project/env_setup/bin/bash/settings.sh
