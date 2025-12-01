@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl http://npmjs.org/install.sh | sh
+curl -L http://npmjs.org/install.sh | sh
 
 
 

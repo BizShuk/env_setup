@@ -4,7 +4,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-source settings.sh
+source ~/settings.sh
 
 # Bash hotkey
 # - ctrl + a,   Move to the start of the command line

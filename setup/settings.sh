@@ -1,1 +1,1 @@
-/home/shuk/project/env_setup/bin/bash/settings.sh
+/home/shuk/projects/env_setup/bin/bash/settings.sh

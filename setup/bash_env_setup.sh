@@ -2,6 +2,7 @@
 source settings.sh
 
 ### [bash config alias] ###
+ln -sf "${REPO_DIR}/bin/bash/settings.sh" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/bin/bash/.bashrc" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/bin/bash/.bash_aliases" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/bin/bash/.bash_function" "${INSTALL_DIR}/"
