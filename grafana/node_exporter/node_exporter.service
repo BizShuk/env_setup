@@ -1,0 +1,15 @@
+[Unit]
+Description=我的自定義應用程式服務
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/node_exporter
+# 確保您的程式有執行的權限 (chmod +x)
+# 類型可以設為 simple, forking, oneshot 等。simple 是最常見的。
+Type=simple
+# 重新啟動策略：如果程式結束了，系統會自動重啟它。
+Restart=always
+
+[Install]
+# 這是最重要的部分！它讓服務在系統啟動時自動啟動。
+WantedBy=multi-user.target

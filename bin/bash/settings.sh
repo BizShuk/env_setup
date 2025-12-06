@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # customized parameter
 user="$(whoami)"
 export user
