@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 # Environment="MY_VAR=value"
-ExecStart=/usr/local/bin/prometheus --config.file=/etc/local/prometheus.yml
+ExecStart=/usr/local/bin/prometheus --config.file=/etc/local/prometheus.yml --storage.tsdb.path=/var/lib/prometheus
 # 確保您的程式有執行的權限 (chmod +x)
 # 類型可以設為 simple, forking, oneshot 等。simple 是最常見的。
 Type=simple

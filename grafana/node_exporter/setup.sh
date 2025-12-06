@@ -2,6 +2,14 @@
 
 . ~/settings.sh
 
+
+# data: /var/lib/node_exporter
+# bin: /usr/local/bin/node_exporter
+# systemd: /e
+
+
+
+
 VERSION=1.10.2
 OS=$(uname | tr '[:upper:]' '[:lower:]')
 ARCH=amd64
@@ -21,4 +29,4 @@ if [ ! -f /etc/systemd/system/node_exporter.service ]; then
     sudo systemctl start node_exporter.service
 fi
 
-rm -r ${name} ${name}.tar.gz}
+rm -r ${name}.tar.gz
