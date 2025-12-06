@@ -5,7 +5,8 @@
 
 # data: /var/lib/node_exporter
 # bin: /usr/local/bin/node_exporter
-# systemd: /e
+# systemd: /etc/systemd/system/node_exporter.service
+
 
 
 

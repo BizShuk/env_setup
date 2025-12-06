@@ -1,3 +1,23 @@
 #!/bin/bash
 
-sudo ss -tuln
+
+port=$1
+
+
+
+# Check if a specific port is open
+function check_port_open() {
+    local port=$1
+    sudo ss -tuln | grep -q ":$port\b"
+    if [ $? -eq 0 ]; then
+        echo "Port $port is open."
+    else
+        echo "Port $port is closed."
+    fi
+}
+
+echo Grafana $(check_port_open 3000) # service (grafana)
+echo Mysql $(check_port_open 3306) # mysql
+echo Prometheus $(check_port_open 9090) # prometheus
+echo Node Exporter $(check_port_open 9100) # node exporter
+echo Input Port:${port} $(check_port_open $port)
