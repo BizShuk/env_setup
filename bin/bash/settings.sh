@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+# set -x # enable for printing executed command
 
 # customized parameter
 user="$(whoami)"
@@ -11,7 +11,9 @@ export email="biz.shuk@gmail.com"
 
 # darwin for Mac , linux for ubuntu, linux, ...
 os=$(uname | tr '[:upper:]' '[:lower:]')
+OS=${OS}
 export os
+export OS
 
 KERNEL_NAME=$(uname -s)
 export KERNEL_NAME
@@ -21,6 +23,13 @@ export KERNEL_VER
 
 CPU_ARCH=$(uname -m)
 export CPU_ARCH
+ARCH=${CPU_ARCH}
+
+# if ARCH equals to "x84_64", replace it with "amd64"
+if [ "$ARCH" = "x86_64" ]; then
+    ARCH="amd64"
+fi
+export ARCH
 
 # Install path
 INSTALL_DIR=${HOME}
@@ -53,3 +62,7 @@ export USER_TMP=${INSTALL_DIR}/tmp
 export REPO_DIR=${USER_PROJECT}/env_setup
 export REPO_PKG=${REPO_DIR}/pkg
 export REPO_SETUP=${REPO_DIR}/setup
+
+
+# system folder
+[ ! d "/etc/local"] && sudo mkdir "/etc/local"

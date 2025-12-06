@@ -8,7 +8,8 @@ ARCH=amd64
 name="node_exporter-${VERSION}.${OS}-${ARCH}"
 wget https://github.com/prometheus/node_exporter/releases/download/v${VERSION}/${name}.tar.gz
 tar xvfz ${name}.tar.gz
-cp ${name}/node_exporter .
+
+cp ${name}/node_exporter /usr/local/bin/
 
 echo "Execute node_exporter and access localhost:9100/metrics"
 

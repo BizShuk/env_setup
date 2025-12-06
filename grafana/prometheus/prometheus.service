@@ -1,9 +1,10 @@
 [Unit]
-Description=node_exporter
+Description=Prometheus
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/node_exporter
+# Environment="MY_VAR=value"
+ExecStart=/usr/local/bin/prometheus --config.file=/etc/local/prometheus.yml
 # 確保您的程式有執行的權限 (chmod +x)
 # 類型可以設為 simple, forking, oneshot 等。simple 是最常見的。
 Type=simple
