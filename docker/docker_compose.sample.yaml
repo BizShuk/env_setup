@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: sample.Dockerfile
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/mydatabase
+      REDIS_HOST: redis
+    volumes:
+      # 具名 Volume 掛載 (推薦用於持久化數據)
+      - type: volume
+        source: data_volume # 頂層 volumes 區塊中定義的名稱
+        target: /app/data
+
+      # 繫結掛載 (推薦用於程式碼開發) bind local folder
+      - type: bind
+        source: ../ # 主機上的相對路徑
+        target: /usr/lib/env_setup
+        read_only: true
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - redis
+  redis:
+    image: redis:8
+    networks:
+      - app-network
+
+volumes:
+  data_volume:
+    driver: local
+    labels:
+      com.myapp.purpose: database-storage
+
+networks:
+  app-network:
+    driver: bridge
