@@ -129,9 +129,9 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "cmd+k cmd+m",
+        "key": "ctrl+alt+cmd+m",
         "command": "workbench.action.toggleMaximizeEditorGroup",
-        "when": "editorFocus"
+        "when": "-"
     },
     {
         "key": "cmd+k cmd+m",
@@ -139,12 +139,12 @@
         "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups"
     },
     {
-        "key": "cmd+k cmd+m",
+        "key": "ctrl+cmd+m",
         "command": "workbench.action.toggleMaximizedPanel",
         "when": "panelFocus"
     },
     {
-        "key": "cmd+k cmd+m",
+        "key": "ctrl+cmd+m",
         "command": "workbench.action.toggleMaximizedAuxiliaryBar",
         "when": "auxiliaryBarFocus"
     },
@@ -268,5 +268,31 @@
         "key": "alt+cmd+up",
         "command": "-workbench.action.terminal.focusPreviousPane",
         "when": "terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive"
+    },
+    {
+        "key": "ctrl+shift+d",
+        "command": "workbench.view.extension.github-cweijan-mysql"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "workbench.view.extension.todo"
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "workbench.view.extension.univers-bits-activitybar"
+    },
+    {
+        "key": "shift+cmd+c",
+        "command": "-workbench.action.terminal.openNativeConsole",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+c",
+        "command": "vscode-containers.views.containers.focus"
+    },
+    {
+        "key": "ctrl+cmd+m",
+        "command": "workbench.action.maximizeEditorHideSidebar",
+        "when": "editorFocus"
     }
 ]

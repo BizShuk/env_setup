@@ -2,6 +2,6 @@
 
 
 
-source settings.sh
+. ./settings.sh
 
 . "$REPO_SETUP/go_setup.sh"

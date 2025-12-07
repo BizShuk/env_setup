@@ -562,4 +562,15 @@
         "go"
     ],
     "chat.disableAIFeatures": true,
+    "scm.repositories.selectionMode": "single",
+    "geminicodeassist.displayInlineContextHint": false,
+    "settingsSync.ignoredExtensions": [
+        "google.geminicodeassist"
+    ],
+    "[dockerfile]": {
+        "editor.formatOnSave": true,
+        "editor.quickSuggestions": {
+            "strings": true
+        }
+    },
 }
