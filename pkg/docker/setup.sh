@@ -14,9 +14,12 @@ wget -qO- https://get.docker.com/ | sh
 #sudo apt-get install -y docker-engine
 #sudo apt-get purge lxc-docker
 #sudo apt-cache policy docker-engine
-cat $REPO_PKG/docker/docker | sudo tee -a /etc/default/docker
 
-sudo service docker restart
+# cat $REPO_PKG/docker/docker | sudo tee -a /etc/default/docker
+
+sudo systemctls restart docker
+sudo systemctls status docker
+
 
 
 # for Trusty 14.04
