@@ -66,3 +66,4 @@ export REPO_SETUP=${REPO_DIR}/setup
 
 # system folder
 [ ! -d "/etc/local" ] && sudo mkdir "/etc/local"
+export SYSTEMD_DIR=/etc/systemd/system

@@ -1,0 +1,16 @@
+[Unit]
+Description=PushGateway
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/docker start pushgateway
+ExecStop=/usr/bin/docker stop -t 5 pushgateway
+# 確保您的程式有執行的權限 (chmod +x)
+# 類型可以設為 simple, forking, oneshot 等。simple 是最常見的。
+Type=simple
+# 重新啟動策略：如果程式結束了，系統會自動重啟它。
+Restart=always
+
+[Install]
+# 服務應該在多使用者模式下啟動
+WantedBy=multi-user.target

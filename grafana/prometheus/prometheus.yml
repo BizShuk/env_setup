@@ -20,6 +20,17 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "app"
+    static_configs:
+      - targets: ["localhost:8080"]
+        labels:
+          app: "app"
+
+  - job_name: 'pushgateway'
+    static_configs:
+      # Pushgateway 的地址和埠號
+      - targets: ['localhost:9091']
+
   - job_name: "prometheus"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
