@@ -3,7 +3,6 @@
     "window.openFoldersInNewWindow": "on",
     // [workbench]
     "workbench.startupEditor": "none",
-    "workbench.editor.tabCloseButton": "right",
     "workbench.iconTheme": "material-icon-theme",
     "security.workspace.trust.untrustedFiles": "open",
     // [explorer]
@@ -185,7 +184,6 @@
     },
     // [javascript] [npm] [node] [typescript] [js] [jest]
     "javascript.updateImportsOnFileMove.enabled": "always",
-    "jest.jestCommandLine": "jest",
     // [Markdown]
     "markdown.copyFiles.destination": {
         "**/*": "assets/images/md/${documentBaseName}-${fileName}"
@@ -400,18 +398,12 @@
     // [html]
     "html.format.enable": true,
     "debug.javascript.autoAttachFilter": "disabled",
-    // [SQL]
-    "sqltools.format": {
-        "language": "sql",
-        "linesBetweenQueries": 2,
-        "reservedWordCase": "upper"
-    },
-    "sqltools.useNodeRuntime": true,
     // [playwright]
     "playwright.reuseBrowser": false,
     "playwright.showTrace": false,
     // [github]
     "githubPullRequests.pushBranch": "always",
+    "github.copilot.nextEditSuggestions.enabled": true,
     "github.copilot.enable": {
         "*": true,
         "plaintext": false,
@@ -474,24 +466,8 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.autopep8"
     },
-    "autopep8.args": [
-        "--ignore=E501"
-    ],
     "notebook.lineNumbers": "on",
-    "tabnine.experimentalAutoImports": true,
     "workbench.colorCustomizations": {},
-    "cSpell.userWords": [
-        "byted",
-        "dbatman",
-        "Guoco",
-        "MALIVA",
-        "shuk",
-        "sqlalchemy",
-        "Wallich"
-    ],
-    "codeium.enableConfig": {
-        "*": false
-    },
     "typescript.updateImportsOnFileMove.enabled": "always",
     "workbench.editor.tabActionLocation": "right",
     "explorer.confirmPasteNative": false,
@@ -528,7 +504,6 @@
     "editor.minimap.showSlider": "always",
     "editor.minimap.renderCharacters": false,
     "editor.minimap.enabled": false,
-    "github.copilot.nextEditSuggestions.enabled": true,
     "[dockercompose]": {
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
@@ -538,7 +513,6 @@
     "[github-actions-workflow]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
-    "vscode-office.editorTheme": "Auto",
     // AI Agent
     "chat.agentSessionsViewLocation": "single-view",
     "inlineChat.enableV2": true,
@@ -554,19 +528,22 @@
         "lsp": true,
     },
     "chat.mcp.gallery.enabled": true,
+    "geminicodeassist.enable": true,
     "geminicodeassist.codeGenerationPaneViewEnabled": true,
     "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
-    "geminicodeassist.inlineSuggestions.suggestionSpeed": "Fast",
+    "geminicodeassist.inlineSuggestions.suggestionSpeed": "Slow",
     "geminicodeassist.languages": [
         "*",
-        "go"
+        "go",
+        "python",
+        "javascript",
+        "typescript",
+        "sql"
     ],
     "chat.disableAIFeatures": true,
     "scm.repositories.selectionMode": "single",
     "geminicodeassist.displayInlineContextHint": false,
-    "settingsSync.ignoredExtensions": [
-        "google.geminicodeassist"
-    ],
+    "settingsSync.ignoredExtensions": [],
     "[dockerfile]": {
         "editor.formatOnSave": true,
         "editor.quickSuggestions": {
