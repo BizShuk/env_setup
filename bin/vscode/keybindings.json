@@ -129,22 +129,12 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+alt+cmd+m",
-        "command": "workbench.action.toggleMaximizeEditorGroup",
-        "when": "-"
-    },
-    {
         "key": "cmd+k cmd+m",
         "command": "-workbench.action.toggleMaximizeEditorGroup",
         "when": "editorPartMaximizedEditorGroup || editorPartMultipleEditorGroups"
     },
     {
-        "key": "ctrl+cmd+m",
-        "command": "workbench.action.toggleMaximizedPanel",
-        "when": "panelFocus"
-    },
-    {
-        "key": "ctrl+cmd+m",
+        "key": "ctrl+alt+cmd+m",
         "command": "workbench.action.toggleMaximizedAuxiliaryBar",
         "when": "auxiliaryBarFocus"
     },
@@ -291,8 +281,8 @@
         "command": "vscode-containers.views.containers.focus"
     },
     {
-        "key": "ctrl+cmd+m",
-        "command": "workbench.action.maximizeEditorHideSidebar",
-        "when": "editorFocus"
+        "key": "ctrl+alt+cmd+m",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "panelFocus"
     }
 ]

@@ -21,7 +21,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}.jsonl",
         "*": "${capture}.bak,${capture}.read,${capture}.fake",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -63,13 +63,11 @@
         ".pre-commit-config.yaml": true,
         "{*.code-workspace,.golangci.yml,go.sum}": false, // default files
         "archive": true,
-        "*_test.go": false,
         "{**/.venv,**/.vscode,}": true, // Output folder
         "{**/kitex_gen}": true, // Working folder
         // api_tiktok
         "{gen/**}": true,
         "homebrew/": true,
-        "**/{*test.go}": true,
     },
     "files.watcherExclude": {
         // "**": true
@@ -483,7 +481,6 @@
         "*.mm.md": "markmap-vscode.markmap",
         "*.markdown": "default",
         "*.csv": "gc-excelviewer-csv-editor",
-        "*.drawio": "hediet.vscode-drawio-text",
         "git-rebase-todo": "gitlens.rebase"
     },
     // [New]
@@ -513,21 +510,26 @@
     "[github-actions-workflow]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
-    // AI Agent
-    "chat.agentSessionsViewLocation": "single-view",
-    "inlineChat.enableV2": true,
     //
     "terminal.integrated.suggest.quickSuggestions": {
         "commands": "on",
         "arguments": "on",
         "unknown": "off"
     },
+    "terminal.integrated.enableVisualBell": true,
+    "accessibility.signals.terminalBell": {
+        "sound": "on",
+        "announcement": "auto"
+    },
     "terminal.integrated.suggest.enabled": true,
     "terminal.integrated.suggest.providers": {
-        "vscode.terminal-suggest": true,
         "lsp": true,
     },
+    // AI Agent
+    "chat.disableAIFeatures": true,
     "chat.mcp.gallery.enabled": true,
+    "chat.agentSessionsViewLocation": "single-view",
+    "inlineChat.enableV2": true,
     "geminicodeassist.enable": true,
     "geminicodeassist.codeGenerationPaneViewEnabled": true,
     "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
@@ -538,9 +540,10 @@
         "python",
         "javascript",
         "typescript",
-        "sql"
+        "sql",
+        "xml",
+        "html",
     ],
-    "chat.disableAIFeatures": true,
     "scm.repositories.selectionMode": "single",
     "geminicodeassist.displayInlineContextHint": false,
     "settingsSync.ignoredExtensions": [],
@@ -550,4 +553,9 @@
             "strings": true
         }
     },
+    // trae
+    "trae.internal.chatLanguage": "auto",
+    "trae.internal.enableInlineChat": true,
+    "trae.internal.enableInlineCommand": true,
+    "trae.internal.enableFix": true,
 }
