@@ -18,6 +18,7 @@
         "*.tsx": "${capture}.ts",
         "tsconfig.json": "tsconfig.*.json",
         "package.json": "*.json,*.ts",
+        ".env": ".env.local,.env.prod,.env.dev,",
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}.jsonl",
         "*": "${capture}.bak,${capture}.read,${capture}.fake",
@@ -68,13 +69,14 @@
         // api_tiktok
         "{gen/**}": true,
         "homebrew/": true,
+        "__debug_bin*": true,
     },
     "files.watcherExclude": {
         // "**": true
         "**/.vscode": true,
         "**/{.devops,.settings}/**": true,
         // module dependencies
-        "**/{.git,.gitlab,.mvn,.venv,node_modules,__pycache__}/**": true,
+        "**/{.git,.gitlab,.mvn,.venv,node_modules,__pycache__,lib/go*}/**": true,
         // generated output files
         "**/{target,out,dist,output}/**": true,
         // project settings/meta files
@@ -138,7 +140,7 @@
     },
     // [terminal]
     "terminal.integrated.fontSize": 14,
-    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "terminal.integrated.enableMultiLinePasteWarning": "always",
     // [git]
     "git.enableSmartCommit": true,
     "git.showPushSuccessNotification": true,
@@ -461,9 +463,6 @@
     "[todo]": {
         "files.trimTrailingWhitespace": false,
     },
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.autopep8"
-    },
     "notebook.lineNumbers": "on",
     "workbench.colorCustomizations": {},
     "typescript.updateImportsOnFileMove.enabled": "always",
@@ -473,8 +472,6 @@
         "default": "right",
         "jupyter-notebook": "right"
     },
-    "jupyter.askForKernelRestart": false,
-    "chat.editing.alwaysSaveWithGeneratedChanges": true,
     "workbench.editorAssociations": {
         "*.copilotmd": "vscode.markdown.preview.editor",
         "*.md": "default",
@@ -525,12 +522,11 @@
     "terminal.integrated.suggest.providers": {
         "lsp": true,
     },
-    // AI Agent
-    "chat.disableAIFeatures": true,
+    "chat.disableAIFeatures": false,
     "chat.mcp.gallery.enabled": true,
-    "chat.agentSessionsViewLocation": "single-view",
+    "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
     "inlineChat.enableV2": true,
-    "geminicodeassist.enable": true,
+    "geminicodeassist.enable": false,
     "geminicodeassist.codeGenerationPaneViewEnabled": true,
     "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
     "geminicodeassist.inlineSuggestions.suggestionSpeed": "Slow",

@@ -136,7 +136,7 @@
     {
         "key": "ctrl+alt+cmd+m",
         "command": "workbench.action.toggleMaximizedAuxiliaryBar",
-        "when": "auxiliaryBarFocus"
+        "when": "auxiliaryBarVisible"
     },
     // Focus Panel
     {
