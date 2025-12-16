@@ -18,7 +18,7 @@
         "*.tsx": "${capture}.ts",
         "tsconfig.json": "tsconfig.*.json",
         "package.json": "*.json,*.ts",
-        ".env": ".env.local,.env.prod,.env.dev,",
+        ".env": ".env.*,",
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}.jsonl",
         "*": "${capture}.bak,${capture}.read,${capture}.fake",
@@ -61,31 +61,54 @@
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
     "files.exclude": {
-        ".pre-commit-config.yaml": true,
-        "{*.code-workspace,.golangci.yml,go.sum}": false, // default files
+        // Legacy
+        "{.svn,.hg,.DS_Store,Thumbs.db}": true,
+        // Project metadata
         "archive": true,
-        "{**/.venv,**/.vscode,}": true, // Output folder
-        "{**/kitex_gen}": true, // Working folder
-        // api_tiktok
-        "{gen/**}": true,
         "homebrew/": true,
-        "__debug_bin*": true,
+        "{.git,.gitlab,,.pre-commit-config.yaml}": true,
+        "{*.code-workspace,.golangci.yml,go.sum}": true,
+        "{.vscode}": true,
+        "{.devops,.settings}": true,
+        "{.classpath,.project}": true,
+        // Project Output
+        "{target,out,dist,output}": true,
+        // Project Dependancy
+        "{.mvn,bin,node_modules,__pycache__,.venv}": true,
+        // debug
+        "{__debug_bin*}": true,
+        // tiktok
+        "{gen/**,kitex_gen}": true,
+        "-1": true
     },
-    "files.watcherExclude": {
-        // "**": true
-        "**/.vscode": true,
-        "**/{.devops,.settings}/**": true,
-        // module dependencies
-        "**/{.git,.gitlab,.mvn,.venv,node_modules,__pycache__,lib/go*}/**": true,
-        // generated output files
-        "**/{target,out,dist,output}/**": true,
-        // project settings/meta files
-        "**/{.classpath,.project,.DS_Store,go.sum,*.code-workpsace}": true,
+    "files.watcherExclude": { // "**": true, [Copy from files.exclude]
+        // Legacy
+        "{.svn,.hg,.DS_Store,Thumbs.db}": true,
+        // Project metadata
+        "archive": true,
+        "homebrew/": true,
+        "{.git,.gitlab,,.pre-commit-config.yaml}": true,
+        "{*.code-workspace,.golangci.yml,go.sum}": true,
+        "{.vscode}": true,
+        "{.devops,.settings}": true,
+        "{.classpath,.project}": true,
+        // Project Output
+        "{target,out,dist,output}": true,
+        // Project Dependancy
+        "{.mvn,bin,node_modules,__pycache__,.venv}": true,
+        // debug
+        "{__debug_bin*}": true,
+        // tiktok
+        "{gen/**,kitex_gen}": true,
+        "-1": true
     },
     "files.associations": {
+        ".env*": "dotenv",
         "*.sh": "shellscript",
         "*.bosun": "bosun",
-        "*.ignore": "gitignore"
+        "*.ignore": "gitignore",
+        "*.service": "ini",
+        "*.timer": "ini",
     },
     // [search]
     "search.useIgnoreFiles": true,
@@ -102,20 +125,20 @@
         "version": "0.2.0",
         "configurations": [
             {
-                "name": "Go Launch file",
-                "type": "go",
-                "request": "launch",
-                "mode": "debug",
-                "program": "${file}",
-                "envFile": "${userHome}/.env",
-            },
-            {
                 "name": "Go Launch Project",
                 "type": "go",
                 "request": "launch",
                 "mode": "debug",
                 "program": "${workspaceFolder}",
                 "envFile": "${userHome}/.env",
+            },
+            {
+                "name": "Go Launch file",
+                "type": "go",
+                "request": "launch",
+                "mode": "debug",
+                "program": "${file}",
+                // "envFile": "${userHome}/.env",
             },
             {
                 "name": "Launch Chrome",
@@ -157,6 +180,7 @@
     "git.openRepositoryInParentFolders": "always",
     // [go]
     "go.toolsManagement.autoUpdate": true,
+    "go.diagnostic.vulncheck": "Imports", // ???
     "go.useLanguageServer": true,
     "gopls": {
         "formatting.gofumpt": false,
@@ -554,4 +578,7 @@
     "trae.internal.enableInlineChat": true,
     "trae.internal.enableInlineCommand": true,
     "trae.internal.enableFix": true,
+    "gitlens.ai.model": "vscode",
+    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+    "editor.inlineSuggest.edits.showCollapsed": true,
 }
