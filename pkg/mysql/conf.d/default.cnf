@@ -1,0 +1,3 @@
+[mysqld]
+default_time_zone = '+8:00'
+innodb_file_per_table=1
