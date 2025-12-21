@@ -75,7 +75,7 @@
         // Project Output
         "{target,out,dist,output}": true,
         // Project Dependancy
-        "{.mvn,node_modules,__pycache__,.venv,**/pkg/**}": true,
+        "{.mvn,node_modules,__pycache__,.venv}": true,
         // debug
         "{__debug_bin*}": true,
         // tiktok

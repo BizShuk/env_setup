@@ -41,20 +41,14 @@ export USER_PROJECT=${INSTALL_DIR}/projects
 
 
 export USER_BIN=${INSTALL_DIR}/bin
-export USER_LIB=${INSTALL_DIR}/lib
+export USER_LIB=${INSTALL_DIR}/.local
 export USER_LOG=${INSTALL_DIR}/logs
 export USER_TMP=${INSTALL_DIR}/tmp
 
 
 [ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"
 
-[ ! -e "$USER_PROJECT/env_setup/tmp/lib" ] && mkdir "$USER_PROJECT/env_setup/tmp/lib"
-[ ! -e "$USER_PROJECT/env_setup/tmp/logs" ] && mkdir "$USER_PROJECT/env_setup/tmp/logs"
-[ ! -e "$USER_PROJECT/env_setup/tmp/tmp" ] && mkdir "$USER_PROJECT/env_setup/tmp/tmp"
-
-[ ! -e "$USER_LIB" ] && ln -s "$USER_PROJECT/env_setup/tmp/lib" "$USER_LIB"
-[ ! -e "$USER_LOG" ] && ln -s "$USER_PROJECT/env_setup/tmp/logs" "$USER_LOG"
-[ ! -e "$USER_TMP" ] && ln -s "$USER_PROJECT/env_setup/tmp/tmp" "$USER_TMP"
+[ ! -e "$USER_LIB" ] && ln -s "$USER_LIB" "${HOME}/projects/env_setup/config/"
 
 
 # env_setup path

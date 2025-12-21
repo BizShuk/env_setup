@@ -1,0 +1,64 @@
+{
+    "ide": {
+        "enabled": true,
+        "hasSeenNudge": true
+    },
+    "security": {
+        "auth": {
+            "selectedType": "oauth-personal"
+        }
+    },
+    "ui": {
+        "accessibility": {
+            "screenReader": false
+        }
+    },
+    "general": {
+        "previewFeatures": true
+    },
+    "tools.allowed": [
+        "echo",
+        "afplay"
+    ],
+    "hooks": {
+        "AfterModel": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "name": "ding",
+                        "type": "command",
+                        "command": "afplay /System/Library/Sounds/Glass.aiff",
+                        "description": "Play bell sound with hook"
+                    }
+                ]
+            }
+        ],
+        "AfterTool": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "name": "ding",
+                        "type": "command",
+                        "command": "afplay /System/Library/Sounds/Glass.aiff",
+                        "description": "Play bell sound with hook"
+                    }
+                ]
+            }
+        ],
+        "SessionEnd": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "name": "ding",
+                        "type": "command",
+                        "command": "afplay /System/Library/Sounds/Glass.aiff",
+                        "description": "Play bell sound with hook"
+                    }
+                ]
+            }
+        ]
+    }
+}

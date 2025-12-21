@@ -29,7 +29,7 @@ source ${NVM_DIR}/nvm.sh
 export PATH=\${NVM_DIR}/versions/node/${NODE_VER}/bin:\${PATH}
 EOF
 
-
+nvm use --delete-prefix "${NODE_VER}" --silent
 
 #  NPM
 curl http://npmjs.org/install.sh | sh
