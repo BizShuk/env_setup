@@ -26,17 +26,17 @@ scrape_configs:
         labels:
           app: "app"
 
-  - job_name: 'pushgateway'
+  - job_name: "pushgateway"
     static_configs:
       # Pushgateway 的地址和埠號
-      - targets: ['localhost:9091']
+      - targets: ["localhost:9091"]
 
   - job_name: "prometheus"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     static_configs:
       - targets: ["localhost:9090"]
-       # The label name is added as a label `label_name=<label_value>` to any timeseries scraped from this config.
+        # The label name is added as a label `label_name=<label_value>` to any timeseries scraped from this config.
         labels:
           app: "prometheus"
 

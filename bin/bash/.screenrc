@@ -15,10 +15,10 @@ altscreen on
 # bindkey ^[^[[C next #Mac iterm2
 
 #在視窗底下新增一個狀態列
-Set hardstatus always on
+; Set hardstatus always on
 defencoding utf8
 #狀態列格式
 #caption always "%{.KW} %-w%{.mW}[%n] %t%{.KW}%+w"
-hardstatus alwayslastline " %-Lw%{= Bw}[%n] %t%{-}%+Lw %=| %Y/%m/%d%{= .m} %0c:%s "
+; hardstatus alwayslastline " %-Lw%{= Bw}[%n] %t%{-}%+Lw %=| %Y/%m/%d%{= .m} %0c:%s "
 #動態顯示視窗的標題名稱
-shelltitle '$ |bash'
+; shelltitle '$ |bash'

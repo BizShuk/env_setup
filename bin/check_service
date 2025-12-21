@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# List of services to check
+SERVICES=("node_exporter" "mysql" "prometheus" "grafana-server" "ssh") # Replace with your service names (without the .service suffix)
+
+echo "--- Service Status Check ---"
+
+# Loop through the services
+for SERVICE in "${SERVICES[@]}"; do
+    # Check the service status using systemctl is-active
+    # The -q flag makes the command quiet (no output to stdout/stderr)
+    # The exit status ($?) is 0 if active, non-zero otherwise
+    systemctl -q is-active "$SERVICE"
+
+    if [ $? -eq 0 ]; then
+        echo "✅ $SERVICE is running well."
+    else
+        echo "❌ $SERVICE is not running or is inactive."
+        # Optional: Add actions here, e.g., restart the service or send an alert
+        # echo "Attempting to restart $SERVICE..."
+        # sudo systemctl restart "$SERVICE"
+    fi
+done
+
+echo "--- Check Complete ---"
