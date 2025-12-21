@@ -37,7 +37,7 @@ echo -e "\n# [Go]" >> "${INSTALL_DIR}"/.bash_plugin
 echo "export GOROOT=${GO_ROOT}" >>"${INSTALL_DIR}"/.bash_plugin
 echo "export GOPATH=${GO_PATH}" >>"${INSTALL_DIR}"/.bash_plugin
 echo "export PATH=\$GOPATH/bin:\$PATH" >>"${INSTALL_DIR}"/.bash_plugin
-echo "# [GOVCS] control which version control tool is used for go get from 1.16" >>"${INSTALL_DIR}"/.bash_plugin
+# echo "# [GOVCS] control which version control tool is used for go get from 1.16" >>"${INSTALL_DIR}"/.bash_plugin
 # echo "export GOVCS=git" >>"${INSTALL_DIR}"/.bash_plugin
 
 

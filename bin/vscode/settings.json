@@ -18,6 +18,7 @@
         "*.tsx": "${capture}.ts",
         "tsconfig.json": "tsconfig.*.json",
         "package.json": "*.json,*.ts",
+        "Makefile": "Makefile*",
         ".env": ".env.*,",
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}.jsonl",
@@ -66,7 +67,7 @@
         // Project metadata
         "archive": true,
         "homebrew/": true,
-        "{.git,.gitlab,,.pre-commit-config.yaml}": true,
+        "{.git,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
         "{.vscode}": true,
         "{.devops,.settings}": true,
@@ -74,7 +75,7 @@
         // Project Output
         "{target,out,dist,output}": true,
         // Project Dependancy
-        "{.mvn,bin,node_modules,__pycache__,.venv}": true,
+        "{.mvn,node_modules,__pycache__,.venv,**/pkg/**}": true,
         // debug
         "{__debug_bin*}": true,
         // tiktok
@@ -87,7 +88,7 @@
         // Project metadata
         "archive": true,
         "homebrew/": true,
-        "{.git,.gitlab,,.pre-commit-config.yaml}": true,
+        "{.git,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
         "{.vscode}": true,
         "{.devops,.settings}": true,
@@ -104,11 +105,10 @@
     },
     "files.associations": {
         ".env*": "dotenv",
-        "*.sh": "shellscript",
+        "{*.sh,*.info}": "shellscript",
         "*.bosun": "bosun",
         "*.ignore": "gitignore",
-        "*.service": "ini",
-        "*.timer": "ini",
+        "{*.timer,*.service}": "ini",
     },
     // [search]
     "search.useIgnoreFiles": true,
@@ -163,7 +163,7 @@
     },
     // [terminal]
     "terminal.integrated.fontSize": 14,
-    "terminal.integrated.enableMultiLinePasteWarning": "always",
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
     // [git]
     "git.enableSmartCommit": true,
     "git.showPushSuccessNotification": true,
@@ -182,8 +182,12 @@
     "go.toolsManagement.autoUpdate": true,
     "go.diagnostic.vulncheck": "Imports", // ???
     "go.useLanguageServer": true,
+    // ... other settings ...
     "gopls": {
         "formatting.gofumpt": false,
+        "build.directoryFilters": [
+            "**/lib/go/pkg/**"
+        ]
     },
     // "go.lintTool": "golangci-lint", // [go linter]
     "go.lintFlags": [
@@ -581,4 +585,5 @@
     "gitlens.ai.model": "vscode",
     "gitlens.ai.vscode.model": "copilot:gpt-4.1",
     "editor.inlineSuggest.edits.showCollapsed": true,
+    "makefile.configureOnOpen": false,
 }
