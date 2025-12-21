@@ -14,6 +14,10 @@ ln -sf "${REPO_DIR}/bin/bash/.gitignore" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/bin/bash/.gitconfig" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/bin/bash/.gitmessage" "${INSTALL_DIR}/"
 
+### [screen] ###
+ln -sf "${REPO_DIR}/bin/bash/.screenrc" "${INSTALL_DIR}/"
+
+
 ### [vim] ###
 ln -sf "${REPO_DIR}/bin/bash/.vimrc" "${INSTALL_DIR}/"
 ln -sf "${REPO_DIR}/bin/bash/.vim" "${INSTALL_DIR}/"
