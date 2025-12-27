@@ -1,5 +1,5 @@
 #!/bin/bash
-source settings.sh
+source ~/settings.sh
 
 
 # Go env
@@ -24,8 +24,8 @@ GO_PATH="$USER_LIB/go" # Where the go dependency/library downloaded
 [ ! -d "${GO_PATH}" ] && mkdir -p "${GO_PATH}"
 
 if [ ! -e "$USER_LIB"/"$GO_FULLVER" ]; then
-    echo "$GO_FULLVER  installing..."
-    wget https://go.dev/dl/"${GO_FULLVER}".tar.gz -O /tmp/"$GO_FULLVER"
+    echo "$GO_FULLVER  installing...:" https://go.dev/dl/"${GO_FULLVER}".tar.gz
+    wget https://go.dev/dl/"${GO_FULLVER}".tar.gz --no-check-certificate -O /tmp/"$GO_FULLVER"
 
     tar zxf /tmp/"$GO_FULLVER" -C /tmp
     mv /tmp/go "$USER_LIB"/"$GO_FULLVER"
