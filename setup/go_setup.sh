@@ -16,7 +16,7 @@ arm64)
     ;;
 esac
 
-GO_VER=${GO_VER:-1.23.5}
+GO_VER=${GO_VER:-1.25.5}
 GO_FULLVER="go${GO_VER}.${os}-${GO_ARCH}"
 GO_ROOT="$USER_LIB/$GO_FULLVER"    # go package dir
 GO_PATH="$USER_LIB/go" # Where the go dependency/library downloaded
@@ -26,7 +26,6 @@ GO_PATH="$USER_LIB/go" # Where the go dependency/library downloaded
 if [ ! -e "$USER_LIB"/"$GO_FULLVER" ]; then
     echo "$GO_FULLVER  installing..."
     wget https://go.dev/dl/"${GO_FULLVER}".tar.gz -O /tmp/"$GO_FULLVER"
-    # wget https://storage.googleapis.com/golang/"${GO_FULLVER}".tar.gz -O /tmp/"$GO_FULLVER"
 
     tar zxf /tmp/"$GO_FULLVER" -C /tmp
     mv /tmp/go "$USER_LIB"/"$GO_FULLVER"

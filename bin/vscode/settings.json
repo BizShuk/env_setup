@@ -550,7 +550,6 @@
     "terminal.integrated.suggest.providers": {
         "lsp": true,
     },
-    "chat.disableAIFeatures": false,
     "chat.mcp.gallery.enabled": true,
     "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
     "inlineChat.enableV2": true,
@@ -586,4 +585,5 @@
     "gitlens.ai.vscode.model": "copilot:gpt-4.1",
     "editor.inlineSuggest.edits.showCollapsed": true,
     "makefile.configureOnOpen": false,
+    "geminicodeassist.project": "useful-iterator-4s3kg",
 }
