@@ -565,7 +565,7 @@
         "typescript",
         "sql",
         "xml",
-        "html",
+        "html"
     ],
     "scm.repositories.selectionMode": "single",
     "geminicodeassist.displayInlineContextHint": false,
