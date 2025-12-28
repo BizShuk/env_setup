@@ -23,7 +23,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}.jsonl",
         "*": "${capture}.bak,${capture}.read,${capture}.fake",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md, AGENTS.md",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -180,13 +180,13 @@
     "git.openRepositoryInParentFolders": "always",
     // [go]
     "go.toolsManagement.autoUpdate": true,
-    "go.diagnostic.vulncheck": "Imports", // ???
+    "go.diagnostic.vulncheck": "Off", // ???
     "go.useLanguageServer": true,
     // ... other settings ...
     "gopls": {
         "formatting.gofumpt": false,
         "build.directoryFilters": [
-            "**/lib/go/pkg/**"
+            "-**/lib/go/pkg/**"
         ]
     },
     // "go.lintTool": "golangci-lint", // [go linter]
@@ -553,10 +553,14 @@
     "chat.mcp.gallery.enabled": true,
     "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
     "inlineChat.enableV2": true,
-    "geminicodeassist.enable": false,
+    "chat.disableAIFeatures": true,
+    "geminicodeassist.enable": true,
     "geminicodeassist.codeGenerationPaneViewEnabled": true,
+    "geminicodeassist.inlineSuggestions.enableAuto": true,
     "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
     "geminicodeassist.inlineSuggestions.suggestionSpeed": "Slow",
+    "geminicodeassist.displayInlineContextHint": true,
+    "geminicodeassist.project": "useful-iterator-4s3kg",
     "geminicodeassist.languages": [
         "*",
         "go",
@@ -565,10 +569,10 @@
         "typescript",
         "sql",
         "xml",
-        "html"
+        "html",
+        "yaml"
     ],
     "scm.repositories.selectionMode": "single",
-    "geminicodeassist.displayInlineContextHint": false,
     "settingsSync.ignoredExtensions": [],
     "[dockerfile]": {
         "editor.formatOnSave": true,
@@ -585,5 +589,23 @@
     "gitlens.ai.vscode.model": "copilot:gpt-4.1",
     "editor.inlineSuggest.edits.showCollapsed": true,
     "makefile.configureOnOpen": false,
-    "geminicodeassist.project": "useful-iterator-4s3kg",
+    // SQLite
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "DB1.local",
+            "database": "${workspaceFolder:crawler}/inf/db/local.sqlite"
+        }
+    ],
+    "[sql]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "mtxr.sqltools"
+    },
+    "sqltools.results.location": "current",
+    "http.systemCertificatesNode": true,
+    "trae.internal.tab.enableRename": false,
+    "trae.internal.tab.enableAutoImport": false,
+    "trae.internal.tab.cue": true,
 }

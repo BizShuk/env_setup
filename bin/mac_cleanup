@@ -52,4 +52,11 @@ rm -rf /Users/shuk/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/
 rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat/Data
 rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat.WeChatMacShare/Data
 
+# iTune
+# rm -rf /Users/shuk/Library/iTunes/iPhone\ Software\ Updates/*
+
+# Backup
+# rm -rf /Users/shuk/Library/Application\ Support/MobileSync/Backup/*
+
+
 brew bundle cleanup

@@ -284,5 +284,14 @@
         "key": "ctrl+alt+cmd+m",
         "command": "workbench.action.toggleMaximizedPanel",
         "when": "panelFocus"
+    },
+    {
+        "key": "cmd+e cmd+e",
+        "command": "sqltools.executeCurrentQuery"
+    },
+    {
+        "key": "cmd+e cmd+e",
+        "command": "-sqltools.executeQuery",
+        "when": "editorHasSelection && editorTextFocus && !config.sqltools.disableChordKeybindings"
     }
 ]
