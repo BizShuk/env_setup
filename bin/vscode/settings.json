@@ -559,7 +559,8 @@
     "geminicodeassist.inlineSuggestions.enableAuto": true,
     "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
     "geminicodeassist.inlineSuggestions.suggestionSpeed": "Slow",
-    "geminicodeassist.displayInlineContextHint": true,
+    "geminicodeassist.displayInlineContextHint": false,
+    "geminicodeassist.chat.defaultCodeBlockDisplay": "Collapsed",
     "geminicodeassist.project": "useful-iterator-4s3kg",
     "geminicodeassist.languages": [
         "*",
@@ -608,4 +609,7 @@
     "trae.internal.tab.enableRename": false,
     "trae.internal.tab.enableAutoImport": false,
     "trae.internal.tab.cue": true,
+    "geminicodeassist.customCommands": {
+        "todo": "Find all TODOs under current work directory and follow the instrution to fix/refactor it"
+    },
 }

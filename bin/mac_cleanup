@@ -24,20 +24,20 @@ rm -rf ~/.Trash/*
 
 # Lark
 rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/log/*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/1*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/2*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/3*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/4*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/5*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/6*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/7*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/8*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/9*
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/0*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/1*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/2*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/3*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/4*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/5*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/6*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/7*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/8*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/9*
+# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/0*
 
 # Cache
-rm -rf /Users/shuk/Library/Caches/Google/Chrome/Default/Cache/Cache_Data/*
-rm -rf /Users/shuk/Library/Caches/*
+rm -rf /Users/shuk/Library/Caches/Google/Chrome/Default/Cache/Cache_Data
+# rm -rf /Users/shuk/Library/Caches/*
 
 # Golang
 rm -rf /Users/shuk/projects/go_project/src/*
@@ -52,11 +52,15 @@ rm -rf /Users/shuk/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/
 rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat/Data
 rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat.WeChatMacShare/Data
 
+
+# Podcast
+rm -rf /Users/shuk/Library/Containers/com.apple.podcasts/Data/tmp/StreamedMedia/*.mp3
+
 # iTune
-# rm -rf /Users/shuk/Library/iTunes/iPhone\ Software\ Updates/*
+rm -rf /Users/shuk/Library/iTunes/iPhone\ Software\ Updates/*
 
 # Backup
-# rm -rf /Users/shuk/Library/Application\ Support/MobileSync/Backup/*
+rm -rf /Users/shuk/Library/Application\ Support/MobileSync/Backup/*
 
 
 brew bundle cleanup
