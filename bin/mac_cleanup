@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+
 # Clear system logs and temporary files:
 sudo rm -rf /private/var/log/*
 sudo rm -rf /private/var/tmp/*
@@ -37,7 +38,6 @@ rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/log
 
 # Cache
 rm -rf /Users/shuk/Library/Caches/Google/Chrome/Default/Cache/Cache_Data
-# rm -rf /Users/shuk/Library/Caches/*
 
 # Golang
 rm -rf /Users/shuk/projects/go_project/src/*
