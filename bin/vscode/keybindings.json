@@ -1,6 +1,20 @@
-// Place your key bindings in this file to override the defaults
 [
-    // Pnael Previous/Next
+    {
+        "key": "ctrl+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "when": "terminalFocus",
+        "args": {
+            "text": "\\\r\n"
+        }
+    },
+    {
+        "key": "shift+enter",
+        "command": "workbench.action.terminal.sendSequence",
+        "when": "terminalFocus",
+        "args": {
+            "text": "\\\r\n"
+        }
+    },
     {
         "key": "alt+right",
         "command": "workbench.action.navigateForward",
@@ -71,13 +85,11 @@
         "command": "workbench.action.terminal.focusPreviousPane",
         "when": "terminalFocus && terminalHasBeenCreated && terminalSplitPaneActive || terminalFocus && terminalProcessSupported && terminalSplitPaneActive"
     },
-    // Create Terminal
     {
         "key": "cmd+n",
         "command": "workbench.action.terminal.new",
         "when": "terminalFocus"
     },
-    // Remove Default
     {
         "key": "ctrl+tab",
         "command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
@@ -98,7 +110,6 @@
         "command": "-workbench.action.quickOpenNavigatePreviousInEditorPicker",
         "when": "inEditorsPicker && inQuickOpen"
     },
-    // Rest
     {
         "key": "ctrl+u",
         "command": "editor.action.transformToTitlecase"
@@ -138,7 +149,6 @@
         "command": "workbench.action.toggleMaximizedAuxiliaryBar",
         "when": "auxiliaryBarVisible"
     },
-    // Focus Panel
     {
         "key": "cmd+0",
         "command": "workbench.action.focusActivityBar",
@@ -178,12 +188,10 @@
         "command": "workbench.action.toggleAuxiliaryBar",
         "when": "auxiliaryBarFocus"
     },
-    // New Bindings
     {
         "key": "shift+cmd+alt+f",
         "command": "workbench.action.replaceInFiles"
     },
-    // Markdown Preview
     {
         "key": "ctrl+cmd+e",
         "command": "-office.markdown.switch",
@@ -293,5 +301,31 @@
         "key": "cmd+e cmd+e",
         "command": "-sqltools.executeQuery",
         "when": "editorHasSelection && editorTextFocus && !config.sqltools.disableChordKeybindings"
+    },
+    {
+        "key": "cmd+,",
+        "command": "workbench.action.openSettingsJson"
+    },
+    {
+        "key": "cmd+,",
+        "command": "-workbench.action.openSettings"
+    },
+    {
+        "key": "alt+cmd+,",
+        "command": "workbench.action.chat.openModelPicker",
+        "when": "chatIsEnabled && inChatInput"
+    },
+    {
+        "key": "alt+cmd+.",
+        "command": "-workbench.action.chat.openModelPicker",
+        "when": "chatIsEnabled && inChatInput"
+    },
+    {
+        "key": "ctrl+shift+d",
+        "command": "sqltoolsViewBookmarksExplorer.focus"
+    },
+    {
+        "key": "ctrl+shift+u",
+        "command": "workbench.view.extension.test"
     }
 ]

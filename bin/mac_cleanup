@@ -2,11 +2,15 @@
 
 
 
-# Clear system logs and temporary files:
+# Private
 sudo rm -rf /private/var/log/*
 sudo rm -rf /private/var/tmp/*
-sudo rm -rf /Library/Logs/*
+# /prvate/var/db, No
+# /prvate/var/vm, No
+# /prvate/var/folders # Application temporary cache, remove by restart computer.
 
+# System Library
+sudo rm -rf /Library/Logs/*
 # Clear user cache:
 rm -rf ~/Library/Caches/*
 # Clear system cache:
@@ -40,7 +44,7 @@ rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/log
 rm -rf /Users/shuk/Library/Caches/Google/Chrome/Default/Cache/Cache_Data
 
 # Golang
-rm -rf /Users/shuk/projects/go_project/src/*
+rm -rf /Users/shuk/projects/.local/go/src/*
 
 # iMovie/iTunes
 rm -rf /Users/shuk/Music/*
@@ -52,15 +56,11 @@ rm -rf /Users/shuk/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/
 rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat/Data
 rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat.WeChatMacShare/Data
 
-
 # Podcast
 rm -rf /Users/shuk/Library/Containers/com.apple.podcasts/Data/tmp/StreamedMedia/*.mp3
 
-# iTune
+# BackUp/Update
 rm -rf /Users/shuk/Library/iTunes/iPhone\ Software\ Updates/*
-
-# Backup
 rm -rf /Users/shuk/Library/Application\ Support/MobileSync/Backup/*
-
 
 brew bundle cleanup

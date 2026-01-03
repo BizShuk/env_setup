@@ -2,12 +2,12 @@ version: "3.8"
 
 services:
   app:
+    # command: python app.py  # Not suggest to use, 這部分會「覆蓋」 Dockerfile 裡的啟動指令
     build:
-      context: ./app
+      context: /app
       dockerfile: sample.Dockerfile
     environment:
       DATABASE_URL: postgres://user:password@db:5432/mydatabase
-      REDIS_HOST: redis
     volumes:
       # 具名 Volume 掛載 (推薦用於持久化數據)
       - type: volume
@@ -23,8 +23,6 @@ services:
       - "8080:8080"
     networks:
       - app-network
-    depends_on:
-      - redis
   redis:
     image: redis:8
     networks:

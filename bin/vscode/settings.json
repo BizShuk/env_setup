@@ -32,7 +32,7 @@
         "*.s3db": "${capture}.${extname}-*"
     },
     // [editor]
-    "editor.wordWrap": "off",
+    "editor.wordWrap": "on",
     "editor.fontSize": 14,
     "editor.autoIndent": "full",
     "editor.showFoldingControls": "always",
@@ -189,11 +189,24 @@
             "-**/lib/go/pkg/**"
         ]
     },
-    // "go.lintTool": "golangci-lint", // [go linter]
-    "go.lintFlags": [
-        "--fast"
+    "go.buildFlags": [
+        "-gcflags=-m -l"
     ],
-    "go.formatTool": "goimports",
+    "go.lintTool": "golangci-lint-v2",
+    // "go.lintTool": "golangci-lint", // [go linter]
+    "go.formatTool": "custom",
+    // "go.formatTool": "goimports",
+    "go.lintFlags": [
+        "--path-mode=abs",
+        "--fast-only"
+    ],
+    "go.alternateTools": {
+        "customFormatter": "golangci-lint-v2"
+    },
+    "go.formatFlags": [
+        "fmt",
+        "--stdin"
+    ],
     // [go test]
     "go.testOnSave": true,
     "go.testExplorer.showOutput": false,
@@ -505,7 +518,7 @@
         "*.md": "default",
         "*.mm.md": "markmap-vscode.markmap",
         "*.markdown": "default",
-        "*.csv": "gc-excelviewer-csv-editor",
+        "*.csv": "default",
         "git-rebase-todo": "gitlens.rebase"
     },
     // [New]
@@ -561,6 +574,10 @@
     "geminicodeassist.inlineSuggestions.suggestionSpeed": "Slow",
     "geminicodeassist.displayInlineContextHint": false,
     "geminicodeassist.chat.defaultCodeBlockDisplay": "Collapsed",
+    "geminicodeassist.customCommands": {
+        "todo": "Find all TODOs under current work directory and follow the instrution to fix/refactor it",
+        "plan": "Based on given requirements and description, analyze current work directory and list out TODOs sequentially in a file plan-[\\d\\w]+.md. And also seperate them to categories or sections."
+    },
     "geminicodeassist.project": "useful-iterator-4s3kg",
     "geminicodeassist.languages": [
         "*",
@@ -586,6 +603,10 @@
     "trae.internal.enableInlineChat": true,
     "trae.internal.enableInlineCommand": true,
     "trae.internal.enableFix": true,
+    "trae.internal.tab.enableTabKeyboardShortcuts": true,
+    "trae.internal.tab.enableRename": false,
+    "trae.internal.tab.enableAutoImport": false,
+    "trae.internal.tab.cue": true,
     "gitlens.ai.model": "vscode",
     "gitlens.ai.vscode.model": "copilot:gpt-4.1",
     "editor.inlineSuggest.edits.showCollapsed": true,
@@ -606,10 +627,18 @@
     },
     "sqltools.results.location": "current",
     "http.systemCertificatesNode": true,
-    "trae.internal.tab.enableRename": false,
-    "trae.internal.tab.enableAutoImport": false,
-    "trae.internal.tab.cue": true,
-    "geminicodeassist.customCommands": {
-        "todo": "Find all TODOs under current work directory and follow the instrution to fix/refactor it"
+    "remote.SSH.useExecServer": false,
+    "remote.SSH.remotePlatform": {
+        "*cube-*": "linux"
     },
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.codeActions.triggerOnFocusChange": true,
+    "workbench.tree.renderIndentGuides": "always",
+    "workbench.tree.expandMode": "singleClick",
+    "workbench.tree.indent": 8,
+    "workbench.tree.enableStickyScroll": true,
+    "workbench.tree.stickyScrollMaxItemCount": 2,
+    "containers.commands.run": "${containerCommand} run --rm -d ${exposedPorts} ${tag}",
+    "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
+    "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose"
 }
