@@ -187,7 +187,10 @@
         "formatting.gofumpt": false,
         "build.directoryFilters": [
             "-**/lib/go/pkg/**"
-        ]
+        ],
+        "analyses": {
+            "fieldalignment": true
+        }
     },
     "go.buildFlags": [
         "-gcflags=-m -l"
@@ -515,7 +518,7 @@
     },
     "workbench.editorAssociations": {
         "*.copilotmd": "vscode.markdown.preview.editor",
-        "*.md": "default",
+        "*.md": "vscode.markdown.preview.editor",
         "*.mm.md": "markmap-vscode.markmap",
         "*.markdown": "default",
         "*.csv": "default",
@@ -640,5 +643,14 @@
     "workbench.tree.stickyScrollMaxItemCount": 2,
     "containers.commands.run": "${containerCommand} run --rm -d ${exposedPorts} ${tag}",
     "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
-    "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose"
+    "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
+    "remote.SSH.defaultExtensions": [
+        "byted-extensions.stratocube-remote-ssh"
+    ],
+    "remote.defaultExtensionsIfInstalledLocally": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "GitHub.vscode-pull-request-github",
+        "byted-extensions.stratocube-remote-ssh"
+    ]
 }

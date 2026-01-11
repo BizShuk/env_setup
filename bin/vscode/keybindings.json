@@ -180,13 +180,7 @@
     },
     {
         "key": "cmd+4",
-        "command": "workbench.action.focusAuxiliaryBar",
-        "when": "!auxiliaryBarFocus"
-    },
-    {
-        "key": "cmd+4",
-        "command": "workbench.action.toggleAuxiliaryBar",
-        "when": "auxiliaryBarFocus"
+        "command": "workbench.action.toggleAuxiliaryBar"
     },
     {
         "key": "shift+cmd+alt+f",
@@ -327,5 +321,37 @@
     {
         "key": "ctrl+shift+u",
         "command": "workbench.view.extension.test"
+    },
+    {
+        "key": "alt+g",
+        "command": "workbench.view.extension.geminiChat",
+        "when": "viewContainer.workbench.view.extension.geminiChat.enabled && !runningOnCloudShell"
+    },
+    {
+        "key": "alt+cmd+g",
+        "command": "-workbench.view.extension.geminiChat",
+        "when": "viewContainer.workbench.view.extension.geminiChat.enabled && !runningOnCloudShell"
+    },
+    {
+        "key": "ctrl+alt+cmd+up",
+        "command": "workbench.action.terminal.resizePaneUp"
+    },
+    {
+        "key": "ctrl+cmd+up",
+        "command": "-workbench.action.terminal.resizePaneUp",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "ctrl+alt+cmd+down",
+        "command": "workbench.action.terminal.resizePaneDown"
+    },
+    {
+        "key": "ctrl+cmd+down",
+        "command": "-workbench.action.terminal.resizePaneDown",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+    },
+    {
+        "key": "cmd+4",
+        "command": "-workbench.action.focusFourthEditorGroup"
     }
 ]
