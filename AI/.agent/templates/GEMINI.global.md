@@ -1,4 +1,4 @@
-# GEMINI Global Guideline
+# GEMINI Global Guidelines
 
 This is project guideline for AI models. Aiming for high level analysis and break down to modules instead of focusing on how it implements. And write it down to a plan file(plan-\<feature\>.md)
 
