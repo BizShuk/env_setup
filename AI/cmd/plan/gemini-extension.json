@@ -1,0 +1,9 @@
+{
+  "name": "plan",
+  "version": "1.0.0",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {},
+  "tools.allowed": [
+    "echo"
+  ]
+}
