@@ -1,0 +1,20 @@
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_SSL_CERT=/home/node/.n8n/n8n.crt
+      - N8N_SSL_KEY=/home/node/.n8n/n8n.key
+      - N8N_PROTOCOL=${N8N_PROTOCOL}
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n.crt:/home/node/.n8n/n8n.crt:ro
+      - ./n8n.key:/home/node/.n8n/n8n.key:ro
+
+volumes:
+  n8n_data:
+    external: true
+    name: "n8n_data" # This make the volume without service prefix

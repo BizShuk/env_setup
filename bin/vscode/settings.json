@@ -29,7 +29,8 @@
         "*.sqlite3": "${capture}.${extname}-*",
         "*.db3": "${capture}.${extname}-*",
         "*.sdb": "${capture}.${extname}-*",
-        "*.s3db": "${capture}.${extname}-*"
+        "*.s3db": "${capture}.${extname}-*",
+        "*.md": "${capture}.*"
     },
     // [editor]
     "editor.wordWrap": "on",
@@ -56,7 +57,7 @@
     // [diff editor]
     "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.codeLens": true,
-    "diffEditor.renderSideBySide": false,
+    "diffEditor.renderSideBySide": true,
     // [files]
     "files.autoSave": "off",
     "files.eol": "\n",
@@ -518,7 +519,7 @@
     },
     "workbench.editorAssociations": {
         "*.copilotmd": "vscode.markdown.preview.editor",
-        "*.md": "vscode.markdown.preview.editor",
+        "*.md": "default",
         "*.mm.md": "markmap-vscode.markmap",
         "*.markdown": "default",
         "*.csv": "default",
@@ -652,5 +653,7 @@
         "GitHub.copilot-chat",
         "GitHub.vscode-pull-request-github",
         "byted-extensions.stratocube-remote-ssh"
-    ]
+    ],
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.selectedModel": "opus"
 }
