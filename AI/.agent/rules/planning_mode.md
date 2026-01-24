@@ -1,7 +1,10 @@
 ---
+name: Planning Mode
 trigger: manual
 description: It will enable this rule when typing "plan mode"
 ---
+
+# Planning Mode
 
 Only when typing "plan mode", it will enable this rule.
 

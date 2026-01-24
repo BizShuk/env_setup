@@ -22,6 +22,30 @@
             "args": [
                 "mcp"
             ]
+        },
+        "github": { // https://github.com/github/github-mcp-server
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "-e",
+                "GITHUB_PERSONAL_ACCESS_TOKEN",
+                "ghcr.io/github/github-mcp-server"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "<token>"
+            }
+        },
+        "dbhub": { // https://dbhub.ai/config/command-line#dsn
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "@bytebase/dbhub@latest",
+                "--transport",
+                "stdio",
+                "--config=./config/db.toml"
+            ]
         }
     }
 }

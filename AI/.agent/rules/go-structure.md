@@ -1,11 +1,12 @@
 ---
+name: Go Structure
 trigger: always_on
 description: This is golang project structure
 globs: **/*.go
 scope: **/*.go
 ---
 
-Structure Layers
+# Go Structure
 
 MVC break down services into handler/service/config/utils/model packages. You can further create a sub module/package if there is more than one domains in the project.
 
@@ -31,7 +32,6 @@ Service and handlers will get the configuration and client here directly from th
     ```
 
 Program has bee divided to 3 environments, local, prod, prod on server. Use `PROFILE` env variable to control whether it's `prod` or not. prod on server use Makefile to replace configuration file path and deploy to Ubuntu user level systemd service, by default, it's `PROFILE=prod` in Makefile. `CONFIG_DIR` also will be addressed in the Makefile
-
 
 ### Model Layer (`model/`)
 

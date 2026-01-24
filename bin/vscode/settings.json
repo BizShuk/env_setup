@@ -70,7 +70,8 @@
         "homebrew/": true,
         "{.git,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.vscode}": true,
+        "{.agent,.gemini,.serena}": true,
+        "{.vscode}": false,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,
         // Project Output

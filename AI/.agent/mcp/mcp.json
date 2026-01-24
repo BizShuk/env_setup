@@ -1,13 +1,19 @@
 {
-    "mcpServers": {
-        "senera": {
-            "command": "uvx",
-            "args": [
-                "--from",
-                "git+https://github.com/oraios/serena",
-                "serena",
-                "start-mcp-server"
-            ]
-        }
+  "mcpServers": {
+    "senera": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server"
+      ]
+    },
+    "gopls-mcp": {
+      "command": "gopls",
+      "args": [
+        "mcp"
+      ]
     }
+  }
 }

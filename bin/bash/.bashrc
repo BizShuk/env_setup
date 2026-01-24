@@ -22,7 +22,7 @@ export LANG="en_US.UTF-8"
 
 ## set default env varaible ##
 export TERM="xterm-256color"
-export PATH=$USER_BIN:$PATH
+export PATH=${HOME}/.local/bin:${HOME}/bin:$PATH
 #export CDPATH=.:$HOME:$project_dir;
 export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
 

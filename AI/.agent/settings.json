@@ -18,13 +18,22 @@
         "showMemoryUsage": true
     },
     "general": {
+        "vimMode": false,
         "previewFeatures": true,
-        "enablePromptCompletion": true
+        "enablePromptCompletion": true,
+        "preferredEditor": "vscode"
     },
-    "tools.allowed": [
-        "echo",
-        "afplay"
-    ],
+    "tools": {
+        "shell": {
+            "showColors": true,
+        },
+        "autoAccept": true,
+        "approvalMode": "auto_edit",
+        "allowed": [
+            "echo",
+            "afplay"
+        ]
+    },
     "hooks": {},
     "experimental": {
         "skills": true
@@ -42,19 +51,47 @@
                 "git+https://github.com/oraios/serena",
                 "serena",
                 "start-mcp-server"
-            ]
+            ],
+            "trust": true
         },
         "docker-mcp": {
             "command": "uvx",
             "args": [
                 "docker-mcp"
-            ]
+            ],
+            "trust": true
         },
         "gopls-mcp": {
             "command": "gopls",
             "args": [
                 "mcp"
-            ]
+            ],
+            "trust": true
+        },
+        "github": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "-e",
+                "GITHUB_PERSONAL_ACCESS_TOKEN",
+                "ghcr.io/github/github-mcp-server"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"
+            }
+        },
+        "dbhub": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "@bytebase/dbhub@latest",
+                "--transport",
+                "stdio",
+                "--config=./config/db.toml"
+            ],
+            "trust": true
         }
     }
 }

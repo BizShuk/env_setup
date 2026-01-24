@@ -1,11 +1,14 @@
 ---
+name: Go Tools
 trigger: always_on
 description: Golang SDK to use by default
 globs: **/*.go
 scope: **/*.go
 ---
 
-This is languange I prefer by default if project level GEMINI.md is not explicitly mentioning the programming language to use. 
+# Go Tools
+
+This is languange I prefer by default if project level GEMINI.md is not explicitly mentioning the programming language to use.
 
 There are few SDKs to use by default.
 

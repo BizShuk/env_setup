@@ -1,9 +1,12 @@
 ---
+name: Go Testing
 trigger: always_on
 description: Golang Testing Principle
 globs: **/*.go
 scope: **/*.go
 ---
+
+# Go Testing
 
 function/method/struct can be categorized to aggregated one and simple one.
 
