@@ -1,0 +1,36 @@
+{
+    "ide": {
+        "enabled": true,
+        "hasSeenNudge": true
+    },
+    "security": {
+        "auth": {
+            "selectedType": "oauth-personal"
+        },
+        "disableYoloMode": true
+    },
+    "ui": {
+        "accessibility": {
+            "screenReader": false
+        },
+        "showStatusInTitle": false,
+        "showMemoryUsage": true
+    },
+    "general": {
+        "previewFeatures": true,
+        "enablePromptCompletion": true
+    },
+    "tools.allowed": [
+        "echo",
+        "afplay"
+    ],
+    "hooks": {},
+    "experimental": {
+        "skills": true
+    },
+    "skills": {
+        "disabled": [
+            "code-reviewer"
+        ]
+    }
+}
