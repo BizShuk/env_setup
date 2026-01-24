@@ -7,7 +7,8 @@
         "auth": {
             "selectedType": "oauth-personal"
         },
-        "disableYoloMode": true
+        "disableYoloMode": true,
+        "confirmCommands": "sensitive-only"
     },
     "ui": {
         "accessibility": {
@@ -32,5 +33,28 @@
         "disabled": [
             "code-reviewer"
         ]
+    },
+    "mcpServers": {
+        "senera": {
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/oraios/serena",
+                "serena",
+                "start-mcp-server"
+            ]
+        },
+        "docker-mcp": {
+            "command": "uvx",
+            "args": [
+                "docker-mcp"
+            ]
+        },
+        "gopls-mcp": {
+            "command": "gopls",
+            "args": [
+                "mcp"
+            ]
+        }
     }
 }

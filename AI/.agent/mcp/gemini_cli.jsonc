@@ -1,0 +1,27 @@
+{
+    // Gemini CLI: https://geminicli.com/docs/tools/mcp-server/
+    "mcpServers": {
+        // copy each server to settings.json
+        "senera": { // https://github.com/oraios/serena
+            "command": "uvx",
+            "args": [
+                "--from",
+                "git+https://github.com/oraios/serena",
+                "serena",
+                "start-mcp-server"
+            ]
+        },
+        "docker-mcp": { // https://github.com/QuantGeekDev/docker-mcp
+            "command": "uvx",
+            "args": [
+                "docker-mcp"
+            ]
+        },
+        "gopls-mcp": { // https://go.dev/gopls/features/mcp
+            "command": "gopls",
+            "args": [
+                "mcp"
+            ]
+        }
+    }
+}
