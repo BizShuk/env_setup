@@ -1,0 +1,81 @@
+name: Inf_Stack
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      # Using one volume for both config and data via subpaths/multiple mounts
+      - prometheus_data:/etc/prometheus
+      - prometheus_data:/prometheus
+      # Bind mount for the specific config file
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+    networks:
+      - inf_network
+
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: pushgateway
+    restart: unless-stopped
+    ports:
+      - "9091:9091" # No conflict with 9090
+    volumes:
+      - pushgateway_data:/data
+    networks:
+      - inf_network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: defaultDB
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - inf_network
+
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=adminpassword
+      - DOCKER_INFLUXDB_INIT_ORG=inf
+      - DOCKER_INFLUXDB_INIT_BUCKET=default
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+      - influxdb_data:/etc/influxdb2
+    networks:
+      - inf_network
+
+# Port Conflict Notes:
+# - Prometheus: 9090 (Default)
+# - Pushgateway: 9091 (Default)
+# - MySQL: 3306 (Default)
+# - InfluxDB: 8086 (Default)
+# There are no internal port conflicts among these services.
+# Note: If these ports are already in use by other stacks,
+# you may need to map them to different host ports (e.g., "9092:9090").
+
+volumes:
+  prometheus_data:
+  pushgateway_data:
+  mysql_data:
+  influxdb_data:
+
+networks:
+  inf_network:
+    driver: bridge
