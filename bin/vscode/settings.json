@@ -67,10 +67,10 @@
         "{.svn,.hg,.DS_Store,Thumbs.db}": true,
         // Project metadata
         "archive": true,
-        "homebrew/": true,
+        "**/homebrew": true,
         "{.git,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.agent,.gemini,.serena}": true,
+        "{.agent,**/.gemini,.serena}": true,
         "{.vscode}": false,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,
