@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "" >> README.md
+ln -sf README.md AGENTS.md
+ln -sf README.md GEMINI.md
+
 
 ln -sf .vscode .gemini
 ln -sf .vscode .agent
