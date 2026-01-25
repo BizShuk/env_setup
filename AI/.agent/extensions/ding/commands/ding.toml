@@ -1,6 +1,4 @@
 description = "Play short System Sound"
 prompt = """
-Play a system sound
-Just execute command below if it's Mac
 !{afplay /System/Library/Sounds/Glass.aiff}
 """

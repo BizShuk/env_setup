@@ -1,4 +1,7 @@
 {
+    "model": {
+        "name": "gemini-3-flash-preview"
+    },
     "ide": {
         "enabled": true,
         "hasSeenNudge": true
@@ -55,21 +58,21 @@
                 "serena",
                 "start-mcp-server"
             ],
-            "trust": true
+            "trust": false
         },
-        "docker-mcp": {
+        "docker": {
             "command": "uvx",
             "args": [
                 "docker-mcp"
             ],
-            "trust": true
+            "trust": false
         },
-        "gopls-mcp": {
+        "gopls": {
             "command": "gopls",
             "args": [
                 "mcp"
             ],
-            "trust": true
+            "trust": false
         },
         "github": {
             "command": "docker",
@@ -82,7 +85,7 @@
                 "ghcr.io/github/github-mcp-server"
             ],
             "env": {
-                "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "$GITHUB_PAT"
             }
         },
         "dbhub": {

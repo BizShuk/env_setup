@@ -11,13 +11,13 @@
                 "start-mcp-server"
             ]
         },
-        "docker-mcp": { // https://github.com/QuantGeekDev/docker-mcp
+        "docker": { // https://github.com/QuantGeekDev/docker-mcp
             "command": "uvx",
             "args": [
                 "docker-mcp"
             ]
         },
-        "gopls-mcp": { // https://go.dev/gopls/features/mcp
+        "gopls": { // https://go.dev/gopls/features/mcp
             "command": "gopls",
             "args": [
                 "mcp"
