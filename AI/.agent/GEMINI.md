@@ -2,4 +2,4 @@
 
 ## Restriction
 
-- Only fire MCP query when explicitly mention the name of each MCP in the prompt
+- Only use MCP/SKills when explicitly mention about MCP/Agent Skill's name

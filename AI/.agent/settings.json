@@ -24,7 +24,10 @@
         "vimMode": false,
         "previewFeatures": true,
         "enablePromptCompletion": true,
-        "preferredEditor": "vscode"
+        "preferredEditor": "vscode",
+        "checkpointing": {
+            "enabled": true
+        }
     },
     "tools": {
         "shell": {
@@ -42,7 +45,9 @@
     },
     "hooks": {},
     "experimental": {
-        "skills": true
+        "skills": true,
+        "contextCaching": true,
+        "cacheTtlSeconds": 3600
     },
     "skills": {
         "disabled": [
@@ -56,9 +61,10 @@
                 "--from",
                 "git+https://github.com/oraios/serena",
                 "serena",
-                "start-mcp-server"
-            ],
-            "trust": false
+                "start-mcp-server",
+                "--project",
+                "env_setup"
+            ]
         },
         "docker": {
             "command": "uvx",
