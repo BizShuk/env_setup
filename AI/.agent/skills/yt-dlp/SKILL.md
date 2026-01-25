@@ -2,7 +2,7 @@
 name: yt-dlp
 description: A feature-rich command-line audio/video downloader.
 user-invocable: true
-auto-invoke: true
+auto-invoke: false
 version: "1.0.0"
 capabilities: ["mcp", "terminal"]
 ---

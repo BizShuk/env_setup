@@ -2,5 +2,27 @@
   "mcp": {
     "excluded": []
   },
-  "mcpServers": {}
+  "mcpServers": {},
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "{.svn,.hg,.DS_Store,Thumbs.db}": true,
+    "archive": true,
+    "**/homebrew": true,
+    "{.git,.gitlab,.pre-commit-config.yaml}": true,
+    "{*.code-workspace,.golangci.yml,go.sum}": true,
+    "{.agent,**/.gemini,.serena}": false,
+    "{.vscode}": false,
+    "{.devops,.settings}": true,
+    "{.classpath,.project}": true,
+    "{target,out,dist,output}": true,
+    "{.mvn,node_modules,__pycache__,.venv}": true,
+    "{__debug_bin*}": true,
+    "{gen/**,kitex_gen}": true,
+    "-1": true
+  },
+  "explorerExclude.backup": {}
 }

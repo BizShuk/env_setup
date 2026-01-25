@@ -506,6 +506,9 @@
     "[markdown]": {
         "files.trimTrailingWhitespace": false,
         "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        "editor.trimWhitespaceOnDelete": false,
+        "files.trimTrailingWhitespaceInRegexAndStrings": false,
+        "editor.trimAutoWhitespace": false,
     },
     "[todo]": {
         "files.trimTrailingWhitespace": false,
@@ -597,6 +600,7 @@
         "yaml"
     ],
     "scm.repositories.selectionMode": "single",
+    "scm.defaultViewMode": "tree",
     "settingsSync.ignoredExtensions": [],
     "[dockerfile]": {
         "editor.formatOnSave": true,
@@ -657,5 +661,5 @@
         "byted-extensions.stratocube-remote-ssh"
     ],
     "claudeCode.preferredLocation": "panel",
-    "claudeCode.selectedModel": "opus"
+    "claudeCode.selectedModel": "opus",
 }

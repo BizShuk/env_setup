@@ -34,6 +34,9 @@
             "afplay"
         ]
     },
+    "hooksConfig": {
+        "enabled": true
+    },
     "hooks": {},
     "experimental": {
         "skills": true

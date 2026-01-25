@@ -9,6 +9,10 @@ capabilities: ["mcp", "terminal"]
 
 # <skill_name>
 
-Role: "<role>"
+## Role
 
-Detail: "<detail>"
+<role>
+
+## Detail
+
+<detail>
