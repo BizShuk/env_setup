@@ -64,7 +64,8 @@
                 "start-mcp-server",
                 "--project",
                 "env_setup"
-            ]
+            ],
+            "trust": false
         },
         "docker": {
             "command": "uvx",

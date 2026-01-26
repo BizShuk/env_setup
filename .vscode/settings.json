@@ -1,6 +1,8 @@
 {
     "mcp": {
         "excluded": [
+            "context7",
+            "senera",
             "github",
             "dbhub"
         ]
