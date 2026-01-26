@@ -55,18 +55,6 @@
         ]
     },
     "mcpServers": {
-        "senera": {
-            "command": "uvx",
-            "args": [
-                "--from",
-                "git+https://github.com/oraios/serena",
-                "serena",
-                "start-mcp-server",
-                "--project",
-                "env_setup"
-            ],
-            "trust": false
-        },
         "docker": {
             "command": "uvx",
             "args": [
@@ -80,20 +68,6 @@
                 "mcp"
             ],
             "trust": false
-        },
-        "github": {
-            "command": "docker",
-            "args": [
-                "run",
-                "-i",
-                "--rm",
-                "-e",
-                "GITHUB_PERSONAL_ACCESS_TOKEN",
-                "ghcr.io/github/github-mcp-server"
-            ],
-            "env": {
-                "GITHUB_PERSONAL_ACCESS_TOKEN": "$GITHUB_PAT"
-            }
         },
         "dbhub": {
             "type": "stdio",
