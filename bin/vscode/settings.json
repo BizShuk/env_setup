@@ -55,7 +55,7 @@
     "editor.comments.insertSpace": true,
     "editor.linkedEditing": true,
     // [diff editor]
-    "diffEditor.ignoreTrimWhitespace": true,
+    "diffEditor.ignoreTrimWhitespace": false,
     "diffEditor.codeLens": true,
     "diffEditor.renderSideBySide": true,
     // [files]
