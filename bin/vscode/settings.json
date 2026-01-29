@@ -30,7 +30,7 @@
         "*.db3": "${capture}.${extname}-*",
         "*.sdb": "${capture}.${extname}-*",
         "*.s3db": "${capture}.${extname}-*",
-        "*.md": "${capture}.*"
+        "*.md": "${capture}*"
     },
     // [editor]
     "editor.wordWrap": "on",
@@ -70,7 +70,8 @@
         "**/homebrew": true,
         "{.git,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.agent,**/.gemini,.serena}": true,
+        // Use .vscode to show LLM related config, but some case might use .claude
+        "{.claude,.agent,**/.gemini,.serena,.ttadk,AGENTS.md,GEMINI.md,CLAUDE.md}": true,
         "{.vscode}": false,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,
@@ -662,4 +663,6 @@
     ],
     "claudeCode.preferredLocation": "panel",
     "claudeCode.selectedModel": "opus",
+    "window.newWindowProfile": "ByteDance",
+    "security.promptForRemoteFileProtocolHandling": false,
 }

@@ -19,7 +19,7 @@
         "**/homebrew": true,
         "{.git,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.agent,**/.gemini,.serena}": true,
+        "{.agent,**/.gemini,.serena}": false,
         "{.vscode}": false,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,

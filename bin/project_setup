@@ -1,14 +1,19 @@
 #!/bin/bash
 
 echo "" >> README.md
-ln -sf README.md AGENTS.md
-ln -sf README.md GEMINI.md
+ln -s README.md AGENTS.md
+ln -s README.md GEMINI.md
+ls -s README.md CLAUDE.md
 
+ln -s .vscode .claude
+echo "If .claude is used in this project, then $(ln -s .claude .vscode)"
 
 ln -sf .vscode .gemini
 ln -sf .vscode .agent
 mkdir -p .vscode/rules
 mkdir -p .vscode/skills
+
+if [ ! -f ".vscode/settings.json" ]; then
 
 cat <<EOF > .vscode/settings.json
 {
@@ -20,3 +25,5 @@ cat <<EOF > .vscode/settings.json
   }
 }
 EOF
+
+fi

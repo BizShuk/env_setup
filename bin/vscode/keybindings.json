@@ -289,10 +289,6 @@
     },
     {
         "key": "cmd+e cmd+e",
-        "command": "sqltools.executeCurrentQuery"
-    },
-    {
-        "key": "cmd+e cmd+e",
         "command": "-sqltools.executeQuery",
         "when": "editorHasSelection && editorTextFocus && !config.sqltools.disableChordKeybindings"
     },
@@ -353,5 +349,14 @@
     {
         "key": "cmd+4",
         "command": "-workbench.action.focusFourthEditorGroup"
+    },
+    {
+        "key": "cmd+e cmd+e",
+        "command": "-workbench.action.quickOpen",
+        "when": "!config.sqltools.disableChordKeybindings && !editorHasSelection && !editorTextFocus"
+    },
+    {
+        "key": "cmd+e cmd+e",
+        "command": "sqltools.executeCurrentQuery"
     }
 ]

@@ -10,6 +10,7 @@
 	branch = auto
 	ui = true
 [alias]
+	clone = clone --depth 10
 	co = checkout
 	ci = commit
 	st = status
