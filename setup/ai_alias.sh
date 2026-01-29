@@ -3,8 +3,8 @@
 AI_DIR="${HOME}/projects/env_setup/AI"
 
 ln -sf "${AI_DIR}"/.agent ~/
-ln -sf "${AI_DIR}"/.gemini ~/
-
+ln -sf ~/.gemini "${AI_DIR}"/
+mkdir -p ~/.gemini/antigravity
 
 
 # Gemini
@@ -16,6 +16,7 @@ ln -sf ~/.gemini/extensions ~/.agent/extensions/gemini_extensions
 
 
 # Antigravity
+
 ln -sf ~/.agent/workflows ~/.gemini/antigravity/global_workflows
 ln -sf ~/.agent/skills ~/.gemini/antigravity/global_skills
 ln -sf ~/.agent/skills ~/.gemini/antigravity/skills
@@ -23,4 +24,4 @@ ln -sf ~/.agent/rules ~/.gemini/antigravity/rules
 ln -sf ~/.agent/mcp/mcp.json ~/.gemini/antigravity/mcp_config.json
 
 
-ln -sf ~/.gemini/extensions ~/.agent/
+ln -sf ~/.gemini/extensions ~/.agent/extensions/gemini_extensions

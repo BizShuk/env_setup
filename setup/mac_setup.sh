@@ -6,7 +6,8 @@
 
 ./bash_env_setup.sh
 
-~/projects/env_setup/pkg/homwbrew/brew.sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
 source ~/.profile
 
 # [Basic]
