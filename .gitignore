@@ -9,3 +9,14 @@ config/*
 .serena
 AI/.gemini
 post
+
+AI/.agent/antigravity/*
+AI/.agent/antigravity/annotations/*
+AI/.agent/antigravity/brain/*
+AI/.agent/antigravity/browser_recordings/*
+AI/.agent/antigravity/browserOnboardingStatus.txt
+AI/.agent/antigravity-browser-profile/*
+AI/.agent/antigravity/code_tracker/*
+AI/.agent/antigravity/conversations/*
+AI/.agent/antigravity/implicit/*
+AI/.agent/antigravity/knowledge/*

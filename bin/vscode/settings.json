@@ -71,7 +71,8 @@
         "{.git,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
         // Use .vscode to show LLM related config, but some case might use .claude
-        "{.claude,.agent,**/.gemini,.serena,.ttadk,AGENTS.md,GEMINI.md,CLAUDE.md}": true,
+        "{.agent,.claude,.gemini,.serena,.ttadk}": true,
+        "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
         "{.vscode}": false,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,
