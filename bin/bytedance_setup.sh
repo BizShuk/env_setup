@@ -29,3 +29,6 @@ CAT <<EOF >>~/.gitconfig
 [url "git@code.byted.org:"]
     insteadOf = https://code.byted.org/
 EOF
+
+# Check the connection
+ssh -T code.byted.org
