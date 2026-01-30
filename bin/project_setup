@@ -5,6 +5,7 @@ ln -s README.md AGENTS.md
 ln -s README.md GEMINI.md
 ls -s README.md CLAUDE.md
 
+mkdir .vscode
 ln -s .vscode .claude
 echo "If .claude is used in this project, then $(ln -s .claude .vscode)"
 
