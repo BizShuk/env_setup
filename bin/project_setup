@@ -29,8 +29,9 @@ EOF
 
 fi
 
-project_name=$(pwd)
-echo $project_name
+project_path=$(pwd)
+project_name=$(basename "$project_path")
+
 if [ -d "$HOME/projects/llm_plugin" ]; then
-  ln -sf "$(pwd)/.agent" "$HOME/projects/llm_plugin/projects/$project_name"
+  ln -sf "$(pwd)/.agent" "$HOME/projects/llm_plugin/projects/${project_name}"
 fi
