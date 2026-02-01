@@ -28,17 +28,7 @@ rm -rf ~/.Trash/*
 
 
 # Lark
-rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/log/*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/1*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/2*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/3*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/4*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/5*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/6*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/7*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/8*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/9*
-# rm -rf /Users/shuk/Library/Application Support/LarkInternational/sdk_storage/0*
+rm -rf /Users/shuk/Library/Application\ Support/LarkInternational/sdk_storage/log/*
 
 # Cache
 rm -rf /Users/shuk/Library/Caches/Google/Chrome/Default/Cache/Cache_Data
