@@ -510,7 +510,7 @@
   },
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.trimWhitespaceOnDelete": false,
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "editor.trimAutoWhitespace": false,
