@@ -30,8 +30,9 @@
     "*.db3": "${capture}.${extname}-*",
     "*.sdb": "${capture}.${extname}-*",
     "*.s3db": "${capture}.${extname}-*",
-    "*.md": "${capture}*",
+    "*.md": "${capture}*"
   },
+
   // [editor]
   "editor.wordWrap": "on",
   "editor.fontSize": 14,
@@ -50,7 +51,7 @@
   "editor.inlineSuggest.enabled": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
-    "source.organizeImports": "explicit",
+    "source.organizeImports": "explicit"
   },
   "editor.comments.insertSpace": true,
   "editor.linkedEditing": true,
@@ -83,7 +84,7 @@
     "{__debug_bin*}": true,
     // tiktok
     "{gen/**,kitex_gen}": true,
-    "-1": true,
+    "-1": true
   },
   "files.watcherExclude": {
     // "**": true, [Copy from files.exclude]
@@ -105,14 +106,14 @@
     "{__debug_bin*}": true,
     // tiktok
     "{gen/**,kitex_gen}": true,
-    "-1": true,
+    "-1": true
   },
   "files.associations": {
     ".env*": "dotenv",
     "{*.sh,*.info}": "shellscript",
     "*.bosun": "bosun",
     "*.ignore": "gitignore",
-    "{*.timer,*.service}": "ini",
+    "{*.timer,*.service}": "ini"
   },
   // [search]
   "search.useIgnoreFiles": true,
@@ -135,14 +136,14 @@
         "request": "launch",
         "mode": "debug",
         "program": "${workspaceFolder}",
-        "envFile": "${userHome}/.env",
+        "envFile": "${userHome}/.env"
       },
       {
         "name": "Go Launch file",
         "type": "go",
         "request": "launch",
         "mode": "debug",
-        "program": "${file}",
+        "program": "${file}"
         // "envFile": "${userHome}/.env",
       },
       {
@@ -150,7 +151,7 @@
         "request": "launch",
         "type": "chrome",
         "url": "http://localhost:3000",
-        "webRoot": "${workspaceFolder}",
+        "webRoot": "${workspaceFolder}"
       },
       {
         // Should setup ts-node `npm i -d ts-node; npm i -g typescript`
@@ -159,10 +160,10 @@
         "request": "launch",
         "runtimeArgs": ["-r", "ts-node/register"],
         "program": "${file}",
-        "envFile": "${userHome}/.env",
-      },
+        "envFile": "${userHome}/.env"
+      }
     ],
-    "compounds": [],
+    "compounds": []
   },
   // [terminal]
   "terminal.integrated.fontSize": 14,
@@ -190,8 +191,8 @@
     "formatting.gofumpt": false,
     "build.directoryFilters": ["-**/lib/go/pkg/**"],
     "analyses": {
-      "fieldalignment": true,
-    },
+      "fieldalignment": true
+    }
   },
   "go.buildFlags": ["-gcflags=-m -l"],
   "go.lintTool": "golangci-lint-v2",
@@ -200,7 +201,7 @@
   // "go.formatTool": "goimports",
   "go.lintFlags": ["--path-mode=abs", "--fast-only"],
   "go.alternateTools": {
-    "customFormatter": "golangci-lint-v2",
+    "customFormatter": "golangci-lint-v2"
   },
   "go.formatFlags": ["fmt", "--stdin"],
   // [go test]
@@ -217,19 +218,19 @@
   "go.coverageDecorator": {
     "type": "gutter",
     "coveredGutterStyle": "blockblue",
-    "uncoveredGutterStyle": "slashred",
+    "uncoveredGutterStyle": "slashred"
   },
   // [javascript] [npm] [node] [typescript] [js] [jest]
   "javascript.updateImportsOnFileMove.enabled": "always",
   // [Markdown]
   "markdown.copyFiles.destination": {
-    "**/*": "assets/images/md/${documentBaseName}-${fileName}",
+    "**/*": "assets/images/md/${documentBaseName}-${fileName}"
   },
   "markdownlint.config": {
     "default": true,
     "MD001": false,
     "MD009": {
-      "br_spaces": 2,
+      "br_spaces": 2
     },
     "MD025": false,
     "MD028": false,
@@ -237,27 +238,27 @@
     "MD033": false,
     "MD045": false,
     "MD053": false,
-    "SA9003": false,
+    "SA9003": false
   },
   // [highlight] [todo]
   "highlight.regexes": {
     "([S]{0,1}\\$)": [
       // $, S$
       {
-        "color": "#FFFF00",
-      },
+        "color": "#FFFF00"
+      }
     ],
     "(#)": [
       // [xxx]
       {
-        "color": "#00FF00",
-      },
+        "color": "#00FF00"
+      }
     ],
     "(\\[.+?\\])": [
       // [xxx]
       {
-        "color": "#FFFF00",
-      },
+        "color": "#FFFF00"
+      }
     ],
     "(===== )(.+?)( =====)": [
       // ===== xxx =====
@@ -265,111 +266,111 @@
       {
         "color": "#FFFF00",
         "fontWeight": "bold",
-        "fontStyle": "italic",
+        "fontStyle": "italic"
       },
-      {},
+      {}
     ],
     "(\\<.+?\\>)": [
       // <xxx>
       {
-        "color": "#FFA500",
-      },
+        "color": "#FFA500"
+      }
     ],
     "(\".+?\")": [
       // "xxx"
       {
-        "color": "#FFA500",
-      },
+        "color": "#FFA500"
+      }
     ],
     "('.+?')": [
       // 'xxx'
       {
-        "color": "#FFA500",
-      },
+        "color": "#FFA500"
+      }
     ],
     "(`.+?`)": [
       // `xxx`
       {
-        "color": "#FFA500",
-      },
+        "color": "#FFA500"
+      }
     ],
     "({\\S+?})": [
       // {xxx}
       {
-        "color": "#FFA500",
-      },
+        "color": "#FFA500"
+      }
     ],
     "({{.+?}})": [
       // {xxx}
       {
-        "color": "#FFA500",
-      },
+        "color": "#FFA500"
+      }
     ],
     "(Warning)(:)(.*)": [
       // Warning: xxx
       {
         "color": "#FFC0CB",
-        "fontWeight": "bold",
+        "fontWeight": "bold"
       },
       {},
       {
         "color": "#FF0000",
-        "fontWeight": "bold",
-      },
+        "fontWeight": "bold"
+      }
     ],
     "(TODO)(:)": [
       // TODO: xxx
       {
         "color": "#FFFFFF",
-        "fontWeight": "bold",
+        "fontWeight": "bold"
       },
-      {},
+      {}
     ],
     "(NOTE)(:)": [
       // NOTE: xxx
       {
         "color": "#FFFF00",
-        "fontWeight": "bold",
+        "fontWeight": "bold"
       },
-      {},
+      {}
     ],
     "(BUG|FIX|FIXME|ISSUE)(:)": [
       // BUG: xxx
       {
-        "color": "#FF0000",
+        "color": "#FF0000"
       },
-      {},
+      {}
     ],
     "(\\?+)": [
       // ???
       {
         "color": "#FF0000",
-        "fontWeight": "bold",
-      },
+        "fontWeight": "bold"
+      }
     ],
     "(\\@)([\\S]+)": [
       // @xxx
       {
-        "color": "#808080",
+        "color": "#808080"
       },
       {
-        "color": "#00FF00",
-      },
+        "color": "#00FF00"
+      }
     ],
     "(=+>)": [
       {
-        "color": "#00FF00",
-      },
+        "color": "#00FF00"
+      }
     ],
     "(#)([^#\\s]+)": [
       // Hash Tag
       {
-        "color": "#808080",
+        "color": "#808080"
       },
       {
-        "color": "#FFFFFF",
-      },
-    ],
+        "color": "#FFFFFF"
+      }
+    ]
   },
   // "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
   "todo.embedded.regex": "(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]| TODO:|FIXME|\\[FIX\\]|\\[BUG\\]|\\[NOTE\\]|\\[REVIEW\\|ISSUE]|\\[Deprecated\\]|\\?\\?\\?)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
@@ -385,7 +386,7 @@
     "Monthly",
     "Weekend",
     "Morning",
-    "Evening",
+    "Evening"
   ],
   "todo.colors.tags.foreground": [],
   "todo.colors.tags.background": [
@@ -399,7 +400,7 @@
     "",
     "",
     "",
-    "",
+    ""
   ],
   "todo.embedded.exclude": [
     "**/.*",
@@ -426,7 +427,7 @@
     "**/config/bin/**",
     "**/config/go/**",
     "**/*.sample.*",
-    "**/工作紀錄/Class/**",
+    "**/工作紀錄/Class/**"
   ],
   "todo.file.exclude": [
     "**/.!(todo|todos|task|tasks)/**",
@@ -445,7 +446,7 @@
     "**/third_party/**",
     "**/vendor/**",
     "**/config/bin/**",
-    "**/config/go/**",
+    "**/config/go/**"
   ],
   // [html]
   "html.format.enable": true,
@@ -461,43 +462,43 @@
     "plaintext": false,
     "markdown": true,
     "scminput": false,
-    "typescript": true,
+    "typescript": true
   },
   "githubIssues.queries": [
     {
       "label": "My Issues",
-      "query": "default",
+      "query": "default"
     },
     {
       "label": "Created Issues",
-      "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc",
+      "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
     },
     {
       "label": "Recent Issues",
-      "query": "state:open repo:${owner}/${repository} sort:updated-desc",
-    },
+      "query": "state:open repo:${owner}/${repository} sort:updated-desc"
+    }
   ],
   "githubPullRequests.queries": [
     {
       "label": "Local Pull Request Branches",
-      "query": "default",
+      "query": "default"
     },
     {
       "label": "Waiting For My Review",
-      "query": "repo:${owner}/${repository} is:open review-requested:${user}",
+      "query": "repo:${owner}/${repository} is:open review-requested:${user}"
     },
     {
       "label": "Assigned To Me",
-      "query": "repo:${owner}/${repository} is:open assignee:${user}",
+      "query": "repo:${owner}/${repository} is:open assignee:${user}"
     },
     {
       "label": "Created By Me",
-      "query": "repo:${owner}/${repository} is:open author:${user}",
+      "query": "repo:${owner}/${repository} is:open author:${user}"
     },
     {
       "label": "All Open",
-      "query": "default",
-    },
+      "query": "default"
+    }
   ],
   // [Editor by Language]
   "[yaml]": {
@@ -505,18 +506,18 @@
     "editor.autoIndent": "advanced",
     "editor.quickSuggestions": {
       "comments": false,
-      "strings": true,
-    },
+      "strings": true
+    }
   },
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.trimWhitespaceOnDelete": false,
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
-    "editor.trimAutoWhitespace": false,
+    "editor.trimAutoWhitespace": false
   },
   "[todo]": {
-    "files.trimTrailingWhitespace": false,
+    "files.trimTrailingWhitespace": false
   },
   "notebook.lineNumbers": "on",
   "workbench.colorCustomizations": {},
@@ -525,15 +526,14 @@
   "explorer.confirmPasteNative": false,
   "notebook.cellToolbarLocation": {
     "default": "right",
-    "jupyter-notebook": "right",
+    "jupyter-notebook": "right"
   },
   "workbench.editorAssociations": {
     "*.copilotmd": "vscode.markdown.preview.editor",
     "*.md": "default",
     "*.mm.md": "markmap-vscode.markmap",
     "*.markdown": "default",
-    "*.csv": "default",
-    "git-rebase-todo": "gitlens.rebase",
+    "*.csv": "default"
   },
   // [New]
   // "markdown.styles": [
@@ -551,26 +551,22 @@
   "[dockercompose]": {
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
-    "editor.autoIndent": "advanced",
-    "editor.defaultFormatter": "redhat.vscode-yaml",
-  },
-  "[github-actions-workflow]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.autoIndent": "advanced"
   },
   //
   "terminal.integrated.suggest.quickSuggestions": {
     "commands": "on",
     "arguments": "on",
-    "unknown": "off",
+    "unknown": "off"
   },
   "terminal.integrated.enableVisualBell": true,
   "accessibility.signals.terminalBell": {
     "sound": "on",
-    "announcement": "auto",
+    "announcement": "auto"
   },
   "terminal.integrated.suggest.enabled": true,
   "terminal.integrated.suggest.providers": {
-    "lsp": true,
+    "lsp": true
   },
   "chat.mcp.gallery.enabled": true,
   "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
@@ -585,7 +581,7 @@
   "geminicodeassist.chat.defaultCodeBlockDisplay": "Collapsed",
   "geminicodeassist.customCommands": {
     "todo": "Find all TODOs under current work directory and follow the instrution to fix/refactor it",
-    "plan": "Based on given requirements and description, analyze current work directory and list out TODOs sequentially in a file plan-[\\d\\w]+.md. And also seperate them to categories or sections.",
+    "plan": "Based on given requirements and description, analyze current work directory and list out TODOs sequentially in a file plan-[\\d\\w]+.md. And also seperate them to categories or sections."
   },
   "geminicodeassist.project": "useful-iterator-4s3kg",
   "geminicodeassist.languages": [
@@ -597,7 +593,7 @@
     "sql",
     "xml",
     "html",
-    "yaml",
+    "yaml"
   ],
   "scm.repositories.selectionMode": "single",
   "scm.defaultViewMode": "tree",
@@ -605,8 +601,8 @@
   "[dockerfile]": {
     "editor.formatOnSave": true,
     "editor.quickSuggestions": {
-      "strings": true,
-    },
+      "strings": true
+    }
   },
   // trae
   "trae.internal.chatLanguage": "auto",
@@ -628,18 +624,18 @@
       "previewLimit": 50,
       "driver": "SQLite",
       "name": "DB1.local",
-      "database": "${workspaceFolder:crawler}/inf/db/local.sqlite",
-    },
+      "database": "${workspaceFolder:crawler}/inf/db/local.sqlite"
+    }
   ],
   "[sql]": {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "mtxr.sqltools",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "sqltools.results.location": "current",
   "http.systemCertificatesNode": true,
   "remote.SSH.useExecServer": false,
   "remote.SSH.remotePlatform": {
-    "*cube-*": "linux",
+    "*cube-*": "linux"
   },
   "editor.unicodeHighlight.invisibleCharacters": false,
   "editor.codeActions.triggerOnFocusChange": true,
@@ -656,9 +652,11 @@
     "GitHub.copilot",
     "GitHub.copilot-chat",
     "GitHub.vscode-pull-request-github",
-    "byted-extensions.stratocube-remote-ssh",
+    "byted-extensions.stratocube-remote-ssh"
   ],
   "claudeCode.preferredLocation": "panel",
   "claudeCode.selectedModel": "opus",
   "security.promptForRemoteFileProtocolHandling": false,
+
+  "prettier.trailingComma": "none"
 }
