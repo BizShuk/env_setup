@@ -5,18 +5,18 @@ ln -s README.md AGENTS.md
 ln -s README.md GEMINI.md
 ls -s README.md CLAUDE.md
 
-mkdir .agent
-ln -s .agent .claude
-echo "If .claude is used in this project, then $(ln -s .claude .agent)"
+mkdir .agents
+ln -s .agents .claude
+echo "If .claude is used in this project, then $(ln -s .claude .agents)"
 
-ln -sf .agent .gemini
-ln -sf .agent .vscode
-mkdir -p .agent/rules
-mkdir -p .agent/skills
+ln -sf .agents .gemini
+ln -sf .agents .vscode
+mkdir -p .agents/rules
+mkdir -p .agents/skills
 
-if [ ! -f ".agent/settings.json" ]; then
+if [ ! -f ".agents/settings.json" ]; then
 
-cat <<EOF > .agent/settings.json
+cat <<EOF > .agents/settings.json
 {
   "mcp": {
     "excluded": [
@@ -33,5 +33,5 @@ project_path=$(pwd)
 project_name=$(basename "$project_path")
 
 if [ -d "$HOME/projects/llm_plugin" ]; then
-  ln -sf "$(pwd)/.agent" "$HOME/projects/llm_plugin/projects/${project_name}"
+  ln -sf "$(pwd)/.agents" "$HOME/projects/llm_plugin/projects/${project_name}"
 fi
