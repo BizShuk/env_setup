@@ -17,12 +17,13 @@ fi
 
 get_size_mb() {
     # du -sm returns "SizeInMB   Path"
-    du -sm "$1" 2>/dev/null | cut -f1
+    # use awk to handle both space and tab separators
+    du -sm "$1" 2>/dev/null | awk '{print $1}'
 }
 
 get_file_size_bytes() {
-    # macOS stat
-    stat -f %z "$1" 2>/dev/null
+    # wc -c < file is a very portable way to get file size in bytes
+    wc -c < "$1" 2>/dev/null | awk '{print $1}'
 }
 
 scan_dir() {

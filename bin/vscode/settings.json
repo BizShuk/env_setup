@@ -658,5 +658,6 @@
   "claudeCode.selectedModel": "opus",
   "security.promptForRemoteFileProtocolHandling": false,
 
-  "prettier.trailingComma": "none"
+  "prettier.trailingComma": "none",
+  "python.languageServer": "Default"
 }
