@@ -1,0 +1,226 @@
+#!/bin/bash
+
+# Script to generate self-signed HTTPS certificates
+# Usage: generate_https_cert [options]
+
+set -euo pipefail
+
+# Default values
+DOMAIN="localhost"
+OUTPUT_DIR="."
+KEY_SIZE=4096
+DAYS_VALID=3650
+COUNTRY="TW"
+STATE="Taiwan"
+CITY="Taipei"
+ORG="None"
+OU="None"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Help function
+show_help() {
+    cat << EOF
+Usage: $(basename "$0") [OPTIONS]
+
+Generate self-signed HTTPS certificate and key using OpenSSL.
+
+OPTIONS:
+    -d, --domain DOMAIN      Domain name or Common Name (default: localhost)
+    -o, --output DIR         Output directory for cert and key (default: ./certs)
+    -k, --keysize SIZE       RSA key size in bits (default: 2048)
+    -v, --validity DAYS      Certificate validity in days (default: 365)
+    -c, --country CODE       Country code (default: US)
+    -s, --state STATE        State or Province
+    -l, --city CITY          City or Locality
+    --org ORG                Organization name
+    --ou UNIT                Organizational Unit
+    -h, --help               Show this help message
+
+EXAMPLES:
+    # Generate certificate for localhost (default)
+    $(basename "$0")
+
+    # Generate certificate for specific domain
+    $(basename "$0") -d example.com -o ~/certs
+
+    # Generate with full subject information
+    $(basename "$0") -d myapp.local -c US -s California -l "San Francisco" --org "My Company" --ou "IT Department"
+
+OUTPUT:
+    Creates two files in the output directory:
+    - {domain}.key  : Private key file
+    - {domain}.crt  : Certificate file
+
+EOF
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -d|--domain)
+            DOMAIN="$2"
+            shift 2
+            ;;
+        -o|--output)
+            OUTPUT_DIR="$2"
+            shift 2
+            ;;
+        -k|--keysize)
+            KEY_SIZE="$2"
+            shift 2
+            ;;
+        -v|--validity)
+            DAYS_VALID="$2"
+            shift 2
+            ;;
+        -c|--country)
+            COUNTRY="$2"
+            shift 2
+            ;;
+        -s|--state)
+            STATE="$2"
+            shift 2
+            ;;
+        -l|--city)
+            CITY="$2"
+            shift 2
+            ;;
+        --org)
+            ORG="$2"
+            shift 2
+            ;;
+        --ou)
+            OU="$2"
+            shift 2
+            ;;
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Error: Unknown option: $1${NC}" >&2
+            echo "Use -h or --help for usage information."
+            exit 1
+            ;;
+    esac
+done
+
+# Check if openssl is installed
+if ! command -v openssl &> /dev/null; then
+    echo -e "${RED}Error: openssl is not installed.${NC}" >&2
+    echo "Please install openssl first:"
+    echo "  macOS: brew install openssl"
+    echo "  Ubuntu/Debian: sudo apt-get install openssl"
+    exit 1
+fi
+
+# Create output directory if it doesn't exist
+mkdir -p "$OUTPUT_DIR"
+
+# Define output file paths
+KEY_FILE="$OUTPUT_DIR/${DOMAIN}.key"
+CERT_FILE="$OUTPUT_DIR/${DOMAIN}.crt"
+
+# Build subject string
+SUBJECT="/C=${COUNTRY}/CN=${DOMAIN}"
+[[ -n "$STATE" ]] && SUBJECT="${SUBJECT}/ST=${STATE}"
+[[ -n "$CITY" ]] && SUBJECT="${SUBJECT}/L=${CITY}"
+[[ -n "$ORG" ]] && SUBJECT="${SUBJECT}/O=${ORG}"
+[[ -n "$OU" ]] && SUBJECT="${SUBJECT}/OU=${OU}"
+
+# Check if files already exist
+if [[ -f "$KEY_FILE" ]] || [[ -f "$CERT_FILE" ]]; then
+    echo -e "${YELLOW}Warning: Certificate files already exist:${NC}"
+    [[ -f "$KEY_FILE" ]] && echo "  - $KEY_FILE"
+    [[ -f "$CERT_FILE" ]] && echo "  - $CERT_FILE"
+    read -p "Overwrite? (y/N): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Aborted."
+        exit 0
+    fi
+fi
+
+# Generate certificate and key
+echo -e "${YELLOW}Generating self-signed certificate...${NC}"
+echo "  Domain: $DOMAIN"
+echo "  Key Size: $KEY_SIZE bits"
+echo "  Validity: $DAYS_VALID days"
+echo "  Subject: $SUBJECT"
+echo
+
+# Create a temporary config file for SAN (Subject Alternative Names)
+CONFIG_FILE=$(mktemp)
+trap 'rm -f $CONFIG_FILE' EXIT
+
+cat > "$CONFIG_FILE" << EOF
+[req]
+default_bits = $KEY_SIZE
+prompt = no
+default_md = sha256
+distinguished_name = dn
+req_extensions = v3_req
+
+[dn]
+C = $COUNTRY
+CN = $DOMAIN
+EOF
+
+[[ -n "$STATE" ]] && echo "ST = $STATE" >> "$CONFIG_FILE"
+[[ -n "$CITY" ]] && echo "L = $CITY" >> "$CONFIG_FILE"
+[[ -n "$ORG" ]] && echo "O = $ORG" >> "$CONFIG_FILE"
+[[ -n "$OU" ]] && echo "OU = $OU" >> "$CONFIG_FILE"
+
+cat >> "$CONFIG_FILE" << EOF
+
+[v3_req]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = $DOMAIN
+DNS.2 = *.$DOMAIN
+EOF
+
+# Add localhost and IP for localhost certificates
+if [[ "$DOMAIN" == "localhost" ]]; then
+    cat >> "$CONFIG_FILE" << EOF
+DNS.3 = localhost
+IP.1 = 127.0.0.1
+IP.2 = ::1
+EOF
+fi
+
+# Generate the certificate and key
+if openssl req -x509 -newkey rsa:$KEY_SIZE -nodes \
+    -keyout "$KEY_FILE" \
+    -out "$CERT_FILE" \
+    -days $DAYS_VALID \
+    -config "$CONFIG_FILE" \
+    -extensions v3_req 2>&1; then
+
+    echo
+    echo -e "${GREEN}✓ Certificate generated successfully!${NC}"
+    echo
+    echo "Files created:"
+    echo -e "  ${GREEN}Private Key:${NC} $KEY_FILE"
+    echo -e "  ${GREEN}Certificate:${NC} $CERT_FILE"
+    echo
+    echo "Certificate details:"
+    openssl x509 -in "$CERT_FILE" -noout -subject -dates -ext subjectAltName
+    echo
+    echo "To use in your application:"
+    echo "  SSL Key:  $KEY_FILE"
+    echo "  SSL Cert: $CERT_FILE"
+    echo
+    echo -e "${YELLOW}Note: This is a self-signed certificate. Browsers will show a warning.${NC}"
+    echo "For production use, obtain a certificate from a trusted CA (e.g., Let's Encrypt)."
+else
+    echo
+    echo -e "${RED}✗ Failed to generate certificate${NC}" >&2
+    exit 1
+fi
