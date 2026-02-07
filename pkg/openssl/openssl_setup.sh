@@ -7,10 +7,10 @@ wget https://www.openssl.org/source/${openssl}.tar.gz
 
 tar zxvf ${openssl}.tar.gz
 
-pushd $openssl
+pushd $openssl || exit
     ./config
     make -j
     sudo make install
-popd
+popd || exit
 rm -r ${openssl}
 rm ${openssl}.tar.gz

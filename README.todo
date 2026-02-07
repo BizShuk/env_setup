@@ -1,2 +1,3 @@
 TODO:
     ☐ Create and verify a INF docker compose
+    ☐ Create a cmd to backup `brew bundle dump`

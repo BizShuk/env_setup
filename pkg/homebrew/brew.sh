@@ -15,10 +15,10 @@ mkdir homebrew && curl -L https://github.com/Homebrew/brew/archive/refs/tags/${h
 
 echo -e "\n\n\n# Homwbrew" >>~/.bash_plugin
 
-echo "$(./homebrew/bin/brew shellenv)" >>~/.bash_plugin
+./homebrew/bin/brew shellenv >>~/.bash_plugin
+popd || exit
 
 source ~/.bash_plugin
 brew update --force
 chmod -R go-w "$(brew --prefix)/share/zsh"
 
-popd || exit

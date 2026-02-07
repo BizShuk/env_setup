@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 
-dir=`mktemp -d`
+dir=$(mktemp -d)
 
-pushd ${dir}
+pushd ${dir} || exit
     # RootCA
     # [genrsa|gendsa] -aes[128|256] -des3 -des , length: 1024 , 2048 , 4096
     openssl genrsa -out RootCA.key 1024
@@ -20,10 +20,10 @@ pushd ${dir}
     #openssl req -new -key ClientCA.key -out ClientCA.req
     #openssl x509 -req -days 730 -sha1 -extensions v3_req -CA RootCA.crt -CAkey RootCA.key  -CAserial RootCA.srl -CAcreateserial -in ClientCA.req -out ClientCA.crt
     #openssl pkcs12 -export -in ClientCA.crt -inkey ClientCA.key -out ClientCA.pfx
-popd
+popd || exit
 
 ca_dir="CA_${dir#*.}"
 
-mv ${dir} ./CA_${dir#*.}
+mv "${dir}" ./CA_"${dir#*.}"
 
 echo "Result in ${ca_dir}"
