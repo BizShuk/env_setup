@@ -1,11 +1,11 @@
 #!/bin/bash
 
-source settings.sh
+source ~/settings.sh
 
 homebrew_ver="4.1.11"
 homebrew_ver="5.0.3"
 
-pushd ${USER_BIN} || exit
+pushd "${USER_LOCAL}" || exit
 
 rm -rf homebrew
 # mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew

@@ -67,7 +67,6 @@
     "{.svn,.hg,.DS_Store,Thumbs.db}": true,
     // Project metadata
     "archive": true,
-    "**/homebrew": true,
     "{.git,.gitlab,.pre-commit-config.yaml}": true,
     "{*.code-workspace,.golangci.yml,go.sum}": true,
     // Use .vscode to show LLM related config, but some case might use .claude
@@ -87,25 +86,32 @@
     "-1": true
   },
   "files.watcherExclude": {
-    // "**": true, [Copy from files.exclude]
-    // Legacy
-    "{.svn,.hg,.DS_Store,Thumbs.db}": true,
-    // Project metadata
-    "archive": true,
-    "homebrew/": true,
-    "{.git,.gitlab,.pre-commit-config.yaml}": true,
-    "{*.code-workspace,.golangci.yml,go.sum}": true,
-    "{.vscode}": true,
-    "{.devops,.settings}": true,
-    "{.classpath,.project}": true,
-    // Project Output
-    "{target,out,dist,output}": true,
-    // Project Dependancy
-    "{.mvn,bin,node_modules,__pycache__,.venv}": true,
-    // debug
-    "{__debug_bin*}": true,
-    // tiktok
-    "{gen/**,kitex_gen}": true,
+    // Domain: Large
+    "**/.*": true,
+    "**/homebrew": true,
+    "**/config": true,
+    "**/archive": true,
+
+    // Build/Dependency/Release
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/.vim": true,
+    // Release
+    "**/dist": true,
+    "**/_output": true,
+    "**/build": true,
+    "**/out": true,
+    "**/output": true,
+    "**/release": true,
+    "**/releases": true,
+    "**/target": true,
+    "**/__debug_bin*": true,
+    // TikTok
+    "**/gen": true,
+    "**/kitex_gen": true,
+
+    // Domain: Media & Binary Assets
+    "**/*.{map,3ds,3g2,3gp,7z,a,aac,adp,ai,aif,aiff,alz,ape,apk,ar,arj,asf,au,avi,bak,baml,bh,bk,bmp,btif,bz2,bzip2,cab,caf,cgm,class,cmx,cpio,cr2,csv,cur,dat,dcm,deb,dex,djvu,dll,dmg,dng,doc,docm,docx,dot,dotm,dra,dsk,dts,dtshd,dvb,dwg,dxf,ecelp4800,ecelp7470,ecelp9600,egg,eol,eot,epub,exe,f4v,fbs,fh,fla,flac,fli,flv,fpx,fst,fvt,g3,gif,graffle,gz,gzip,h261,h263,h264,icns,ico,ief,img,ipa,iso,jar,jpeg,jpg,jpgv,jpm,jxr,key,ktx,lha,lib,lvp,lz,lzh,lzma,lzo,m3u,m4a,m4v,mar,mdi,mht,mid,midi,mj2,mka,mkv,mmr,mng,mobi,mov,movie,mp3,mp4,mp4a,mpeg,mpg,mpga,mxu,nef,npx,numbers,o,oga,ogg,ogv,otf,pages,pbm,pcx,pdb,pdf,pea,pgm,pic,png,pnm,pot,potm,potx,ppa,ppam,ppm,pps,ppsm,ppsx,ppt,pptm,pptx,psd,pya,pyc,pyo,pyv,qt,rar,ras,raw,resources,rgb,rip,rlc,rmf,rmvb,rtf,rz,s3m,s7z,scpt,sgi,shar,sil,sketch,slk,smv,so,sub,swf,tar,tbz,tbz2,tga,tgz,thmx,tif,tiff,tlz,ttc,ttf,txz,udf,uvh,uvi,uvm,uvp,uvs,uvu,viv,vob,war,wav,wax,wbmp,wdp,weba,webm,webp,whl,wim,wm,wma,wmv,wmx,woff,woff2,wvx,xbm,xif,xla,xlam,xls,xlsb,xlsm,xlsx,xlt,xltm,xltx,xm,xmind,xpi,xpm,xwd,xz,z,zip,zipx,JPG,MOV,MP4,msg,msi,vcp,PDF,TTF}": true,
     "-1": true
   },
   "files.associations": {
@@ -372,9 +378,6 @@
       }
     ]
   },
-  // "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
-  "todo.embedded.regex": "(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]| TODO:|FIXME|\\[FIX\\]|\\[BUG\\]|\\[NOTE\\]|\\[REVIEW\\|ISSUE]|\\[Deprecated\\]|\\?\\?\\?)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
-  "todo.file.include": ["**/*.todo", "**/*.task"],
   "todo.tags.names": [
     "Critical",
     "High",
@@ -402,68 +405,14 @@
     "",
     ""
   ],
-  "todo.embedded.exclude": [
-    "**/.*",
-    "**/.*/**",
-    "**/_output/**",
-    "**/bower_components/**",
-    "**/build/**",
-    "**/dist/**",
-    "**/venv/**",
-    "**/node_modules/**",
-    "**/out/**",
-    "**/output/**",
-    "**/release/**",
-    "**/releases/**",
-    "**/static/**",
-    "**/target/**",
-    "**/third_party/**",
-    "**/vendor/**",
-    "**/CHANGELOG",
-    "**/CHANGELOG.*",
-    "**/*.min.*",
-    "**/*.map",
-    "**/*.{3ds,3g2,3gp,7z,a,aac,adp,ai,aif,aiff,alz,ape,apk,ar,arj,asf,au,avi,bak,baml,bh,bin,bk,bmp,btif,bz2,bzip2,cab,caf,cgm,class,cmx,cpio,cr2,csv,cur,dat,dcm,deb,dex,djvu,dll,dmg,dng,doc,docm,docx,dot,dotm,dra,DS_Store,dsk,dts,dtshd,dvb,dwg,dxf,ecelp4800,ecelp7470,ecelp9600,egg,eol,eot,epub,exe,f4v,fbs,fh,fla,flac,fli,flv,fpx,fst,fvt,g3,gif,graffle,gz,gzip,h261,h263,h264,icns,ico,ief,img,ipa,iso,jar,jpeg,jpg,jpgv,jpm,jxr,key,ktx,lha,lib,lvp,lz,lzh,lzma,lzo,m3u,m4a,m4v,mar,mdi,mht,mid,midi,mj2,mka,mkv,mmr,mng,mobi,mov,movie,mp3,mp4,mp4a,mpeg,mpg,mpga,mxu,nef,npx,numbers,o,oga,ogg,ogv,otf,pages,pbm,pcx,pdb,pdf,pea,pgm,pic,png,pnm,pot,potm,potx,ppa,ppam,ppm,pps,ppsm,ppsx,ppt,pptm,pptx,psd,pya,pyc,pyo,pyv,qt,rar,ras,raw,resources,rgb,rip,rlc,rmf,rmvb,rtf,rz,s3m,s7z,scpt,sgi,shar,sil,sketch,slk,smv,so,sub,swf,tar,tbz,tbz2,tga,tgz,thmx,tif,tiff,tlz,ttc,ttf,txz,udf,uvh,uvi,uvm,uvp,uvs,uvu,viv,vob,war,wav,wax,wbmp,wdp,weba,webm,webp,whl,wim,wm,wma,wmv,wmx,woff,woff2,wvx,xbm,xif,xla,xlam,xls,xlsb,xlsm,xlsx,xlt,xltm,xltx,xm,xmind,xpi,xpm,xwd,xz,z,zip,zipx,JPG,MOV,MP4,msg,msi,vcp,PDF,TTF}",
-    "**/config/bin/**",
-    "**/config/go/**",
-    "**/*.sample.*",
-    "**/工作紀錄/Class/**"
-  ],
-  "todo.file.exclude": [
-    "**/.!(todo|todos|task|tasks)/**",
-    "**/_output/**",
-    "**/bower_components/**",
-    "**/build/**",
-    "**/dist/**",
-    "**/venv/**",
-    "**/node_modules/**",
-    "**/out/**",
-    "**/output/**",
-    "**/release/**",
-    "**/releases/**",
-    "**/static/**",
-    "**/target/**",
-    "**/third_party/**",
-    "**/vendor/**",
-    "**/config/bin/**",
-    "**/config/go/**"
-  ],
+  "todo.file.include": ["README.todo"],
+  "todo.file.exclude": ["[!{README.todo}]"],
+  "todo.embedded.exclude": ["**", "**/*"],
   // [html]
   "html.format.enable": true,
   "debug.javascript.autoAttachFilter": "disabled",
-  // [playwright]
-  "playwright.reuseBrowser": false,
-  "playwright.showTrace": false,
   // [github]
   "githubPullRequests.pushBranch": "always",
-  "github.copilot.nextEditSuggestions.enabled": true,
-  "github.copilot.enable": {
-    "*": true,
-    "plaintext": false,
-    "markdown": true,
-    "scminput": false,
-    "typescript": true
-  },
   "githubIssues.queries": [
     {
       "label": "My Issues",
@@ -539,9 +488,6 @@
   // "markdown.styles": [
   //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
   // ]
-  "markdown-preview-enhanced.enableScriptExecution": true,
-  "markdown-preview-enhanced.previewTheme": "github-dark.css",
-  "markdown-preview-enhanced.liveUpdate": false,
   "shellcheck.exclude": ["2002", "1090"],
   "shellcheck.customArgs": ["-x"],
   "editor.minimap.size": "fit",
@@ -647,18 +593,15 @@
   "containers.commands.run": "${containerCommand} run --rm -d ${exposedPorts} ${tag}",
   "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
   "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
-  "remote.SSH.defaultExtensions": ["byted-extensions.stratocube-remote-ssh"],
   "remote.defaultExtensionsIfInstalledLocally": [
     "GitHub.copilot",
     "GitHub.copilot-chat",
-    "GitHub.vscode-pull-request-github",
-    "byted-extensions.stratocube-remote-ssh"
+    "GitHub.vscode-pull-request-github"
   ],
   "claudeCode.preferredLocation": "panel",
   "claudeCode.selectedModel": "opus",
   "security.promptForRemoteFileProtocolHandling": false,
   "prettier.trailingComma": "none",
   "python.languageServer": "Default",
-  "githubPullRequests.fileListLayout": "tree",
-  "redhat.telemetry.enabled": false
+  "githubPullRequests.fileListLayout": "tree"
 }

@@ -42,6 +42,8 @@ export USER_PROJECT=${INSTALL_DIR}/projects
 
 export USER_BIN=${INSTALL_DIR}/bin
 export USER_LIB=${INSTALL_DIR}/.local
+export USER_LOCAL=${INSTALL_DIR}/.local
+export USER_LOCAL_BIN=${INSTALL_DIR}/.local/bin
 export USER_LOG=${INSTALL_DIR}/logs
 export USER_TMP=${INSTALL_DIR}/tmp
 

@@ -36,3 +36,5 @@ project_name=$(basename "$project_path")
 if [ -d "$HOME/projects/llm_plugin" ]; then
   ln -sf "$(pwd)/.agents" "$HOME/projects/llm_plugin/projects/${project_name}"
 fi
+
+
