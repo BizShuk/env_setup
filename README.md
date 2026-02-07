@@ -1,53 +1,63 @@
-# Server setup
+# Env Setup & DevOps Toolbox
 
-### md file rule
+This repository is a comprehensive collection of server setup scripts, development utilities, and technical documentation. It serves as a personal environment setup and knowledge base for various DevOps and development tools.
 
-<> for variable
-[] for match one of conditions
+## Project Structure
 
-### Reading
+- **`.agents/`**: Configuration for specialized agent commands (e.g., speckit).
+- **`bin/`**: A collection of shell utility scripts for system maintenance, network checks, and general productivity.
+  - `backup`: Backup utility.
+  - `check_alive`, `check_service`: Monitoring scripts.
+  - `generate_https_cert`: SSL certificate generation helper.
+  - `list_big_files.sh`: Disk usage utility.
+- **`cmd/`**: A Go-based CLI tool (`smain`) providing various utilities like `fetch`, `calc`, and directory listing.
+- **`setup/`**: Installation and configuration scripts for various environments and tools.
+  - `mac_setup.sh`, `ubuntu_setup.sh`: OS-specific setup scripts.
+  - `go_setup.sh`, `kubectl_mac_setup.sh`, `vim_setup.sh`: Tool-specific installers.
+- **`pkg/`**: Documentation, notes, and configuration snippets for various technologies (Kubernetes, Docker, Git, Ansible, etc.).
+- **`docker/`**: Docker-related configurations and sample files.
+- **`mac/`**: macOS specific setup scripts, AppleScripts, and notes.
+- **`grafana/` & `prometheus/`**: Monitoring configuration for Node Exporter and Prometheus.
+- **`specs/`**: Project specifications and discovery notes.
+- **`troubleshooting/`**: Scripts and notes for resolving common system issues.
 
-LINUX SERVER
+## Key Components
 
-- [ ] [Linux A-Z Commands for Beginners](http://www.sandwichbite.com/linux-a-z-commands-for-beginners/)
-- [X] [First 5 mins on Server](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers)
-- [X] [Fishing for Hackers](https://sysdig.com/blog/fishing-for-hackers/)
+### Go CLI Tool (`cmd/`)
 
-CMD
+The project includes a Go CLI built with Cobra.
 
-- [ ] wrk
+- **Build**: `cd cmd && go build -o smain`
+- **Commands**:
+  - `ls`: List directory contents.
+  - `fetch`: Fetch data (e.g., from URLs).
+  - `calc`: Basic calculator.
+  - `config`: Manage configurations.
 
-IT
+### Setup Scripts (`setup/`)
 
-- [ ] [Hub vs Switch](http://fossbytes.com/hub-vs-switch-comparison-and-difference/)
-- [ ] [Multi Network Hardware device type](http://fossbytes.com/networking-devices-and-hardware-types/)
+Automated setup scripts for setting up development environments on macOS and Ubuntu. Use these scripts to quickly initialize a new machine with preferred tools and configurations.
 
-Openssl CA
+## Reading List & Resources
 
-- [ ] [openssl CA](https://jamielinux.com/docs/openssl-certificate-authority/introduction.html)
-- [ ] [self-signed SSL Certificate](http://www.akadia.com/services/ssh_test_certificate.html)
-- [ ] [On stack overflow](http://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl)
-- [ ] [CA建置工具：Openssl的管理與使用介紹（上）](http://www.ascc.sinica.edu.tw/iascc/nl/91/1818/02.txt)
-- [ ] [CA建置工具Openssl的管理與使用介紹（下）](http://www.ascc.sinica.edu.tw/iascc/nl/91/1819/02.txt)
-- [ ] [SSL basic](http://csc.ocean-pioneer.com/docum/ssl_basic.html)
-- [ ] [Generating Client/Server certificates with a local CA](http://dst.lbl.gov/~boverhof/openssl_certs.html)
+### Linux Server
 
-system performance
+- [Linux A-Z Commands for Beginners](http://www.sandwichbite.com/linux-a-z-commands-for-beginners/)
+- [First 5 mins on Server](http://plusbryan.com/my-first-5-minutes-on-a-server-or-essential-security-for-linux-servers)
+- [Fishing for Hackers](https://sysdig.com/blog/fishing-for-hackers/)
 
-- sysclt
-- bmon
-- [linux hand book](http://kalug.linux.org.tw/~lloyd/LLoyd_Hand_Book/book/index.html)
+### SSL/TLS & OpenSSL
 
-DevOps
+- [openssl CA](https://jamielinux.com/docs/openssl-certificate-authority/introduction.html)
+- [self-signed SSL Certificate](http://www.akadia.com/services/ssh_test_certificate.html)
+- [SSL basic](http://csc.ocean-pioneer.com/docum/ssl_basic.html)
+
+### DevOps & Engineering
 
 - [GitFlow considered harmful](http://endoflineblog.com/gitflow-considered-harmful)
-- [Follow GitFlow considered harmful](http://endoflineblog.com/follow-up-to-gitflow-considered-harmful)
-- [Hacknews GitFlow considered harmful](https://news.ycombinator.com/item?id=9744059)
-- [cAdvisor](https://github.com/google/cadvisor)  
-- cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running containers.
 - [Google Site Reliability Engineering](https://landing.google.com/sre/)
-- [Docker , lxc and Jails](http://unix.stackexchange.com/questions/127001/linux-lxc-vs-freebsd-jail)
+- [cAdvisor](https://github.com/google/cadvisor)
 
-[tcpdump](https://danielmiessler.com/study/tcpdump/)
+---
 
 [LICENSE](LICENSE)

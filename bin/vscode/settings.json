@@ -73,7 +73,7 @@
     // Use .vscode to show LLM related config, but some case might use .claude
     "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": true,
     "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
-    "{.vscode}": true,
+    "{.vscode}": false,
     "{.devops,.settings}": true,
     "{.classpath,.project}": true,
     // Project Output
@@ -659,5 +659,6 @@
   "security.promptForRemoteFileProtocolHandling": false,
   "prettier.trailingComma": "none",
   "python.languageServer": "Default",
-  "githubPullRequests.fileListLayout": "tree"
+  "githubPullRequests.fileListLayout": "tree",
+  "redhat.telemetry.enabled": false
 }
