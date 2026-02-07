@@ -11,6 +11,7 @@ echo "If .claude is used in this project, then $(ln -s .claude .agents)"
 
 ln -sf .agents .gemini
 ln -sf .agents .vscode
+ln -sf .agents .agent
 mkdir -p .agents/rules
 mkdir -p .agents/skills
 
