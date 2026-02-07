@@ -71,8 +71,9 @@
     "{.git,.gitlab,.pre-commit-config.yaml}": true,
     "{*.code-workspace,.golangci.yml,go.sum}": true,
     // Use .vscode to show LLM related config, but some case might use .claude
-    "{.gemini,.claude,.serena,.ttadk,.coco}": true,
+    "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": true,
     "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
+    "{.vscode}": true,
     "{.devops,.settings}": true,
     "{.classpath,.project}": true,
     // Project Output
@@ -157,10 +158,7 @@
         "type": "node",
         "name": "ts file",
         "request": "launch",
-        "runtimeArgs": [
-          "-r",
-          "ts-node/register"
-        ],
+        "runtimeArgs": ["-r", "ts-node/register"],
         "program": "${file}",
         "envFile": "${userHome}/.env"
       }
@@ -191,31 +189,21 @@
   // ... other settings ...
   "gopls": {
     "formatting.gofumpt": false,
-    "build.directoryFilters": [
-      "-**/lib/go/pkg/**"
-    ],
+    "build.directoryFilters": ["-**/lib/go/pkg/**"],
     "analyses": {
       "fieldalignment": true
     }
   },
-  "go.buildFlags": [
-    "-gcflags=-m -l"
-  ],
+  "go.buildFlags": ["-gcflags=-m -l"],
   "go.lintTool": "golangci-lint-v2",
   // "go.lintTool": "golangci-lint", // [go linter]
   "go.formatTool": "custom",
   // "go.formatTool": "goimports",
-  "go.lintFlags": [
-    "--path-mode=abs",
-    "--fast-only"
-  ],
+  "go.lintFlags": ["--path-mode=abs", "--fast-only"],
   "go.alternateTools": {
     "customFormatter": "golangci-lint-v2"
   },
-  "go.formatFlags": [
-    "fmt",
-    "--stdin"
-  ],
+  "go.formatFlags": ["fmt", "--stdin"],
   // [go test]
   "go.testOnSave": true,
   "go.testExplorer.showOutput": false,
@@ -386,10 +374,7 @@
   },
   // "todo.embedded.regex": "(?:<!-- *)?(?:#|// @|//|/\\*+|<!--|--|\\* @|\\{!|\\{\\{!--|\\{\\{!) *(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]|TODO|FIXME|FIX|BUG|NOTE|REVIEW)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
   "todo.embedded.regex": "(\\[Variant\\]|\\[Pattern\\]|\\[Notice\\]| TODO:|FIXME|\\[FIX\\]|\\[BUG\\]|\\[NOTE\\]|\\[REVIEW\\|ISSUE]|\\[Deprecated\\]|\\?\\?\\?)(?:\\s*\\([^)]+\\))?:?(?!\\w)(?: *-->| *\\*/| *!}| *--}}| *}}|(?= *(?:[^:]//|/\\*+|<!--|@|--|\\{!|\\{\\{!--|\\{\\{!))|((?: +[^\\n@]*?)(?= *(?:[^:]//|/\\*+|<!--|@|--(?!>)|\\{!|\\{\\{!--|\\{\\{!))|(?: +[^@\\n]+)?))", // Regex used for finding embedded todos, requires double escaping
-  "todo.file.include": [
-    "**/*.todo",
-    "**/*.task"
-  ],
+  "todo.file.include": ["**/*.todo", "**/*.task"],
   "todo.tags.names": [
     "Critical",
     "High",
@@ -557,13 +542,8 @@
   "markdown-preview-enhanced.enableScriptExecution": true,
   "markdown-preview-enhanced.previewTheme": "github-dark.css",
   "markdown-preview-enhanced.liveUpdate": false,
-  "shellcheck.exclude": [
-    "2002",
-    "1090"
-  ],
-  "shellcheck.customArgs": [
-    "-x"
-  ],
+  "shellcheck.exclude": ["2002", "1090"],
+  "shellcheck.customArgs": ["-x"],
   "editor.minimap.size": "fit",
   "editor.minimap.showSlider": "always",
   "editor.minimap.renderCharacters": false,
@@ -667,9 +647,7 @@
   "containers.commands.run": "${containerCommand} run --rm -d ${exposedPorts} ${tag}",
   "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
   "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
-  "remote.SSH.defaultExtensions": [
-    "byted-extensions.stratocube-remote-ssh"
-  ],
+  "remote.SSH.defaultExtensions": ["byted-extensions.stratocube-remote-ssh"],
   "remote.defaultExtensionsIfInstalledLocally": [
     "GitHub.copilot",
     "GitHub.copilot-chat",
