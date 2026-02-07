@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source ~/settings.sh
+
+if [ -f "${INSTALL_DIR}/.ssh/id_rsa.pub" ]; then
+    echo "SSH key already exists. Skipping key generation."
+else
+    ssh-keygen -t rsa -b 4096 -C "${email}" -f "${INSTALL_DIR}/.ssh/id_rsa"
+fi
+
+
