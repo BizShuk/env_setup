@@ -410,6 +410,7 @@
   "todo.file.include": ["README.todo"],
   "todo.file.exclude": ["[!{README.todo}]"],
   "todo-tree.filtering.includeGlobs": ["**/*.{go,md,ts,js,py,css,html}"],
+  "todo-tree.filtering.ignoreGitSubmodules": true,
   "todo.embedded.include": ["**/*.{go,md,ts,js,py,css,html,sh}"],
   "todo.embedded.exclude": ["**", "**/*"],
   // [html]

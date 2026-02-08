@@ -1,7 +1,9 @@
 #!/bin/bash
 
 
-sudo sh -c 'echo "deb http://download.webmin.com/download/repository sarge contrib" > /etc/apt/sources.list.d/webmin.list'
-wget -qO - http://www.webmin.com/jcameron-key.asc | sudo apt-key add -
+curl -o webmin-setup-repo.sh https://raw.githubusercontent.com/webmin/webmin/master/webmin-setup-repo.sh
+sudo sh webmin-setup-repo.sh
+
 sudo apt-get update
-sudo apt-get install webmin
+sudo apt-get install webmin --install-recommends
+

@@ -1,1 +1,3 @@
-{}
+{
+  "todo-tree.filtering.excludeGlobs": ["**/ctags.html"]
+}

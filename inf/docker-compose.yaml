@@ -61,11 +61,31 @@ services:
     networks:
       - inf_network
 
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - inf_network
+    depends_on:
+      - prometheus
+      - influxdb
+
 # Port Conflict Notes:
 # - Prometheus: 9090 (Default)
 # - Pushgateway: 9091 (Default)
 # - MySQL: 3306 (Default)
 # - InfluxDB: 8086 (Default)
+# - Grafana: 3000 (Default)
 # There are no internal port conflicts among these services.
 # Note: If these ports are already in use by other stacks,
 # you may need to map them to different host ports (e.g., "9092:9090").
@@ -75,6 +95,7 @@ volumes:
   pushgateway_data:
   mysql_data:
   influxdb_data:
+  grafana_data:
 
 networks:
   inf_network:
