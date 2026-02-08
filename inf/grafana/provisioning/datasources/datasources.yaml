@@ -1,0 +1,26 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
+    jsonData:
+        timeInterval: 5s
+        httpMethod: POST
+
+  - name: InfluxDB
+    type: influxdb
+    access: proxy
+    url: http://influxdb:8086
+    jsonData:
+        version: Flux
+        organization: inf
+        defaultBucket: default
+        tlsSkipVerify: true
+    # Note: You need to add the token manually via Grafana UI or update this file
+    # secureJsonData:
+    #   token: YOUR_INFLUXDB_TOKEN_HERE
+    editable: true
