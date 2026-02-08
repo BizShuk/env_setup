@@ -119,7 +119,8 @@
     "{*.sh,*.info}": "shellscript",
     "*.bosun": "bosun",
     "*.ignore": "gitignore",
-    "{*.timer,*.service}": "ini"
+    "{*.timer,*.service}": "ini",
+    "{*.plan,*.ignore}": "markdown"
   },
   // [search]
   "search.useIgnoreFiles": true,
@@ -544,7 +545,6 @@
     "html",
     "yaml"
   ],
-  "scm.repositories.selectionMode": "single",
   "scm.defaultViewMode": "tree",
   "settingsSync.ignoredExtensions": [],
   "[dockerfile]": {
@@ -607,5 +607,6 @@
   "prettier.trailingComma": "none",
   "python.languageServer": "Default",
   "githubPullRequests.fileListLayout": "tree",
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "scm.repositories.selectionMode": "single"
 }

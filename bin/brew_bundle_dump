@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Script to dump Homebrew bundle to Brewfile
+# This creates a snapshot of all installed Homebrew packages, casks, taps, and Mac App Store apps
+
+set -euo pipefail
+
+# Define the Brewfile location
+BREWFILE="${HOME}/projects/env_setup/pkg/homebrew/Brewfile"
+
+# Ensure the directory exists
+BREWFILE_DIR=$(dirname "${BREWFILE}")
+mkdir -p "${BREWFILE_DIR}"
+
+echo "Dumping Homebrew bundle to: ${BREWFILE}"
+
+# Run brew bundle dump with --force to overwrite existing file
+brew bundle dump --force --file="${BREWFILE}"
+
+echo "✅ Brewfile successfully created at: ${BREWFILE}"
+echo ""
+echo "The Brewfile contains:"
+echo "  - Taps (brew tap)"
+echo "  - Formulae (brew install)"
+echo "  - Casks (brew install --cask)"
+echo "  - Mac App Store apps (mas install)"
