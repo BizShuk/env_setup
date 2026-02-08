@@ -392,6 +392,7 @@
     "Evening"
   ],
   "todo.colors.tags.foreground": [],
+
   "todo.colors.tags.background": [
     "#e54545",
     "#e59f45",
@@ -407,6 +408,8 @@
   ],
   "todo.file.include": ["README.todo"],
   "todo.file.exclude": ["[!{README.todo}]"],
+  "todo-tree.filtering.includeGlobs": ["**/*.{go,md,ts,js,py,css,html}"],
+  "todo.embedded.include": ["**.{go,md,ts,js,py,css,html}"],
   "todo.embedded.exclude": ["**", "**/*"],
   // [html]
   "html.format.enable": true,
@@ -603,5 +606,6 @@
   "security.promptForRemoteFileProtocolHandling": false,
   "prettier.trailingComma": "none",
   "python.languageServer": "Default",
-  "githubPullRequests.fileListLayout": "tree"
+  "githubPullRequests.fileListLayout": "tree",
+  "redhat.telemetry.enabled": false
 }
