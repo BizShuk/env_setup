@@ -239,6 +239,7 @@
     "MD009": {
       "br_spaces": 2
     },
+    "MD024": false,
     "MD025": false,
     "MD028": false,
     "MD029": false,
@@ -407,6 +408,7 @@
     "",
     ""
   ],
+
   "todo.file.include": ["README.todo"],
   "todo.file.exclude": ["[!{README.todo}]"],
   "todo-tree.filtering.includeGlobs": ["**/*.{go,md,ts,js,py,css,html}"],
@@ -470,6 +472,7 @@
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "editor.trimAutoWhitespace": false
   },
+
   "[todo]": {
     "files.trimTrailingWhitespace": false
   },

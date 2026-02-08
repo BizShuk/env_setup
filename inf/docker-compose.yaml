@@ -72,8 +72,13 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_INSTALL_PLUGINS=
       - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_PROTOCOL=https
+      - GF_SERVER_CERT_FILE=/etc/grafana/certs/localhost.crt
+      - GF_SERVER_CERT_KEY=/etc/grafana/certs/localhost.key
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/certs:/etc/grafana/certs:ro
     networks:
       - inf_network
     depends_on:
