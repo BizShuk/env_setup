@@ -612,5 +612,7 @@
   "python.languageServer": "Default",
   "githubPullRequests.fileListLayout": "tree",
   "redhat.telemetry.enabled": false,
-  "scm.repositories.selectionMode": "single"
+  "scm.repositories.selectionMode": "single",
+  "containers.containers.label": "ContainerName",
+  "containers.containers.description": ["Image", "Status"]
 }
