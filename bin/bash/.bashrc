@@ -178,3 +178,4 @@ fi
 
 # supress zsh in mac
 export BASH_SILENCE_DEPRECATION_WARNING=1
+export PATH=$HOME/.local/bin:$PATH
