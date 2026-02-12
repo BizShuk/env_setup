@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CAT <<EOF >>~/.ssh/config
+cat <<EOF >>~/.ssh/config
 # Kerberos authentication
 Host *
     GSSAPIAuthentication yes
@@ -19,7 +19,7 @@ Host *.byted.org
 EOF
 
 
-CAT <<EOF >>~/.gitconfig
+cat <<EOF >>~/.gitconfig
 [url "gitr"]
     insteadOf = git://git.byted.org/
 [credential "https://code.byted.org"]
@@ -29,6 +29,9 @@ CAT <<EOF >>~/.gitconfig
 [url "git@code.byted.org:"]
     insteadOf = https://code.byted.org/
 EOF
+<<<<<<< Updated upstream
 
 # Check the connection
 ssh -T code.byted.org
+=======
+>>>>>>> Stashed changes
