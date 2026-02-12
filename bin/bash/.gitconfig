@@ -37,7 +37,9 @@
 [http]
 	sslVerify = false
 [push]
-	default = current
+    default = current
+[pull]
+    rebase = true
 [commit]
     template = ~/.gitmessage
 

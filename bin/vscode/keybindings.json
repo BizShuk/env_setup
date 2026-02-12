@@ -396,5 +396,34 @@
     "key": "shift+alt+i",
     "command": "-editor.action.insertCursorAtEndOfEachLineSelected",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+g",
+    "command": "-workbench.view.scm",
+    "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+  },
+  {
+    "key": "shift+cmd+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active"
+  },
+  {
+    "key": "ctrl+shift+g",
+    "command": "-workbench.view.scm",
+    "when": "workbench.scm.active"
+  },
+  {
+    "key": "shift+cmd+c",
+    "command": "workbench.view.extension.containersView"
+  },
+  {
+    "key": "shift+cmd+v",
+    "command": "office.html.preview",
+    "when": "editorTextFocus && editorLangId == 'html'"
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "-office.html.preview",
+    "when": "editorTextFocus && editorLangId == 'html'"
   }
 ]
