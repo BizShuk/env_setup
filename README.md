@@ -6,7 +6,9 @@ This repository is a comprehensive collection of server setup scripts, developme
 
 - **`.agents/`**: Configuration for specialized agent commands (e.g., speckit).
 - **`bin/`**: A collection of shell utility scripts for system maintenance, network checks, and general productivity.
-  - `backup`: Backup utility.
+  - `system_backup`: Combined backup script (Homebrew & VS Code).
+  - `brew_bundle_dump`: Export Homebrew dependencies to Brewfile.
+  - `vscode_extension_dump`: Export VS Code extensions to text file.
   - `check_alive`, `check_service`: Monitoring scripts.
   - `generate_https_cert`: SSL certificate generation helper.
   - `list_big_files.sh`: Disk usage utility.

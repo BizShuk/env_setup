@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Script to dump VS Code extensions to a text file
+# This allows for easy re-installation or tracking of extensions
+
+set -euo pipefail
+
+# Define the target location
+TARGET_FILE="${HOME}/projects/env_setup/bin/vscode/extensions.txt"
+TARGET_DIR=$(dirname "${TARGET_FILE}")
+
+# Ensure the directory exists
+mkdir -p "${TARGET_DIR}"
+
+echo "Dumping VS Code extensions to: ${TARGET_FILE}"
+
+# Check if 'code' command is available
+if ! command -v code >/dev/null 2>&1; then
+    echo "❌ Error: 'code' command not found in PATH."
+    echo "Please ensure you have installed the VS Code 'code' shell command."
+    exit 1
+fi
+
+# Run code --list-extensions and save to target file
+code --list-extensions > "${TARGET_FILE}"
+
+echo "✅ Extensions successfully dumped to: ${TARGET_FILE}"
+echo "Total extensions: $(wc -l < "${TARGET_FILE}")"
+echo ""
+echo "To re-install these extensions later, you can run:"
+echo "  xargs -L 1 code --install-extension < ${TARGET_FILE}"

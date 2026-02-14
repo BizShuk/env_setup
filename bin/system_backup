@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Combined System Backup Script
+# This script runs multiple dump/backup utilities to keep the environment setup up to date.
+
+set -euo pipefail
+
+# Color output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd)"
+
+echo -e "${BLUE}Starting system backup...${NC}"
+
+# 1. Homebrew Bundle Dump
+if [ -f "$SCRIPT_DIR/brew_bundle_dump" ]; then
+    echo -e "${YELLOW}[1/2] Dumping Homebrew bundle...${NC}"
+    bash "$SCRIPT_DIR/brew_bundle_dump"
+else
+    echo -e "⚠️  Warning: brew_bundle_dump not found in $SCRIPT_DIR"
+fi
+
+# 2. VS Code Extension Dump
+if [ -f "$SCRIPT_DIR/vscode_extension_dump" ]; then
+    echo -e "${YELLOW}[2/2] Dumping VS Code extensions...${NC}"
+    bash "$SCRIPT_DIR/vscode_extension_dump"
+else
+    echo -e "⚠️  Warning: vscode_extension_dump not found in $SCRIPT_DIR"
+fi
+
+echo -e "${GREEN}✅ System backup completed successfully!${NC}"
