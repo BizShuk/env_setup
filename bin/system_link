@@ -1,0 +1,59 @@
+#!/bin/bash
+# Script to recreate symbolic links in config/ directory
+# Generated on 2026-02-07
+
+set -e
+
+# Color output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+echo -e "${BLUE}Recreating symbolic links in config/ directory...${NC}"
+
+# Create config directory if it doesn't exist
+mkdir -p config
+
+# Symbolic links to recreate
+declare -a SYMLINKS=(
+    # Global system configurations
+    "/etc/fstab:~/projects/env_setup/config/fstab"
+    "/etc/group:~/projects/env_setup/config/group"
+    "/etc/hostname:~/projects/env_setup/config/hostname"
+    "/etc/hosts:~/projects/env_setup/config/hosts"
+    "/etc/localtime:~/projects/env_setup/config/localtime"
+    "/etc/ssl/openssl.cnf:~/projects/env_setup/config/openssl.cnf"
+    "/etc/passwd:~/projects/env_setup/config/passwd"
+    "/etc/sysctl.conf:~/projects/env_setup/config/sysctl.conf"
+    "/var/log/auth.log:~/projects/env_setup/config/auth.log"
+
+    # User home directory configurations
+    "${HOME}/.bash_plugin:~/projects/env_setup/config/.bash_plugin"
+    "${HOME}/.colima:~/projects/env_setup/config/.colima"
+    "${HOME}/.config:~/projects/env_setup/config/.config"
+    "${HOME}/.gemini:~/projects/env_setup/config/.gemini"
+    "${HOME}/.screenrc:~/projects/env_setup/config/.screenrc"
+    "${HOME}/.ssh:~/projects/env_setup/config/.ssh"
+    "${HOME}/.vscode:~/projects/env_setup/config/.vscode"
+    "${HOME}/lib:~/projects/env_setup/config/lib"
+)
+
+# Create each symbolic link
+for link_pair in "${SYMLINKS[@]}"; do
+    IFS=':' read -r source_path target_path <<<"$link_pair"
+
+    # Remove existing symlink if it exists
+    if [ -L "$target_path" ]; then
+        echo -e "${BLUE}Removing existing symlink: $target_path${NC}"
+        rm "$target_path"
+    elif [ -e "$target_path" ]; then
+        echo -e "${BLUE}Warning: $target_path exists but is not a symlink. Skipping...${NC}"
+        continue
+    fi
+
+    # Create the symbolic link
+    echo -e "${GREEN}Creating symlink: $source_path -> $target_path${NC}"
+    ln -s "$source_path" "$target_path"
+done
+
+echo -e "${GREEN}All symbolic links have been recreated successfully!${NC}"

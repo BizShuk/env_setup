@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # ==============================================================================
-# Script Name: get_topo
+# Script Name: scan_private_network
 # Description: 建立私有網絡拓撲直到連接到公網 (Build private network topology until public network)
-# Usage: ./get_topo.sh
+# Usage: ./scan_private_network
 # Output: network.topo in current directory
 # OS Support: macOS 與 Linux
 # Dependencies: traceroute, nmap
@@ -32,16 +32,22 @@ is_private() {
 
 echo -e "${YELLOW}正在分析網絡路徑... (Analyzing network path...)${NC}"
 
-# 2. 獲取本地介面資訊 (Get local interface info)
+# 2. 測量本地資訊 (Get local host info)
+LOCAL_IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | head -n1 | awk '{print $2}')
+LOCAL_HOSTNAME=$(hostname | sed 's/\.local$//')
+
 # 找出所有活躍的私有 IP 及其網段
 LOCAL_NETS=""
 while read -r ip; do
     if [ -z "$ip" ]; then continue; fi
     if is_private "$ip"; then
         net=$(echo "$ip" | cut -d. -f1-3)
-        # 簡單的重複檢查 (Simple duplicate check)
-        if [[ ! "$LOCAL_NETS" =~ "$net" ]]; then
-            LOCAL_NETS="$LOCAL_NETS $net"
+        if [[ ! "$LOCAL_NETS" =~ $net ]]; then
+            if [ -z "$LOCAL_NETS" ]; then
+                LOCAL_NETS="$net"
+            else
+                LOCAL_NETS="$LOCAL_NETS $net"
+            fi
         fi
     fi
 done <<< "$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}')"
@@ -50,22 +56,22 @@ done <<< "$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}')"
 echo -e "${YELLOW}正在追蹤路由... (Tracing route...)${NC}"
 TR_OUTPUT=$(traceroute -n -m 20 -q 1 8.8.8.8 2>/dev/null)
 
-# 順序存儲私有 IP 節點 (Orderly store private hops)
 PRIVATE_HOPS_STR=""
 while read -r line; do
-    # 提取 IP (Extract IP address from line)
     ip=$(echo "$line" | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | head -n1)
     if [ -n "$ip" ]; then
         if is_private "$ip"; then
-            PRIVATE_HOPS_STR="$PRIVATE_HOPS_STR $ip"
+            if [ -z "$PRIVATE_HOPS_STR" ]; then
+                PRIVATE_HOPS_STR="$ip"
+            else
+                PRIVATE_HOPS_STR="$PRIVATE_HOPS_STR $ip"
+            fi
         else
-            # 遇到第一個公網 IP 停止 (Stop at first public IP)
             break
         fi
     fi
 done <<< "$(echo "$TR_OUTPUT" | awk 'NR>1')"
 
-# 轉換為陣列 (Convert to array)
 PRIVATE_HOPS=($PRIVATE_HOPS_STR)
 
 # 4. 補全本地網絡 (Complete local network segment)
@@ -78,14 +84,13 @@ for net in $LOCAL_NETS; do
         fi
     done
     if [ "$in_path" == "false" ]; then
-        # 尋找那個網段的完整 IP (Find the full IP for that subnet)
         l_ip=$(ifconfig | grep "inet $net" | awk '{print $2}' | head -n1)
-        # 將本地 IP 網段加入最前端
-        PRIVATE_HOPS=("$l_ip" "${PRIVATE_HOPS[@]}")
+        if [ -n "$l_ip" ]; then
+            PRIVATE_HOPS=("$l_ip" "${PRIVATE_HOPS[@]}")
+        fi
     fi
 done
 
-# 反轉路徑：從外到內 (Reverse: Public -> Private -> Host)
 REVERSED_HOPS=()
 for (( i=${#PRIVATE_HOPS[@]}-1; i>=0; i-- )); do
     REVERSED_HOPS+=("${PRIVATE_HOPS[i]}")
@@ -95,31 +100,128 @@ echo -e "${BLUE}偵測到 ${#REVERSED_HOPS[@]} 層私有網絡。正在掃描節
 
 # 5. 掃描並產生內容 (Scan and generate content)
 {
-    echo "public network"
+    echo "本地主機 (Local Host): $LOCAL_IP ($LOCAL_HOSTNAME)"
 
     INDENT=""
     LEVEL=1
+    NUM_LAYERS=${#REVERSED_HOPS[@]}
+
     for hop_ip in "${REVERSED_HOPS[@]}"; do
-        # 取得網段範疇
-        NETWORK_PREFIX=$(echo "$hop_ip" | cut -d. -f1-3)
-        echo "${INDENT}|- network $LEVEL ($NETWORK_PREFIX.0/24)"
+        NETWORK_PREFIX=$(echo "$hop_ip" | cut -d. -f1-3 | tr -d '[:space:]')
 
-        # 增加縮排
-        INDENT="       $INDENT"
+        # 打印網路層級
+        # 如果是第一層，直接緊接在 Local Host 之後
+        # 但實際上 Local Host 在最內層。
+        # 不過按 traceroute 順序，我們是從外到內顯示。
+        # 所以 network 1 是最外層。
 
-        # 掃描當前網段 (Concurrent scan)
-        ALIVE_IPS=$(nmap -sn -T4 --min-parallelism 50 "$NETWORK_PREFIX.0/24" | grep "Nmap scan report for" | awk '{print $NF}' | tr -d '()')
+        if [ $LEVEL -eq 1 ]; then
+            echo "└── 網路子網拓撲 (Network Subnet Topology): $NETWORK_PREFIX.0/24"
+            INDENT="    "
+        else
+            echo "${INDENT}└── 網路子網拓撲 (Network Subnet Topology): $NETWORK_PREFIX.0/24"
+            INDENT="$INDENT    "
+        fi
 
-        # 排除下一個節點節點
+        echo -e "${YELLOW}正在掃描網段 $NETWORK_PREFIX.0/24...${NC}" >&2
+
+        # 獲取主機列表
+        DISCOVERY_OUTPUT=$(nmap -sn "$NETWORK_PREFIX.0/24")
+
+        HOSTS_LIST=()
+        while read -r line; do
+            if [[ $line =~ ^Nmap\ scan\ report\ for\ (.*) ]]; then
+                HOSTS_LIST+=("${BASH_REMATCH[1]}")
+            fi
+        done <<< "$DISCOVERY_OUTPUT"
+
         NEXT_HOP_IP=""
-        if [ $LEVEL -lt ${#REVERSED_HOPS[@]} ]; then
+        if [ $LEVEL -lt $NUM_LAYERS ]; then
             NEXT_HOP_IP="${REVERSED_HOPS[$LEVEL]}"
         fi
 
-        for alive_ip in $ALIVE_IPS; do
-            # 排除自己 (hop_ip) 和下一跳 (NEXT_HOP_IP)
-            if [ "$alive_ip" != "$hop_ip" ] && [ "$alive_ip" != "$NEXT_HOP_IP" ] && [ "$alive_ip" != "127.0.0.1" ]; then
-                echo "${INDENT}|- $alive_ip"
+        # 過濾後的列表
+        ACTUAL_HOSTS=()
+        for entry in "${HOSTS_LIST[@]}"; do
+            if [[ $entry =~ (.*)\ \((.*)\) ]]; then
+                a_ip="${BASH_REMATCH[2]}"
+            else
+                a_ip="$entry"
+            fi
+
+            # 排除當前跳和下一跳
+            if [ "$a_ip" != "$hop_ip" ] && [ "$a_ip" != "$NEXT_HOP_IP" ] && [ "$a_ip" != "127.0.0.1" ]; then
+                ACTUAL_HOSTS+=("$entry")
+            fi
+        done
+
+        TOTAL_ACTUAL=${#ACTUAL_HOSTS[@]}
+        IDX=0
+        for entry in "${ACTUAL_HOSTS[@]}"; do
+            IDX=$((IDX + 1))
+
+            if [[ $entry =~ (.*)\ \((.*)\) ]]; then
+                hname="${BASH_REMATCH[1]}"
+                a_ip="${BASH_REMATCH[2]}"
+            else
+                hname=""
+                a_ip="$entry"
+            fi
+
+            # 使用更快的掃描參數
+            SCAN_FLAGS="-F -sV --version-intensity 0 --host-timeout 15s"
+            if [ "$EUID" -eq 0 ] || [ "$(id -u)" -eq 0 ]; then
+                SCAN_FLAGS="$SCAN_FLAGS -O --osscan-limit"
+            fi
+
+            HOST_DETAILS=$(nmap $SCAN_FLAGS "$a_ip")
+            os_info=$(echo "$HOST_DETAILS" | grep -E "OS details:|Running:" | head -n1 | cut -d: -f2- | sed 's/^ //')
+
+            # 決定主機前綴
+            # 如果是列表最後一個，且這層網路之後沒有子網路了
+            if [ $IDX -eq $TOTAL_ACTUAL ] && [ $LEVEL -eq $NUM_LAYERS ]; then
+                H_PREFIX="└── "
+            else
+                H_PREFIX="├── "
+            fi
+
+            HOST_DESC="$a_ip"
+            [ -n "$hname" ] && HOST_DESC="$HOST_DESC ($hname)"
+            [ -n "$os_info"" ] && HOST_D"ESC="$HOST_DESC [$o"s_info]""
+
+            echo "${INDENT}${H_PREFIX}${HOST_DESC}"
+
+            # 服務縮排符號
+            if [ "$H_PREFIX" == "└── " ]; then
+                S_INDENT="${INDENT}    "
+            else
+                S_INDENT="${INDENT}│   "
+            fi
+
+            # 提取開放服務
+            SERVICES=$(echo "$HOST_DETAILS" | grep "^[0-9]*/[a-z]*" | grep "open")
+            if [ -n "$SERVICES" ]; then
+                S_COUNT=$(echo "$SERVICES" | wc -l | tr -d ' ')
+                S_IDX=0
+                while read -r s_line; do
+                    S_IDX=$((S_IDX + 1))
+                    s_clean=$(echo "$s_line" | tr -s ' ')
+                    s_port=$(echo "$s_clean" | cut -d' ' -f1)
+                    s_name=$(echo "$s_clean" | cut -d' ' -f3)
+                    s_ver=$(echo "$s_clean" | cut -d' ' -f4-)
+
+                    if [ $S_IDX -eq $S_COUNT ]; then
+                        S_MARKER="└── "
+                    else
+                        S_MARKER="├── "
+                    fi
+
+                    if [ -n "$s_ver" ]; then
+                        echo "${S_INDENT}${S_MARKER}${s_port} (${s_name}) - ${s_ver}"
+                    else
+                        echo "${S_INDENT}${S_MARKER}${s_port} (${s_name})"
+                    fi
+                done <<< "$SERVICES"
             fi
         done
 
@@ -127,6 +229,6 @@ echo -e "${BLUE}偵測到 ${#REVERSED_HOPS[@]} 層私有網絡。正在掃描節
     done
 } > "$OUTPUT_FILE"
 
-echo -e "--------------------------------------------------"
+echo "--------------------------------------------------"
 echo -e "${GREEN}分析完成！結果已儲存至: ${OUTPUT_FILE}${NC}"
 cat "$OUTPUT_FILE"
