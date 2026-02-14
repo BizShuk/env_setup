@@ -12,30 +12,30 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}Recreating symbolic links in config/ directory...${NC}"
 
 # Create config directory if it doesn't exist
-mkdir -p ~/projects/env_setup/config
+mkdir -p "${HOME}"/projects/env_setup/config
 
 # Symbolic links to recreate
 declare -a SYMLINKS=(
     # Global system configurations
-    "/etc/fstab:~/projects/env_setup/config/fstab"
-    "/etc/group:~/projects/env_setup/config/group"
-    "/etc/hostname:~/projects/env_setup/config/hostname"
-    "/etc/hosts:~/projects/env_setup/config/hosts"
-    "/etc/localtime:~/projects/env_setup/config/localtime"
-    "/etc/ssl/openssl.cnf:~/projects/env_setup/config/openssl.cnf"
-    "/etc/passwd:~/projects/env_setup/config/passwd"
-    "/etc/sysctl.conf:~/projects/env_setup/config/sysctl.conf"
-    "/var/log/auth.log:~/projects/env_setup/config/auth.log"
+    "/etc/fstab:${HOME}/projects/env_setup/config/fstab"
+    "/etc/group:${HOME}/projects/env_setup/config/group"
+    "/etc/hostname:${HOME}/projects/env_setup/config/hostname"
+    "/etc/hosts:${HOME}/projects/env_setup/config/hosts"
+    "/etc/localtime:${HOME}/projects/env_setup/config/localtime"
+    "/etc/ssl/openssl.cnf:${HOME}/projects/env_setup/config/openssl.cnf"
+    "/etc/passwd:${HOME}/projects/env_setup/config/passwd"
+    "/etc/sysctl.conf:${HOME}/projects/env_setup/config/sysctl.conf"
+    "/var/log/auth.log:${HOME}/projects/env_setup/config/auth.log"
 
     # User home directory configurations
-    "${HOME}/.bash_plugin:~/projects/env_setup/config/.bash_plugin"
-    "${HOME}/.colima:~/projects/env_setup/config/.colima"
-    "${HOME}/.config:~/projects/env_setup/config/.config"
-    "${HOME}/.gemini:~/projects/env_setup/config/.gemini"
-    "${HOME}/.screenrc:~/projects/env_setup/config/.screenrc"
-    "${HOME}/.ssh:~/projects/env_setup/config/.ssh"
-    "${HOME}/.vscode:~/projects/env_setup/config/.vscode"
-    "${HOME}/lib:~/projects/env_setup/config/lib"
+    "${HOME}/.bash_plugin:${HOME}/projects/env_setup/config/.bash_plugin"
+    "${HOME}/.colima:${HOME}/projects/env_setup/config/.colima"
+    "${HOME}/.config:${HOME}/projects/env_setup/config/.config"
+    "${HOME}/.gemini:${HOME}/projects/env_setup/config/.gemini"
+    "${HOME}/.screenrc:${HOME}/projects/env_setup/config/.screenrc"
+    "${HOME}/.ssh:${HOME}/projects/env_setup/config/.ssh"
+    "${HOME}/.vscode:${HOME}/projects/env_setup/config/.vscode"
+    "${HOME}/lib:${HOME}/projects/env_setup/config/lib"
 )
 
 # Create each symbolic link
