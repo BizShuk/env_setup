@@ -22,7 +22,7 @@
     ".env": ".env.*,",
     "go.mod": "go.sum",
     "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc",
-    "*": "${capture}.bak,${capture}.read,${capture}.fake",
+    "*": "${capture}.bak,${capture}.read,${capture}.fake,${capture}*.sample,${capture}*.output",
     "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md, AGENTS.md",
     "*.sqlite": "${capture}.${extname}-*",
     "*.db": "${capture}.${extname}-*",
