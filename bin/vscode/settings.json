@@ -67,7 +67,7 @@
     "archive": true,
     "{.git,.gitlab,.pre-commit-config.yaml}": true,
     "{*.code-workspace,.golangci.yml,go.sum}": true,
-    "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": false,
+    "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": true,
     "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
     "{.vscode}": false,
     "{.devops,.settings}": true,
