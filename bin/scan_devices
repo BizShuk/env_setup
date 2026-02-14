@@ -1,0 +1,264 @@
+#!/bin/bash
+
+# ==============================================================================
+# Script Name: scan_devices
+# Description: Detect and display common hardware components (CPU, RAM, GPU, etc.)
+# OS Support: macOS (Darwin), Linux
+# ==============================================================================
+
+# Colors
+# RED='\033[0;31m'  # Removed unused
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+# MAGENTA='\033[0;35m' # Removed unused
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+NC='\033[0m' # No Color
+
+OS_TYPE=$(uname -s)
+
+# Helper to print Section Headers
+print_header() {
+    # Screen: Bold Cyan
+    # Markdown: ## H2
+    printf "\n${CYAN}${BOLD}## %s${NC}\n" "$1"
+}
+
+# Helper to print Key-Value pairs
+print_item() {
+    # Screen: Blue Key
+    # Markdown: - `Key`: Value
+    local key="$1"
+    local value="$2"
+    local indent_level="${3:-0}"
+    local indent=""
+    for ((i=0; i<indent_level; i++)); do indent+="  "; done
+
+    if [[ -z "$value" ]]; then
+        printf "${BLUE}%s- \`%s\`${NC}\n" "$indent" "$key"
+    else
+        # Align Level 0 keys, simple list for sub-levels
+        if [[ $indent_level -eq 0 ]]; then
+            printf "${BLUE}- \`%-18s\`${NC}: %s\n" "$key" "$value"
+        else
+            printf "${BLUE}%s- \`%s\`${NC}: %s\n" "$indent" "$key" "$value"
+        fi
+    fi
+}
+
+# --- CPU ---
+detect_cpu() {
+    print_header "CPU Information"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        brand=$(sysctl -n machdep.cpu.brand_string)
+        cores=$(sysctl -n hw.ncpu)
+        print_item "Model" "$brand"
+        print_item "Cores" "$cores"
+    else
+        model=$(lscpu | grep "Model name" | cut -d':' -f2 | xargs)
+        cores=$(lscpu | grep "^CPU(s):" | cut -d':' -f2 | xargs)
+        print_item "Model" "$model"
+        print_item "Cores" "$cores"
+    fi
+}
+
+# --- RAM ---
+detect_ram() {
+    print_header "Memory (RAM)"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        mem=$(sysctl -n hw.memsize)
+        mem_gb=$((mem / 1024 / 1024 / 1024))
+        print_item "Total RAM" "${mem_gb} GB"
+        # Slots info - handle M-series (no slots)
+        slots=$(system_profiler SPMemoryDataType | grep "Size:" | xargs)
+        if [[ -z "$slots" ]]; then slots="Integrated (Unified Memory)"; fi
+        print_item "Details" "$slots"
+    else
+        total_mem=$(free -h | grep "Mem:" | awk '{print $2}')
+        print_item "Total RAM" "$total_mem"
+    fi
+}
+
+# --- GPU ---
+detect_gpu() {
+    print_header "Graphic Card (GPU)"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        system_profiler SPDisplaysDataType | grep "Chipset Model" | cut -d':' -f2 | xargs | while read -r gpu; do
+            print_item "GPU Model" "$gpu"
+        done
+    else
+        lspci | grep -i vga | cut -d':' -f3 | xargs | while read -r gpu; do
+            print_item "GPU Model" "$gpu"
+        done
+    fi
+}
+
+# --- Disk ---
+detect_disk() {
+    print_header "Disk Storage"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        diskutil list physical | grep "/dev/disk" | while read -r line; do
+            dev=$(echo "$line" | awk '{print $1}')
+            name=$(echo "$line" | cut -d'(' -f2 | cut -d')' -f1)
+            size=$(diskutil info "$dev" | grep "Disk Size" | cut -d':' -f2 | xargs | cut -d'(' -f1)
+            print_item "Disk ($dev)" "" "0"
+            print_item "Type" "$name" "1"
+            print_item "Size" "$size" "1"
+        done
+    else
+        if command -v lsblk > /dev/null; then
+            lsblk -d -n -o NAME,SIZE,MODEL | while read -r name size model; do
+                print_item "Disk ($name)" "" "0"
+                print_item "Size" "$size" "1"
+                print_item "Model" "$model" "1"
+            done
+        else
+            df -h | grep "^/dev/" | awk '{print $1 " (" $2 ")"}' | while read -r info; do
+                print_item "Partition" "$info"
+            done
+        fi
+    fi
+}
+
+# --- Storage & USB ---
+detect_storage_usb() {
+    print_header "Storage & USB"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        # CD/DVD
+        cd_dvd=$(system_profiler SPDiscBurningDataType 2>/dev/null | grep "Drive Type" | cut -d':' -f2 | xargs)
+        if [[ -z "$cd_dvd" ]]; then cd_dvd="Not Found"; fi
+        print_item "CD/DVD Drive" "$cd_dvd"
+
+        # USB Tree
+        print_item "USB Device Tree" "" "0"
+        system_profiler SPUSBHostDataType 2>/dev/null | awk '
+            /^[ ]+[A-Za-z0-9].*:$/ {
+                if ($0 ~ /Bus:|Location ID|Port:|Speed:|Vendor ID|Product ID|Capacity|Serial Number|Manufacturer|Removable|Power Allocated/) next;
+                match($0, /^[ ]+/);
+                indent = RLENGTH;
+                name = $0; sub(/^[ ]+/, "", name); sub(/:$/, "", name);
+                level = (indent - 4) / 2;
+                if (level < 0) level = 0;
+                # Root levels of the tree should be under "USB Device Tree" (indent 1)
+                printf "%d|%s\n", level+1, name;
+            }
+        ' | while IFS='|' read -r level name; do
+            print_item "$name" "" "$level"
+        done
+    else
+        cd_dvd=$(lsblk -d -o NAME,TYPE | grep "rom" | awk '{print $1}')
+        if [[ -z "$cd_dvd" ]]; then cd_dvd="Not Found"; fi
+        print_item "CD/DVD Drive" "$cd_dvd"
+
+        if command -v lsusb > /dev/null; then
+            print_item "USB Devices" "" "0"
+            lsusb | cut -d' ' -f7- | sort -u | while read -r usb; do
+                print_item "$usb" "" "1"
+            done
+        else
+            usb_count=$(grep -c "Product=" /sys/bus/usb/devices/*/product 2>/dev/null)
+            print_item "USB Devices" "$usb_count detected"
+        fi
+    fi
+}
+
+# --- Monitor ---
+detect_monitor() {
+    print_header "Monitor / Display"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        system_profiler SPDisplaysDataType | grep "Resolution" | while read -r line; do
+            res=$(echo "$line" | cut -d':' -f2 | xargs)
+            print_item "Display" "$res"
+        done
+    else
+        if command -v xrandr > /dev/null; then
+            xrandr | grep -F "*" | awk '{print $1}' | while read -r res; do
+                print_item "Resolution" "$res"
+            done
+        else
+            print_item "Monitor" "xrandr not detected"
+        fi
+    fi
+}
+
+# --- Network ---
+detect_network() {
+    print_header "Network (WiFi/LAN)"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        networksetup -listallhardwareports | awk '/Hardware Port:/{port=""; for(i=3;i<=NF;i++) port=port $i " "; sub(/ $/,"",port)} /Device:/{print port "|" $2}' | while IFS='|' read -r name dev; do
+            ip=$(ifconfig "$dev" 2>/dev/null | grep "inet " | awk '{print $2}')
+            if [[ -n "$ip" ]]; then
+                print_item "Interface ($dev)" "" "0"
+                print_item "Type" "$name" "1"
+                print_item "IP" "$ip" "1"
+            fi
+        done
+    else
+        ip -br addr show | grep -v "127.0.0.1" | while read -r dev status ip_mask; do
+            print_item "Interface ($dev)" "" "0"
+            print_item "Status" "$status" "1"
+            print_item "IP" "$ip_mask" "1"
+        done
+    fi
+}
+
+# --- Input Devices ---
+detect_input() {
+    print_header "Input Devices (Keyboard/Mouse)"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        system_profiler SPHidDataType | grep "Manufacturer" -B 2 | grep "Product:" | cut -d':' -f2 | xargs | sort -u | while read -r dev; do
+            print_item "HID" "$dev"
+        done
+    else
+        kb=$(grep -E 'Handlers|Name' /proc/bus/input/devices | grep -B1 'kbd' | head -n1 | cut -d'"' -f2)
+        ms=$(grep -E 'Handlers|Name' /proc/bus/input/devices | grep -B1 'mouse' | head -n1 | cut -d'"' -f2)
+        print_item "Keyboard" "$kb"
+        print_item "Mouse" "$ms"
+    fi
+}
+
+# --- Audio ---
+detect_audio() {
+    print_header "Audio Devices"
+    if [[ "$OS_TYPE" == "Darwin" ]]; then
+        audio=$(system_profiler SPAudioDataType | awk '/Default Output Device: Yes/{print line} {if ($0 ~ /:$/ && $0 !~ /^[[:space:]]*$/) line=$0}' | tr -d ':' | xargs)
+        if [[ -z "$audio" ]]; then
+            audio=$(system_profiler SPAudioDataType | awk '/Devices:/{flag=1;next} flag && /:$/{print $0; exit}' | tr -d ':' | xargs)
+        fi
+        print_item "Output" "$audio"
+    else
+        if command -v aplay > /dev/null; then
+            aplay -l | grep "card" | cut -d'[' -f2 | cut -d']' -f1 | sort -u | while read -r card; do
+                print_item "Audio Board" "$card"
+            done
+        else
+            print_item "Audio" "aplay not installed"
+        fi
+    fi
+}
+
+# Main Execution
+run_detection() {
+    echo -e "${YELLOW}${BOLD}# SYSTEM HARDWARE DETECTION${NC}"
+    echo -e "- \`OS\`: $OS_TYPE\n- \`Date\`: $(date)"
+
+    detect_cpu
+    detect_ram
+    detect_gpu
+    detect_disk
+    detect_storage_usb
+    detect_monitor
+    detect_network
+    detect_input
+    detect_audio
+
+    echo -e "\n${GREEN}Detection Complete.${NC}\n"
+}
+
+OUTPUT_FILE="README.devices.md"
+
+# Run detection:
+# 1. Output to screen (with colors)
+# 2. Strip ANSI colors and output to README.devices.md
+run_detection | tee >(sed 's/\x1b\[[0-9;]*m//g' > "$OUTPUT_FILE")
