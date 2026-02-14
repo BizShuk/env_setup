@@ -21,7 +21,7 @@
     "Makefile": "Makefile*",
     ".env": ".env.*,",
     "go.mod": "go.sum",
-    "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}.jsonl",
+    "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc",
     "*": "${capture}.bak,${capture}.read,${capture}.fake",
     "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md, AGENTS.md",
     "*.sqlite": "${capture}.${extname}-*",
@@ -63,25 +63,18 @@
   "files.eol": "\n",
   "files.trimTrailingWhitespace": true,
   "files.exclude": {
-    // Legacy
     "{.svn,.hg,.DS_Store,Thumbs.db}": true,
-    // Project metadata
     "archive": true,
     "{.git,.gitlab,.pre-commit-config.yaml}": true,
     "{*.code-workspace,.golangci.yml,go.sum}": true,
-    // Use .vscode to show LLM related config, but some case might use .claude
-    "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": true,
+    "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": false,
     "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
     "{.vscode}": false,
     "{.devops,.settings}": true,
     "{.classpath,.project}": true,
-    // Project Output
     "{target,out,dist,output}": true,
-    // Project Dependancy
     "{.mvn,node_modules,__pycache__,.venv}": true,
-    // debug
     "{__debug_bin*}": true,
-    // tiktok
     "{gen/**,kitex_gen}": true,
     "-1": true
   },
@@ -608,5 +601,11 @@
   "githubPullRequests.fileListLayout": "tree",
   "redhat.telemetry.enabled": false,
   "scm.repositories.selectionMode": "single",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "window.zoomLevel": 2
 }
