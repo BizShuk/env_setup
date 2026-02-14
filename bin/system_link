@@ -12,7 +12,7 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}Recreating symbolic links in config/ directory...${NC}"
 
 # Create config directory if it doesn't exist
-mkdir -p config
+mkdir -p ~/projects/env_setup/config
 
 # Symbolic links to recreate
 declare -a SYMLINKS=(
