@@ -2,7 +2,7 @@
 
 ### settngs.json
 
-    tasks.json, keybindings.json settings.json snippets
+    keybindings.json settings.json snippets
     Windows:
         %APPDATA%\Code\User\settings.json
     macOS:
