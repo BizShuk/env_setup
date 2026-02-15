@@ -1,7 +1,7 @@
 #!/bin/bash
 # [NVM github](https://github.com/creationix/nvm)
 
-. ~/settings.sh
+source "${HOME}"/settings.sh
 
 NODE_VER=${NODE_VER:-v24.11.1}
 NVM_DIR=${USER_LIB}/nvm
@@ -32,11 +32,7 @@ EOF
 nvm use --delete-prefix "${NODE_VER}" --silent
 
 #  NPM
-curl http://npmjs.org/install.sh | sh
+curl -L http://npmjs.org/install.sh | sh
 
 
-echo "prefix = ${USER_LIB}/npm-global" > "${REPO_DIR}/bin/bash/.npmrc"
-echo "export PATH=${USER_LIB}/npm-global/bin:\$PATH" >>~/.bash_plugin
-
-ln -sf "${REPO_DIR}/bin/bash/.npmrc" "${INSTALL_DIR}/"
-
+echo "export PATH=$(npm config get prefix)/bin:\$PATH" >>~/.bash_plugin
