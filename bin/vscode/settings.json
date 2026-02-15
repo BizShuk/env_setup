@@ -23,14 +23,13 @@
     "go.mod": "go.sum",
     "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc",
     "*": "${capture}.bak,${capture}.read,${capture}.fake,${capture}*.sample,${capture}*.output",
-    "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,.geminiignore",
+    "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,.geminiignore,.gitmodules,README.*",
     "*.sqlite": "${capture}.${extname}-*",
     "*.db": "${capture}.${extname}-*",
     "*.sqlite3": "${capture}.${extname}-*",
     "*.db3": "${capture}.${extname}-*",
     "*.sdb": "${capture}.${extname}-*",
-    "*.s3db": "${capture}.${extname}-*",
-    "*.md": "${capture}*"
+    "*.s3db": "${capture}.${extname}-*"
   },
   // [editor]
   "editor.wordWrap": "on",
@@ -609,5 +608,13 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "window.zoomLevel": 2
+  "window.zoomLevel": 2,
+  "containers.containers.label": "ContainerName",
+  "containers.containers.description": ["Image", "Ports", "Status"],
+  "containers.containers.groupBy": "Compose Project Name",
+  "git.ignoreMissingGitWarning": true,
+  "containers.images.label": "RepositoryNameShort",
+  "containers.images.description": ["Size"],
+  "containers.images.groupBy": "Registry",
+  "containers.images.sortBy": "Label"
 }
