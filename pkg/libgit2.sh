@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source settings.sh
+source ../bin/settings.sh
 
 
 
@@ -9,9 +9,9 @@ source settings.sh
 
 libgit2_ver="v0.24.1"
 
-pushd $REPO_DIR/pkg/libgit2
+pushd "$REPO_DIR"/pkg/libgit2 || exit
     git reset --hard ${libgit2_ver}
-    mkdir build && cd build
+    mkdir build && cd build || exit
 
     # for cmake 3.0+ , a warning for project developer
     touch CMakeLists.txt
@@ -22,4 +22,4 @@ pushd $REPO_DIR/pkg/libgit2
     cmake -build .
     make
     sudo make install
-popd
+popd || exit

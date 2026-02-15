@@ -1,5 +1,5 @@
 #!/bin/bash
-source ~/settings.sh
+source settings.sh
 
 
 # Go env
@@ -48,4 +48,4 @@ ln -sf "$GO_ROOT"/bin/go "$USER_BIN"/go
 
 # golangci linter
 curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b $(go env GOPATH)/bin v2.7.2
-ln -sf "${REPO_PKG}"/go/.golangci.yml ~/
+ln -sf "${HOME}/bin/.golangci.yml" ~/
