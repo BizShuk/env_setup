@@ -1,1 +1,0 @@
-../pkg/sshd/ssh_key_compare.sh

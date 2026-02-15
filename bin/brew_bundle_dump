@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # Define the Brewfile location
-BREWFILE="${HOME}/projects/env_setup/pkg/homebrew/Brewfile"
+BREWFILE="${HOME}/projects/env_setup/setup/Brewfile"
 
 # Ensure the directory exists
 BREWFILE_DIR=$(dirname "${BREWFILE}")

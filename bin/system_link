@@ -60,23 +60,23 @@ echo -e "${GREEN}All symbolic links have been recreated successfully!${NC}"
 
 
 # VSCode Mac
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/settings.json ${HOME}/Library/Application\ Support/Code/User/settings.json
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/keybindings.json ${HOME}/Library/Application\ Support/Code/User/keybindings.json
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/settings.json "${HOME}"/Library/Application\ Support/Code/User/settings.json
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/keybindings.json "${HOME}"/Library/Application\ Support/Code/User/keybindings.json
 
-rm -rf ${HOME}/Library/Application Support/Code/User/snippets
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/snippets ${HOME}/Library/Application\ Support/Code/User/snippets
+rm -rf "${HOME}"/Library/Application Support/Code/User/snippets
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/snippets "${HOME}"/Library/Application\ Support/Code/User/snippets
 
 # Antigravity Mac
-rm -rf ${HOME}/Library/Application\ Support/Antigravity/User/settings.json
-rm -rf ${HOME}/Library/Application Support/Antigravity/User/snippets
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/settings.json ${HOME}/Library/Application\ Support/Antigravity/User/settings.json
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/keybindings.json ${HOME}/Library/Application\ Support/Antigravity/User/keybindings.json
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/snippets  ${HOME}/Library/Application\ Support/Antigravity/User/snippets
+rm -rf "${HOME}"/Library/Application\ Support/Antigravity/User/settings.json
+rm -rf "${HOME}"/Library/Application Support/Antigravity/User/snippets
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/settings.json "${HOME}"/Library/Application\ Support/Antigravity/User/settings.json
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/keybindings.json "${HOME}"/Library/Application\ Support/Antigravity/User/keybindings.json
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/snippets  "${HOME}"/Library/Application\ Support/Antigravity/User/snippets
 
 
 # VSCode linux
-mkdir -p ${HOME}/.config/Code/User
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/settings.json ${HOME}/.config/Code/User/settings.json
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/keybindings.json ${HOME}/.config/Code/User/keybindings.json
-ln -sfh ${HOME}/projects/env_setup/bin/vscode/snippets  ${HOME}/.config/Code/User/snippets
+mkdir -p "${HOME}"/.config/Code/User
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/settings.json "${HOME}"/.config/Code/User/settings.json
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/keybindings.json "${HOME}"/.config/Code/User/keybindings.json
+ln -sfh "${HOME}"/projects/env_setup/bin/vscode/snippets  "${HOME}"/.config/Code/User/snippets
 

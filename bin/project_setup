@@ -16,6 +16,10 @@ echo "If .claude is used in this project, then $(ln -s .claude .agents)"
 mkdir -p .agents/rules
 mkdir -p .agents/skills
 
+
+ln -sfh .gitignore .geminiignore
+
+
 if [ ! -f ".agents/settings.json" ]; then
 
 cat <<EOF > .agents/settings.json

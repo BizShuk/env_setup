@@ -36,16 +36,16 @@ INSTALL_DIR=${HOME}
 
 
 # User-releated folders
-export USER_PROJECT=${INSTALL_DIR}/projects
+export USER_PROJECT=${HOME}/projects
 [ ! -d "$USER_PROJECT" ] && mkdir "$USER_PROJECT"
 
 
-export USER_BIN=${INSTALL_DIR}/bin
-export USER_LIB=${INSTALL_DIR}/.local
-export USER_LOCAL=${INSTALL_DIR}/.local
-export USER_LOCAL_BIN=${INSTALL_DIR}/.local/bin
-export USER_LOG=${INSTALL_DIR}/logs
-export USER_TMP=${INSTALL_DIR}/tmp
+export USER_BIN=${HOME}/bin
+export USER_LIB=${HOME}/.local
+export USER_LOCAL=${HOME}/.local
+export USER_LOCAL_BIN=${HOME}/.local/bin
+export USER_LOG=${HOME}/logs
+export USER_TMP=${HOME}/tmp
 
 
 [ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"

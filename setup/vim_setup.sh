@@ -1,1 +1,0 @@
-../pkg/vim/vim_setup.sh

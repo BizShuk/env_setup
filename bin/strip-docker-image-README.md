@@ -3,22 +3,25 @@
 This utilities strips everything you do not need from an image and create a new image with just the bare necessities.
 
 ## Synopsis
-	strip-docker-image 	-i image-name 
-						-t target-image-name 
-						[-p package]
-						[-f file]
-						[-x expose-port] 
-						[-v] 
-			
+
+    strip-docker-image  -i image-name
+         -t target-image-name
+         [-p package]
+         [-f file]
+         [-x expose-port]
+         [-v]
+
 ## Options
-	-i image-name			to strip
-	-t target-image-name	the image name of the stripped image
-	-p package				package to include from image, multiple -p allowed.
-	-f file					file to include from image, multiple -f allowed.
-	-x port					to expose.
-	-v						verbose.
+
+    -i image-name   to strip
+    -t target-image-name the image name of the stripped image
+    -p package    package to include from image, multiple -p allowed.
+    -f file     file to include from image, multiple -f allowed.
+    -x port     to expose.
+    -v      verbose.
 
 ## Description
+
 creates a new Docker image which contains only selected packages and files from the source image.
 
 Why is this useful?
@@ -27,31 +30,32 @@ Why is this useful?
 2. It minimizes the attack surface: if you get in the container, there is nothing there..
 
 ## Example
+
 The following example strips the nginx installation from the default NGiNX docker image,
 
 ```
 strip-docker-image -i nginx -t stripped-nginx  \
-						   -x 80 \
-						   -p nginx  \
-						   -f /etc/passwd \
-						   -f /etc/group \
-						   -f '/lib/*/libnss*' \
-						   -f /bin/ls \
-						   -f /bin/cat \
-						   -f /bin/sh \
-						   -f /bin/mkdir \
-						   -f /bin/ps \
-						   -f /var/run \
-						   -f /var/log/nginx \
-						   -f /var/cache/nginx
+         -x 80 \
+         -p nginx  \
+         -f /etc/passwd \
+         -f /etc/group \
+         -f '/lib/*/libnss*' \
+         -f /bin/ls \
+         -f /bin/cat \
+         -f /bin/sh \
+         -f /bin/mkdir \
+         -f /bin/ps \
+         -f /var/run \
+         -f /var/log/nginx \
+         -f /var/cache/nginx
 ```
-Aside from the nginx package, I have added the files /etc/passwd, /etc/group and /lib/*/libnss* shared libraries 
+
+Aside from the nginx package, I have added the files /etc/passwd, /etc/group and /lib/_/libnss_ shared libraries
 are necessary for getpwnam() to work correctly.
 
 The directories /var/run, /var/log/nginx and /var/cache/nginx are required for NGiNX to operate.
 
 In addition, I added the /bin/sh and a few handy utilities, just to be able to snoop around a little bit..
-
 
 The stripped image has now shrunk to an incredible 5.4% of the original 132.8 Mb to just 7.3Mb and is still fully operational!
 
@@ -71,4 +75,5 @@ docker run --link nginx:stripped cargonauts/toolbox-networking curl -s -D - http
 ```
 
 ## Caveats
+
 This utility requires bash, dpkg, tar, readlink and ldd to be installed in the container.

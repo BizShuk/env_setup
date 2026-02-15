@@ -32,7 +32,5 @@ EOF
 nvm use --delete-prefix "${NODE_VER}" --silent
 
 #  NPM
-curl -L http://npmjs.org/install.sh | sh
-
-
+echo run this if npm is not there: curl -L http://npmjs.org/install.sh | sh
 echo "export PATH=$(npm config get prefix)/bin:\$PATH" >>~/.bash_plugin

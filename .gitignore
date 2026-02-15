@@ -9,33 +9,5 @@ config/*
 .serena
 post
 
-AI/.agent/antigravity/*
-AI/.agent/antigravity/annotations/*
-AI/.agent/antigravity/brain/*
-AI/.agent/antigravity/browser_recordings/*
-AI/.agent/antigravity/browserOnboardingStatus.txt
-AI/.agent/antigravity-browser-profile/*
-AI/.agent/antigravity/code_tracker/*
-AI/.agent/antigravity/conversations/*
-AI/.agent/antigravity/implicit/*
-AI/.agent/antigravity/knowledge/*
 
-AI/.agent/google_accounts.json
-AI/.agent/installation_id
-AI/.agent/oauth_creds.json
-AI/.agent/settings.json.orig
-AI/.agent/state.json
-AI/.agent/trusted_hooks.json
-conductor/index.md
-conductor/product-guidelines.md
-conductor/product.md
-conductor/setup_state.json
-conductor/tech-stack.md
-conductor/tracks.md
-conductor/workflow.md
-conductor/code_styleguides/general.md
-conductor/code_styleguides/go.md
-conductor/tracks/explore_hosts_20260207/index.md
-conductor/tracks/explore_hosts_20260207/metadata.json
-conductor/tracks/explore_hosts_20260207/plan.md
-conductor/tracks/explore_hosts_20260207/spec.md
+network.topo
