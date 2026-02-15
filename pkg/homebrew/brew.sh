@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/settings.sh
+source "${HOME}"/settings.sh
 
 homebrew_ver="4.1.11"
 homebrew_ver="5.0.3"
@@ -13,12 +13,17 @@ mkdir homebrew && curl -L https://github.com/Homebrew/brew/archive/refs/tags/${h
 
 # git clone https://github.com/Homebrew/brew homebrew
 
-echo -e "\n\n\n# Homwbrew" >>~/.bash_plugin
+echo -e "\n\n\n# Homwbrew" >>"${HOME}/.bash_plugin"
 
-./homebrew/bin/brew shellenv >>~/.bash_plugin
+./homebrew/bin/brew shellenv >>"${HOME}/.bash_plugin"
+echo export SSL_CERT_FILE="$(brew --prefix)/etc/ca-certificates/cert.pem" >> "${HOME}"/.bash_plugin
 popd || exit
 
-source ~/.bash_plugin
+source "${HOME}/.bash_plugin"
+brew postinstall ca-certificates
 brew update --force
 chmod -R go-w "$(brew --prefix)/share/zsh"
+
+
+
 
