@@ -7,3 +7,16 @@ sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
 ping grafafa.test
 dig @127.0.0.1 -p 10053 grafana.test
 dscacheutil -q host -a name grafana.test
+
+## Docker (Colima)
+
+```makefile
+start:
+ colima start
+ colima status
+ docker context use colima
+
+stop:
+ colima status
+ colima stop
+```

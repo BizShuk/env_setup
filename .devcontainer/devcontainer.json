@@ -1,5 +1,5 @@
 {
-  "name": "Env Setup (Alpine)",
+  "name": "Env Setup (Ubuntu)",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
