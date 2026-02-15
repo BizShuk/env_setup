@@ -1,15 +1,22 @@
 FROM ubuntu:24.04
 
-# Avoid interactive prompts during apt-get
-ENV DEBIAN_FRONTEND=noninteractive
+# Install essential packages including sudo
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    sudo \
+    curl \
+    git \
+    openssh-client \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create a user 'shuk'
-RUN useradd -m -s /bin/bash shuk
+# Create shuk user with home directory and bash shell
+RUN useradd -m -s /bin/bash shuk \
+    && echo "shuk ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# Ensure the projects directory exists in the home folder
-RUN mkdir -p /home/shuk/projects && chown shuk:shuk /home/shuk/projects
+# Copy workspace into shuk's home
+COPY . /home/shuk/projects/env_setup
+RUN chown -R shuk:shuk /home/shuk/projects
 
-# Set the default user
+# Set default user
 USER shuk
-WORKDIR /home/shuk/projects/env_setup
-
+WORKDIR /home/shuk

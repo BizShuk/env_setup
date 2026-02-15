@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: feature-FEATURE_NAME
+  namespace: dev
+  labels:
+    app: feature
+    feature: FEATURE_NAME
+    project: PROJECT_NAME
+spec:
+  initContainers:
+    - name: copy-workspace
+      image: ubuntu:24.04
+      command:
+        [
+          "sh",
+          "-c",
+          "mkdir -p /home/shuk/projects/PROJECT_NAME && cp -a /source/. /home/shuk/projects/PROJECT_NAME/"
+        ]
+      volumeMounts:
+        - name: source-vol
+          mountPath: /source
+          readOnly: true
+        - name: workspace-vol
+          mountPath: /home/shuk/projects
+  containers:
+    - name: feature
+      image: ubuntu:24.04
+      command: ["sleep", "infinity"]
+      env:
+        - name: FEATURE_FLAG
+          value: "FEATURE_NAME"
+      volumeMounts:
+        - name: workspace-vol
+          mountPath: /home/shuk/projects
+      resources:
+        limits:
+          memory: "256Mi"
+          cpu: "250m"
+  volumes:
+    - name: source-vol
+      hostPath:
+        path: /projects/PROJECT_NAME
+        type: Directory
+    - name: workspace-vol
+      emptyDir: {}

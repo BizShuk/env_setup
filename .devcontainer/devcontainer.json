@@ -1,10 +1,11 @@
 {
-  "name": "Env Setup Minimal",
+  "name": "Env Setup (Alpine)",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
   },
-  "workspaceMount": "source=${localWorkspaceFolder},target=/home/shuk/projects/env_setup,type=bind",
-  "workspaceFolder": "/home/shuk/projects/env_setup",
-  "remoteUser": "shuk"
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/home/shuk",
+  "remoteUser": "shuk",
+  "postCreateCommand": "echo 'Container ready! Workspace mounted at /workspace, project at ~/projects/env_setup'"
 }

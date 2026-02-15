@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # Define the target location
-TARGET_FILE="${HOME}/projects/env_setup/bin/vscode/extensions.txt"
+TARGET_FILE="${HOME}/projects/env_setup/bin/vscode/vscode_extension_list.txt"
 TARGET_DIR=$(dirname "${TARGET_FILE}")
 
 # Ensure the directory exists
