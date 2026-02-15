@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: feature-FEATURE_NAME
+  namespace: dev
+  labels:
+    app: feature
+    feature: FEATURE_NAME
+spec:
+  containers:
+    - name: feature
+      image: ubuntu:24.04
+      command: ["sleep", "infinity"]
+      env:
+        - name: FEATURE_FLAG
+          value: "FEATURE_NAME"
+      volumeMounts:
+        - name: project-vol
+          mountPath: /workspace
+      resources:
+        limits:
+          memory: "256Mi"
+          cpu: "250m"
+  volumes:
+    - name: project-vol
+      hostPath:
+        path: /workspace
+        type: Directory

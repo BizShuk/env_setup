@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: workspace
+  namespace: dev
+  labels:
+    app: workspace
+    role: debug
+spec:
+  containers:
+    - name: workspace
+      image: ubuntu:24.04
+      command: ["sleep", "infinity"]
+      volumeMounts:
+        - name: project-vol
+          mountPath: /workspace
+      resources:
+        limits:
+          memory: "512Mi"
+          cpu: "500m"
+  volumes:
+    - name: project-vol
+      hostPath:
+        path: /workspace
+        type: Directory
