@@ -12,7 +12,7 @@ ports:
     nodeFilters:
       - server:0
 volumes:
-  - volume: /Users/shuk/projects/env_setup:/workspace
+  - volume: /Users/shuk/projects:/projects
     nodeFilters:
       - all
 options:
