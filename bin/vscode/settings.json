@@ -609,5 +609,8 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "window.zoomLevel": 2
+  "window.zoomLevel": 2,
+  "containers.containers.label": "ContainerName",
+  "containers.containers.description": ["Image", "Status"],
+  "containers.containers.groupBy": "Compose Project Name"
 }

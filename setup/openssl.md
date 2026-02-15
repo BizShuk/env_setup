@@ -10,11 +10,11 @@ stop for this moment.
 
 - extension?
 - serial file?
-- https://www.sslforfree.com/
+- <https://www.sslforfree.com/>
 
 ### definition
 
-http://serverfault.com/a/9717
+<http://serverfault.com/a/9717>
 
 - x.509 , ref : RFC5280
   - PEM , Privacy Enhanced Mail
@@ -28,16 +28,16 @@ http://serverfault.com/a/9717
 
 ### rsa , dsa , ecc
 
-- http://blog.sina.com.cn/s/blog_6f31085901015agu.html
-- http://sls.weco.net/blog/jeffean/30-oct-2009/13652
+- <http://blog.sina.com.cn/s/blog_6f31085901015agu.html>
+- <http://sls.weco.net/blog/jeffean/30-oct-2009/13652>
 
 ### how to make ca.crt pem key
 
-http://www.ichiayi.com/wiki/tech/openssl_caserver
+<http://www.ichiayi.com/wiki/tech/openssl_caserver>
 
 ### pem trust chain
 
-```
+```pem
 -----BEGIN CERTIFICATE-----
 (Your Primary SSL certificate: your_domain_name.crt)
 -----END CERTIFICATE-----
