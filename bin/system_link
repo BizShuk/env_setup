@@ -56,42 +56,27 @@ for link_pair in "${SYMLINKS[@]}"; do
     ln -s "$source_path" "$target_path"
 done
 
-# VS Code User Configurations
-# Ref: bin/vscode/README.md
-echo -e "${BLUE}Applying VS Code user configurations...${NC}"
-
-case "$OSTYPE" in
-    darwin*) VSCODE_USER_DIR="${HOME}/Library/Application Support/Code/User" ;;
-    linux*)  VSCODE_USER_DIR="${HOME}/.config/Code/User" ;;
-    *)       VSCODE_USER_DIR="${HOME}/.config/Code/User" ;;
-esac
-
-# Remove existing snippets directory if it's not a symlink to allow symlinking
-if [ -d "$VSCODE_USER_DIR/snippets" ] && [ ! -L "$VSCODE_USER_DIR/snippets" ]; then
-    rm -rf "$VSCODE_USER_DIR/snippets"
-fi
-
-
-if [ -n "$VSCODE_USER_DIR" ]; then
-    mkdir -p "$VSCODE_USER_DIR"
-    for item in "settings.json" "keybindings.json" "snippets"; do
-        source_path="${HOME}/projects/env_setup/bin/vscode/$item"
-        target_path="$VSCODE_USER_DIR/$item"
-
-        if [ -e "$source_path" ]; then
-            if [ -L "$target_path" ]; then
-                rm "$target_path"
-            elif [ -e "$target_path" ]; then
-                echo -e "${BLUE}Warning: $target_path exists but is not a symlink. Skipping...${NC}"
-                continue
-            fi
-            echo -e "${GREEN}Creating symlink: $source_path -> $target_path${NC}"
-            ln -s "$source_path" "$target_path"
-        fi
-    done
-fi
-
 echo -e "${GREEN}All symbolic links have been recreated successfully!${NC}"
 
 
+# VSCode Mac
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/settings.json ${HOME}/Library/Application\ Support/Code/User/settings.json
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/keybindings.json ${HOME}/Library/Application\ Support/Code/User/keybindings.json
+
+rm -rf ${HOME}/Library/Application Support/Code/User/snippets
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/snippets ${HOME}/Library/Application\ Support/Code/User/snippets
+
+# Antigravity Mac
+rm -rf ${HOME}/Library/Application\ Support/Antigravity/User/settings.json
+rm -rf ${HOME}/Library/Application Support/Antigravity/User/snippets
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/settings.json ${HOME}/Library/Application\ Support/Antigravity/User/settings.json
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/keybindings.json ${HOME}/Library/Application\ Support/Antigravity/User/keybindings.json
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/snippets  ${HOME}/Library/Application\ Support/Antigravity/User/snippets
+
+
+# VSCode linux
+mkdir -p ${HOME}/.config/Code/User
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/settings.json ${HOME}/.config/Code/User/settings.json
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/keybindings.json ${HOME}/.config/Code/User/keybindings.json
+ln -sfh ${HOME}/projects/env_setup/bin/vscode/snippets  ${HOME}/.config/Code/User/snippets
 
