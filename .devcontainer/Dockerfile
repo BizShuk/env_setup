@@ -14,8 +14,10 @@ RUN useradd -m -s /bin/bash shuk \
     && echo "shuk ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 
+
 # Copy workspace into shuk's home
 RUN mkdir -p /home/shuk/projects && chown -R shuk:shuk /home/shuk/projects
+
 
 # Set default user
 USER shuk
