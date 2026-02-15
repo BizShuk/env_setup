@@ -610,6 +610,11 @@
   },
   "window.zoomLevel": 2,
   "containers.containers.label": "ContainerName",
-  "containers.containers.description": ["Image", "Status"],
-  "containers.containers.groupBy": "Compose Project Name"
+  "containers.containers.description": ["Image", "Ports", "Status"],
+  "containers.containers.groupBy": "Compose Project Name",
+  "git.ignoreMissingGitWarning": true,
+  "containers.images.label": "RepositoryNameShort",
+  "containers.images.description": ["Size"],
+  "containers.images.groupBy": "Registry",
+  "containers.images.sortBy": "Label"
 }
