@@ -120,7 +120,7 @@ kubectl port-forward pod/workspace-env_setup -n dev 2222:22
 
 ## 目錄結構
 
-```
+```tree
 devops/k3d/
 ├── k3d-config.yaml       # 叢集設定
 ├── Makefile              # 快捷指令
