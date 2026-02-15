@@ -20,6 +20,7 @@ This repository is a comprehensive collection of server setup scripts, developme
 - **`docker/`**: Docker-related configurations and sample files.
 - **`mac/`**: macOS specific setup scripts, AppleScripts, and notes.
 - **`grafana/` & `prometheus/`**: Monitoring configuration for Node Exporter and Prometheus.
+- **`.devcontainer/`**: Dev Container configuration (testing only, see note below).
 - **`specs/`**: Project specifications and discovery notes.
 - **`troubleshooting/`**: Scripts and notes for resolving common system issues.
 
@@ -39,6 +40,11 @@ The project includes a Go CLI built with Cobra.
 ### Setup Scripts (`setup/`)
 
 Automated setup scripts for setting up development environments on macOS and Ubuntu. Use these scripts to quickly initialize a new machine with preferred tools and configurations.
+
+### Dev Container (`.devcontainer/`)
+
+> [!NOTE]
+> The Dev Container is intended **for testing only** — it provides an Ubuntu-based environment to verify that setup scripts run correctly. It is **not associated with any service-level or production projects**.
 
 ## Reading List & Resources
 
@@ -63,4 +69,3 @@ Automated setup scripts for setting up development environments on macOS and Ubu
 ---
 
 [LICENSE](LICENSE)
-

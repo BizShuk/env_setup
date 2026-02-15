@@ -1,11 +1,8 @@
 {
-  "name": "Env Setup (Alpine)",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
-  },
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-  "workspaceFolder": "/home/shuk",
+  "name": "Env Setup (Ubuntu)",
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "workspace",
+  "workspaceFolder": "/home/shuk/projects/env_setup",
   "remoteUser": "shuk",
-  "postCreateCommand": "echo 'Container ready! Workspace mounted at /workspace, project at ~/projects/env_setup'"
+  "postCreateCommand": "git config --global --add safe.directory /home/shuk/projects/env_setup"
 }

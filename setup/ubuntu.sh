@@ -10,7 +10,7 @@
 sudo apt-get update && apt-get upgrade -y
 
 # Dev package
-sudo apt-get install -y build-essential
+sudo apt-get install -y build-essential update-locale locales
 sudo apt-get install -y autoconf make cmake
 sudo apt-get install -y python-dev python3-dev
 sudo apt-get install -y openssh-server libssl-dev
@@ -32,7 +32,7 @@ sudo apt-get install -y ibus-chewing    # 新酷音
 #####
 ##### Locale
 #####
-sudo locale-gen zh_TW.UTF-8 zh_TW.BIG5 en_US.UTF-8
+sudo locale-gen zh_TW.UTF-8 en_US.UTF-8
 
 sudo update-locale LANG="en_US.UTF-8"           # defaul locale if not found
 sudo update-locale LANGUAGE="en_US.UTF-8"
@@ -47,7 +47,7 @@ sudo update-locale LC_NAME="en_US.UTF-8"
 sudo update-locale LC_ADDRESSE="en_US.UTF-8"
 sudo update-locale LC_TELEPHONE="en_US.UTF-8"
 sudo update-locale LC_MEASUREMENT="en_US.UTF-8"
-sudo update-locale LC_IDENTICFICATION="etn_US.UTF-8"
+sudo update-locale LC_IDENTICFICATION="en_US.UTF-8"
 sudo update-locale LC_ALL=""        # 這是強制全部使用這裡的設定
 
 
