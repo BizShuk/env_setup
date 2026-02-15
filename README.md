@@ -63,4 +63,3 @@ Automated setup scripts for setting up development environments on macOS and Ubu
 ---
 
 [LICENSE](LICENSE)
-

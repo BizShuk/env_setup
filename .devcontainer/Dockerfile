@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd -m -s /bin/bash shuk \
     && echo "shuk ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+
 # Copy workspace into shuk's home
-COPY . /home/shuk/projects/env_setup
-RUN chown -R shuk:shuk /home/shuk/projects
+RUN mkdir -p /home/shuk/projects && chown -R shuk:shuk /home/shuk/projects
 
 # Set default user
 USER shuk

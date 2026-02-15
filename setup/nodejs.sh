@@ -27,11 +27,20 @@ cat <<EOF >>~/.bash_plugin
 export NVM_DIR=${NVM_DIR}
 source ${NVM_DIR}/nvm.sh
 export PATH=\${NVM_DIR}/versions/node/${NODE_VER}/bin:\${PATH}
+
 EOF
 
 nvm use --delete-prefix "${NODE_VER}" --silent
 
 #  NPM
 echo run this if npm is not there: curl -L http://npmjs.org/install.sh | sh
-echo "# [NodeJs:npm]"
-echo "export PATH=$(npm config get prefix)/bin:\$PATH" >>~/.bash_plugin
+
+source ${HOME}/.bash_plugin
+
+cat <<EOF >>~/.bash_plugin
+# [NodeJs:npm]
+export PATH=$(npm config get prefix)/bin:\$PATH
+
+EOF
+
+source ${HOME}/.bash_plugin
