@@ -17,7 +17,7 @@ echo -e "${BLUE}Starting system backup...${NC}"
 
 # 1. Homebrew Bundle Dump
 if [ -f "$SCRIPT_DIR/brew_bundle_dump" ]; then
-    echo -e "${YELLOW}[1/2] Dumping Homebrew bundle...${NC}"
+    echo -e "${YELLOW}[1/3] Dumping Homebrew bundle...${NC}"
     bash "$SCRIPT_DIR/brew_bundle_dump"
 else
     echo -e "⚠️  Warning: brew_bundle_dump not found in $SCRIPT_DIR"
@@ -25,10 +25,18 @@ fi
 
 # 2. VS Code Extension Dump
 if [ -f "$SCRIPT_DIR/vscode_extension_dump" ]; then
-    echo -e "${YELLOW}[2/2] Dumping VS Code extensions...${NC}"
+    echo -e "${YELLOW}[2/3] Dumping VS Code extensions...${NC}"
     bash "$SCRIPT_DIR/vscode_extension_dump"
 else
     echo -e "⚠️  Warning: vscode_extension_dump not found in $SCRIPT_DIR"
+fi
+
+# 3. Agy Extension Dump
+if [ -f "$SCRIPT_DIR/agy_extension_dump" ]; then
+    echo -e "${YELLOW}[3/3] Dumping Agy extensions...${NC}"
+    bash "$SCRIPT_DIR/agy_extension_dump"
+else
+    echo -e "⚠️  Warning: agy_extension_dump not found in $SCRIPT_DIR"
 fi
 
 echo -e "${GREEN}✅ System backup completed successfully!${NC}"
