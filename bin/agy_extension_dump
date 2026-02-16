@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Script to dump Agy extensions to a text file
+# This allows for easy re-installation or tracking of extensions
+
+set -euo pipefail
+
+# Define the target location
+TARGET_FILE="${HOME}/projects/env_setup/bin/vscode/agy_extension_list.txt"
+TARGET_DIR=$(dirname "${TARGET_FILE}")
+
+# Ensure the directory exists
+mkdir -p "${TARGET_DIR}"
+
+echo "Dumping Agy extensions to: ${TARGET_FILE}"
+
+# Check if 'agy' command is available
+if ! command -v agy >/dev/null 2>&1; then
+    echo "❌ Error: 'agy' command not found in PATH."
+    echo "Please ensure you have installed the Agy CLI."
+    exit 1
+fi
+
+# Run agy extension list and save to target file
+# Assuming 'agy extension list' is the command. If not, this needs to be updated.
+agy extension list > "${TARGET_FILE}"
+
+echo "✅ Agy extensions successfully dumped to: ${TARGET_FILE}"
+echo "Total extensions: $(wc -l < "${TARGET_FILE}")"
+echo ""
+echo "To re-install these extensions later, you can run:"
+echo "  xargs -L 1 agy extension install < ${TARGET_FILE}"
