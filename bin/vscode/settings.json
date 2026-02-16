@@ -22,7 +22,7 @@
     ".env": ".env.*,",
     "go.mod": "go.sum",
     "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc",
-    "*": "${capture}.bak,${capture}.read,${capture}.fake,${capture}*.sample,${capture}*.output",
+    "*": "${capture}.bak,${capture}.read,${capture}.fake,${capture}*.sample,${capture}*.output,${capture}.md",
     "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,.geminiignore,.gitmodules,README.*",
     "*.sqlite": "${capture}.${extname}-*",
     "*.db": "${capture}.${extname}-*",
@@ -66,7 +66,7 @@
     "archive": true,
     "{.git,.gitlab,.pre-commit-config.yaml}": true,
     "{*.code-workspace,.golangci.yml,go.sum}": true,
-    "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": true,
+    "{.specify,.gemini,.claude,.agents,.serena,.ttadk,.coco}": true,
     "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
     "{.vscode}": false,
     "{.devops,.settings}": true,
@@ -485,7 +485,14 @@
   // "markdown.styles": [
   //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
   // ]
-  "shellcheck.exclude": ["2002", "1090"],
+  "shellcheck.exclude": [
+    "2002",
+    "1090",
+    "SC2155",
+    "SC2156",
+    "SC2086",
+    "SC2206"
+  ],
   "shellcheck.customArgs": ["-x"],
   "editor.minimap.size": "fit",
   "editor.minimap.showSlider": "always",
@@ -615,5 +622,6 @@
   "containers.images.label": "RepositoryNameShort",
   "containers.images.description": ["Size"],
   "containers.images.groupBy": "Registry",
-  "containers.images.sortBy": "Label"
+  "containers.images.sortBy": "Label",
+  "todo.file.name": "README.todo"
 }

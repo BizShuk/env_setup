@@ -7,22 +7,22 @@ ls -s README.md CLAUDE.md
 
 mkdir .vscode
 
-mkdir .agents
-ln -sfh .agents .gemini
-ln -sfh .agents .agent
-ln -sh .agents .claude
+mkdir .agent
+ln -sfh .agent .gemini
+ln -sfh .agent .agents
+ln -sh .agent .claude
 echo "If .claude is used in this project, then $(ln -s .claude .agents)"
 
-mkdir -p .agents/rules
-mkdir -p .agents/skills
+mkdir -p .agent/rules
+mkdir -p .agent/skills
 
 
 ln -sfh .gitignore .geminiignore
 
 
-if [ ! -f ".agents/settings.json" ]; then
+if [ ! -f ".agent/settings.json" ]; then
 
-cat <<EOF > .agents/settings.json
+cat <<EOF > .agent/settings.json
 {
   "mcp": {
     "excluded": [
@@ -39,7 +39,7 @@ project_path=$(pwd)
 project_name=$(basename "$project_path")
 
 if [ -d "$HOME/projects/llm_plugin" ]; then
-  ln -sfh "$(pwd)/.agents" "$HOME/projects/llm_plugin/projects/${project_name}"
+  ln -sfh "$(pwd)/.agent" "$HOME/projects/llm_plugin/projects/${project_name}"
 fi
 
 

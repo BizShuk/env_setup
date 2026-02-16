@@ -1,27 +1,25 @@
-本地主機 (Local Host): 192.168.2.118 (Shuk-Air)
+本地主機 (Local Host): 192.168.31.20 (shuk-Mac-mini)
 └── 網路子網拓撲 (Network Subnet Topology): 192.168.11.0/24
     ├── 192.168.11.16
-    │   ├── 53/tcp (domain) - Cloudflare public DNS
-    │   ├── 80/tcp (http) - nginx
-    │   ├── 443/tcp (ssl/http) - nginx
-    │   └── 8080/tcp (http) - nginx
+    │   ├── 53/tcp (domain)
+    │   ├── 80/tcp (http)
+    │   ├── 443/tcp (https)
+    │   └── 8080/tcp (http-proxy)
     └── 網路子網拓撲 (Network Subnet Topology): 192.168.31.0/24
-        ├── 192.168.31.64 (shuk-MS-7756)
-        │   └── 22/tcp (ssh) - OpenSSH 9.6p1 Ubuntu 3ubuntu13.14 (Ubuntu Linux; protocol 2.0)
+        ├── 192.168.31.1
+        │   ├── 53/tcp (domain)
+        │   ├── 80/tcp (http)
+        │   ├── 443/tcp (https)
+        │   └── 8080/tcp (http-proxy)
+        ├── 192.168.31.68
         ├── 192.168.31.89
+        │   ├── 23/tcp (telnet)
+        │   ├── 80/tcp (http)
+        │   └── 443/tcp (https)
         ├── 192.168.31.90
-        ├── 192.168.31.96 (Galaxy-A17-5G)
-        ├── 192.168.31.132 (Galaxy-A52-5G)
-        ├── 192.168.31.162 (DIR-618)
-        │   └── 80/tcp (http) - Boa HTTPd 0.94.14rc21
-        ├── 192.168.31.220
-        ├── 192.168.31.241
-        └── 網路子網拓撲 (Network Subnet Topology): 192.168.2.0/24
-            ├── 192.168.2.1
-            │   └── 80/tcp (http) - Boa HTTPd 0.94.14rc21
-            ├── 192.168.2.100
-            ├── 192.168.2.102
-            │   ├── 80/tcp (http) - Canon Pixma printer http config (KS_HTTP 1.0)
-            │   ├── 515/tcp (printer)
-            │   └── 631/tcp (ipp) - CUPS 1.4
-            └── 192.168.2.103
+        │   ├── 8008/tcp (http)
+        │   ├── 8009/tcp (ajp13)
+        │   └── 8443/tcp (https-alt)
+        ├── 192.168.31.132
+        ├── 192.168.31.156
+        └── 192.168.31.192
