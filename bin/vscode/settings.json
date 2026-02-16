@@ -64,7 +64,7 @@
   "files.exclude": {
     "{.svn,.hg,.DS_Store,Thumbs.db}": true,
     "archive": true,
-    "{.git,.gitlab,.pre-commit-config.yaml}": true,
+    "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
     "{*.code-workspace,.golangci.yml,go.sum}": true,
     "{.specify,.gemini,.claude,.agents,.serena,.ttadk,.coco}": true,
     "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
@@ -403,6 +403,10 @@
   "todo.file.exclude": ["[!{README.todo}]"],
   "todo-tree.filtering.includeGlobs": ["**/*.{go,md,ts,js,py,css,html}"],
   "todo-tree.filtering.ignoreGitSubmodules": true,
+  "todo-tree.general.tags": ["ISSUE", "TODO", "XXX", "[ ]", "[x]"],
+  "todo-tree.tree.groupedByTag": true,
+  "todo-tree.general.tagGroups": {},
+  "todo-tree.tree.groupedBySubTag": false,
   "todo.embedded.include": ["**/*.{go,md,ts,js,py,css,html,sh}"],
   "todo.embedded.exclude": ["**", "**/*"],
   // [html]
@@ -476,7 +480,7 @@
   },
   "workbench.editorAssociations": {
     "*.copilotmd": "vscode.markdown.preview.editor",
-    "*.md": "default",
+    "*.md": "vscode.markdown.preview.editor",
     "*.mm.md": "markmap-vscode.markmap",
     "*.markdown": "default",
     "*.csv": "default"
@@ -623,5 +627,7 @@
   "containers.images.description": ["Size"],
   "containers.images.groupBy": "Registry",
   "containers.images.sortBy": "Label",
-  "todo.file.name": "README.todo"
+  "todo.file.name": "README.todo",
+  "antigravity.marketplaceGalleryItemURL": "https://marketplace.visualstudio.com/items",
+  "antigravity.marketplaceExtensionGalleryServiceURL": "https://marketplace.visualstudio.com/_apis/public/gallery"
 }

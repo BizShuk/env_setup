@@ -1,16 +1,25 @@
 #!/bin/bash
 
 echo "" >> README.md
-ln -s README.md AGENTS.md
-ln -s README.md GEMINI.md
-ls -s README.md CLAUDE.md
+echo "" >> GEMINI.md
+# ln -sf README.md AGENTS.md
+# ln -sf README.md GEMINI.md
+# ln -sf README.md CLAUDE.md
 
-mkdir .vscode
+# Initialize documentation files if they don't exist
+[ ! -f "README.todo" ] && echo -e "TODO:\n    ☐ " > README.todo
+[ ! -f "README.prompt.md" ] && cat <<EOF > README.prompt.md
+# AI Prompts & Coding Patterns
+
+This file contains useful prompts and established coding patterns for this project.
+EOF
+
+
 
 mkdir .agent
 ln -sfh .agent .gemini
-ln -sfh .agent .agents
-ln -sh .agent .claude
+# ln -sfh .agent .agents
+# ln -sh .agent .claude
 echo "If .claude is used in this project, then $(ln -s .claude .agents)"
 
 mkdir -p .agent/rules
