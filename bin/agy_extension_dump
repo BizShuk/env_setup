@@ -23,7 +23,7 @@ fi
 
 # Run agy extension list and save to target file
 # Assuming 'agy extension list' is the command. If not, this needs to be updated.
-agy extension list > "${TARGET_FILE}"
+agy --list-extensions > "${TARGET_FILE}"
 
 echo "✅ Agy extensions successfully dumped to: ${TARGET_FILE}"
 echo "Total extensions: $(wc -l < "${TARGET_FILE}")"
