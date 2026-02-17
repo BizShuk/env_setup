@@ -15,13 +15,13 @@ This file contains useful prompts for this project.
 EOF
 
 
-# .agent setup
-mkdir -p .agent/rules
-mkdir -p .agent/skills
+# .agents setup
+mkdir -p .agents/rules
+mkdir -p .agents/skills
 
-if [ ! -f ".agent/settings.json" ]; then
+if [ ! -f ".agents/settings.json" ]; then
 
-cat <<EOF > .agent/settings.json
+cat <<EOF > .agents/settings.json
 {
   "mcp": {
     "excluded": [
@@ -35,9 +35,9 @@ EOF
 fi
 
 # symbolic link
-ln -sfh .agent .gemini
-# ln -sfh .agent .agents
-# ln -sh .agent .claude
+ln -sfh .agents .gemini
+# ln -sfh .agents .agentss
+# ln -sh .agents .claude
 
 ln -sfh .gitignore .geminiignore
 
@@ -46,7 +46,7 @@ project_path=$(pwd)
 project_name=$(basename "$project_path")
 
 if [ -d "$HOME/projects/llm_plugin" ]; then
-  ln -sfh "$(pwd)/.agent" "$HOME/projects/llm_plugin/projects/${project_name}"
+  ln -sfh "$(pwd)/.agents" "$HOME/projects/llm_plugin/projects/${project_name}"
 fi
 
 
