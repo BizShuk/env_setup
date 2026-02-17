@@ -28,3 +28,6 @@
 [submodule "bin/bash/.vim/bundle/vim-jsx"]
 	path = bin/bash/.vim/bundle/vim-jsx
 	url = https://github.com/mxw/vim-jsx.git
+[submodule "devops/grafana/plugins/bosun-grafana-app"]
+	path = devops/grafana/plugins/bosun-grafana-app
+	url = https://github.com/bosun-monitor/bosun-grafana-app.git

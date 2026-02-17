@@ -11,13 +11,49 @@ cd inf
 docker-compose up -d coredns
 ```
 
-### 2. Configure macOS Resolver
+### 2. Configure Host Resolver (One-time Setup)
+
+#### macOS
+
+This is a **one-time setup** on your macOS host to route `.test` queries to the local CoreDNS container.
 
 ```bash
-./bin/setup_local_dns
+# Create the resolver directory and file
+sudo mkdir -p /etc/resolver
+sudo tee /etc/resolver/test > /dev/null <<EOF
+nameserver 127.0.0.1
+port 10053
+EOF
 ```
 
-This will configure macOS to route all `.test` domain queries to the CoreDNS container.
+#### Note for Colima Users
+
+If you are using Colima, the default `ssh` network driver does not support UDP port forwarding. You must switch to the `grpc` driver to allow DNS resolution:
+
+````bash
+# Edit Colima configuration
+colima start --edit
+# Change 'network: driver: ssh' to 'network: driver: grpc'
+```
+
+
+
+#### Ubuntu (systemd-resolved)
+
+On modern Ubuntu (20.04+), you can use `systemd-resolved` to route specific domains.
+
+```bash
+# Create the configuration directory and file
+sudo mkdir -p /etc/systemd/resolved.conf.d
+sudo tee /etc/systemd/resolved.conf.d/test-domain.conf > /dev/null <<EOF
+[Resolve]
+DNS=127.0.0.1:10053
+Domains=~test
+EOF
+
+# Restart systemd-resolved to apply changes
+sudo systemctl restart systemd-resolved
+````
 
 ### 3. Verify DNS Resolution
 

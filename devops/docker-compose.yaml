@@ -1,109 +1,138 @@
 name: Inf_Stack
 services:
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    restart: unless-stopped
-    ports:
-      - "9090:9090"
-    volumes:
-      # Using one volume for both config and data via subpaths/multiple mounts
-      - prometheus_data:/etc/prometheus
-      - prometheus_data:/prometheus
-      # Bind mount for the specific config file
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
-    networks:
-      - inf_network
+    prometheus:
+        image: prom/prometheus:latest
+        container_name: prometheus
+        restart: unless-stopped
+        ports:
+            - "9090:9090"
+        volumes:
+            # Using one volume for both config and data via subpaths/multiple mounts
+            - prometheus_data:/etc/prometheus
+            - prometheus_data:/prometheus
+            # Bind mount for the specific config file
+            - ./grafana/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+        command:
+            - "--config.file=/etc/prometheus/prometheus.yml"
+            - "--storage.tsdb.path=/prometheus"
+        networks:
+            - inf_network
 
-  pushgateway:
-    image: prom/pushgateway:latest
-    container_name: pushgateway
-    restart: unless-stopped
-    ports:
-      - "9091:9091" # No conflict with 9090
-    volumes:
-      - pushgateway_data:/data
-    networks:
-      - inf_network
+    pushgateway:
+        image: prom/pushgateway:latest
+        container_name: pushgateway
+        restart: unless-stopped
+        ports:
+            - "9091:9091" # No conflict with 9090
+        volumes:
+            - pushgateway_data:/data
+        networks:
+            - inf_network
 
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: defaultDB
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - inf_network
+    mysql:
+        image: mysql:8.0
+        container_name: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: rootpassword
+            MYSQL_DATABASE: defaultDB
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql_data:/var/lib/mysql
+        networks:
+            - inf_network
 
-  influxdb:
-    image: influxdb:2.7
-    container_name: influxdb
-    restart: unless-stopped
-    ports:
-      - "8086:8086"
-    environment:
-      - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=admin
-      - DOCKER_INFLUXDB_INIT_PASSWORD=adminpassword
-      - DOCKER_INFLUXDB_INIT_ORG=inf
-      - DOCKER_INFLUXDB_INIT_BUCKET=default
-    volumes:
-      - influxdb_data:/var/lib/influxdb2
-      - influxdb_data:/etc/influxdb2
-    networks:
-      - inf_network
+    influxdb:
+        image: influxdb:2.7
+        container_name: influxdb
+        restart: unless-stopped
+        ports:
+            - "8086:8086"
+        environment:
+            - DOCKER_INFLUXDB_INIT_MODE=setup
+            - DOCKER_INFLUXDB_INIT_USERNAME=admin
+            - DOCKER_INFLUXDB_INIT_PASSWORD=adminpassword
+            - DOCKER_INFLUXDB_INIT_ORG=inf
+            - DOCKER_INFLUXDB_INIT_BUCKET=default
+        volumes:
+            - influxdb_data:/var/lib/influxdb2
+            - influxdb_data:/etc/influxdb2
+        networks:
+            - inf_network
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_INSTALL_PLUGINS=
-      - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_SERVER_PROTOCOL=https
-      - GF_SERVER_CERT_FILE=/etc/grafana/certs/localhost.crt
-      - GF_SERVER_CERT_KEY=/etc/grafana/certs/localhost.key
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning:ro
-      - ./grafana/certs:/etc/grafana/certs:ro
-    networks:
-      - inf_network
-    depends_on:
-      - prometheus
-      - influxdb
+    grafana:
+        image: grafana/grafana:latest
+        container_name: grafana
+        restart: unless-stopped
+        ports:
+            - "3000:3000"
+        environment:
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=admin
+            - GF_INSTALL_PLUGINS=
+            - GF_USERS_ALLOW_SIGN_UP=false
+            - GF_SERVER_PROTOCOL=https
+            - GF_SERVER_CERT_FILE=/etc/grafana/certs/localhost.crt
+            - GF_SERVER_CERT_KEY=/etc/grafana/certs/localhost.key
+        volumes:
+            - grafana_data:/var/lib/grafana
+            - ./grafana/provisioning:/etc/grafana/provisioning:ro
+            - ./grafana/certs:/etc/grafana/certs:ro
+        networks:
+            - inf_network
+        depends_on:
+            - prometheus
+            - influxdb
 
-  coredns:
-    image: coredns/coredns:latest
-    container_name: coredns
-    restart: unless-stopped
-    ports:
-      - "10053:53/udp"
-      - "10053:53/tcp"
-    volumes:
-      - ./coredns/Corefile:/Corefile:ro
-    command: -conf /Corefile
-    networks:
-      - inf_network
+    coredns:
+        image: coredns/coredns:latest
+        container_name: coredns
+        restart: unless-stopped
+        ports:
+            - "10053:53/udp"
+            - "10053:53/tcp"
+        volumes:
+            - ./coredns/Corefile:/Corefile:ro
+        command: -conf /Corefile
+        networks:
+            - inf_network
+
+    opentsdb:
+        image: petergrace/opentsdb-docker:latest
+        container_name: opentsdb
+        restart: unless-stopped
+        ports:
+            - "4242:4242"
+        volumes:
+            - opentsdb_data:/data/hbase
+        networks:
+            - inf_network
+
+    # bosun:
+    #     # NOTE: Bosun is an archived project and only supports amd64 (no arm64/Apple Silicon support).
+    #     image: stackexchange/bosun:latest
+    #     container_name: bosun
+    #     restart: unless-stopped
+    #     ports:
+    #         - "8040:8070"
+    #     volumes:
+    #         - ./grafana/bosun/bosun.conf:/data/bosun.conf:ro
+    #         - bosun_data:/data
+    #     depends_on:
+    #         - opentsdb
+    #     command: ["-c", "/data/bosun.conf"]
+    #     networks:
+    #         - inf_network
 
 # Port Conflict Notes:
+# - Grafana: 3000 (Default)
+# - MySQL: 3306 (Default)
+# - OpenTSDB: 4242 (Default)
+# - Bosun: 8040 (Mapped to 8070)
+# - InfluxDB: 8086 (Default)
 # - Prometheus: 9090 (Default)
 # - Pushgateway: 9091 (Default)
-# - MySQL: 3306 (Default)
-# - InfluxDB: 8086 (Default)
-# - Grafana: 3000 (Default)
 # - CoreDNS: 10053/udp,tcp (DNS - uses non-standard port to avoid Colima conflict)
 # There are no internal port conflicts among these services.
 # Note: If these ports are already in use by other stacks,
@@ -111,12 +140,14 @@ services:
 # CoreDNS uses port 10053 on the host to avoid macOS port 53 conflicts.
 
 volumes:
-  prometheus_data:
-  pushgateway_data:
-  mysql_data:
-  influxdb_data:
-  grafana_data:
+    prometheus_data:
+    pushgateway_data:
+    mysql_data:
+    influxdb_data:
+    grafana_data:
+    opentsdb_data:
+    bosun_data:
 
 networks:
-  inf_network:
-    driver: bridge
+    inf_network:
+        driver: bridge

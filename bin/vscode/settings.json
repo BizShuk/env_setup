@@ -40,7 +40,7 @@
         "Makefile": "Makefile*",
         ".env": ".env.*,",
         "go.mod": "go.sum",
-        "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc",
+        "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,.env*",
         "*": "${capture}.bak,${capture}.read,${capture}.fake,${capture}*.sample,${capture}*.output,${capture}.md",
         "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,.geminiignore,.gitmodules,README.*",
         "*.sqlite": "${capture}.${extname}-*",
@@ -101,7 +101,7 @@
         "archive": true,
         "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.specify,.gemini,.claude,.agents,.serena,.ttadk,.coco}": false,
+        "{.specify,.gemini,.claude,.agents,.serena,.ttadk,.coco}": true,
         "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
         "{.vscode}": false,
         "{.devops,.settings}": true,
@@ -282,6 +282,9 @@
     "markdownlint.config": {
         "default": true,
         "MD001": false,
+        "MD007": {
+            "indent": 4
+        },
         "MD009": {
             "br_spaces": 2
         },
@@ -636,6 +639,7 @@
 
     "makefile.configureOnOpen": false,
     "http.systemCertificatesNode": true,
-    "highlight.enabled": true
+    "highlight.enabled": true,
+    "redhat.telemetry.enabled": false
     // end
 }

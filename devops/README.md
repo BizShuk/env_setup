@@ -11,6 +11,7 @@ This directory contains configuration for the infrastructure stack (Inf Stack) i
 - [**Pushgateway**](README.pushgateway.md) - Metric pusher for batch jobs
 - [**CoreDNS**](README.core_dns.md) - Local service discovery (DNS)
 - [**Node Exporter**](README.node_exporter.md) - Hardware/OS metrics
+- [**OpenTSDB**](README.opentsdb.md) - Scalable Time Series Database
 
 ## Control Commands
 
