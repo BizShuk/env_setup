@@ -15,13 +15,24 @@ This file contains useful prompts for this project.
 EOF
 
 
-# .agents setup
-mkdir -p .agents/rules
-mkdir -p .agents/skills
+# Handle legacy symbolic link or mapping
+if [ -L ".agent" ]; then
+  echo "Removing existing .agent symbolic link..."
+  rm ".agent"
+fi
 
-if [ ! -f ".agents/settings.json" ]; then
+if [ -d ".agents" ] && [ ! -d ".agent" ]; then
+  echo "Moving .agents directory to .agent..."
+  mv ".agents" ".agent"
+fi
 
-cat <<EOF > .agents/settings.json
+# .agent setup , due to Antigravity can't recognize symbolic link
+mkdir -p .agent/rules
+mkdir -p .agent/skills
+
+if [ ! -f ".agent/settings.json" ]; then
+
+cat <<EOF > .agent/settings.json
 {
   "mcp": {
     "excluded": [
@@ -35,9 +46,10 @@ EOF
 fi
 
 # symbolic link
-ln -sfh .agents .gemini
-# ln -sfh .agents .agentss
-# ln -sh .agents .claude
+ln -sfh .agent .gemini
+ln -sfh .agent .agents
+# ln -sfh .agent .agents
+# ln -sh .agent .claude
 
 ln -sfh .gitignore .geminiignore
 
@@ -46,7 +58,7 @@ project_path=$(pwd)
 project_name=$(basename "$project_path")
 
 if [ -d "$HOME/projects/llm_plugin" ]; then
-  ln -sfh "$(pwd)/.agents" "$HOME/projects/llm_plugin/projects/${project_name}"
+  ln -sfh "$(pwd)/.agent" "$HOME/projects/llm_plugin/projects/${project_name}"
 fi
 
 
