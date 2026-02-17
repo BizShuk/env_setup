@@ -1,15 +1,34 @@
 {
+  "settingsSync.ignoredExtensions": [],
   "window.title": "${activeEditorFull}${separator}${rootName}",
   "window.openFoldersInNewWindow": "on",
   // [workbench]
   "workbench.startupEditor": "none",
   "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorCustomizations": {},
+  "workbench.editor.tabActionLocation": "right",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.md": "default",
+    "*.mm.md": "markmap-vscode.markmap",
+    "*.markdown": "default",
+    "*.csv": "default"
+  },
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.tree.expandMode": "singleClick",
+  "workbench.tree.indent": 8,
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.tree.stickyScrollMaxItemCount": 2,
+
+  // [security]
   "security.workspace.trust.untrustedFiles": "open",
+  "security.promptForRemoteFileProtocolHandling": false,
   // [explorer]
-  "explorer.openEditors.visible": 2,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
+  "explorer.confirmPasteNative": false,
   "explorer.excludeGitIgnore": false,
+  "explorer.openEditors.visible": 2,
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.ts": "${capture}.js",
@@ -32,33 +51,43 @@
     "*.s3db": "${capture}.${extname}-*"
   },
   // [editor]
+  "editor.accessibilitySupport": "off",
+  "editor.autoIndent": "advanced",
+  "editor.codeActions.triggerOnFocusChange": true,
+  "editor.comments.insertSpace": true,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.find.seedSearchStringFromSelection": "selection",
+  "editor.fontSize": 10,
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.edits.showCollapsed": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.insertSpaces": true,
+  "editor.lineNumbers": "on",
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.showSlider": "always",
+  "editor.minimap.size": "fit",
+  "editor.showFoldingControls": "always",
+  "editor.snippetSuggestions": "inline",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 4,
+  "editor.unicodeHighlight.invisibleCharacters": false,
   "editor.wordWrap": "wordWrapColumn",
   "editor.wordWrapColumn": 220,
-  "editor.fontSize": 10,
   "editor.quickSuggestions": {
     "comments": "on",
     "strings": "on",
     "other": "on"
   },
-  "editor.autoIndent": "full",
-  "editor.showFoldingControls": "always",
-  "editor.find.seedSearchStringFromSelection": "selection",
-  "editor.lineNumbers": "on",
-  "editor.tabCompletion": "on",
-  "editor.insertSpaces": true,
-  "editor.tabSize": 4,
-  "editor.accessibilitySupport": "off",
-  "editor.snippetSuggestions": "inline",
-  "editor.copyWithSyntaxHighlighting": false,
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  "editor.inlineSuggest.enabled": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit"
   },
-  "editor.comments.insertSpace": true,
-  "editor.linkedEditing": true,
+  // [scm]
+  "scm.defaultViewMode": "tree",
+  "scm.repositories.selectionMode": "single",
   // [diff editor]
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.codeLens": true,
@@ -173,20 +202,35 @@
   "terminal.integrated.enableMultiLinePasteWarning": "never",
   "terminal.integrated.defaultProfile.osx": "bash",
   "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.suggest.quickSuggestions": {
+    "commands": "on",
+    "arguments": "on",
+    "unknown": "off"
+  },
+  "terminal.integrated.enableVisualBell": true,
+  "terminal.integrated.suggest.enabled": true,
+  "terminal.integrated.suggest.providers": {
+    "lsp": true
+  },
+  "accessibility.signals.terminalBell": {
+    "sound": "on",
+    "announcement": "auto"
+  },
   // [git]
-  "git.enableSmartCommit": true,
-  "git.showPushSuccessNotification": true,
   "git.autofetch": true,
-  "git.fetchOnPull": true,
+  "git.autofetchPeriod": 1800,
   "git.autoStash": true,
   "git.confirmSync": false,
-  "git.followTagsWhenSync": true,
-  "git.pruneOnFetch": true,
-  "git.untrackedChanges": "separate",
-  "git.autofetchPeriod": 1800,
-  "git.ignoreSubmodules": true,
   "git.detectSubmodules": false,
+  "git.enableSmartCommit": true,
+  "git.fetchOnPull": true,
+  "git.followTagsWhenSync": true,
+  "git.ignoreMissingGitWarning": true,
+  "git.ignoreSubmodules": true,
   "git.openRepositoryInParentFolders": "always",
+  "git.pruneOnFetch": true,
+  "git.showPushSuccessNotification": true,
+  "git.untrackedChanges": "separate",
   // [go]
   "go.toolsManagement.autoUpdate": true,
   "go.diagnostic.vulncheck": "Off", // ???
@@ -228,6 +272,10 @@
   // [javascript] [npm] [node] [typescript] [js] [jest]
   "javascript.updateImportsOnFileMove.enabled": "always",
   // [Markdown]
+  // [New]
+  // "markdown.styles": [
+  //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  // ]
   "markdown.copyFiles.destination": {
     "**/*": "assets/images/md/${documentBaseName}-${fileName}"
   },
@@ -246,6 +294,7 @@
     "MD053": false,
     "SA9003": false
   },
+
   // [highlight] [todo]
   "highlight.regexes": {
     "([S]{0,1}\\$)": [
@@ -378,6 +427,7 @@
       }
     ]
   },
+  "todo.file.name": "README.todo",
   "todo.tags.names": [
     "Critical",
     "High",
@@ -415,9 +465,7 @@
   "todo-tree.tree.groupedBySubTag": false,
   "todo.embedded.include": ["**/*.{go,md,ts,js,py,css,html,sh}"],
   "todo.embedded.exclude": ["**", "**/*"],
-  // [html]
-  "html.format.enable": true,
-  "debug.javascript.autoAttachFilter": "disabled",
+
   // [github]
   "githubPullRequests.pushBranch": "always",
   "githubIssues.queries": [
@@ -458,8 +506,6 @@
   ],
   // [Editor by Language]
   "[yaml]": {
-    "editor.tabSize": 4,
-    "editor.autoIndent": "advanced",
     "editor.quickSuggestions": {
       "comments": false,
       "strings": true
@@ -468,7 +514,6 @@
 
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.trimWhitespaceOnDelete": false,
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "editor.trimAutoWhitespace": false
@@ -476,26 +521,8 @@
   "[todo]": {
     "files.trimTrailingWhitespace": false
   },
-  "notebook.lineNumbers": "on",
-  "workbench.colorCustomizations": {},
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "workbench.editor.tabActionLocation": "right",
-  "explorer.confirmPasteNative": false,
-  "notebook.cellToolbarLocation": {
-    "default": "right",
-    "jupyter-notebook": "right"
-  },
-  "workbench.editorAssociations": {
-    "*.copilotmd": "vscode.markdown.preview.editor",
-    "*.md": "default",
-    "*.mm.md": "markmap-vscode.markmap",
-    "*.markdown": "default",
-    "*.csv": "default"
-  },
-  // [New]
-  // "markdown.styles": [
-  //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-  // ]
+
+  // [shellcheck]
   "shellcheck.exclude": [
     "2002",
     "1090",
@@ -505,33 +532,55 @@
     "SC2206"
   ],
   "shellcheck.customArgs": ["-x"],
-  "editor.minimap.size": "fit",
-  "editor.minimap.showSlider": "always",
-  "editor.minimap.renderCharacters": false,
-  "[dockercompose]": {
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2,
-    "editor.autoIndent": "advanced"
+
+  // [Container]
+  "containers.commands.run": "${containerCommand} run --rm -d ${exposedPorts} ${tag}",
+  "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
+  "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
+  "containers.containers.label": "ContainerName",
+  "containers.containers.description": ["Image", "Ports", "Status"],
+  "containers.containers.groupBy": "Compose Project Name",
+  "containers.images.label": "RepositoryNameShort",
+  "containers.images.description": ["Size"],
+  "containers.images.groupBy": "Registry",
+  "containers.images.sortBy": "Label",
+
+  // SQLite
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "DB1.local",
+      "database": "${workspaceFolder:crawler}/inf/db/local.sqlite"
+    }
+  ],
+  "sqltools.results.location": "current",
+
+  // [Remote]
+  "remote.SSH.useExecServer": false,
+  "remote.SSH.remotePlatform": {
+    "*cube-*": "linux"
   },
-  //
-  "terminal.integrated.suggest.quickSuggestions": {
-    "commands": "on",
-    "arguments": "on",
-    "unknown": "off"
-  },
-  "terminal.integrated.enableVisualBell": true,
-  "accessibility.signals.terminalBell": {
-    "sound": "on",
-    "announcement": "auto"
-  },
-  "terminal.integrated.suggest.enabled": true,
-  "terminal.integrated.suggest.providers": {
-    "lsp": true
-  },
+  "remote.defaultExtensionsIfInstalledLocally": [
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    "GitHub.vscode-pull-request-github"
+  ],
+
+  // [plugin market]
+  "antigravity.marketplaceGalleryItemURL": "https://marketplace.visualstudio.com/items",
+  "antigravity.marketplaceExtensionGalleryServiceURL": "https://marketplace.visualstudio.com/_apis/public/gallery",
+
+  // [VSCode Copilot]
   "chat.mcp.gallery.enabled": true,
   "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
   "inlineChat.enableV2": true,
   "chat.disableAIFeatures": true,
+  // [Claude Code]
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.selectedModel": "opus",
+  // [Gemini]
   "geminicodeassist.enable": true,
   "geminicodeassist.codeGenerationPaneViewEnabled": true,
   "geminicodeassist.inlineSuggestions.enableAuto": true,
@@ -546,6 +595,7 @@
   "geminicodeassist.project": "useful-iterator-4s3kg",
   "geminicodeassist.languages": [
     "*",
+    "markdown",
     "go",
     "python",
     "javascript",
@@ -555,14 +605,6 @@
     "html",
     "yaml"
   ],
-  "scm.defaultViewMode": "tree",
-  "settingsSync.ignoredExtensions": [],
-  "[dockerfile]": {
-    "editor.formatOnSave": true,
-    "editor.quickSuggestions": {
-      "strings": true
-    }
-  },
   // trae
   "trae.internal.chatLanguage": "auto",
   "trae.internal.enableInlineChat": true,
@@ -572,72 +614,23 @@
   "trae.internal.tab.enableRename": false,
   "trae.internal.tab.enableAutoImport": false,
   "trae.internal.tab.cue": true,
+
+  // [misc]
+  "html.format.enable": true,
+  "debug.javascript.autoAttachFilter": "disabled",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  "notebook.lineNumbers": "on",
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "right"
+  },
+
   "gitlens.ai.model": "vscode",
   "gitlens.ai.vscode.model": "copilot:gpt-4.1",
-  "editor.inlineSuggest.edits.showCollapsed": true,
+
   "makefile.configureOnOpen": false,
-  // SQLite
-  "sqltools.useNodeRuntime": true,
-  "sqltools.connections": [
-    {
-      "previewLimit": 50,
-      "driver": "SQLite",
-      "name": "DB1.local",
-      "database": "${workspaceFolder:crawler}/inf/db/local.sqlite"
-    }
-  ],
-  "[sql]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "sqltools.results.location": "current",
   "http.systemCertificatesNode": true,
-  "remote.SSH.useExecServer": false,
-  "remote.SSH.remotePlatform": {
-    "*cube-*": "linux"
-  },
-  "editor.unicodeHighlight.invisibleCharacters": false,
-  "editor.codeActions.triggerOnFocusChange": true,
-  "workbench.tree.renderIndentGuides": "always",
-  "workbench.tree.expandMode": "singleClick",
-  "workbench.tree.indent": 8,
-  "workbench.tree.enableStickyScroll": true,
-  "workbench.tree.stickyScrollMaxItemCount": 2,
-  "containers.commands.run": "${containerCommand} run --rm -d ${exposedPorts} ${tag}",
-  "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
-  "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
-  "remote.defaultExtensionsIfInstalledLocally": [
-    "GitHub.copilot",
-    "GitHub.copilot-chat",
-    "GitHub.vscode-pull-request-github"
-  ],
-  "claudeCode.preferredLocation": "panel",
-  "claudeCode.selectedModel": "opus",
-  "security.promptForRemoteFileProtocolHandling": false,
-  "prettier.trailingComma": "none",
-  "python.languageServer": "Default",
-  "githubPullRequests.fileListLayout": "tree",
-  "redhat.telemetry.enabled": false,
-  "scm.repositories.selectionMode": "single",
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "containers.containers.label": "ContainerName",
-  "containers.containers.description": ["Image", "Ports", "Status"],
-  "containers.containers.groupBy": "Compose Project Name",
-  "git.ignoreMissingGitWarning": true,
-  "containers.images.label": "RepositoryNameShort",
-  "containers.images.description": ["Size"],
-  "containers.images.groupBy": "Registry",
-  "containers.images.sortBy": "Label",
-  "todo.file.name": "README.todo",
-  "antigravity.marketplaceGalleryItemURL": "https://marketplace.visualstudio.com/items",
-  "antigravity.marketplaceExtensionGalleryServiceURL": "https://marketplace.visualstudio.com/_apis/public/gallery",
-  "editor.minimap.enabled": false,
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "prettier.trailingComma": "none"
+  // end
 }
