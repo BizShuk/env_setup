@@ -614,7 +614,6 @@
   "trae.internal.tab.enableRename": false,
   "trae.internal.tab.enableAutoImport": false,
   "trae.internal.tab.cue": true,
-
   // [misc]
   "html.format.enable": true,
   "debug.javascript.autoAttachFilter": "disabled",
