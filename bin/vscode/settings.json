@@ -32,8 +32,14 @@
     "*.s3db": "${capture}.${extname}-*"
   },
   // [editor]
-  "editor.wordWrap": "on",
-  "editor.fontSize": 14,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 220,
+  "editor.fontSize": 10,
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on"
+  },
   "editor.autoIndent": "full",
   "editor.showFoldingControls": "always",
   "editor.find.seedSearchStringFromSelection": "selection",
@@ -459,6 +465,7 @@
       "strings": true
     }
   },
+
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -480,7 +487,7 @@
   },
   "workbench.editorAssociations": {
     "*.copilotmd": "vscode.markdown.preview.editor",
-    "*.md": "vscode.markdown.preview.editor",
+    "*.md": "default",
     "*.mm.md": "markmap-vscode.markmap",
     "*.markdown": "default",
     "*.csv": "default"
@@ -501,7 +508,6 @@
   "editor.minimap.size": "fit",
   "editor.minimap.showSlider": "always",
   "editor.minimap.renderCharacters": false,
-  "editor.minimap.enabled": false,
   "[dockercompose]": {
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
@@ -629,5 +635,9 @@
   "containers.images.sortBy": "Label",
   "todo.file.name": "README.todo",
   "antigravity.marketplaceGalleryItemURL": "https://marketplace.visualstudio.com/items",
-  "antigravity.marketplaceExtensionGalleryServiceURL": "https://marketplace.visualstudio.com/_apis/public/gallery"
+  "antigravity.marketplaceExtensionGalleryServiceURL": "https://marketplace.visualstudio.com/_apis/public/gallery",
+  "editor.minimap.enabled": false,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
