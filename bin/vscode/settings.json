@@ -1,645 +1,655 @@
 {
-    "settingsSync.ignoredExtensions": [],
-    "window.title": "${activeEditorFull}${separator}${rootName}",
-    "window.openFoldersInNewWindow": "on",
-    // [workbench]
-    "workbench.startupEditor": "none",
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorCustomizations": {},
-    "workbench.editor.tabActionLocation": "right",
-    "workbench.editorAssociations": {
-        "*.copilotmd": "vscode.markdown.preview.editor",
-        "*.md": "default",
-        "*.mm.md": "markmap-vscode.markmap",
-        "*.markdown": "default",
-        "*.csv": "default"
-    },
-    "workbench.tree.renderIndentGuides": "always",
-    "workbench.tree.expandMode": "singleClick",
-    "workbench.tree.indent": 8,
-    "workbench.tree.enableStickyScroll": true,
-    "workbench.tree.stickyScrollMaxItemCount": 2,
+  "settingsSync.ignoredExtensions": [],
+  "window.title": "${activeEditorFull}${separator}${rootName}",
+  "window.openFoldersInNewWindow": "on",
+  // [workbench]
+  "workbench.startupEditor": "none",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorCustomizations": {},
+  "workbench.editor.tabActionLocation": "right",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.md": "default",
+    "*.mm.md": "markmap-vscode.markmap",
+    "*.markdown": "default",
+    "*.csv": "default"
+  },
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.tree.expandMode": "singleClick",
+  "workbench.tree.indent": 8,
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.tree.stickyScrollMaxItemCount": 2,
 
-    // [security]
-    "security.workspace.trust.untrustedFiles": "open",
-    "security.promptForRemoteFileProtocolHandling": false,
-    // [explorer]
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-    "explorer.confirmPasteNative": false,
-    "explorer.excludeGitIgnore": false,
-    "explorer.openEditors.visible": 2,
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.patterns": {
-        "*.ts": "${capture}.js",
-        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-        "*.jsx": "${capture}.js",
-        "*.tsx": "${capture}.ts",
-        "tsconfig.json": "tsconfig.*.json",
-        "package.json": "*.json,*.ts",
-        "Makefile": "Makefile*",
-        ".env": ".env.*,",
-        "go.mod": "go.sum",
-        "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,.env*",
-        "*": "${capture}.bak,${capture}.read,${capture}.fake,${capture}*.sample,${capture}*.output,${capture}.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,.geminiignore,.gitmodules,README.*",
-        "*.sqlite": "${capture}.${extname}-*",
-        "*.db": "${capture}.${extname}-*",
-        "*.sqlite3": "${capture}.${extname}-*",
-        "*.db3": "${capture}.${extname}-*",
-        "*.sdb": "${capture}.${extname}-*",
-        "*.s3db": "${capture}.${extname}-*"
+  // [security]
+  "security.workspace.trust.untrustedFiles": "open",
+  "security.promptForRemoteFileProtocolHandling": false,
+  // [explorer]
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmPasteNative": false,
+  "explorer.excludeGitIgnore": false,
+  "explorer.openEditors.visible": 2,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "*.json,*.ts",
+    "Makefile": "Makefile*",
+    ".env": ".env.*,",
+    "go.mod": "go.sum",
+    "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,.env*",
+    "*": "${capture}.bak*,${capture}.read,${capture}.fake,${capture}*.sample,${capture}*.output,${capture}.md",
+    "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,.geminiignore,.gitmodules,README.*",
+    "*.sqlite": "${capture}.${extname}-*",
+    "*.db": "${capture}.${extname}-*",
+    "*.sqlite3": "${capture}.${extname}-*",
+    "*.db3": "${capture}.${extname}-*",
+    "*.sdb": "${capture}.${extname}-*",
+    "*.s3db": "${capture}.${extname}-*"
+  },
+  "editor.autoIndent": "advanced",
+  "editor.codeActions.triggerOnFocusChange": true,
+  "editor.comments.insertSpace": true,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.find.seedSearchStringFromSelection": "selection",
+  "editor.fontSize": 12,
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.edits.showCollapsed": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.insertSpaces": true,
+  "editor.lineNumbers": "on",
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.showSlider": "always",
+  "editor.minimap.size": "fit",
+  "editor.showFoldingControls": "always",
+  "editor.snippetSuggestions": "inline",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 220,
+  "editor.quickSuggestions": {
+    "comments": "on",
+    "strings": "on",
+    "other": "on"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  // [scm]
+  "scm.defaultViewMode": "tree",
+  "scm.repositories.selectionMode": "single",
+  // [diff editor]
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.codeLens": true,
+  "diffEditor.renderSideBySide": false,
+  // [files]
+  "files.autoSave": "off",
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "{.svn,.hg,.DS_Store,Thumbs.db}": true,
+    "archive": true,
+    "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
+    "{*.code-workspace,.golangci.yml,go.sum}": true,
+    "{.specify,.gemini,.claude,.agents,.serena,.ttadk,.coco}": true,
+    "{.vscode}": false,
+    "{.devops,.settings}": true,
+    "{.classpath,.project}": true,
+    "{target,out,dist,output}": true,
+    "{.mvn,node_modules,__pycache__,.venv}": true,
+    "{__debug_bin*}": true,
+    "{gen/**,kitex_gen}": true,
+    "-1": true
+  },
+  "files.watcherExclude": {
+    // Domain: Large
+    "**/.*": true,
+    "**/homebrew": true,
+    "**/config": true,
+    "**/archive": true,
+    // Build/Dependency/Release
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/.vim": true,
+    // Release
+    "**/dist": true,
+    "**/_output": true,
+    "**/build": true,
+    "**/out": true,
+    "**/output": true,
+    "**/release": true,
+    "**/releases": true,
+    "**/target": true,
+    "**/__debug_bin*": true,
+    // TikTok
+    "**/gen": true,
+    "**/kitex_gen": true,
+    // Domain: Media & Binary Assets
+    "**/*.{map,3ds,3g2,3gp,7z,a,aac,adp,ai,aif,aiff,alz,ape,apk,ar,arj,asf,au,avi,bak,baml,bh,bk,bmp,btif,bz2,bzip2,cab,caf,cgm,class,cmx,cpio,cr2,csv,cur,dat,dcm,deb,dex,djvu,dll,dmg,dng,doc,docm,docx,dot,dotm,dra,dsk,dts,dtshd,dvb,dwg,dxf,ecelp4800,ecelp7470,ecelp9600,egg,eol,eot,epub,exe,f4v,fbs,fh,fla,flac,fli,flv,fpx,fst,fvt,g3,gif,graffle,gz,gzip,h261,h263,h264,icns,ico,ief,img,ipa,iso,jar,jpeg,jpg,jpgv,jpm,jxr,key,ktx,lha,lib,lvp,lz,lzh,lzma,lzo,m3u,m4a,m4v,mar,mdi,mht,mid,midi,mj2,mka,mkv,mmr,mng,mobi,mov,movie,mp3,mp4,mp4a,mpeg,mpg,mpga,mxu,nef,npx,numbers,o,oga,ogg,ogv,otf,pages,pbm,pcx,pdb,pdf,pea,pgm,pic,png,pnm,pot,potm,potx,ppa,ppam,ppm,pps,ppsm,ppsx,ppt,pptm,pptx,psd,pya,pyc,pyo,pyv,qt,rar,ras,raw,resources,rgb,rip,rlc,rmf,rmvb,rtf,rz,s3m,s7z,scpt,sgi,shar,sil,sketch,slk,smv,so,sub,swf,tar,tbz,tbz2,tga,tgz,thmx,tif,tiff,tlz,ttc,ttf,txz,udf,uvh,uvi,uvm,uvp,uvs,uvu,viv,vob,war,wav,wax,wbmp,wdp,weba,webm,webp,whl,wim,wm,wma,wmv,wmx,woff,woff2,wvx,xbm,xif,xla,xlam,xls,xlsb,xlsm,xlsx,xlt,xltm,xltx,xm,xmind,xpi,xpm,xwd,xz,z,zip,zipx,JPG,MOV,MP4,msg,msi,vcp,PDF,TTF}": true,
+    "-1": true
+  },
+  "files.associations": {
+    ".env*": "dotenv",
+    "{*.sh,*.info}": "shellscript",
+    "*.bosun": "bosun",
+    "*.ignore": "gitignore",
+    "{*.timer,*.service}": "ini",
+    "{*.plan,*.ignore}": "markdown"
+  },
+  // [search]
+  "search.useIgnoreFiles": true,
+  "search.followSymlinks": false,
+  "search.exclude": {
+    // inherited from files.exclude,
+  },
+  "search.showLineNumbers": true,
+  "search.collapseResults": "auto",
+  // "search.smartCase": true,
+  // [Debug]
+  "debug.toolBarLocation": "floating",
+  "debug.console.fontSize": 14,
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Go Launch Project",
+        "type": "go",
+        "request": "launch",
+        "mode": "debug",
+        "program": "${workspaceFolder}",
+        "envFile": "${userHome}/.env"
+      },
+      {
+        "name": "Go Launch file",
+        "type": "go",
+        "request": "launch",
+        "mode": "debug",
+        "program": "${file}"
+        // "envFile": "${userHome}/.env",
+      },
+      {
+        "name": "Launch Chrome",
+        "request": "launch",
+        "type": "chrome",
+        "url": "http://localhost:3000",
+        "webRoot": "${workspaceFolder}"
+      },
+      {
+        // Should setup ts-node `npm i -d ts-node; npm i -g typescript`
+        "type": "node",
+        "name": "ts file",
+        "request": "launch",
+        "runtimeArgs": ["-r", "ts-node/register"],
+        "program": "${file}",
+        "envFile": "${userHome}/.env"
+      }
+    ],
+    "compounds": []
+  },
+  // [terminal]
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.defaultProfile.osx": "bash",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.suggest.quickSuggestions": {
+    "commands": "on",
+    "arguments": "on",
+    "unknown": "off"
+  },
+  "terminal.integrated.enableVisualBell": true,
+  "terminal.integrated.suggest.enabled": true,
+  "terminal.integrated.suggest.providers": {
+    "lsp": true
+  },
+  "accessibility.signals.terminalBell": {
+    "sound": "on",
+    "announcement": "auto"
+  },
+  // [git]
+  "git.autofetch": true,
+  "git.autofetchPeriod": 1800,
+  "git.autoStash": true,
+  "git.confirmSync": false,
+  "git.detectSubmodules": false,
+  "git.enableSmartCommit": true,
+  "git.fetchOnPull": true,
+  "git.followTagsWhenSync": true,
+  "git.ignoreMissingGitWarning": true,
+  "git.ignoreSubmodules": true,
+  "git.openRepositoryInParentFolders": "always",
+  "git.pruneOnFetch": true,
+  "git.showPushSuccessNotification": true,
+  "git.untrackedChanges": "separate",
+  // [go]
+  "go.toolsManagement.autoUpdate": true,
+  "go.diagnostic.vulncheck": "Off", // ???
+  "go.useLanguageServer": true,
+  // ... other settings ...
+  "gopls": {
+    "formatting.gofumpt": false,
+    "build.directoryFilters": ["-**/lib/go/pkg/**"],
+    "analyses": {
+      "fieldalignment": true
+    }
+  },
+  "go.buildFlags": ["-gcflags=-m -l"],
+  "go.lintTool": "golangci-lint-v2",
+  // "go.lintTool": "golangci-lint", // [go linter]
+  "go.formatTool": "custom",
+  // "go.formatTool": "goimports",
+  "go.lintFlags": ["--path-mode=abs", "--fast-only"],
+  "go.alternateTools": {
+    "customFormatter": "golangci-lint-v2"
+  },
+  "go.formatFlags": ["fmt", "--stdin"],
+  // [go test]
+  "go.testOnSave": true,
+  "go.testExplorer.showOutput": false,
+  // [go cover]
+  "go.coverShowCounts": true,
+  "go.coverOnSave": true,
+  "go.coverOnSingleTest": true,
+  "go.coverageOptions": "showBothCoveredAndUncoveredCode",
+  "go.coverOnSingleTestFile": false,
+  "go.coverOnTestPackage": false,
+  // "go.coverMode": "count", // ???
+  "go.coverageDecorator": {
+    "type": "gutter",
+    "coveredGutterStyle": "blockblue",
+    "uncoveredGutterStyle": "slashred"
+  },
+  // [javascript] [npm] [node] [typescript] [js] [jest]
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  // [Markdown]
+  // [New]
+  // "markdown.styles": [
+  //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  // ]
+  "markdown.copyFiles.destination": {
+    "**/*": "assets/images/md/${documentBaseName}-${fileName}"
+  },
+  "markdownlint.config": {
+    "default": true,
+    "MD001": false,
+    "MD007": {
+      "indent": 2
     },
-    // [editor]
-    "editor.accessibilitySupport": "off",
-    "editor.autoIndent": "advanced",
-    "editor.codeActions.triggerOnFocusChange": true,
-    "editor.comments.insertSpace": true,
-    "editor.copyWithSyntaxHighlighting": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.find.seedSearchStringFromSelection": "selection",
-    "editor.fontSize": 12,
-    "editor.formatOnSave": true,
-    "editor.inlineSuggest.edits.showCollapsed": true,
-    "editor.inlineSuggest.enabled": true,
-    "editor.insertSpaces": true,
-    "editor.lineNumbers": "on",
-    "editor.linkedEditing": true,
-    "editor.minimap.enabled": false,
-    "editor.minimap.renderCharacters": false,
-    "editor.minimap.showSlider": "always",
-    "editor.minimap.size": "fit",
-    "editor.showFoldingControls": "always",
-    "editor.snippetSuggestions": "inline",
-    "editor.tabCompletion": "on",
-    "editor.tabSize": 4,
-    "editor.unicodeHighlight.invisibleCharacters": false,
-    "editor.wordWrap": "wordWrapColumn",
-    "editor.wordWrapColumn": 220,
+    "MD009": {
+      "br_spaces": 2
+    },
+    "MD024": false,
+    "MD025": false,
+    "MD028": false,
+    "MD029": false,
+    "MD033": false,
+    "MD036": false,
+    "MD045": false,
+    "MD053": false,
+    "SA9003": false
+  },
+  // [highlight] [todo]
+  "highlight.regexes": {
+    // $, S$
+    "([S]{0,1}\\$)": [
+      {
+        "color": "#FFFF00"
+      }
+    ],
+    // # test
+    "(#)": [
+      {
+        "color": "#00FF00"
+      }
+    ],
+    // [xxx]
+    "(\\[.+?\\])": [
+      {
+        "color": "#FFFF00"
+      }
+    ],
+    // ===== xxx =====
+    "(===== )(.+?)( =====)": [
+      {},
+      {
+        "color": "#FFFF00",
+        "fontWeight": "bold",
+        "fontStyle": "italic"
+      },
+      {}
+    ],
+    // <xxx>
+    "(\\<.+?\\>)": [
+      {
+        "color": "#FFA500"
+      }
+    ],
+    // "xxx"
+    "(\".+?\")": [
+      {
+        "color": "#FFA500"
+      }
+    ],
+    // 'xxx'
+    "('.+?')": [
+      {
+        "color": "#FFA500"
+      }
+    ],
+    // `xxx`
+    "(`.+?`)": [
+      {
+        "color": "#FFA500"
+      }
+    ],
+    // *xxx*
+    "(\\*+.+?\\*)": [
+      {},
+      {
+        "color": "#FFFFFF"
+      },
+      {}
+    ],
+    // {xxx}
+    "({\\S+?})": [
+      {
+        "color": "#FFA500"
+      }
+    ],
+    // {xxx}
+    "({{.+?}})": [
+      {
+        "color": "#FFA500"
+      }
+    ],
+    // Warning: xxx
+    "(Warning)(:)(.*)": [
+      {
+        "color": "#FFC0CB",
+        "fontWeight": "bold"
+      },
+      {},
+      {
+        "color": "#FF0000",
+        "fontWeight": "bold"
+      }
+    ],
+    // TODO: xxx
+    "(TODO)(:)": [
+      {
+        "color": "#FFFFFF",
+        "fontWeight": "bold"
+      },
+      {}
+    ],
+    // NOTE: xxx
+    "(NOTE)(:)": [
+      {
+        "color": "#FFFF00",
+        "fontWeight": "bold"
+      },
+      {}
+    ],
+    // BUG: xxx
+    "(BUG|FIX|FIXME|ISSUE)(:)": [
+      {
+        "color": "#FF0000"
+      },
+      {}
+    ],
+    // ???
+    "(\\?+)": [
+      {
+        "color": "#FF0000",
+        "fontWeight": "bold"
+      }
+    ],
+    // @xxx
+    "(\\@)([\\S]+)": [
+      {
+        "color": "#808080"
+      },
+      {
+        "color": "#00FF00"
+      }
+    ],
+    // ====>
+    "(=+>)": [
+      {
+        "color": "#00FF00"
+      }
+    ],
+    // #asdasji
+    "(#)([^#\\s]+)": [
+      // Hash Tag
+      {
+        "color": "#808080"
+      },
+      {
+        "color": "#FFFFFF"
+      }
+    ]
+  },
+  "todo.file.name": "README.todo",
+  "todo.tags.names": [
+    "Critical",
+    "High",
+    "Low",
+    "Today",
+    "Doing",
+    "Pending",
+    "Planning",
+    "Monthly",
+    "Weekend",
+    "Morning",
+    "Evening"
+  ],
+  "todo.colors.tags.foreground": [],
+  "todo.colors.tags.background": [
+    "#e54545",
+    "#e59f45",
+    "#e5d145",
+    "#303030",
+    "#303030",
+    "#0f0f0f",
+    "#0f0f0f",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "todo.file.include": ["README.todo"],
+  "todo.file.exclude": ["[!{README.todo}]"],
+  "todo-tree.highlights.enabled": false,
+  // "todo-tree.filtering.includeGlobs": ["**/*.{go,md,ts,js,py,css,html}"],
+  // "todo-tree.filtering.ignoreGitSubmodules": true,
+  // "todo-tree.general.tags": ["ISSUE", "TODO", "XXX", "[ ]", "[x]"],
+  // "todo-tree.tree.groupedByTag": true,
+  // "todo-tree.general.tagGroups": {},
+  // "todo-tree.tree.groupedBySubTag": false,
+
+  // "todo.embedded.include": ["**/*.{go,md,ts,js,py,css,html,sh}"],
+  // "todo.embedded.exclude": ["**", "**/*"],
+
+  // [github]
+  "githubPullRequests.pushBranch": "always",
+  "githubIssues.queries": [
+    {
+      "label": "My Issues",
+      "query": "default"
+    },
+    {
+      "label": "Created Issues",
+      "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
+    },
+    {
+      "label": "Recent Issues",
+      "query": "state:open repo:${owner}/${repository} sort:updated-desc"
+    }
+  ],
+  "githubPullRequests.queries": [
+    {
+      "label": "Local Pull Request Branches",
+      "query": "default"
+    },
+    {
+      "label": "Waiting For My Review",
+      "query": "repo:${owner}/${repository} is:open review-requested:${user}"
+    },
+    {
+      "label": "Assigned To Me",
+      "query": "repo:${owner}/${repository} is:open assignee:${user}"
+    },
+    {
+      "label": "Created By Me",
+      "query": "repo:${owner}/${repository} is:open author:${user}"
+    },
+    {
+      "label": "All Open",
+      "query": "default"
+    }
+  ],
+  // [Editor by Language]
+  "[yaml]": {
     "editor.quickSuggestions": {
-        "comments": "on",
-        "strings": "on",
-        "other": "on"
-    },
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit",
-        "source.organizeImports": "explicit"
-    },
-    // [scm]
-    "scm.defaultViewMode": "tree",
-    "scm.repositories.selectionMode": "single",
-    // [diff editor]
-    "diffEditor.ignoreTrimWhitespace": false,
-    "diffEditor.codeLens": true,
-    "diffEditor.renderSideBySide": true,
-    // [files]
-    "files.autoSave": "off",
-    "files.eol": "\n",
-    "files.trimTrailingWhitespace": true,
-    "files.exclude": {
-        "{.svn,.hg,.DS_Store,Thumbs.db}": true,
-        "archive": true,
-        "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
-        "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.specify,.gemini,.claude,.agents,.serena,.ttadk,.coco}": true,
-        "{AGENTS.md,GEMINI.md,CLAUDE.md}": true,
-        "{.vscode}": false,
-        "{.devops,.settings}": true,
-        "{.classpath,.project}": true,
-        "{target,out,dist,output}": true,
-        "{.mvn,node_modules,__pycache__,.venv}": true,
-        "{__debug_bin*}": true,
-        "{gen/**,kitex_gen}": true,
-        "-1": true
-    },
-    "files.watcherExclude": {
-        // Domain: Large
-        "**/.*": true,
-        "**/homebrew": true,
-        "**/config": true,
-        "**/archive": true,
-        // Build/Dependency/Release
-        "**/node_modules": true,
-        "**/.venv": true,
-        "**/.vim": true,
-        // Release
-        "**/dist": true,
-        "**/_output": true,
-        "**/build": true,
-        "**/out": true,
-        "**/output": true,
-        "**/release": true,
-        "**/releases": true,
-        "**/target": true,
-        "**/__debug_bin*": true,
-        // TikTok
-        "**/gen": true,
-        "**/kitex_gen": true,
-        // Domain: Media & Binary Assets
-        "**/*.{map,3ds,3g2,3gp,7z,a,aac,adp,ai,aif,aiff,alz,ape,apk,ar,arj,asf,au,avi,bak,baml,bh,bk,bmp,btif,bz2,bzip2,cab,caf,cgm,class,cmx,cpio,cr2,csv,cur,dat,dcm,deb,dex,djvu,dll,dmg,dng,doc,docm,docx,dot,dotm,dra,dsk,dts,dtshd,dvb,dwg,dxf,ecelp4800,ecelp7470,ecelp9600,egg,eol,eot,epub,exe,f4v,fbs,fh,fla,flac,fli,flv,fpx,fst,fvt,g3,gif,graffle,gz,gzip,h261,h263,h264,icns,ico,ief,img,ipa,iso,jar,jpeg,jpg,jpgv,jpm,jxr,key,ktx,lha,lib,lvp,lz,lzh,lzma,lzo,m3u,m4a,m4v,mar,mdi,mht,mid,midi,mj2,mka,mkv,mmr,mng,mobi,mov,movie,mp3,mp4,mp4a,mpeg,mpg,mpga,mxu,nef,npx,numbers,o,oga,ogg,ogv,otf,pages,pbm,pcx,pdb,pdf,pea,pgm,pic,png,pnm,pot,potm,potx,ppa,ppam,ppm,pps,ppsm,ppsx,ppt,pptm,pptx,psd,pya,pyc,pyo,pyv,qt,rar,ras,raw,resources,rgb,rip,rlc,rmf,rmvb,rtf,rz,s3m,s7z,scpt,sgi,shar,sil,sketch,slk,smv,so,sub,swf,tar,tbz,tbz2,tga,tgz,thmx,tif,tiff,tlz,ttc,ttf,txz,udf,uvh,uvi,uvm,uvp,uvs,uvu,viv,vob,war,wav,wax,wbmp,wdp,weba,webm,webp,whl,wim,wm,wma,wmv,wmx,woff,woff2,wvx,xbm,xif,xla,xlam,xls,xlsb,xlsm,xlsx,xlt,xltm,xltx,xm,xmind,xpi,xpm,xwd,xz,z,zip,zipx,JPG,MOV,MP4,msg,msi,vcp,PDF,TTF}": true,
-        "-1": true
-    },
-    "files.associations": {
-        ".env*": "dotenv",
-        "{*.sh,*.info}": "shellscript",
-        "*.bosun": "bosun",
-        "*.ignore": "gitignore",
-        "{*.timer,*.service}": "ini",
-        "{*.plan,*.ignore}": "markdown"
-    },
-    // [search]
-    "search.useIgnoreFiles": true,
-    "search.followSymlinks": false,
-    "search.exclude": {
-        // inherited from files.exclude,
-    },
-    "search.showLineNumbers": true,
-    "search.collapseResults": "auto",
-    // "search.smartCase": true,
-    // [Debug]
-    "debug.toolBarLocation": "floating",
-    "debug.console.fontSize": 14,
-    "launch": {
-        "version": "0.2.0",
-        "configurations": [
-            {
-                "name": "Go Launch Project",
-                "type": "go",
-                "request": "launch",
-                "mode": "debug",
-                "program": "${workspaceFolder}",
-                "envFile": "${userHome}/.env"
-            },
-            {
-                "name": "Go Launch file",
-                "type": "go",
-                "request": "launch",
-                "mode": "debug",
-                "program": "${file}"
-                // "envFile": "${userHome}/.env",
-            },
-            {
-                "name": "Launch Chrome",
-                "request": "launch",
-                "type": "chrome",
-                "url": "http://localhost:3000",
-                "webRoot": "${workspaceFolder}"
-            },
-            {
-                // Should setup ts-node `npm i -d ts-node; npm i -g typescript`
-                "type": "node",
-                "name": "ts file",
-                "request": "launch",
-                "runtimeArgs": ["-r", "ts-node/register"],
-                "program": "${file}",
-                "envFile": "${userHome}/.env"
-            }
-        ],
-        "compounds": []
-    },
-    // [terminal]
-    "terminal.integrated.fontSize": 14,
-    "terminal.integrated.enableMultiLinePasteWarning": "never",
-    "terminal.integrated.defaultProfile.osx": "bash",
-    "terminal.integrated.defaultProfile.linux": "bash",
-    "terminal.integrated.suggest.quickSuggestions": {
-        "commands": "on",
-        "arguments": "on",
-        "unknown": "off"
-    },
-    "terminal.integrated.enableVisualBell": true,
-    "terminal.integrated.suggest.enabled": true,
-    "terminal.integrated.suggest.providers": {
-        "lsp": true
-    },
-    "accessibility.signals.terminalBell": {
-        "sound": "on",
-        "announcement": "auto"
-    },
-    // [git]
-    "git.autofetch": true,
-    "git.autofetchPeriod": 1800,
-    "git.autoStash": true,
-    "git.confirmSync": false,
-    "git.detectSubmodules": false,
-    "git.enableSmartCommit": true,
-    "git.fetchOnPull": true,
-    "git.followTagsWhenSync": true,
-    "git.ignoreMissingGitWarning": true,
-    "git.ignoreSubmodules": true,
-    "git.openRepositoryInParentFolders": "always",
-    "git.pruneOnFetch": true,
-    "git.showPushSuccessNotification": true,
-    "git.untrackedChanges": "separate",
-    // [go]
-    "go.toolsManagement.autoUpdate": true,
-    "go.diagnostic.vulncheck": "Off", // ???
-    "go.useLanguageServer": true,
-    // ... other settings ...
-    "gopls": {
-        "formatting.gofumpt": false,
-        "build.directoryFilters": ["-**/lib/go/pkg/**"],
-        "analyses": {
-            "fieldalignment": true
-        }
-    },
-    "go.buildFlags": ["-gcflags=-m -l"],
-    "go.lintTool": "golangci-lint-v2",
-    // "go.lintTool": "golangci-lint", // [go linter]
-    "go.formatTool": "custom",
-    // "go.formatTool": "goimports",
-    "go.lintFlags": ["--path-mode=abs", "--fast-only"],
-    "go.alternateTools": {
-        "customFormatter": "golangci-lint-v2"
-    },
-    "go.formatFlags": ["fmt", "--stdin"],
-    // [go test]
-    "go.testOnSave": true,
-    "go.testExplorer.showOutput": false,
-    // [go cover]
-    "go.coverShowCounts": true,
-    "go.coverOnSave": true,
-    "go.coverOnSingleTest": true,
-    "go.coverageOptions": "showBothCoveredAndUncoveredCode",
-    "go.coverOnSingleTestFile": false,
-    "go.coverOnTestPackage": false,
-    // "go.coverMode": "count", // ???
-    "go.coverageDecorator": {
-        "type": "gutter",
-        "coveredGutterStyle": "blockblue",
-        "uncoveredGutterStyle": "slashred"
-    },
-    // [javascript] [npm] [node] [typescript] [js] [jest]
-    "javascript.updateImportsOnFileMove.enabled": "always",
-    // [Markdown]
-    // [New]
-    // "markdown.styles": [
-    //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    // ]
-    "markdown.copyFiles.destination": {
-        "**/*": "assets/images/md/${documentBaseName}-${fileName}"
-    },
-    "markdownlint.config": {
-        "default": true,
-        "MD001": false,
-        "MD007": {
-            "indent": 4
-        },
-        "MD009": {
-            "br_spaces": 2
-        },
-        "MD024": false,
-        "MD025": false,
-        "MD028": false,
-        "MD029": false,
-        "MD033": false,
-        "MD045": false,
-        "MD053": false,
-        "SA9003": false
-    },
-    // [highlight] [todo]
-    "highlight.regexes": {
-        // $, S$
-        "([S]{0,1}\\$)": [
-            {
-                "color": "#FFFF00"
-            }
-        ],
-        // # test
-        "(#)": [
-            {
-                "color": "#00FF00"
-            }
-        ],
-        // [xxx]
-        "(\\[.+?\\])": [
-            {
-                "color": "#FFFF00"
-            }
-        ],
-        // ===== xxx =====
-        "(===== )(.+?)( =====)": [
-            {},
-            {
-                "color": "#FFFF00",
-                "fontWeight": "bold",
-                "fontStyle": "italic"
-            },
-            {}
-        ],
-        // <xxx>
-        "(\\<.+?\\>)": [
-            {
-                "color": "#FFA500"
-            }
-        ],
-        // "xxx"
-        "(\".+?\")": [
-            {
-                "color": "#FFA500"
-            }
-        ],
-        // 'xxx'
-        "('.+?')": [
-            {
-                "color": "#FFA500"
-            }
-        ],
-        // `xxx`
-        "(`.+?`)": [
-            {
-                "color": "#FFA500"
-            }
-        ],
-        // {xxx}
-        "({\\S+?})": [
-            {
-                "color": "#FFA500"
-            }
-        ],
-        // {xxx}
-        "({{.+?}})": [
-            {
-                "color": "#FFA500"
-            }
-        ],
-        // Warning: xxx
-        "(Warning)(:)(.*)": [
-            {
-                "color": "#FFC0CB",
-                "fontWeight": "bold"
-            },
-            {},
-            {
-                "color": "#FF0000",
-                "fontWeight": "bold"
-            }
-        ],
-        // TODO: xxx
-        "(TODO)(:)": [
-            {
-                "color": "#FFFFFF",
-                "fontWeight": "bold"
-            },
-            {}
-        ],
-        // NOTE: xxx
-        "(NOTE)(:)": [
-            {
-                "color": "#FFFF00",
-                "fontWeight": "bold"
-            },
-            {}
-        ],
-        // BUG: xxx
-        "(BUG|FIX|FIXME|ISSUE)(:)": [
-            {
-                "color": "#FF0000"
-            },
-            {}
-        ],
-        // ???
-        "(\\?+)": [
-            {
-                "color": "#FF0000",
-                "fontWeight": "bold"
-            }
-        ],
-        // @xxx
-        "(\\@)([\\S]+)": [
-            {
-                "color": "#808080"
-            },
-            {
-                "color": "#00FF00"
-            }
-        ],
-        // ====>
-        "(=+>)": [
-            {
-                "color": "#00FF00"
-            }
-        ],
-        // #asdasji
-        "(#)([^#\\s]+)": [
-            // Hash Tag
-            {
-                "color": "#808080"
-            },
-            {
-                "color": "#FFFFFF"
-            }
-        ]
-    },
-    "todo.file.name": "README.todo",
-    "todo.tags.names": [
-        "Critical",
-        "High",
-        "Low",
-        "Today",
-        "Doing",
-        "Pending",
-        "Planning",
-        "Monthly",
-        "Weekend",
-        "Morning",
-        "Evening"
-    ],
-    "todo.colors.tags.foreground": [],
-    "todo.colors.tags.background": [
-        "#e54545",
-        "#e59f45",
-        "#e5d145",
-        "#303030",
-        "#303030",
-        "#0f0f0f",
-        "#0f0f0f",
-        "",
-        "",
-        "",
-        ""
-    ],
-    "todo.file.include": ["README.todo"],
-    "todo.file.exclude": ["[!{README.todo}]"],
-    "todo-tree.highlights.enabled": false,
-    // "todo-tree.filtering.includeGlobs": ["**/*.{go,md,ts,js,py,css,html}"],
-    // "todo-tree.filtering.ignoreGitSubmodules": true,
-    // "todo-tree.general.tags": ["ISSUE", "TODO", "XXX", "[ ]", "[x]"],
-    // "todo-tree.tree.groupedByTag": true,
-    // "todo-tree.general.tagGroups": {},
-    // "todo-tree.tree.groupedBySubTag": false,
+      "comments": false,
+      "strings": true
+    }
+  },
 
-    // "todo.embedded.include": ["**/*.{go,md,ts,js,py,css,html,sh}"],
-    // "todo.embedded.exclude": ["**", "**/*"],
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false,
+    "editor.trimWhitespaceOnDelete": false,
+    "files.trimTrailingWhitespaceInRegexAndStrings": false,
+    "editor.trimAutoWhitespace": false
+  },
+  "[todo]": {
+    "files.trimTrailingWhitespace": false
+  },
 
-    // [github]
-    "githubPullRequests.pushBranch": "always",
-    "githubIssues.queries": [
-        {
-            "label": "My Issues",
-            "query": "default"
-        },
-        {
-            "label": "Created Issues",
-            "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
-        },
-        {
-            "label": "Recent Issues",
-            "query": "state:open repo:${owner}/${repository} sort:updated-desc"
-        }
-    ],
-    "githubPullRequests.queries": [
-        {
-            "label": "Local Pull Request Branches",
-            "query": "default"
-        },
-        {
-            "label": "Waiting For My Review",
-            "query": "repo:${owner}/${repository} is:open review-requested:${user}"
-        },
-        {
-            "label": "Assigned To Me",
-            "query": "repo:${owner}/${repository} is:open assignee:${user}"
-        },
-        {
-            "label": "Created By Me",
-            "query": "repo:${owner}/${repository} is:open author:${user}"
-        },
-        {
-            "label": "All Open",
-            "query": "default"
-        }
-    ],
-    // [Editor by Language]
-    "[yaml]": {
-        "editor.quickSuggestions": {
-            "comments": false,
-            "strings": true
-        }
-    },
+  // [shellcheck]
+  "shellcheck.exclude": [
+    "2002",
+    "1090",
+    "SC2155",
+    "SC2156",
+    "SC2086",
+    "SC2206"
+  ],
+  "shellcheck.customArgs": ["-x"],
 
-    "[markdown]": {
-        "files.trimTrailingWhitespace": false,
-        "editor.trimWhitespaceOnDelete": false,
-        "files.trimTrailingWhitespaceInRegexAndStrings": false,
-        "editor.trimAutoWhitespace": false
-    },
-    "[todo]": {
-        "files.trimTrailingWhitespace": false
-    },
+  // [Container]
+  "containers.commands.run": "${containerCommand} run --rm -d ${exposedPorts} ${tag}",
+  "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
+  "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
+  "containers.containers.label": "ContainerName",
+  "containers.containers.description": ["Image", "Ports", "Status"],
+  "containers.containers.groupBy": "Compose Project Name",
+  "containers.images.label": "RepositoryNameShort",
+  "containers.images.description": ["Size"],
+  "containers.images.groupBy": "Registry",
+  "containers.images.sortBy": "Label",
 
-    // [shellcheck]
-    "shellcheck.exclude": [
-        "2002",
-        "1090",
-        "SC2155",
-        "SC2156",
-        "SC2086",
-        "SC2206"
-    ],
-    "shellcheck.customArgs": ["-x"],
+  // SQLite
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "DB1.local",
+      "database": "${workspaceFolder:crawler}/inf/db/local.sqlite"
+    }
+  ],
+  "sqltools.results.location": "current",
 
-    // [Container]
-    "containers.commands.run": "${containerCommand} run --rm -d ${exposedPorts} ${tag}",
-    "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
-    "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
-    "containers.containers.label": "ContainerName",
-    "containers.containers.description": ["Image", "Ports", "Status"],
-    "containers.containers.groupBy": "Compose Project Name",
-    "containers.images.label": "RepositoryNameShort",
-    "containers.images.description": ["Size"],
-    "containers.images.groupBy": "Registry",
-    "containers.images.sortBy": "Label",
+  // [Remote]
+  "remote.SSH.useExecServer": false,
+  "remote.SSH.remotePlatform": {
+    "*cube-*": "linux"
+  },
+  "remote.defaultExtensionsIfInstalledLocally": [
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    "GitHub.vscode-pull-request-github"
+  ],
 
-    // SQLite
-    "sqltools.useNodeRuntime": true,
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "DB1.local",
-            "database": "${workspaceFolder:crawler}/inf/db/local.sqlite"
-        }
-    ],
-    "sqltools.results.location": "current",
+  // [plugin market]
+  "antigravity.marketplaceGalleryItemURL": "https://marketplace.visualstudio.com/items",
+  "antigravity.marketplaceExtensionGalleryServiceURL": "https://marketplace.visualstudio.com/_apis/public/gallery",
 
-    // [Remote]
-    "remote.SSH.useExecServer": false,
-    "remote.SSH.remotePlatform": {
-        "*cube-*": "linux"
-    },
-    "remote.defaultExtensionsIfInstalledLocally": [
-        "GitHub.copilot",
-        "GitHub.copilot-chat",
-        "GitHub.vscode-pull-request-github"
-    ],
+  // [VSCode Copilot]
+  "chat.mcp.gallery.enabled": true,
+  "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
+  "inlineChat.enableV2": true,
+  "chat.disableAIFeatures": true,
+  // [Claude Code]
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.selectedModel": "opus",
+  // [Gemini]
+  "geminicodeassist.enable": true,
+  "geminicodeassist.codeGenerationPaneViewEnabled": true,
+  "geminicodeassist.inlineSuggestions.enableAuto": true,
+  "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
+  "geminicodeassist.inlineSuggestions.suggestionSpeed": "Slow",
+  "geminicodeassist.displayInlineContextHint": false,
+  "geminicodeassist.chat.defaultCodeBlockDisplay": "Collapsed",
+  "geminicodeassist.customCommands": {
+    "todo": "Find all TODOs under current work directory and follow the instrution to fix/refactor it",
+    "plan": "Based on given requirements and description, analyze current work directory and list out TODOs sequentially in a file plan-[\\d\\w]+.md. And also seperate them to categories or sections."
+  },
+  "geminicodeassist.project": "useful-iterator-4s3kg",
+  "geminicodeassist.languages": [
+    "*",
+    "markdown",
+    "go",
+    "python",
+    "javascript",
+    "typescript",
+    "sql",
+    "xml",
+    "html",
+    "yaml"
+  ],
+  // trae
+  "trae.internal.chatLanguage": "auto",
+  "trae.internal.enableInlineChat": true,
+  "trae.internal.enableInlineCommand": true,
+  "trae.internal.enableFix": true,
+  "trae.internal.tab.enableTabKeyboardShortcuts": true,
+  "trae.internal.tab.enableRename": false,
+  "trae.internal.tab.enableAutoImport": false,
+  "trae.internal.tab.cue": true,
+  // [prettier]
+  "prettier.trailingComma": "none",
+  "prettier.tabWidth": 2,
+  // [misc]
+  "html.format.enable": true,
+  "debug.javascript.autoAttachFilter": "disabled",
+  "typescript.updateImportsOnFileMove.enabled": "always",
 
-    // [plugin market]
-    "antigravity.marketplaceGalleryItemURL": "https://marketplace.visualstudio.com/items",
-    "antigravity.marketplaceExtensionGalleryServiceURL": "https://marketplace.visualstudio.com/_apis/public/gallery",
+  "notebook.lineNumbers": "on",
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "right"
+  },
 
-    // [VSCode Copilot]
-    "chat.mcp.gallery.enabled": true,
-    "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
-    "inlineChat.enableV2": true,
-    "chat.disableAIFeatures": true,
-    // [Claude Code]
-    "claudeCode.preferredLocation": "panel",
-    "claudeCode.selectedModel": "opus",
-    // [Gemini]
-    "geminicodeassist.enable": true,
-    "geminicodeassist.codeGenerationPaneViewEnabled": true,
-    "geminicodeassist.inlineSuggestions.enableAuto": true,
-    "geminicodeassist.inlineSuggestions.nextEditPredictions": true,
-    "geminicodeassist.inlineSuggestions.suggestionSpeed": "Slow",
-    "geminicodeassist.displayInlineContextHint": false,
-    "geminicodeassist.chat.defaultCodeBlockDisplay": "Collapsed",
-    "geminicodeassist.customCommands": {
-        "todo": "Find all TODOs under current work directory and follow the instrution to fix/refactor it",
-        "plan": "Based on given requirements and description, analyze current work directory and list out TODOs sequentially in a file plan-[\\d\\w]+.md. And also seperate them to categories or sections."
-    },
-    "geminicodeassist.project": "useful-iterator-4s3kg",
-    "geminicodeassist.languages": [
-        "*",
-        "markdown",
-        "go",
-        "python",
-        "javascript",
-        "typescript",
-        "sql",
-        "xml",
-        "html",
-        "yaml"
-    ],
-    // trae
-    "trae.internal.chatLanguage": "auto",
-    "trae.internal.enableInlineChat": true,
-    "trae.internal.enableInlineCommand": true,
-    "trae.internal.enableFix": true,
-    "trae.internal.tab.enableTabKeyboardShortcuts": true,
-    "trae.internal.tab.enableRename": false,
-    "trae.internal.tab.enableAutoImport": false,
-    "trae.internal.tab.cue": true,
-    // [prettier]
-    "prettier.trailingComma": "none",
-    "prettier.tabWidth": 4,
-    // [misc]
-    "html.format.enable": true,
-    "debug.javascript.autoAttachFilter": "disabled",
-    "typescript.updateImportsOnFileMove.enabled": "always",
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
 
-    "notebook.lineNumbers": "on",
-    "notebook.cellToolbarLocation": {
-        "default": "right",
-        "jupyter-notebook": "right"
-    },
-
-    "gitlens.ai.model": "vscode",
-    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
-
-    "makefile.configureOnOpen": false,
-    "http.systemCertificatesNode": true,
-    "highlight.enabled": true,
-    "redhat.telemetry.enabled": false
-    // end
+  "makefile.configureOnOpen": false,
+  "http.systemCertificatesNode": true,
+  "highlight.enabled": true,
+  "redhat.telemetry.enabled": false,
+  // end
+  "workbench.editor.enablePreview": true,
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "diffEditor.useInlineViewWhenSpaceIsLimited": true,
+  "inlineChat.accessibleDiffView": "on"
 }

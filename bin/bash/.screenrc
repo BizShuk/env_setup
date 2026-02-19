@@ -22,3 +22,5 @@ defencoding utf8
 ; hardstatus alwayslastline " %-Lw%{= Bw}[%n] %t%{-}%+Lw %=| %Y/%m/%d%{= .m} %0c:%s "
 #動態顯示視窗的標題名稱
 ; shelltitle '$ |bash'
+
+shell -/bin/bash

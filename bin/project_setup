@@ -1,19 +1,28 @@
 #!/bin/bash
 
-echo "" >> README.md
-echo "" >> GEMINI.md
+[ -f "README.md" ] || touch README.md
+[ -f "GEMINI.md" ] || touch GEMINI.md
 # ln -sf README.md AGENTS.md
 # ln -sf README.md GEMINI.md
 # ln -sf README.md CLAUDE.md
 
 # Initialize documentation files if they don't exist
 [ ! -f "README.todo" ] && echo -e "TODO:\n    ☐ " > README.todo
-[ ! -f "README.prompt.md" ] && cat <<EOF > README.prompt.md
-# Prompts
+[ ! -f "README.task.md" ] && cat <<EOF > README.task.md
+# Tasks
 
-This file contains useful prompts for this project.
+context: ./@README.md  and ./@README*.md in the same folder
+
+## Sample Task(ignore)
+
+Parameters:
+
+- location: (default:Taipei Taiwan)
+- type: (default:all)
+- number of result: (default:10)
+
+do some sample reasearch and follow the README.template.md to product the result
 EOF
-
 
 # Handle legacy symbolic link or mapping
 if [ -L ".agent" ]; then
