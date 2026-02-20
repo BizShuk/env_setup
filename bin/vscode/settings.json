@@ -87,13 +87,13 @@
   "scm.defaultViewMode": "tree",
   "scm.repositories.selectionMode": "single",
   // [diff editor]
-  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.ignoreTrimWhitespace": true,
   "diffEditor.codeLens": true,
   "diffEditor.renderSideBySide": false,
   // [files]
   "files.autoSave": "off",
   "files.eol": "\n",
-  "files.trimTrailingWhitespace": true,
+  "files.trimTrailingWhitespace": false,
   "files.exclude": {
     "{.svn,.hg,.DS_Store,Thumbs.db}": true,
     "archive": true,
@@ -190,6 +190,14 @@
         "runtimeArgs": ["-r", "ts-node/register"],
         "program": "${file}",
         "envFile": "${userHome}/.env"
+      },
+      {
+        "name": "Python: Current File",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${file}",
+        "console": "internalConsole",
+        "python": "${command:python.interpreterPath}"
       }
     ],
     "compounds": []
@@ -523,13 +531,13 @@
       "strings": true
     }
   },
-
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.trimWhitespaceOnDelete": false,
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "editor.trimAutoWhitespace": false
   },
+
   "[todo]": {
     "files.trimTrailingWhitespace": false
   },
@@ -617,15 +625,6 @@
     "html",
     "yaml"
   ],
-  // trae
-  "trae.internal.chatLanguage": "auto",
-  "trae.internal.enableInlineChat": true,
-  "trae.internal.enableInlineCommand": true,
-  "trae.internal.enableFix": true,
-  "trae.internal.tab.enableTabKeyboardShortcuts": true,
-  "trae.internal.tab.enableRename": false,
-  "trae.internal.tab.enableAutoImport": false,
-  "trae.internal.tab.cue": true,
   // [prettier]
   "prettier.trailingComma": "none",
   "prettier.tabWidth": 2,
@@ -651,5 +650,9 @@
   "workbench.editor.enablePreview": true,
   "diffEditor.hideUnchangedRegions.enabled": true,
   "diffEditor.useInlineViewWhenSpaceIsLimited": true,
-  "inlineChat.accessibleDiffView": "on"
+  "inlineChat.accessibleDiffView": "on",
+  "python.defaultInterpreterPath": "~/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+
+  "prettier.htmlWhitespaceSensitivity": "ignore"
 }
