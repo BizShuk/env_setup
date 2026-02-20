@@ -99,7 +99,7 @@
     "archive": true,
     "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
     "{*.code-workspace,.golangci.yml,go.sum}": true,
-    "{.specify,.gemini,.claude,.agents,.serena,.ttadk,.coco}": true,
+    "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": true,
     "{.vscode}": false,
     "{.devops,.settings}": true,
     "{.classpath,.project}": true,

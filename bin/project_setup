@@ -25,23 +25,24 @@ do some sample reasearch and follow the README.template.md to product the result
 EOF
 
 # Handle legacy symbolic link or mapping
-if [ -L ".agent" ]; then
-  echo "Removing existing .agent symbolic link..."
-  rm ".agent"
+if [ -L ".agents" ]; then
+  echo "Removing existing .agents symbolic link..."
+  rm ".agents"
 fi
 
-if [ -d ".agents" ] && [ ! -d ".agent" ]; then
-  echo "Moving .agents directory to .agent..."
-  mv ".agents" ".agent"
+if [ -d ".agent" ] && [ ! -d ".agents" ]; then
+  echo "Moving .agent directory to .agent..."
+  mv ".agent" ".agents"
 fi
 
 # .agent setup , due to Antigravity can't recognize symbolic link
-mkdir -p .agent/rules
-mkdir -p .agent/skills
+mkdir -p .agents/workflows
+mkdir -p .agents/rules
+mkdir -p .agents/skills
 
-if [ ! -f ".agent/settings.json" ]; then
+if [ ! -f ".agents/settings.json" ]; then
 
-cat <<EOF > .agent/settings.json
+cat <<EOF > .agents/settings.json
 {
   "mcp": {
     "excluded": [
@@ -55,8 +56,8 @@ EOF
 fi
 
 # symbolic link
-ln -sfh .agent .gemini
-ln -sfh .agent .agents
+ln -sfh .agents .gemini
+ln -sfh .agents .agent
 # ln -sfh .agent .agents
 # ln -sh .agent .claude
 
