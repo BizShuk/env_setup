@@ -8,21 +8,6 @@
 
 # Initialize documentation files if they don't exist
 [ ! -f "README.todo" ] && echo -e "TODO:\n    ☐ " > README.todo
-[ ! -f "README.task.md" ] && cat <<EOF > README.task.md
-# Tasks
-
-context: ./@README.md  and ./@README*.md in the same folder
-
-## Sample Task(ignore)
-
-Parameters:
-
-- location: (default:Taipei Taiwan)
-- type: (default:all)
-- number of result: (default:10)
-
-do some sample reasearch and follow the README.template.md to product the result
-EOF
 
 # Handle legacy symbolic link or mapping
 if [ -L ".agents" ]; then

@@ -89,7 +89,7 @@
   // [diff editor]
   "diffEditor.ignoreTrimWhitespace": true,
   "diffEditor.codeLens": true,
-  "diffEditor.renderSideBySide": false,
+  "diffEditor.renderSideBySide": true,
   // [files]
   "files.autoSave": "off",
   "files.eol": "\n",
@@ -648,7 +648,6 @@
   "redhat.telemetry.enabled": false,
   // end
   "workbench.editor.enablePreview": true,
-  "diffEditor.hideUnchangedRegions.enabled": true,
   "diffEditor.useInlineViewWhenSpaceIsLimited": true,
   "inlineChat.accessibleDiffView": "on",
   "python.defaultInterpreterPath": "~/.venv/bin/python",
