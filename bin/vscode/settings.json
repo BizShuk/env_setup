@@ -96,7 +96,7 @@
   "files.trimTrailingWhitespace": false,
   "files.exclude": {
     "{.svn,.hg,.DS_Store,Thumbs.db}": true,
-    "archive": true,
+    "{archive,*.bak*}": true,
     "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
     "{*.code-workspace,.golangci.yml,go.sum}": true,
     "{.specify,.gemini,.claude,.agent,.serena,.ttadk,.coco}": true,
@@ -149,6 +149,7 @@
   "search.followSymlinks": false,
   "search.exclude": {
     // inherited from files.exclude,
+    "/var/folders/**": true
   },
   "search.showLineNumbers": true,
   "search.collapseResults": "auto",
@@ -582,18 +583,14 @@
   "remote.SSH.remotePlatform": {
     "*cube-*": "linux"
   },
-  "remote.defaultExtensionsIfInstalledLocally": [
-    "GitHub.copilot",
-    "GitHub.copilot-chat",
-    "GitHub.vscode-pull-request-github"
-  ],
+  "remote.defaultExtensionsIfInstalledLocally": [],
 
   // [plugin market]
   "antigravity.marketplaceGalleryItemURL": "https://marketplace.visualstudio.com/items",
   "antigravity.marketplaceExtensionGalleryServiceURL": "https://marketplace.visualstudio.com/_apis/public/gallery",
 
   // [VSCode Copilot]
-  "chat.mcp.gallery.enabled": true,
+  "chat.mcp.gallery.enabled": false,
   "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
   "inlineChat.enableV2": true,
   "chat.disableAIFeatures": true,

@@ -425,5 +425,9 @@
     "key": "ctrl+shift+v",
     "command": "-office.html.preview",
     "when": "editorTextFocus && editorLangId == 'html'"
+  },
+  {
+    "key": "alt+cmd+c",
+    "command": "antigravity.generateCommitMessage"
   }
 ]

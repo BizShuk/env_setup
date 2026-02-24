@@ -16,7 +16,7 @@ arm64)
     ;;
 esac
 
-GO_VER=${GO_VER:-1.25.5}
+GO_VER=${GO_VER:-1.26.0}
 GO_FULLVER="go${GO_VER}.${os}-${GO_ARCH}"
 GO_ROOT="$USER_LIB/$GO_FULLVER"    # go package dir
 GO_PATH="$USER_LIB/go" # Where the go dependency/library downloaded

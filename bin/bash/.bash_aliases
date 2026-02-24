@@ -97,3 +97,4 @@ fi
 alias music_play="mplyaer -shuffle -- */**.mp3"
 alias oc="openclaw"
 alias ocl="openclaw logs --follow"
+alias pc="picoclaw"
