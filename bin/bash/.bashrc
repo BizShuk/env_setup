@@ -178,10 +178,9 @@ fi
 
 # supress zsh in mac
 export BASH_SILENCE_DEPRECATION_WARNING=1
-<<<<<<< HEAD
-export PATH=$HOME/.local/bin:$PATH
-=======
 
+export PATH=$HOME/.local/bin:$PATH
 . "$HOME/.local/bin/env"
 export PATH="$HOME/.npm-global/bin:$PATH"
->>>>>>> Update
+
+export SEC_TOKEN_STRING=$(doas env | grep SEC_TOKEN_STRING | cut -d = -f2)

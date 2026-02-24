@@ -95,6 +95,10 @@ fi
 
 ## Music player : mplayer
 alias music_play="mplyaer -shuffle -- */**.mp3"
+
 alias oc="openclaw"
 alias ocl="openclaw logs --follow"
 alias pc="picoclaw"
+
+alias jieli="HUB_URL=https://hl9h6ru7.fn-boe.bytedance.net jieli"
+
