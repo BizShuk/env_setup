@@ -184,3 +184,6 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH="$HOME/.npm-global/bin:$PATH"
 
 export SEC_TOKEN_STRING=$(doas env | grep SEC_TOKEN_STRING | cut -d = -f2)
+
+# Added by Antigravity
+export PATH="/Users/bytedance/.antigravity/antigravity/bin:$PATH"
