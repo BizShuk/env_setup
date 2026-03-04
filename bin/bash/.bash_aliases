@@ -102,3 +102,17 @@ alias pc="picoclaw"
 
 alias jieli="HUB_URL=https://hl9h6ru7.fn-boe.bytedance.net jieli"
 
+
+# 取得 Python 設定路徑 (Get Python configuration directory)
+get_python-config-dir () {
+    if ! command -v python-config > /dev/null; then
+        echo "python-config is not installed"
+        return 127
+    fi
+
+    # 取得第一個參數並移除開頭的 -L (Get the first flag and remove -L prefix)
+    python_config_dir=$(python-config --ldflags | awk '{print $1}')
+    python_config_dir=${python_config_dir:2}
+
+    echo "${python_config_dir}"
+}

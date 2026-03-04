@@ -43,6 +43,7 @@
     "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,.env*",
     "*": "${capture}.bak*,${capture}.read,${capture}.fake,${capture}*.sample,${capture}*.output,${capture}.md",
     "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,.geminiignore,.gitmodules,README.*",
+    "*.md": "${capture}.*",
     "*.sqlite": "${capture}.${extname}-*",
     "*.db": "${capture}.${extname}-*",
     "*.sqlite3": "${capture}.${extname}-*",
@@ -70,7 +71,7 @@
   "editor.showFoldingControls": "always",
   "editor.snippetSuggestions": "inline",
   "editor.tabCompletion": "on",
-  "editor.tabSize": 2,
+  "editor.tabSize": 4,
   "editor.unicodeHighlight.invisibleCharacters": false,
   "editor.wordWrap": "wordWrapColumn",
   "editor.wordWrapColumn": 220,
@@ -104,7 +105,10 @@
     "{.devops,.settings}": true,
     "{.classpath,.project}": true,
     "{target,out,dist,output}": true,
-    "{.mvn,node_modules,__pycache__,.venv}": true,
+    // Dependencies
+    "{.mvn,**/node_modules,__pycache__,.venv}": true,
+    // Output
+    "{**/dist}": true,
     "{__debug_bin*}": true,
     "{gen/**,kitex_gen}": true,
     "-1": true
@@ -277,7 +281,7 @@
   },
   // [javascript] [npm] [node] [typescript] [js] [jest]
   "javascript.updateImportsOnFileMove.enabled": "always",
-  // [Markdown]
+  "[Markdown]": {},
   // [New]
   // "markdown.styles": [
   //     "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -302,6 +306,7 @@
     "MD036": false,
     "MD045": false,
     "MD053": false,
+    "MD059": false,
     "SA9003": false
   },
   // [highlight] [todo]
@@ -538,7 +543,6 @@
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "editor.trimAutoWhitespace": false
   },
-
   "[todo]": {
     "files.trimTrailingWhitespace": false
   },
@@ -644,11 +648,14 @@
   "highlight.enabled": true,
   "redhat.telemetry.enabled": false,
   // end
-  "workbench.editor.enablePreview": true,
   "diffEditor.useInlineViewWhenSpaceIsLimited": true,
   "inlineChat.accessibleDiffView": "on",
   "python.defaultInterpreterPath": "~/.venv/bin/python",
   "python.terminal.activateEnvironment": true,
 
-  "prettier.htmlWhitespaceSensitivity": "ignore"
+  "prettier.htmlWhitespaceSensitivity": "ignore",
+  "rainbow_csv.virtual_alignment_vertical_grid": true,
+  "[csv]": {
+    "editor.inlayHints.maximumLength": 0
+  }
 }
