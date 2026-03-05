@@ -1,6 +1,6 @@
 [user]
-	name = x87shukliu
-	email = x87.shukliu@gmail.com
+	name = shuk.liu
+	email = biz.shuk@gmail.com
 [merge]
 	log = 25
 [color]
@@ -53,3 +53,5 @@
     insteadOf = https://git.byted.org
 [url "git@code.byted.org:"]
     insteadOf = https://code.byted.org/
+[safe]
+	directory = *

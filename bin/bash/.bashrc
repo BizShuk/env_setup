@@ -181,7 +181,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 
 export PATH=$HOME/.local/bin:$PATH
 . "$HOME/.local/bin/env"
-export PATH="$HOME/.npm-global/bin:$PATH"
 
 export SEC_TOKEN_STRING=$(doas env | grep SEC_TOKEN_STRING | cut -d = -f2)
 
