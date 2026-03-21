@@ -126,7 +126,21 @@ services:
   #     networks:
   #         - inf_network
 
+  chromadb:
+    image: chromadb/chroma
+    container_name: chromadb
+    restart: unless-stopped
+    environment:
+      - IS_PERSISTENT=TRUE
+    ports:
+      - "8000:8000"
+    volumes:
+      - chromadb_data:/data
+    networks:
+      - inf_network
+
 # Port Conflict Notes:
+# - ChromaDB: 8000 (Default)
 # - Grafana: 3000 (Default)
 # - MySQL: 3306 (Default)
 # - OpenTSDB: 4242 (Default)
@@ -148,6 +162,8 @@ volumes:
   grafana_data:
   opentsdb_data:
   bosun_data:
+  chromadb_data:
+
 
 networks:
   inf_network:
