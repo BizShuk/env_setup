@@ -4,7 +4,6 @@
   "window.openFoldersInNewWindow": "on",
   // [workbench]
   "workbench.startupEditor": "none",
-  "workbench.iconTheme": "material-icon-theme",
   "workbench.colorCustomizations": {},
   "workbench.editor.tabActionLocation": "right",
   "workbench.editorAssociations": {
@@ -249,9 +248,7 @@
   "gopls": {
     "formatting.gofumpt": false,
     "build.directoryFilters": ["-**/lib/go/pkg/**"],
-    "analyses": {
-      "fieldalignment": true
-    }
+    "analyses": {}
   },
   "go.buildFlags": ["-gcflags=-m -l"],
   "go.lintTool": "golangci-lint-v2",
@@ -647,7 +644,6 @@
   "http.systemCertificatesNode": true,
   "highlight.enabled": true,
   "redhat.telemetry.enabled": false,
-  // end
   "diffEditor.useInlineViewWhenSpaceIsLimited": true,
   "inlineChat.accessibleDiffView": "on",
   "python.defaultInterpreterPath": "~/.venv/bin/python",
@@ -657,5 +653,6 @@
   "rainbow_csv.virtual_alignment_vertical_grid": true,
   "[csv]": {
     "editor.inlayHints.maximumLength": 0
-  }
+  },
+  "workbench.editor.enablePreview": false
 }

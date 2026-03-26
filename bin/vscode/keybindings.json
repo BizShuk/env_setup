@@ -88,7 +88,7 @@
   {
     "key": "cmd+n",
     "command": "workbench.action.terminal.new",
-    "when": "terminalFocus"
+    "when": "panelFocus && terminalFocus"
   },
   {
     "key": "ctrl+tab",
@@ -448,5 +448,34 @@
     "key": "cmd+l cmd+c",
     "command": "-extension.liveServer.goOffline",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+cmd+n",
+    "command": "workbench.action.createTerminalEditor",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "cmd+\\",
+    "command": "workbench.action.createTerminalEditorSide",
+    "when": "terminalEditorFocus"
+  },
+  {
+    "key": "cmd+1",
+    "command": "-workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "ctrl+alt+cmd+m",
+    "command": "workbench.action.toggleMaximizeEditorGroup",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+cmd+n",
+    "command": "workbench.action.createTerminalEditor",
+    "when": "terminalEditorFocus"
+  },
+  {
+    "key": "ctrl+cmd+n",
+    "command": "workbench.action.files.newUntitledFile",
+    "when": "terminalEditorFocus"
   }
 ]
