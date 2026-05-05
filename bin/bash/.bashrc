@@ -182,7 +182,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export PATH=$HOME/.local/bin:$PATH
 . "$HOME/.local/bin/env"
 
-export SEC_TOKEN_STRING=$(doas env | grep SEC_TOKEN_STRING | cut -d = -f2)
+# export SEC_TOKEN_STRING=$(doas env | grep SEC_TOKEN_STRING | cut -d = -f2)
 
 # Added by Antigravity
 export PATH="/Users/bytedance/.antigravity/antigravity/bin:$PATH"

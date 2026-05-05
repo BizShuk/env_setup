@@ -116,3 +116,7 @@ get_python-config-dir () {
 
     echo "${python_config_dir}"
 }
+
+
+
+alias claudew="claude --settings ~/.claude/llmbox.json"

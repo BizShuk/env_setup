@@ -52,7 +52,6 @@ function _defer() {
     _deferred_depth="$BASHPID.${#FUNCNAME[@]}"
     _deferred+=("$(printf '%q ' "$@")")
 }
-# This has to be an alias so that the `trap ... RETURN` runs appropriately.
-shopt -s expand_aliases
-alias defer='declare -a _deferred; declare _deferred_depth; trap _run_deferred EXIT RETURN; _defer'
+
+
 
