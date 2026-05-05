@@ -485,5 +485,9 @@
         "key": "f2",
         "command": "workbench.action.terminal.rename",
         "when": "terminalEditorFocus"
+    },
+    {
+        "key": "alt+k",
+        "command": "workbench.view.extension.claude-sidebar-secondary"
     }
 ]
