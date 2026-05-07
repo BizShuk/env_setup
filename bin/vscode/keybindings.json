@@ -57,11 +57,6 @@
   },
   {
     "key": "ctrl+shift+tab",
-    "command": "workbench.action.nextPanelView",
-    "when": "panelFocus"
-  },
-  {
-    "key": "ctrl+shift+tab",
     "command": "workbench.action.previousPanelView",
     "when": "panelFocus"
   },
@@ -489,5 +484,19 @@
   {
     "key": "alt+k",
     "command": "workbench.view.extension.claude-sidebar-secondary"
+  },
+  {
+    "key": "alt+cmd+down",
+    "command": "workbench.action.nextSideBarView",
+    "when": "sideBarFocus"
+  },
+  {
+    "key": "alt+cmd+down",
+    "command": "workbench.action.nextAuxiliaryBarView",
+    "when": "auxiliaryBarFocus"
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextPanelView"
   }
 ]

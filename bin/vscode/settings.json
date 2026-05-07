@@ -596,7 +596,7 @@
   "inlineChat.enableV2": true,
   "chat.disableAIFeatures": true,
   // [Claude Code]
-  "claudeCode.preferredLocation": "panel",
+  "claudeCode.preferredLocation": "sidebar",
   "claudeCode.selectedModel": "opus",
   // [Gemini]
   "geminicodeassist.enable": true,
