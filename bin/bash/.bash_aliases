@@ -119,4 +119,5 @@ get_python-config-dir () {
 
 
 
-alias claudew="claude --settings ~/.claude/llmbox.json"
+alias claudew="claude --settings ~/projects/env_setup/claude/llmbox.json"
+alias claudem="claude --settings ~/projects/env_setup/claude/minimax.json"
