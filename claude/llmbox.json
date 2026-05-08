@@ -1,0 +1,23 @@
+{
+    "apiKeyHelper": "/Users/bytedance/.llmbox/claude_byted_token.sh",
+    "env": {
+        "ANTHROPIC_BASE_URL": "https://llmbox.bytedance.net/",
+        "ANTHROPIC_MODEL": "minimax-2.7",
+        "ANTHROPIC_CUSTOM_MODEL_OPTION": "minimax-2.7",
+        "ANTHROPIC_CUSTOM_MODEL_OPTION_NAME": "minimax-2.7",
+        "ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION": "mini max 2.7",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "gpt-5.4",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL_NAME": "gpt-5.4",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "gpt-5.3-codex",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "kimi-k2.5",
+        "CLAUDE_CODE_SUBAGENT_MODEL": "minimax-2.7",
+        "DISABLE_TELEMETRY": "1"
+    },
+    "statusLine": {
+        "type": "command",
+        "command": "npx -y ccstatusline@latest",
+        "padding": 0,
+        "refreshInterval": 10
+    },
+    "effortLevel": "xhigh"
+}
