@@ -9,7 +9,8 @@ config/*
 .serena
 post
 
-
+pkg/libgit2/
+docker/*
 network.topo
 devops/db/stock.sqlite
 
