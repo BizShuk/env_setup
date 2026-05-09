@@ -14,3 +14,4 @@ network.topo
 devops/db/stock.sqlite
 
 openclaw/yuna
+.claude/settings.local.json

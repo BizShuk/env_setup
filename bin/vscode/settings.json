@@ -654,5 +654,6 @@
         "editor.inlayHints.maximumLength": 0
     },
     "workbench.editor.enablePreview": false,
-    "workbench.auxiliaryActivityBar.location": "default"
+    "workbench.auxiliaryActivityBar.location": "default",
+    "terminal.integrated.mouseWheelScrollSensitivity": 3
 }
