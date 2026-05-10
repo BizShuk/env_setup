@@ -1,0 +1,12 @@
+#!/bin/bash
+YELLOW='\033[1;33m'
+NC='\033[0m'
+echo -e "${YELLOW}記憶體 (Memory)${NC}"
+if [[ "$(uname)" == "Darwin" ]]; then
+    MEM_BYTES=$(sysctl -n hw.memsize)
+    MEM_GB=$((MEM_BYTES / 1024 / 1024 / 1024))
+    echo "- Total RAM: ${MEM_GB} GB"
+    # 也可以加上 Integrated/Unified 判斷，但簡單起見先這樣
+else
+    echo "- Total RAM: $(free -h | awk '/^Mem:/ {print $2}')"
+fi

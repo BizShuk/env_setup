@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# ==============================================================================
+# Script Name: system_info
+# Description: 顯示詳盡的系統硬體資訊 (Show Detailed System Hardware Info)
+# ==============================================================================
+
+BASE_DIR="$(dirname "$0")/system"
+
+echo "=================================================="
+echo "          系統硬體檢測 (SYSTEM HARDWARE)          "
+echo "=================================================="
+
+# 1. 系統概況
+"$BASE_DIR/os_info"
+echo ""
+
+# 2. 處理器
+"$BASE_DIR/cpu_info"
+echo ""
+
+# 3. 記憶體
+"$BASE_DIR/mem_info"
+echo ""
+
+# 4. 顯示卡
+"$BASE_DIR/gpu_info"
+echo ""
+
+# 5. 磁碟儲存
+"$BASE_DIR/disk_info"
+echo ""
+
+# 6. USB 裝置
+"$BASE_DIR/usb_info"
+echo ""
+
+# 7. 顯示器
+"$BASE_DIR/display_info"
+echo ""
+
+# 8. 網路資訊 (原本的 myip)
+"$BASE_DIR/myip"
+echo ""
+
+# 9. 輸入裝置
+"$BASE_DIR/input_info"
+echo ""
+
+# 10. 音訊裝置
+"$BASE_DIR/audio_info"
+echo ""
+
+echo "--------------------------------------------------"
+echo "檢測完成 (Detection Complete)"
+echo "--------------------------------------------------"

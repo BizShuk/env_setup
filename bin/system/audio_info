@@ -1,0 +1,13 @@
+#!/bin/bash
+YELLOW='\033[1;33m'
+NC='\033[0m'
+echo -e "${YELLOW}音訊裝置 (Audio Devices)${NC}"
+if [[ "$(uname)" == "Darwin" ]]; then
+    system_profiler SPAudioDataType | grep "Default Output Device: Yes" -B 2 | grep -v "Default" | grep -v "Output" | sed 's/^[[:space:]]*//' | sed 's/://' | sed 's/^/- Output: /'
+else
+    if command -v aplay &> /dev/null; then
+        aplay -l | grep "card" | cut -d: -f2 | cut -d[ -f1 | sed 's/^[[:space:]]*//' | sed 's/^/- Output: /' | uniq
+    elif command -v pactl &> /dev/null; then
+        pactl list sinks | grep "Description" | cut -d: -f2 | sed 's/^[[:space:]]*//' | sed 's/^/- Output: /'
+    fi
+fi

@@ -1,0 +1,13 @@
+#!/bin/bash
+YELLOW='\033[1;33m'
+NC='\033[0m'
+echo -e "${YELLOW}顯示器 (Display)${NC}"
+if [[ "$(uname)" == "Darwin" ]]; then
+    system_profiler SPDisplaysDataType | grep "Resolution" | sed 's/Resolution:/- Display:/' | sed 's/^[[:space:]]*//'
+else
+    if command -v xrandr &> /dev/null; then
+        xrandr | grep "*" | awk '{print "- Display: "$1}' | head -n 1
+    elif command -v xdpyinfo &> /dev/null; then
+        xdpyinfo | grep dimensions | awk '{print "- Display: "$2}'
+    fi
+fi

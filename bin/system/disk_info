@@ -1,0 +1,6 @@
+#!/bin/bash
+YELLOW='\033[1;33m'
+NC='\033[0m'
+echo -e "${YELLOW}磁碟儲存 (Disk Storage)${NC}"
+# 獲取根目錄掛載點的磁碟資訊
+df -h / | awk 'NR==2 {printf "- Root Partition: %s (Used: %s, Free: %s, Usage: %s)\n", $2, $3, $4, $5}'

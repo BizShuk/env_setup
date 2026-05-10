@@ -1,51 +1,51 @@
 {
-    "permissions": {
-        "allow": [
-            "WebFetch(domain:code.byted.org)",
-            "mcp__codebase__GetFile",
-            "Bash(bytedcli *)",
-            "Bash(NPM_CONFIG_REGISTRY=http://bnpm.byted.org npx -y @bytedance-dev/bytedcli@latest hive *)",
-            "Bash(ls /usr/local/bin/byted*)",
-            "Bash(ls ~/bin/byted*)",
-            "Read(//opt/homebrew/bin/**)",
-            "Bash(/Users/bytedance/.local/bin/gdpa-cli *)",
-            "Bash(/Users/bytedance/.local/nvm/versions/node/v24.11.1/bin/bytedcli *)",
-            "Bash(python3:*)",
-            "Bash(gdpa-cli create-session:*)",
-            "Bash(SESSION=\"sess_20260325_181539_b0b6de00\")",
-            "Bash(gdpa-cli run:*)",
-            "Bash(gdpa-cli tools:*)",
-            "Bash(gdpa-cli list-tools:*)",
-            "mcp__codebase__ListRepositories",
-            "mcp__codebase__ListCommits",
-            "mcp__codebase__ListMergeRequests",
-            "mcp__codebase__SearchIssues",
-            "mcp__codebase__GetRepository",
-            "Bash(go build:*)"
-        ],
-        "defaultMode": "acceptEdits"
-    },
-    "statusLine": {
-        "type": "command",
-        "command": "npx -y ccstatusline@latest",
-        "padding": 0,
-        "refreshInterval": 10
-    },
-    "extraKnownMarketplaces": {
-        "FlineDev": {
-            "source": {
-                "source": "github",
-                "repo": "FlineDev/Marketplace"
-            }
-        }
-    },
-    "env": {
-        "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
-        "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "0"
-    },
-    "effortLevel": "medium",
-    "autoUpdatesChannel": "latest",
-    "theme": "dark-daltonized",
-    "verbose": true,
-    "model": "sonnet"
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:code.byted.org)",
+      "mcp__codebase__GetFile",
+      "Bash(bytedcli *)",
+      "Bash(NPM_CONFIG_REGISTRY=http://bnpm.byted.org npx -y @bytedance-dev/bytedcli@latest hive *)",
+      "Bash(ls /usr/local/bin/byted*)",
+      "Bash(ls ~/bin/byted*)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(/Users/bytedance/.local/bin/gdpa-cli *)",
+      "Bash(/Users/bytedance/.local/nvm/versions/node/v24.11.1/bin/bytedcli *)",
+      "Bash(python3:*)",
+      "Bash(gdpa-cli create-session:*)",
+      "Bash(SESSION=\"sess_20260325_181539_b0b6de00\")",
+      "Bash(gdpa-cli run:*)",
+      "Bash(gdpa-cli tools:*)",
+      "Bash(gdpa-cli list-tools:*)",
+      "mcp__codebase__ListRepositories",
+      "mcp__codebase__ListCommits",
+      "mcp__codebase__ListMergeRequests",
+      "mcp__codebase__SearchIssues",
+      "mcp__codebase__GetRepository",
+      "Bash(go build:*)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0,
+    "refreshInterval": 10
+  },
+  "extraKnownMarketplaces": {
+    "FlineDev": {
+      "source": {
+        "source": "github",
+        "repo": "FlineDev/Marketplace"
+      }
+    }
+  },
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "0"
+  },
+  "effortLevel": "xhigh",
+  "autoUpdatesChannel": "latest",
+  "theme": "dark-daltonized",
+  "verbose": true,
+  "model": "opus"
 }

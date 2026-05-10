@@ -1,0 +1,13 @@
+#!/bin/bash
+YELLOW='\033[1;33m'
+NC='\033[0m'
+echo -e "${YELLOW}輸入裝置 (Input Devices)${NC}"
+if [[ "$(uname)" == "Darwin" ]]; then
+    system_profiler SPInputDataType | grep "Product ID" -B 1 | grep -v "Product ID" | grep -v "\-\-" | sed 's/^[[:space:]]*//' | sed 's/://' | sed 's/^/- /'
+else
+    if [ -f /proc/bus/input/devices ]; then
+        grep "Name=" /proc/bus/input/devices | cut -d'"' -f2 | sed 's/^/- /' | sort -u
+    elif command -v xinput &> /dev/null; then
+        xinput list --short | grep "slave" | sed 's/^[[:space:]]*//' | sed 's/^/- /'
+    fi
+fi

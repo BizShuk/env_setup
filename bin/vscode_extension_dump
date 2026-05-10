@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Script to dump VS Code extensions to a text file
 # This allows for easy re-installation or tracking of extensions
