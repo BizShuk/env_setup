@@ -38,7 +38,7 @@ declare -a SYMLINKS=(
     "${HOME}/lib:${HOME}/projects/env_setup/config/lib"
 
     # Claude Codo - ccstatusline
-    "${HOME}/.claude:${HOME}/projects/env_setup/claude/"
+    "${HOME}/.claude:${HOME}/projects/env_setup/claude/.claude"
     "${HOME}/projects/env_setup/claude/settings.json:${HOME}/.claude/settings.json"
     "${HOME}/projects/env_setup/claude/ccstatusline/settings.json:${HOME}/.config/ccstatusline/settings.json"
 )
