@@ -5,9 +5,9 @@
 # Private
 sudo rm -rf /private/var/log/*
 sudo rm -rf /private/var/tmp/*
-# /prvate/var/db, No
-# /prvate/var/vm, No
-# /prvate/var/folders # Application temporary cache, remove by restart computer.
+# /private/var/db, No
+# /private/var/vm, No
+# /private/var/folders # Application temporary cache, remove by restart computer.
 
 # System Library
 sudo rm -rf /Library/Logs/*
@@ -28,32 +28,38 @@ rm -rf ~/.Trash/*
 
 
 # Lark
-rm -rf /Users/shuk/Library/Application\ Support/LarkInternational/sdk_storage/log/*
+rm -rf ~/Library/Application\ Support/LarkInternational/sdk_storage/log/*
 
-# Cache
-rm -rf /Users/shuk/Library/Caches/Google/Chrome/Default/Cache/Cache_Data
+# Chrome Cache
+rm -rf ~/Library/Caches/Google/Chrome/Default/Cache/Cache_Data
 
 # Golang
-rm -rf /Users/shuk/projects/.local/go/src/*
+rm -rf ~/projects/.local/go/src/*
 
 # iMovie/iTunes
-rm -rf /Users/shuk/Music/*
+rm -rf ~/Music/*
 
 # Whatapps
-rm -rf /Users/shuk/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/Message/Media/*
+rm -rf ~/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/Message/Media/*
 
 # WeChat
-rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat/Data
-rm -rf /Users/shuk/Library/Containers/com.tencent.xinWeChat.WeChatMacShare/Data
+rm -rf ~/Library/Containers/com.tencent.xinWeChat/Data
+rm -rf ~/Library/Containers/com.tencent.xinWeChat.WeChatMacShare/Data
 
 # Podcast
-rm -rf /Users/shuk/Library/Containers/com.apple.podcasts/Data/tmp/StreamedMedia/*.mp3
+rm -rf ~/Library/Containers/com.apple.podcasts/Data/tmp/StreamedMedia/*.mp3
 
 # BackUp/Update
-rm -rf /Users/shuk/Library/iTunes/iPhone\ Software\ Updates/*
-rm -rf /Users/shuk/Library/Application\ Support/MobileSync/Backup/*
+rm -rf ~/Library/iTunes/iPhone\ Software\ Updates/*
+rm -rf ~/Library/Application\ Support/MobileSync/Backup/*
 
-brew bundle cleanup
+BREWFILE_PATH="$HOME/projects/env_setup/setup/Brewfile"
+if [ -f "$BREWFILE_PATH" ]; then
+    brew bundle cleanup --file="$BREWFILE_PATH" --force
+else
+    echo "Warning: Brewfile not found at $BREWFILE_PATH, skipping brew cleanup."
+fi
+
 
 reset () {
     rm -Rf ~/Library/Caches/Apple\ -\ Safari\ -\ Safari\ Extensions\ Gallery

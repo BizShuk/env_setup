@@ -498,5 +498,25 @@
             "text": "\u001b\r"
         },
         "when": "terminalFocus"
+    },
+    {
+        "key": "alt+k",
+        "command": "claude-vscode.insertAtMention",
+        "when": "terminalTextSelected"
+    },
+    {
+        "key": "alt+k",
+        "command": "-claude-vscode.insertAtMention",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+k",
+        "command": "claude-code.insertAtMentioned",
+        "when": "terminalTextSelected"
+    },
+    {
+        "key": "alt+cmd+k",
+        "command": "-claude-code.insertAtMentioned",
+        "when": "editorTextFocus"
     }
 ]
