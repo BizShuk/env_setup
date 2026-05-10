@@ -1,38 +1,42 @@
 {
-    "permissions": {
-        "allow": [
-            "Bash(ls *)",
-            "Bash(df *)",
-            "Bash(du *)",
-            "Bash(go build:*)",
-            "Bash(python3:*)",
-            "Bash(bytedcli *)",
-            "Bash(gdpa-cli *)"
-        ],
-        "deny": ["Bash(git push *)", "Read(.env.key)", "Bash(rm *)"],
-        "defaultMode": "acceptEdits"
-    },
-    "statusLine": {
-        "type": "command",
-        "command": "npx -y ccstatusline@latest",
-        "padding": 0,
-        "refreshInterval": 10
-    },
-    "extraKnownMarketplaces": {
-        "FlineDev": {
-            "source": {
-                "source": "github",
-                "repo": "FlineDev/Marketplace"
-            }
-        }
-    },
-    "env": {
-        "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
-        "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "0"
-    },
-    "effortLevel": "xhigh",
-    "autoUpdatesChannel": "latest",
-    "theme": "dark-daltonized",
-    "verbose": true,
-    "model": "opus"
+  "permissions": {
+    "allow": [
+      "Bash(ls *)",
+      "Bash(df *)",
+      "Bash(du *)",
+      "Bash(go build:*)",
+      "Bash(python3:*)",
+      "Bash(bytedcli *)",
+      "Bash(gdpa-cli *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Read(.env.key)",
+      "Bash(rm *)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0,
+    "refreshInterval": 10
+  },
+  "extraKnownMarketplaces": {
+    "FlineDev": {
+      "source": {
+        "source": "github",
+        "repo": "FlineDev/Marketplace"
+      }
+    }
+  },
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "0"
+  },
+  "effortLevel": "xhigh",
+  "autoUpdatesChannel": "latest",
+  "theme": "dark-daltonized",
+  "verbose": true,
+  "model": "opus"
 }
