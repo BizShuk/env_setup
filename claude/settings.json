@@ -1,4 +1,14 @@
 {
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "0",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "OTEL_METRICS_EXPORTER": "otlp"
+  },
+  "attribution": {
+    "commit": "Committed by AI",
+    "pr": "Committed by AI"
+  },
   "permissions": {
     "allow": [
       "Bash(ls *)",
@@ -14,8 +24,16 @@
       "Read(.env.key)",
       "Bash(rm *)"
     ],
+    "ask": [],
     "defaultMode": "acceptEdits"
   },
+  "allowedHttpHookUrls": [
+    "http://localhost:*"
+  ],
+  "httpHookAllowedEnvVars": [
+    "MY_TOKEN",
+    "HOOK_SECRET"
+  ],
   "statusLine": {
     "type": "command",
     "command": "npx -y ccstatusline@latest",
@@ -30,13 +48,12 @@
       }
     }
   },
-  "env": {
-    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
-    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "0"
-  },
+  "outputStyle": "Explanatory",
   "effortLevel": "xhigh",
   "autoUpdatesChannel": "latest",
+  "plansDirectory": "./plans",
+  "autoMemoryEnabled": false,
   "theme": "dark-daltonized",
   "verbose": true,
-  "model": "opus"
+  "teammateMode": "in-process"
 }

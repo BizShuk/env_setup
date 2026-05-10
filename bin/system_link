@@ -36,6 +36,11 @@ declare -a SYMLINKS=(
     "${HOME}/.ssh:${HOME}/projects/env_setup/config/.ssh"
     "${HOME}/.vscode:${HOME}/projects/env_setup/config/.vscode"
     "${HOME}/lib:${HOME}/projects/env_setup/config/lib"
+
+    # Claude Codo - ccstatusline
+    "${HOME}/.claude:${HOME}/projects/env_setup/claude/"
+    "${HOME}/projects/env_setup/claude/settings.json:${HOME}/.claude/settings.json"
+    "${HOME}/projects/env_setup/claude/ccstatusline/settings.json:${HOME}/.config/ccstatusline/settings.json"
 )
 
 # Create each symbolic link
@@ -57,6 +62,7 @@ for link_pair in "${SYMLINKS[@]}"; do
 done
 
 echo -e "${GREEN}All symbolic links have been recreated successfully!${NC}"
+
 
 
 # VSCode and Antigravity Configuration
