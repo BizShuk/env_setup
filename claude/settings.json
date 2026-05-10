@@ -27,6 +27,10 @@
     "ask": [],
     "defaultMode": "acceptEdits"
   },
+  "model": "opus",
+  "worktree": {
+    "baseRef": "fresh"
+  },
   "allowedHttpHookUrls": [
     "http://localhost:*"
   ],
@@ -49,9 +53,14 @@
     }
   },
   "outputStyle": "Explanatory",
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
+  "fastModePerSessionOptIn": true,
   "autoUpdatesChannel": "latest",
   "plansDirectory": "./plans",
+  "voice": {
+    "enabled": false,
+    "mode": "hold"
+  },
   "autoMemoryEnabled": false,
   "theme": "dark-daltonized",
   "verbose": true,

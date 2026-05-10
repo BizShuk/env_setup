@@ -5,6 +5,8 @@
     // [workbench]
     "workbench.startupEditor": "none",
     "workbench.colorCustomizations": {},
+    "workbench.editor.enablePreview": false,
+    "workbench.auxiliaryActivityBar.location": "default",
     "workbench.editor.tabActionLocation": "right",
     "workbench.editorAssociations": {
         "*.copilotmd": "vscode.markdown.preview.editor",
@@ -209,6 +211,8 @@
     },
     // [terminal]
     "terminal.integrated.fontSize": 14,
+    "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.mouseWheelScrollSensitivity": 3,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.defaultProfile.osx": "bash",
     "terminal.integrated.defaultProfile.linux": "bash",
@@ -311,6 +315,7 @@
         "SA9003": false
     },
     // [highlight] [todo]
+    "highlight.enabled": true,
     "highlight.regexes": {
         // $, S$
         "([S]{0,1}\\$)": [
@@ -593,6 +598,7 @@
     "chat.mcp.gallery.enabled": false,
     "chat.agentSessionsViewLocation": "view", // open in auxiliar bar
     "inlineChat.enableV2": true,
+    "inlineChat.accessibleDiffView": "on",
     "chat.disableAIFeatures": true,
     // [Claude Code]
     "claudeCode.preferredLocation": "sidebar",
@@ -630,6 +636,16 @@
     "prettier.trailingComma": "none",
     "prettier.tabWidth": 4,
     "prettier.htmlWhitespaceSensitivity": "ignore",
+    // [python]
+    "python.defaultInterpreterPath": "~/.venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.languageServer": "Default",
+    // [csv]
+    "rainbow_csv.virtual_alignment_vertical_grid": true,
+    "[csv]": {
+        "editor.inlayHints.maximumLength": 0
+    },
+
     // [misc]
     "html.format.enable": true,
     "debug.javascript.autoAttachFilter": "disabled",
@@ -643,17 +659,5 @@
     "gitlens.ai.vscode.model": "copilot:gpt-4.1",
     "makefile.configureOnOpen": false,
     "http.systemCertificatesNode": true,
-    "highlight.enabled": true,
-    "redhat.telemetry.enabled": false,
-    "inlineChat.accessibleDiffView": "on",
-    "python.defaultInterpreterPath": "~/.venv/bin/python",
-    "python.terminal.activateEnvironment": true,
-    "python.languageServer": "Default",
-    "rainbow_csv.virtual_alignment_vertical_grid": true,
-    "[csv]": {
-        "editor.inlayHints.maximumLength": 0
-    },
-    "workbench.editor.enablePreview": false,
-    "workbench.auxiliaryActivityBar.location": "default",
-    "terminal.integrated.mouseWheelScrollSensitivity": 3
+    "redhat.telemetry.enabled": false
 }
