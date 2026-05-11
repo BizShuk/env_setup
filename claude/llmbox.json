@@ -2,12 +2,12 @@
     "apiKeyHelper": "/Users/bytedance/.llmbox/claude_byted_token.sh",
     "env": {
         "ANTHROPIC_BASE_URL": "https://llmbox.bytedance.net/",
-        "ANTHROPIC_MODEL": "minimax-2.7",
+        "ANTHROPIC_MODEL": "minimax-m2.7",
         "CLAUDE_CODE_SUBAGENT_MODEL": "deepseek-v4-pro[1m]",
 
 
-        "ANTHROPIC_CUSTOM_MODEL_OPTION": "minimax-2.7",
-        "ANTHROPIC_CUSTOM_MODEL_OPTION_NAME": "minimax-2.7",
+        "ANTHROPIC_CUSTOM_MODEL_OPTION": "minimax-m2.7",
+        "ANTHROPIC_CUSTOM_MODEL_OPTION_NAME": "minimax-m2.7",
         "ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION": "mini max 2.7",
 
         "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-v4-pro[1m]",

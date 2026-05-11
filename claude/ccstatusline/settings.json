@@ -46,15 +46,6 @@
         "customSymbol": "("
       },
       {
-        "id": "c3686b02-35eb-4e41-bca0-3892f66afcdf",
-        "type": "tokens-output"
-      },
-      {
-        "id": "9b533121-84e2-478b-9c45-99f26359ee86",
-        "type": "custom-symbol",
-        "customSymbol": ","
-      },
-      {
         "id": "70abc22d-281c-415b-9c2a-65eecd6d034a",
         "type": "tokens-input"
       },
@@ -145,10 +136,10 @@
       {
         "id": "5b945235-ca2a-4ba6-8d0e-e4afbcc4162c",
         "type": "git-branch",
+        "rawValue": false,
         "metadata": {
           "hideNoGit": "true"
-        },
-        "rawValue": false
+        }
       },
       {
         "id": "6991eacd-d02b-49e6-b394-75489754612d",

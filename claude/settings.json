@@ -30,7 +30,7 @@
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "model": "sonnet",
+  "model": "opus",
   "worktree": {
     "baseRef": "fresh"
   },
@@ -56,7 +56,7 @@
     }
   },
   "outputStyle": "Explanatory",
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "fastModePerSessionOptIn": true,
   "autoUpdatesChannel": "latest",
   "plansDirectory": "./plans",
