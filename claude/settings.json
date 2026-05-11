@@ -1,62 +1,71 @@
 {
-    "env": {
-        "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
-        "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "0",
-        "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
-        "OTEL_METRICS_EXPORTER": "otlp",
-        "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
-        "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "0",
-        "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1"
-    },
-    "attribution": {
-        "commit": "Committed by AI",
-        "pr": "Committed by AI"
-    },
-    "permissions": {
-        "allow": [
-            "Bash(ls *)",
-            "Bash(df *)",
-            "Bash(du *)",
-            "Bash(go build:*)",
-            "Bash(python3:*)",
-            "Bash(bytedcli *)",
-            "Bash(gdpa-cli *)"
-        ],
-        "deny": ["Bash(git push *)", "Read(.env.key)", "Bash(rm *)"],
-        "ask": [],
-        "defaultMode": "acceptEdits"
-    },
-    "model": "opus",
-    "worktree": {
-        "baseRef": "fresh"
-    },
-    "allowedHttpHookUrls": ["http://localhost:*"],
-    "httpHookAllowedEnvVars": ["MY_TOKEN", "HOOK_SECRET"],
-    "statusLine": {
-        "type": "command",
-        "command": "npx -y ccstatusline@latest",
-        "padding": 0,
-        "refreshInterval": 10
-    },
-    "extraKnownMarketplaces": {
-        "FlineDev": {
-            "source": {
-                "source": "github",
-                "repo": "FlineDev/Marketplace"
-            }
-        }
-    },
-    "outputStyle": "Explanatory",
-    "effortLevel": "xhigh",
-    "fastModePerSessionOptIn": true,
-    "autoUpdatesChannel": "latest",
-    "plansDirectory": "./plans",
-    "voice": {
-        "enabled": false,
-        "mode": "hold"
-    },
-    "autoMemoryEnabled": false,
-    "theme": "dark-daltonized",
-    "verbose": true,
-    "teammateMode": "in-process"
+  "env": {
+    "CLAUDE_CODE_DISABLE_1M_CONTEXT": "0",
+    "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "0",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "0",
+    "OTEL_METRICS_EXPORTER": "otlp",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "0",
+    "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1"
+  },
+  "attribution": {
+    "commit": "Committed by AI",
+    "pr": "Committed by AI"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(ls *)",
+      "Bash(df *)",
+      "Bash(du *)",
+      "Bash(go build:*)",
+      "Bash(python3:*)",
+      "Bash(bytedcli *)",
+      "Bash(gdpa-cli *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Read(.env.key)",
+      "Bash(rm *)"
+    ],
+    "ask": [],
+    "defaultMode": "acceptEdits"
+  },
+  "model": "sonnet",
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "allowedHttpHookUrls": [
+    "http://localhost:*"
+  ],
+  "httpHookAllowedEnvVars": [
+    "MY_TOKEN",
+    "HOOK_SECRET"
+  ],
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0,
+    "refreshInterval": 10
+  },
+  "extraKnownMarketplaces": {
+    "FlineDev": {
+      "source": {
+        "source": "github",
+        "repo": "FlineDev/Marketplace"
+      }
+    }
+  },
+  "outputStyle": "Explanatory",
+  "effortLevel": "xhigh",
+  "fastModePerSessionOptIn": true,
+  "autoUpdatesChannel": "latest",
+  "plansDirectory": "./plans",
+  "voice": {
+    "enabled": false,
+    "mode": "hold"
+  },
+  "autoMemoryEnabled": false,
+  "theme": "dark-daltonized",
+  "verbose": true,
+  "teammateMode": "in-process"
 }
