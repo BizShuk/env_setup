@@ -17,3 +17,12 @@ devops/db/stock.sqlite
 openclaw/yuna
 .claude/settings.local.json
 claude/.claude
+config/.bash_plugin
+config/.colima
+config/.config
+config/.gemini
+config/.screenrc
+config/.ssh
+config/.vscode
+config/lib
+log/
