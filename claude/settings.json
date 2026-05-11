@@ -8,6 +8,7 @@
     "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "0",
     "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1"
   },
+  "model": "sonnet",
   "attribution": {
     "commit": "Committed by AI",
     "pr": "Committed by AI"
@@ -30,7 +31,6 @@
     "ask": [],
     "defaultMode": "acceptEdits"
   },
-  "model": "sonnet",
   "worktree": {
     "baseRef": "fresh"
   },

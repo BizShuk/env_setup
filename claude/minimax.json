@@ -4,11 +4,9 @@
         "ANTHROPIC_AUTH_TOKEN": "<MINIMAX_API_KEY>",
         "API_TIMEOUT_MS": "3000000",
         "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
-
         "ANTHROPIC_MODEL": "MiniMax-M2.7",
         "CLAUDE_CODE_SUBAGENT_MODEL": "MiniMax-M2.7",
         "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-
         "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.7",
         "ANTHROPIC_DEFAULT_SONNET_MODEL_NAME": "MiniMax-M2.7",
         "ANTHROPIC_DEFAULT_SONNET_MODEL_SUPPORTED_CAPABILITIES": "effort,xhigh_effort,max_effort,thinking,adaptive_thinking,interleaved_thinking",
@@ -20,12 +18,64 @@
         "ANTHROPIC_DEFAULT_HAIKU_MODEL_SUPPORTED_CAPABILITIES": "effort,xhigh_effort,max_effort,thinking,adaptive_thinking,interleaved_thinking",
         "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1"
     },
+    "model": "minimax-m2.7",
+    "attribution": {
+        "commit": "Committed by AI",
+        "pr": "Committed by AI"
+    },
+    "permissions": {
+        "allow": [
+            "Bash(ls *)",
+            "Bash(df *)",
+            "Bash(du *)",
+            "Bash(go build:*)",
+            "Bash(python3:*)",
+            "Bash(bytedcli *)",
+            "Bash(gdpa-cli *)"
+        ],
+        "deny": [
+            "Bash(git push *)",
+            "Read(.env.key)",
+            "Bash(rm *)"
+        ],
+        "ask": [],
+        "defaultMode": "acceptEdits"
+    },
+    "worktree": {
+        "baseRef": "fresh"
+    },
+    "allowedHttpHookUrls": [
+        "http://localhost:*"
+    ],
+    "httpHookAllowedEnvVars": [
+        "MY_TOKEN",
+        "HOOK_SECRET"
+    ],
     "statusLine": {
         "type": "command",
         "command": "npx -y ccstatusline@latest",
         "padding": 0,
         "refreshInterval": 10
     },
+    "extraKnownMarketplaces": {
+        "FlineDev": {
+            "source": {
+                "source": "github",
+                "repo": "FlineDev/Marketplace"
+            }
+        }
+    },
+    "outputStyle": "Explanatory",
     "effortLevel": "xhigh",
+    "fastModePerSessionOptIn": true,
+    "autoUpdatesChannel": "latest",
+    "plansDirectory": "./plans",
+    "voice": {
+        "enabled": false,
+        "mode": "hold"
+    },
+    "autoMemoryEnabled": false,
+    "theme": "dark-daltonized",
+    "verbose": true,
     "teammateMode": "in-process"
 }

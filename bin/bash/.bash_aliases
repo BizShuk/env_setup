@@ -119,5 +119,8 @@ get_python-config-dir () {
 
 
 
+# alias claude="claude"
+# alias claudew="CLAUDE_CONFIG_DIR=~/.claude-work claude --settings ~/projects/env_setup/claude/llmbox.json"
 alias claudew="claude --settings ~/projects/env_setup/claude/llmbox.json"
+# alias claudem="CLAUDE_CONFIG_DIR=~/.claude-minimax claude --settings ~/projects/env_setup/claude/minimax.json"
 alias claudem="claude --settings ~/projects/env_setup/claude/minimax.json"

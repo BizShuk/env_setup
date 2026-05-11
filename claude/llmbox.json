@@ -4,33 +4,79 @@
         "ANTHROPIC_BASE_URL": "https://llmbox.bytedance.net/",
         "ANTHROPIC_MODEL": "minimax-m2.7",
         "CLAUDE_CODE_SUBAGENT_MODEL": "deepseek-v4-pro[1m]",
-
-
         "ANTHROPIC_CUSTOM_MODEL_OPTION": "minimax-m2.7",
         "ANTHROPIC_CUSTOM_MODEL_OPTION_NAME": "minimax-m2.7",
         "ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION": "mini max 2.7",
-
         "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-v4-pro[1m]",
         "ANTHROPIC_DEFAULT_OPUS_MODEL_NAME": "deepseek-v4-pro[1m]",
         "ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION": "deepseek-v4-pro[1m]",
-
         "ANTHROPIC_DEFAULT_SONNET_MODEL": "gpt-5.4",
         "ANTHROPIC_DEFAULT_SONNET_MODEL_NAME": "gpt-5.4",
         "ANTHROPIC_DEFAULT_SONNET_MODEL_DESCRIPTION": "gpt-5.4",
-
         "ANTHROPIC_DEFAULT_HAIKU_MODEL": "kimi-k2.5",
         "ANTHROPIC_DEFAULT_HAIKU_MODEL_NAME": "kimi-k2.5",
         "ANTHROPIC_DEFAULT_HAIKU_MODEL_DESCRIPTION": "kimi-k2.5",
-
-        
         "DISABLE_TELEMETRY": "1",
         "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1"
     },
+    "model": "minimax-m2.7",
+    "attribution": {
+        "commit": "Committed by AI",
+        "pr": "Committed by AI"
+    },
+    "permissions": {
+        "allow": [
+            "Bash(ls *)",
+            "Bash(df *)",
+            "Bash(du *)",
+            "Bash(go build:*)",
+            "Bash(python3:*)",
+            "Bash(bytedcli *)",
+            "Bash(gdpa-cli *)"
+        ],
+        "deny": [
+            "Bash(git push *)",
+            "Read(.env.key)",
+            "Bash(rm *)"
+        ],
+        "ask": [],
+        "defaultMode": "acceptEdits"
+    },
+    "worktree": {
+        "baseRef": "fresh"
+    },
+    "allowedHttpHookUrls": [
+        "http://localhost:*"
+    ],
+    "httpHookAllowedEnvVars": [
+        "MY_TOKEN",
+        "HOOK_SECRET"
+    ],
     "statusLine": {
         "type": "command",
         "command": "npx -y ccstatusline@latest",
         "padding": 0,
         "refreshInterval": 10
     },
-    "effortLevel": "xhigh"
+    "extraKnownMarketplaces": {
+        "FlineDev": {
+            "source": {
+                "source": "github",
+                "repo": "FlineDev/Marketplace"
+            }
+        }
+    },
+    "outputStyle": "Explanatory",
+    "effortLevel": "xhigh",
+    "fastModePerSessionOptIn": true,
+    "autoUpdatesChannel": "latest",
+    "plansDirectory": "./plans",
+    "voice": {
+        "enabled": false,
+        "mode": "hold"
+    },
+    "autoMemoryEnabled": false,
+    "theme": "dark-daltonized",
+    "verbose": true,
+    "teammateMode": "in-process"
 }
