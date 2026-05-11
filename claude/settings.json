@@ -56,7 +56,7 @@
     }
   },
   "outputStyle": "Explanatory",
-  "effortLevel": "high",
+  "effortLevel": "max",
   "fastModePerSessionOptIn": true,
   "autoUpdatesChannel": "latest",
   "plansDirectory": "./plans",
