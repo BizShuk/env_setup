@@ -5,6 +5,7 @@ tools: Read, Grep, Glob, Bash, TodoWrite
 model: opus[1m]
 effort: max
 color: orange
+isolation: worktree
 ---
 
 # Go Performance Agent
