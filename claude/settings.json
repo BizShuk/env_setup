@@ -25,7 +25,12 @@
             "Bash(bytedcli *)",
             "Bash(gdpa-cli *)"
         ],
-        "deny": ["Bash(git push *)", "Read(.env.key)", "Bash(rm *)"],
+        "deny": [
+            "Bash(git push *)",
+            "Read(.env.key)",
+            "Bash(rm *)",
+            "Read(~/.claude/settings.json)"
+        ],
         "ask": [],
         "defaultMode": "acceptEdits"
     },
@@ -65,5 +70,6 @@
     "defaultShell": "bash",
     "preferredNotifChannel": "auto",
     "prefersReducedMotion": true,
-    "skillListingBudgetFraction": 0.01
+    "skillListingBudgetFraction": 0.01,
+    "additionalDirectories": ["~/.claude", "~/.bytedcli"]
 }
