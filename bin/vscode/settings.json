@@ -660,5 +660,8 @@
     "gitlens.ai.vscode.model": "copilot:gpt-4.1",
     "makefile.configureOnOpen": false,
     "http.systemCertificatesNode": true,
-    "redhat.telemetry.enabled": false
+    "redhat.telemetry.enabled": false,
+    "[sql]": {
+        "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
+    }
 }
