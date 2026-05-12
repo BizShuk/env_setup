@@ -26,6 +26,8 @@
     },
     "permissions": {
         "allow": [
+            "Read(~/*)",
+            "Read(/Users/bytedance/*)",
             "Bash(ls *)",
             "Bash(df *)",
             "Bash(du *)",
