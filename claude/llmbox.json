@@ -36,10 +36,6 @@
     "effortLevel": "xhigh",
     "outputStyle": "Explanatory",
     "permissions": {
-        "additionalDirectories": [
-            "~/.claude/skills",
-            "~/.claude/agents"
-        ],
         "allow": [
             "Bash(ls:*)",
             "Bash(df:*)",
@@ -64,7 +60,11 @@
         "ask": [
             "Bash(rm:*)"
         ],
-        "defaultMode": "acceptEdits"
+        "defaultMode": "acceptEdits",
+        "additionalDirectories": [
+            "~/.claude/skills",
+            "~/.claude/agents"
+        ]
     },
     "worktree": {
         "baseRef": "fresh"

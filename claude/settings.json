@@ -17,7 +17,6 @@
     "effortLevel": "xhigh",
     "outputStyle": "Explanatory",
     "permissions": {
-        "additionalDirectories": ["~/.claude/skills", "~/.claude/agents"],
         "allow": [
             "Bash(ls:*)",
             "Bash(df:*)",
@@ -40,7 +39,8 @@
             "Read(~/.claude/settings.json)"
         ],
         "ask": ["Bash(rm:*)"],
-        "defaultMode": "acceptEdits"
+        "defaultMode": "acceptEdits",
+        "additionalDirectories": ["~/.claude/skills", "~/.claude/agents"]
     },
     "worktree": {
         "baseRef": "fresh"
@@ -62,7 +62,6 @@
             }
         }
     },
-
     "syntaxHighlightingDisabled": false,
     "fastModePerSessionOptIn": true,
     "autoUpdatesChannel": "latest",
