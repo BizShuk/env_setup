@@ -29,7 +29,7 @@
             "Read(~/.claude/settings.json)"
         ],
         "ask": [
-            "Bash(rm:*)",
+            "Bash(rm:*)"
         ],
         "defaultMode": "acceptEdits"
     },
