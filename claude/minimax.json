@@ -1,42 +1,60 @@
 {
     "env": {
+        "_____proxy": "_____",
         "ANTHROPIC_BASE_URL": "https://api.minimax.io/anthropic",
         "ANTHROPIC_AUTH_TOKEN": "<MINIMAX_API_KEY>",
         "API_TIMEOUT_MS": "3000000",
         "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+        "_____prompt": "_____",
+        "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1",
+        "_____model": "_____",
         "ANTHROPIC_MODEL": "MiniMax-M2.7",
-        "CLAUDE_CODE_SUBAGENT_MODEL": "MiniMax-M2.7",
-        "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-        "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.7",
-        "ANTHROPIC_DEFAULT_SONNET_MODEL_NAME": "MiniMax-M2.7",
-        "ANTHROPIC_DEFAULT_SONNET_MODEL_SUPPORTED_CAPABILITIES": "effort,xhigh_effort,max_effort,thinking,adaptive_thinking,interleaved_thinking",
+        "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1",
         "ANTHROPIC_DEFAULT_OPUS_MODEL": "MiniMax-M2.7",
         "ANTHROPIC_DEFAULT_OPUS_MODEL_NAME": "MiniMax-M2.7",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL_DESCRIPTION": "MiniMax-M2.7",
         "ANTHROPIC_DEFAULT_OPUS_MODEL_SUPPORTED_CAPABILITIES": "effort,xhigh_effort,max_effort,thinking,adaptive_thinking,interleaved_thinking",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.7",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL_NAME": "MiniMax-M2.7",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL_DESCRIPTION": "MiniMax-M2.7",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL_SUPPORTED_CAPABILITIES": "effort,xhigh_effort,max_effort,thinking,adaptive_thinking,interleaved_thinking",
         "ANTHROPIC_DEFAULT_HAIKU_MODEL": "MiniMax-M2.7",
         "ANTHROPIC_DEFAULT_HAIKU_MODEL_NAME": "MiniMax-M2.7",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL_DESCRIPTION": "MiniMax-M2.7",
         "ANTHROPIC_DEFAULT_HAIKU_MODEL_SUPPORTED_CAPABILITIES": "effort,xhigh_effort,max_effort,thinking,adaptive_thinking,interleaved_thinking",
-        "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1"
+        "_____agent": "_____",
+        "CLAUDE_CODE_SUBAGENT_MODEL": "MiniMax-M2.7",
+        "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+        "_____extra": "_____",
+        "DISABLE_TELEMETRY": "1"
     },
     "model": "minimax-m2.7",
-    "attribution": {
-        "commit": "Committed by AI",
-        "pr": "Committed by AI"
-    },
+    "effortLevel": "xhigh",
+    "outputStyle": "Explanatory",
     "permissions": {
+        "additionalDirectories": [
+            "~/.claude/skills",
+            "~/.claude/agents"
+        ],
         "allow": [
             "Bash(ls:*)",
             "Bash(df:*)",
             "Bash(du:*)",
+            "Bash(mkdir:*)",
             "Bash(head:*)",
             "Bash(grep:*)",
-            "Bash(go build:*)",
+            "Bash(go:*)",
+            "Bash(python:*)",
             "Bash(python3:*)",
             "Bash(bytedcli:*)",
             "Bash(gdpa-cli:*)"
         ],
         "deny": [
             "Read(.env.key)",
+            "Read(~/.ssh/**)",
+            "Read(~/.aws/**)",
+            "Read(**/.env)",
+            "Read(**/secrets/**)",
             "Read(~/.claude/settings.json)"
         ],
         "ask": [
@@ -47,6 +65,7 @@
     "worktree": {
         "baseRef": "fresh"
     },
+    "defaultShell": "bash",
     "allowedHttpHookUrls": [
         "http://localhost:*"
     ],
@@ -68,8 +87,7 @@
             }
         }
     },
-    "outputStyle": "Explanatory",
-    "effortLevel": "xhigh",
+    "syntaxHighlightingDisabled": false,
     "fastModePerSessionOptIn": true,
     "autoUpdatesChannel": "latest",
     "plansDirectory": "./plans",
@@ -77,8 +95,11 @@
         "enabled": false,
         "mode": "hold"
     },
+    "prefersReducedMotion": true,
     "autoMemoryEnabled": false,
-    "theme": "dark-daltonized",
+    "theme": "dark-ansi",
     "verbose": true,
-    "teammateMode": "in-process"
+    "preferredNotifChannel": "auto",
+    "teammateMode": "in-process",
+    "skillListingBudgetFraction": 0.01
 }
