@@ -25,21 +25,23 @@
     },
     "permissions": {
         "allow": [
-            "Bash(ls *)",
-            "Bash(df *)",
-            "Bash(du *)",
-            "Bash(head *)",
-            "Bash(grep *)",
+            "Bash(ls:*)",
+            "Bash(df:*)",
+            "Bash(du:*)",
+            "Bash(head:*)",
+            "Bash(grep:*)",
             "Bash(go build:*)",
             "Bash(python3:*)",
-            "Bash(bytedcli *)",
-            "Bash(gdpa-cli *)"
+            "Bash(bytedcli:*)",
+            "Bash(gdpa-cli:*)"
         ],
         "deny": [
             "Read(.env.key)",
-            "Bash(rm *)"
+            "Read(~/.claude/settings.json)"
         ],
-        "ask": [],
+        "ask": [
+            "Bash(rm:*)",
+        ],
         "defaultMode": "acceptEdits"
     },
     "worktree": {

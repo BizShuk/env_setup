@@ -26,10 +26,11 @@
         ],
         "deny": [
             "Read(.env.key)",
-            "Bash(rm *)",
             "Read(~/.claude/settings.json)"
         ],
-        "ask": [],
+        "ask": [
+            "Bash(rm:*)",
+        ],
         "defaultMode": "acceptEdits"
     },
     "model": "sonnet",
