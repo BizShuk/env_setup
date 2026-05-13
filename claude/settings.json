@@ -14,19 +14,17 @@
     },
     "permissions": {
         "allow": [
-            "Bash(ls *)",
-            "Bash(df *)",
-            "Bash(du *)",
-            "Bash(head *)",
-            "Bash(tail *)",
-            "Bash(grep *)",
-            "Bash(go build:*)",
-            "Bash(python3:*)",
-            "Bash(bytedcli *)",
-            "Bash(gdpa-cli *)"
+            "Bash(ls:*)",
+            "Bash(mkdir:*)",
+            "Bash(df:*)",
+            "Bash(du:*)",
+            "Bash(head:*)",
+            "Bash(tail:*)",
+            "Bash(grep:*)",
+            "Bash(go:*)",
+            "Bash(python3:*)"
         ],
         "deny": [
-            "Bash(git push *)",
             "Read(.env.key)",
             "Bash(rm *)",
             "Read(~/.claude/settings.json)"

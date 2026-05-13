@@ -28,18 +28,18 @@
         "allow": [
             "Read(~/*)",
             "Read(/Users/bytedance/*)",
-            "Bash(ls *)",
-            "Bash(df *)",
-            "Bash(du *)",
-            "Bash(head *)",
-            "Bash(grep *)",
-            "Bash(go build:*)",
+            "Bash(ls:*)",
+            "Bash(df:*)",
+            "Bash(du:*)",
+            "Bash(head:*)",
+            "Bash(grep:*)",
+            "Bash(go:*)",
+            "Bash(git:*)",
             "Bash(python3:*)",
-            "Bash(bytedcli *)",
-            "Bash(gdpa-cli *)"
+            "Bash(bytedcli:*)",
+            "Bash(gdpa-cli:*)"
         ],
         "deny": [
-            "Bash(git push *)",
             "Read(.env.key)",
             "Bash(rm *)"
         ],
