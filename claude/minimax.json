@@ -38,6 +38,7 @@
             "Bash(du:*)",
             "Bash(mkdir:*)",
             "Bash(head:*)",
+            "Bash(find:*)",
             "Bash(grep:*)",
             "Bash(go:*)",
             "Bash(python:*)",
