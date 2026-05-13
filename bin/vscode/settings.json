@@ -87,7 +87,6 @@
     },
     // [scm]
     "scm.defaultViewMode": "tree",
-    "scm.repositories.selectionMode": "single",
     // [diff editor]
     "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.codeLens": true,
@@ -663,5 +662,6 @@
     "redhat.telemetry.enabled": false,
     "[sql]": {
         "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
-    }
+    },
+    "scm.repositories.selectionMode": "single"
 }
