@@ -58,10 +58,7 @@
             "Bash(rm:*)"
         ],
         "defaultMode": "acceptEdits",
-        "additionalDirectories": [
-            "~/.claude/skills",
-            "~/.claude/agents"
-        ]
+        "additionalDirectories": []
     },
     "worktree": {
         "baseRef": "fresh"
