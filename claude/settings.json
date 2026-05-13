@@ -63,8 +63,10 @@
     },
     "outputStyle": "Explanatory",
     "syntaxHighlightingDisabled": false,
+    "alwaysThinkingEnabled": false,
     "effortLevel": "xhigh",
     "fastModePerSessionOptIn": true,
+    "promptSuggestionEnabled": false,
     "autoUpdatesChannel": "latest",
     "plansDirectory": "./plans",
     "voice": {
@@ -76,5 +78,6 @@
     "theme": "dark-ansi",
     "verbose": true,
     "preferredNotifChannel": "auto",
-    "teammateMode": "in-process"
+    "teammateMode": "in-process",
+    "minimumVersion": "2.1.140"
 }
