@@ -2,6 +2,7 @@
     "skillListingBudgetFraction": 0.01,
     "env": {
         "_____proxy": "_____",
+        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "0",
         "_____prompt": "_____",
         "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1",
         "_____model": "_____",
@@ -64,7 +65,7 @@
     },
     "outputStyle": "Explanatory",
     "syntaxHighlightingDisabled": false,
-    "alwaysThinkingEnabled": false,
+    "alwaysThinkingEnabled": true,
     "effortLevel": "xhigh",
     "fastModePerSessionOptIn": true,
     "promptSuggestionEnabled": false,

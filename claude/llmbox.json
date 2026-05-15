@@ -4,7 +4,6 @@
         "_____proxy": "_____",
         "ANTHROPIC_BASE_URL": "https://llmbox.bytedance.net/",
         "API_TIMEOUT_MS": "3000000",
-        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
         "_____prompt": "_____",
         "CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION": "1",
         "_____model": "_____",
