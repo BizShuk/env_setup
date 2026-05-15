@@ -38,5 +38,8 @@
             "Bash(gdpa-cli:*)"
         ]
     },
-    "autoMemoryEnabled": true
+    "autoMemoryEnabled": true,
+    "enabledPlugins": {
+        "claude-mem@thedotmack": true
+    }
 }
