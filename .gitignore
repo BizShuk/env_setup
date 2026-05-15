@@ -26,3 +26,4 @@ config/.ssh
 config/.vscode
 config/lib
 log/
+.vscode/settings.json
