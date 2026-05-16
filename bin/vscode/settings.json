@@ -25,7 +25,7 @@
     "security.promptForRemoteFileProtocolHandling": false,
     // [explorer]
     "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": true,
+    "explorer.confirmDragAndDrop": false,
     "explorer.confirmPasteNative": false,
     "explorer.excludeGitIgnore": false,
     "explorer.openEditors.visible": 2,
@@ -102,8 +102,8 @@
         "{archive,*.bak*}": true,
         "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.specify,.gemini,.agent,.serena,.ttadk,.coco}": true,
-        "{.vscode,.claude}": true,
+        "{.specify,.gemini,.agent,.serena,.ttadk,.coco,.vscode}": true,
+        "{.claude}": false,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,
         "{target,out,dist,output}": true,
@@ -298,7 +298,7 @@
         "default": true,
         "MD001": false,
         "MD007": {
-            "indent": 2
+            "indent": 4
         },
         "MD009": {
             "br_spaces": 2

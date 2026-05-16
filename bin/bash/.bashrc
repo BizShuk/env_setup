@@ -147,9 +147,13 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 # Bash config
+[ ! -f ~/.bash_local ] && touch ~/.bash_local
+[ -f ~/.bash_local ] && source "${HOME}/.bash_local"       # Local config
+
 [ -f ~/.bash_aliases ] && source "${HOME}/.bash_aliases"   # Alias for existing command
 [ -f ~/.bash_function ] && source "${HOME}/.bash_function" # Custom bash function
 [ -f ~/.bash_plugin ] && source "${HOME}/.bash_plugin"     # Third-party config
+
 
 ## enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
