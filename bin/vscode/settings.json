@@ -1,5 +1,4 @@
 {
-    "settingsSync.ignoredExtensions": [],
     "window.title": "${activeEditorFull}${separator}${rootName}",
     "window.openFoldersInNewWindow": "on",
     // [workbench]
@@ -536,6 +535,8 @@
     ],
     // [Editor by Language]
     "[yaml]": {
+        "editor.tabSize": 2,
+        "prettier.tabWidth": 2,
         "editor.quickSuggestions": {
             "comments": false,
             "strings": true
@@ -662,5 +663,8 @@
     "redhat.telemetry.enabled": false,
     "[sql]": {
         "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
+    },
+    "[go]": {
+        "editor.defaultFormatter": "golang.go"
     }
 }
