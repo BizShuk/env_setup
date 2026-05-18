@@ -210,6 +210,7 @@
     },
     // [terminal]
     "terminal.integrated.fontSize": 14,
+    "terminal.integrated.commandsToSkipShell": [],
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.mouseWheelScrollSensitivity": 3,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
