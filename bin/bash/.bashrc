@@ -189,7 +189,7 @@ export PATH=$HOME/.local/bin:$PATH
 # export SEC_TOKEN_STRING=$(doas env | grep SEC_TOKEN_STRING | cut -d = -f2)
 
 # Added by Antigravity
-export PATH="/Users/bytedance/.antigravity/antigravity/bin:$PATH"
+export PATH="/Users/bytedance/.antigravity/antigravity/bin:/Users/shuk/.antigravity/antigravity/bin:$PATH"
 
 # Added by Antigravity IDE
-export PATH="/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"
+export PATH="/Users/bytedance/.antigravity/antigravity/bin:/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"
