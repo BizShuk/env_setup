@@ -190,3 +190,6 @@ export PATH=$HOME/.local/bin:$PATH
 
 # Added by Antigravity
 export PATH="/Users/bytedance/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"

@@ -7,6 +7,7 @@
         %APPDATA%\Code\User\settings.json
     macOS:
         $HOME/Library/Application Support/Code/User/settings.json
+        $HOME/Library/Application Support/Code/User/settings.json
     Linux:
         $HOME/.config/Code/User/settings.json
 
@@ -18,4 +19,5 @@ To dump installed extensions:
 
 To install extensions from `extensions.txt`:
 
-    xargs -L 1 code --install-extension < bin/vscode/extensions.txt
+    xargs -L 1 code --install-extension < bin/vscode/vscode_extension_list.txt
+    xargs -L 1 agy-ide --install-extension < bin/vscode/agy_extension_list.txt
