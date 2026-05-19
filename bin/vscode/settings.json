@@ -667,5 +667,6 @@
     },
     "[go]": {
         "editor.defaultFormatter": "golang.go"
-    }
+    },
+    "workbench.secondarySideBar.defaultVisibility": "hidden"
 }
