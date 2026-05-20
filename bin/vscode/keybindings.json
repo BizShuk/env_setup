@@ -528,11 +528,20 @@
         "command": "-workbench.action.toggleEditorGroupLayout"
     },
     {
-        "key": "ctrl+alt+cmd+n",
-        "command": "-welcome.showNewFileEntries"
+        "key": "ctrl+alt+cmd+n", // Replace with your desired keys
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.newGroupBelow",
+                "workbench.action.files.newUntitledFile",
+                "workbench.action.createTerminalEditor",
+                "workbench.action.openEditorAtIndex1",
+                "workbench.action.closeActiveEditor"
+            ]
+        }
     },
     {
         "key": "ctrl+alt+cmd+n",
-        "command": "workbench.action.newGroupBelow"
+        "command": "-welcome.showNewFileEntries"
     }
 ]

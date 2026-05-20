@@ -1,1 +1,0 @@
-../pkg/dns/dnsmasq/dnsmasq_setup.sh
