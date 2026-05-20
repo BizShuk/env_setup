@@ -63,7 +63,6 @@
     "editor.insertSpaces": true,
     "editor.lineNumbers": "on",
     "editor.linkedEditing": true,
-    "editor.minimap.enabled": false,
     "editor.minimap.renderCharacters": false,
     "editor.minimap.showSlider": "always",
     "editor.minimap.size": "fit",
@@ -209,7 +208,7 @@
         "compounds": []
     },
     // [terminal]
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontSize": 12,
     "terminal.integrated.commandsToSkipShell": [],
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.mouseWheelScrollSensitivity": 3,
