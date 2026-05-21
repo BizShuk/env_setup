@@ -201,7 +201,7 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH="/Users/bytedance/.antigravity/antigravity/bin:/Users/shuk/.antigravity/antigravity/bin:$PATH"
 
 # Added by Antigravity IDE
-export PATH="/Users/bytedance/.antigravity/antigravity/bin:/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"
+export PATH="/Users/bytedance/.antigravity-ide/antigravity-ide/bin:/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"
 
 # for bit
 export PATH=$PATH:$HOME/bin/bit

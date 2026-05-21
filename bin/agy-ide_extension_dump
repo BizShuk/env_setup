@@ -17,7 +17,7 @@ echo "Dumping agy-ide extensions to: ${TARGET_FILE}"
 # Check if 'agy-ide' command is available
 if ! command -v agy-ide >/dev/null 2>&1; then
     echo "❌ Error: 'agy' command not found in PATH."
-    echo "Please ensure you have installed the agy-ide CLI. Open IDE cmd+shift+p => Shell Command Install 'agy-ide' command in the PATH""
+    echo "Please ensure you have installed the agy-ide CLI. Open IDE cmd+shift+p => Shell Command Install 'agy-ide' command in the PATH"
     exit 1
 fi
 
@@ -29,4 +29,4 @@ echo "✅ agy-ide extensions successfully dumped to: ${TARGET_FILE}"
 echo "Total extensions: $(wc -l < "${TARGET_FILE}")"
 echo ""
 echo "To re-install these extensions later, you can run:"
-echo "  xargs -L 1 agy-ide extension install < ${TARGET_FILE}"
+echo "  xargs -L 1 agy-ide --install-extension < ${TARGET_FILE}"
