@@ -543,5 +543,13 @@
     {
         "key": "ctrl+alt+cmd+n",
         "command": "-welcome.showNewFileEntries"
+    },
+    {
+        "key": "shift+cmd+,",
+        "command": "workbench.action.openAntigravitySettings"
+    },
+    {
+        "key": "cmd+,",
+        "command": "-workbench.action.openAntigravitySettings"
     }
 ]
