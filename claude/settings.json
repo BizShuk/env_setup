@@ -45,9 +45,8 @@
     "defaultMode": "acceptEdits",
     "additionalDirectories": []
   },
-  "worktree": {
-    "baseRef": "fresh"
-  },
+  "model": "opus",
+  "worktree": {},
   "defaultShell": "bash",
   "allowedHttpHookUrls": [
     "http://localhost:*"
@@ -59,14 +58,15 @@
   "statusLine": {
     "type": "command",
     "command": "npx -y ccstatusline@latest",
-    "padding": 0,
-    "refreshInterval": 10
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true
   },
   "extraKnownMarketplaces": {},
   "outputStyle": "Explanatory",
   "syntaxHighlightingDisabled": false,
   "alwaysThinkingEnabled": true,
-  "effortLevel": "xhigh",
   "fastModePerSessionOptIn": true,
   "promptSuggestionEnabled": false,
   "autoUpdatesChannel": "latest",
@@ -79,6 +79,7 @@
   "prefersReducedMotion": true,
   "autoMemoryEnabled": false,
   "autoMemoryDirectory": "~/memory",
+  "skipDangerousModePermissionPrompt": true,
   "theme": "dark-ansi",
   "verbose": false,
   "preferredNotifChannel": "auto",

@@ -1,3 +1,12 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+if [ -d "/Users/bytedance/.local/share/bash-completion/completions" ]; then
+  for f in "/Users/bytedance/.local/share/bash-completion/completions"/*; do
+    [ -f "$f" ] && . "$f"
+  done
+fi
+# OPENSPEC:END
+
 #!/bin/bash
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
@@ -193,3 +202,6 @@ export PATH="/Users/bytedance/.antigravity/antigravity/bin:/Users/shuk/.antigrav
 
 # Added by Antigravity IDE
 export PATH="/Users/bytedance/.antigravity/antigravity/bin:/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"
+
+# for bit
+export PATH=$PATH:$HOME/bin/bit

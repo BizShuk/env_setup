@@ -38,16 +38,6 @@
         "when": "editorFocus"
     },
     {
-        "key": "shift+cmd+]",
-        "command": "workbench.action.focusNextGroup",
-        "when": "multipleEditorGroups && editorFocus"
-    },
-    {
-        "key": "shift+cmd+[",
-        "command": "workbench.action.focusPreviousGroup",
-        "when": "editorFocus && multipleEditorGroups"
-    },
-    {
         "key": "ctrl+shift+tab",
         "command": "workbench.action.previousPanelView",
         "when": "panelFocus"
@@ -551,5 +541,29 @@
     {
         "key": "cmd+,",
         "command": "-workbench.action.openAntigravitySettings"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.focusAboveGroup"
+    },
+    {
+        "key": "cmd+k cmd+up",
+        "command": "-workbench.action.focusAboveGroup"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.focusBelowGroup"
+    },
+    {
+        "key": "cmd+k cmd+down",
+        "command": "-workbench.action.focusBelowGroup"
     }
 ]

@@ -209,7 +209,11 @@
     },
     // [terminal]
     "terminal.integrated.fontSize": 12,
-    "terminal.integrated.commandsToSkipShell": [],
+    "terminal.integrated.tabs.title": "${process} ${task}",
+    "terminal.integrated.commandsToSkipShell": [
+        "editor.action.rename",
+        "workbench.action.terminal.rename"
+    ],
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.mouseWheelScrollSensitivity": 3,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
