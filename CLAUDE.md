@@ -109,7 +109,12 @@ go build -o smain
 
 ### 測試 (Test)
 
-目前專案未偵測到自動化測試案例。
+執行 Go 單元測試：
+
+```bash
+cd cmd
+go test -v ./...
+```
 
 ### 部署 (Deploy)
 

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -16,29 +16,32 @@ func newFetchCmd() *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			url, _ := cmd.Flags().GetString("url")
 			if url == "" {
-				fmt.Println("Error: --url flag is required.")
+				cmd.Println("Error: --url flag is required.")
 				return
 			}
 
-			resp, err := http.Get(url)
+			client := &http.Client{
+				Timeout: 10 * time.Second,
+			}
+			resp, err := client.Get(url)
 			if err != nil {
-				fmt.Printf("Error fetching URL: %v\n", err)
+				cmd.Printf("Error fetching URL: %v\n", err)
 				return
 			}
 			defer resp.Body.Close()
 
 			if resp.StatusCode != http.StatusOK {
-				fmt.Printf("Error: Received status code %d from %s\n", resp.StatusCode, url)
+				cmd.Printf("Error: Received status code %d from %s\n", resp.StatusCode, url)
 				return
 			}
 
 			body, err := io.ReadAll(resp.Body)
 			if err != nil {
-				fmt.Printf("Error reading response body: %v\n", err)
+				cmd.Printf("Error reading response body: %v\n", err)
 				return
 			}
 
-			fmt.Println(string(body))
+			cmd.Println(string(body))
 		},
 	}
 	cmd.Flags().StringP("url", "u", "", "URL to fetch content from")
