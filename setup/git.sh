@@ -1,5 +1,5 @@
 #!/bin/bash
-source settings.sh
+source "$(dirname "$0")/settings.sh"
 
 GIT_VERSION=${GIT_VERSION:-2.32.0}
 GIT_DISTRIBUTION="git-${GIT_VERSION}"

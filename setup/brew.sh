@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source settings.sh
+source "$(dirname "$0")/settings.sh"
 
 homebrew_ver="5.0.3"
 

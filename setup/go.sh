@@ -1,5 +1,5 @@
 #!/bin/bash
-source settings.sh
+source "$(dirname "$0")/settings.sh"
 
 
 # Go env
