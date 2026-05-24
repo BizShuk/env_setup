@@ -55,6 +55,7 @@ project_path=$(pwd)
 project_name=$(basename "$project_path")
 
 if [ -d "$HOME/projects/llm_plugin" ]; then
+  mkdir -p "$HOME/projects/llm_plugin/projects"
   ln -sfh "$(pwd)/.agent" "$HOME/projects/llm_plugin/projects/${project_name}"
 fi
 

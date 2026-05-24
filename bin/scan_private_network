@@ -15,6 +15,14 @@ BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+# Check dependencies
+for cmd in traceroute nmap; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "Error: Required dependency '$cmd' is not installed. Please install it first." >&2
+        exit 1
+    fi
+done
+
 OUTPUT_FILE="network.topo"
 
 # 1. 判斷是否為私有 IP (Check if IP is private)
@@ -33,7 +41,16 @@ is_private() {
 echo -e "${YELLOW}正在分析網絡路徑... (Analyzing network path...)${NC}"
 
 # 2. 測量本地資訊 (Get local host info)
-LOCAL_IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | head -n1 | awk '{print $2}')
+get_local_ip() {
+    if command -v ip &>/dev/null; then
+        ip -o -4 addr show | awk '{print $4}' | cut -d/ -f1 | grep -v 127.0.0.1 | head -n1
+    elif command -v ifconfig &>/dev/null; then
+        ifconfig | grep "inet " | grep -v 127.0.0.1 | head -n1 | awk '{print $2}'
+    else
+        echo "127.0.0.1"
+    fi
+}
+LOCAL_IP=$(get_local_ip)
 LOCAL_HOSTNAME=$(hostname | sed 's/\.local$//')
 
 # 找出所有活躍的私有 IP 及其網段
@@ -46,7 +63,13 @@ while read -r ip; do
             LOCAL_NETS="$LOCAL_NETS $net"
         fi
     fi
-done <<< "$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}')"
+done <<< "$(
+    if command -v ip &>/dev/null; then
+        ip -o -4 addr show | awk '{print $4}' | cut -d/ -f1 | grep -v 127.0.0.1
+    elif command -v ifconfig &>/dev/null; then
+        ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'
+    fi
+)"
 
 # 3. 使用 traceroute 獲取路徑並過濾私有 IP (Traceroute and extract private IPs)
 echo -e "${YELLOW}正在追蹤路由... (Tracing route...)${NC}"
@@ -80,7 +103,13 @@ for net in $LOCAL_NETS; do
         fi
     done
     if [ "$in_path" == "false" ]; then
-        l_ip=$(ifconfig | grep "inet $net" | awk '{print $2}' | head -n1)
+        if command -v ip &>/dev/null; then
+            l_ip=$(ip -o -4 addr show | grep "$net" | awk '{print $4}' | cut -d/ -f1 | head -n1)
+        elif command -v ifconfig &>/dev/null; then
+            l_ip=$(ifconfig | grep "inet $net" | awk '{print $2}' | head -n1)
+        else
+            l_ip=""
+        fi
         if [ -n "$l_ip" ]; then
             PRIVATE_HOPS=("$l_ip" "${PRIVATE_HOPS[@]}")
         fi

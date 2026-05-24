@@ -36,15 +36,33 @@ rm -rf ~/Library/Caches/Google/Chrome/Default/Cache/Cache_Data
 # Golang
 rm -rf ~/projects/.local/go/src/*
 
+confirm() {
+    read -p "$1 [y/N]: " response
+    case "$response" in
+        [yY][eE][sS]|[yY]) 
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
+}
+
 # iMovie/iTunes
-rm -rf ~/Music/*
+if confirm "Clean up ~/Music (delete all music and iMovie/iTunes media)?"; then
+    rm -rf ~/Music/*
+fi
 
 # Whatapps
-rm -rf ~/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/Message/Media/*
+if confirm "Clean up WhatsApp Media cache?"; then
+    rm -rf ~/Library/Group\ Containers/group.net.whatsapp.WhatsApp.shared/Message/Media/*
+fi
 
 # WeChat
-rm -rf ~/Library/Containers/com.tencent.xinWeChat/Data
-rm -rf ~/Library/Containers/com.tencent.xinWeChat.WeChatMacShare/Data
+if confirm "Clean up WeChat Data (deletes all chat history and local WeChat files)?"; then
+    rm -rf ~/Library/Containers/com.tencent.xinWeChat/Data
+    rm -rf ~/Library/Containers/com.tencent.xinWeChat.WeChatMacShare/Data
+fi
 
 # Podcast
 rm -rf ~/Library/Containers/com.apple.podcasts/Data/tmp/StreamedMedia/*.mp3
@@ -62,37 +80,41 @@ fi
 
 
 reset () {
-    rm -Rf ~/Library/Caches/Apple\ -\ Safari\ -\ Safari\ Extensions\ Gallery
-    rm -Rf ~/Library/Caches/Metadata/Safari
-    rm -Rf ~/Library/Caches/com.apple.Safari
-    rm -Rf ~/Library/Caches/com.apple.WebKit.PluginProcess
-    rm -Rf ~/Library/Cookies/Cookies.binarycookies
-    rm -Rf ~/Library/Preferences/Apple\ -\ Safari\ -\ Safari\ Extensions\ Gallery
-    rm -Rf ~/Library/Preferences/com.apple.Safari.LSSharedFileList.plist
-    rm -Rf ~/Library/Preferences/com.apple.Safari.RSS.plist
-    rm -Rf ~/Library/Preferences/com.apple.Safari.plist
-    rm -Rf ~/Library/Preferences/com.apple.WebFoundation.plist
-    rm -Rf ~/Library/Preferences/com.apple.WebKit.PluginHost.plist
-    rm -Rf ~/Library/Preferences/com.apple.WebKit.PluginProcess.plist
-    rm -Rf ~/Library/PubSub/Database
-    rm -Rf ~/Library/Saved\ Application\ State/com.apple.Safari.savedState
-    rm ~/Library/Safari/Bookmarks.plist
+    if confirm "Reset Safari settings and delete Safari Bookmarks?"; then
+        rm -Rf ~/Library/Caches/Apple\ -\ Safari\ -\ Safari\ Extensions\ Gallery
+        rm -Rf ~/Library/Caches/Metadata/Safari
+        rm -Rf ~/Library/Caches/com.apple.Safari
+        rm -Rf ~/Library/Caches/com.apple.WebKit.PluginProcess
+        rm -Rf ~/Library/Cookies/Cookies.binarycookies
+        rm -Rf ~/Library/Preferences/Apple\ -\ Safari\ -\ Safari\ Extensions\ Gallery
+        rm -Rf ~/Library/Preferences/com.apple.Safari.LSSharedFileList.plist
+        rm -Rf ~/Library/Preferences/com.apple.Safari.RSS.plist
+        rm -Rf ~/Library/Preferences/com.apple.Safari.plist
+        rm -Rf ~/Library/Preferences/com.apple.WebFoundation.plist
+        rm -Rf ~/Library/Preferences/com.apple.WebKit.PluginHost.plist
+        rm -Rf ~/Library/Preferences/com.apple.WebKit.PluginProcess.plist
+        rm -Rf ~/Library/PubSub/Database
+        rm -Rf ~/Library/Saved\ Application\ State/com.apple.Safari.savedState
+        rm ~/Library/Safari/Bookmarks.plist
+    fi
 }
 
 remove_java() {
-    echo "Uninstalling Java..."
-    # Remove Java Virtual Machines
-    sudo rm -rf /Library/Java/JavaVirtualMachines/*
+    if confirm "Uninstall all Java Virtual Machines and Java internet plugins?"; then
+        echo "Uninstalling Java..."
+        # Remove Java Virtual Machines
+        sudo rm -rf /Library/Java/JavaVirtualMachines/*
 
-    # Remove Java Internet Plug-Ins
-    sudo rm -rf "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin"
+        # Remove Java Internet Plug-Ins
+        sudo rm -rf "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin"
 
-    # Remove Java Preference Panes
-    sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
+        # Remove Java Preference Panes
+        sudo rm -rf /Library/PreferencePanes/JavaControlPanel.prefPane
 
-    # Remove Oracle Java Application Support
-    sudo rm -rf "/Library/Application Support/Oracle/Java"
-    rm -rf ~/Library/Application\ Support/Oracle/Java
+        # Remove Oracle Java Application Support
+        sudo rm -rf "/Library/Application Support/Oracle/Java"
+        rm -rf ~/Library/Application\ Support/Oracle/Java
+    fi
 }
 
 # get options
