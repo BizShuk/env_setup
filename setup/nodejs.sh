@@ -11,9 +11,10 @@ mkdir "${NVM_DIR}"
 
 git clone https://github.com/creationix/nvm.git "${NVM_DIR}"
 
-cd "${NVM_DIR}" && git checkout $(git describe --abbrev=0 --tags)
+cd "${NVM_DIR}" && git checkout "$(git describe --abbrev=0 --tags)"
 
-. "${NVM_DIR}/nvm.sh"
+# shellcheck source=/dev/null
+source "${NVM_DIR}/nvm.sh"
 
 # NODE installation """
 

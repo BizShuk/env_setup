@@ -668,9 +668,6 @@
     "makefile.configureOnOpen": false,
     "http.systemCertificatesNode": true,
     "redhat.telemetry.enabled": false,
-    "[sql]": {
-        "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode"
-    },
     "[go]": {
         "editor.defaultFormatter": "golang.go"
     },
