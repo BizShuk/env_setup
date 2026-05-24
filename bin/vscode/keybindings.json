@@ -217,10 +217,6 @@
         "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
     },
     {
-        "key": "ctrl+alt+cmd+left",
-        "command": "workbench.action.moveEditorToPreviousGroup"
-    },
-    {
         "key": "ctrl+cmd+left",
         "command": "-workbench.action.moveEditorToPreviousGroup"
     },
@@ -437,18 +433,6 @@
         "command": "workbench.action.createTerminalEditor"
     },
     {
-        "key": "ctrl+alt+cmd+up",
-        "command": "workbench.action.moveEditorToAboveGroup"
-    },
-    {
-        "key": "ctrl+alt+cmd+down",
-        "command": "workbench.action.moveEditorToBelowGroup"
-    },
-    {
-        "key": "ctrl+alt+cmd+right",
-        "command": "workbench.action.moveEditorToRightGroup"
-    },
-    {
         "key": "cmd+b",
         "command": "markdown.extension.editing.toggleBold",
         "when": "editorHasSelection && editorTextFocus && !editorReadonly && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
@@ -523,10 +507,7 @@
         "args": {
             "commands": [
                 "workbench.action.newGroupBelow",
-                "workbench.action.files.newUntitledFile",
-                "workbench.action.createTerminalEditor",
-                "workbench.action.openEditorAtIndex1",
-                "workbench.action.closeActiveEditor"
+                "workbench.action.minimizeOtherEditors"
             ]
         }
     },
@@ -551,19 +532,85 @@
         "command": "-workbench.action.previousEditor"
     },
     {
-        "key": "shift+cmd+[",
-        "command": "workbench.action.focusAboveGroup"
-    },
-    {
         "key": "cmd+k cmd+up",
         "command": "-workbench.action.focusAboveGroup"
     },
     {
-        "key": "shift+cmd+]",
-        "command": "workbench.action.focusBelowGroup"
-    },
-    {
         "key": "cmd+k cmd+down",
         "command": "-workbench.action.focusBelowGroup"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.toggleEditorWidths"
+    },
+    {
+        "key": "cmd+8",
+        "command": "-workbench.action.focusEighthEditorGroup"
+    },
+    {
+        "key": "cmd+7",
+        "command": "-workbench.action.focusSeventhEditorGroup"
+    },
+    {
+        "key": "cmd+6",
+        "command": "-workbench.action.focusSixthEditorGroup"
+    },
+    {
+        "key": "cmd+k shift+cmd+\\",
+        "command": "-workbench.action.splitEditorInGroup",
+        "when": "activeEditorCanSplitInGroup"
+    },
+    {
+        "key": "cmd+k alt+cmd+left",
+        "command": "-workbench.action.previousEditorInGroup"
+    },
+    {
+        "key": "cmd+9",
+        "command": "-workbench.action.lastEditorInGroup"
+    },
+    {
+        "key": "cmd+k up",
+        "command": "-workbench.action.moveActiveEditorGroupUp"
+    },
+    {
+        "key": "cmd+k right",
+        "command": "-workbench.action.moveActiveEditorGroupRight"
+    },
+    {
+        "key": "ctrl+cmd+9",
+        "command": "-workbench.action.moveEditorToLastGroup"
+    },
+    {
+        "key": "cmd+k down",
+        "command": "-workbench.action.moveActiveEditorGroupDown"
+    },
+    {
+        "key": "cmd+k left",
+        "command": "-workbench.action.moveActiveEditorGroupLeft"
+    },
+    {
+        "key": "cmd+k shift+cmd+left",
+        "command": "-workbench.action.moveEditorLeftInGroup"
+    },
+    {
+        "key": "cmd+k shift+cmd+right",
+        "command": "-workbench.action.moveEditorRightInGroup"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.focusNextGroup"
+    },
+    {
+        "key": "ctrl+shift+2",
+        "command": "-workbench.action.terminal.sendSequence",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "alt+cmd+down",
+        "command": "workbench.action.moveEditorToBelowGroup"
+    },
+    {
+        "key": "alt+cmd+up",
+        "command": "workbench.action.moveEditorToAboveGroup"
     }
 ]

@@ -19,6 +19,7 @@
     lt = ls-tree -r
     lr = ls-remote
     lf = ls-files
+    push = push --follow-tags
 	logv = log --name-status --graph --decorate
 	rollback = checkout
 [pack]

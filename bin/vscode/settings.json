@@ -42,7 +42,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*",
         "*.md": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -101,7 +101,7 @@
         "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
         "{.specify,.gemini,.agent,.serena,.ttadk,.coco,.vscode}": true,
-        "{.claude}": false,
+        "{AGENTS.md}": true,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,
         "{target,out,dist,output}": true,
@@ -212,7 +212,10 @@
     "terminal.integrated.tabs.title": "${process} ${task}",
     "terminal.integrated.commandsToSkipShell": [
         "editor.action.rename",
-        "workbench.action.terminal.rename"
+        "workbench.action.terminal.rename",
+        "workbench.action.toggleEditorWidths",
+        "workbench.action.nextEditor",
+        "workbench.action.createTerminalEditor"
     ],
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.mouseWheelScrollSensitivity": 3,
