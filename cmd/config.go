@@ -9,11 +9,25 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const configFileName = "config.json"
+var configPathOverride string
 
-// readConfig reads the configuration from config.json
+func getConfigPath() (string, error) {
+	if configPathOverride != "" {
+		return configPathOverride, nil
+	}
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return "", fmt.Errorf("error getting home directory: %w", err)
+	}
+	return filepath.Join(homeDir, ".smain.json"), nil
+}
+
+// readConfig reads the configuration from the config file
 func readConfig() (map[string]string, error) {
-	configPath := filepath.Join(".", configFileName) // Store in current directory
+	configPath, err := getConfigPath()
+	if err != nil {
+		return nil, err
+	}
 	data, err := os.ReadFile(configPath)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -30,9 +44,12 @@ func readConfig() (map[string]string, error) {
 	return config, nil
 }
 
-// writeConfig writes the configuration to config.json
+// writeConfig writes the configuration to the config file
 func writeConfig(config map[string]string) error {
-	configPath := filepath.Join(".", configFileName) // Store in current directory
+	configPath, err := getConfigPath()
+	if err != nil {
+		return err
+	}
 	data, err := json.MarshalIndent(config, "", "  ")
 	if err != nil {
 		return fmt.Errorf("error marshalling config data: %w", err)

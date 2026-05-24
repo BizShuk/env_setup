@@ -46,8 +46,10 @@ ln -sfh .agents .agent
 # ln -sfh .agent .agents
 # ln -sh .agent .claude
 
-ln -sfh .gitignore .geminiignore
-
+# Keep .geminiignore independent
+if [ ! -f ".geminiignore" ]; then
+  touch .geminiignore
+fi
 
 project_path=$(pwd)
 project_name=$(basename "$project_path")

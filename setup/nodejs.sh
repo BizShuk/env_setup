@@ -1,7 +1,7 @@
 #!/bin/bash
 # [NVM github](https://github.com/creationix/nvm)
 
-source "${HOME}"/settings.sh
+source "$(dirname "$0")/settings.sh"
 
 NODE_VER=${NODE_VER:-v24.11.1}
 NVM_DIR=${USER_LIB}/nvm
