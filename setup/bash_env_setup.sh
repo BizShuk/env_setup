@@ -41,3 +41,11 @@ mkdir "${INSTALL_DIR}/.ssh" 2>/dev/null
 
 ### for [mac] ###
 safe_link "${INSTALL_DIR}/.bashrc" "${INSTALL_DIR}/.profile"
+
+# Zsh support
+if [ -f "${INSTALL_DIR}/.zshrc" ] || [[ "$SHELL" == *"zsh"* ]] || [ -n "$ZSH_VERSION" ]; then
+    [ ! -f "${INSTALL_DIR}/.zshrc" ] && touch "${INSTALL_DIR}/.zshrc"
+    if ! grep -q "bash_plugin" "${INSTALL_DIR}/.zshrc"; then
+        echo -e "\n# Load env_setup plugin\n[ -f ~/.bash_plugin ] && source ~/.bash_plugin" >> "${INSTALL_DIR}/.zshrc"
+    fi
+fi

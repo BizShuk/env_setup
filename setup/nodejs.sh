@@ -37,9 +37,10 @@ echo run this if npm is not there: curl -L http://npmjs.org/install.sh | sh
 
 source ${HOME}/.bash_plugin
 
+NPM_PREFIX=$(npm config get prefix)
 cat <<EOF >>~/.bash_plugin
 # [NodeJs:npm]
-export PATH=$(npm config get prefix)/bin:\$PATH
+export PATH=${NPM_PREFIX}/bin:\$PATH
 
 EOF
 
