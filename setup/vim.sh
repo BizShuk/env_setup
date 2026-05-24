@@ -1,18 +1,23 @@
 #!/bin/bash
 
-source "${HOME}"/settings.sh
-source ~/projects/ubuntu_setup/alias/python-config.sh
+source "$(dirname "$0")/settings.sh"
 
-python_config_dir=$(get_python-config-dir)
+if command -v python3-config &>/dev/null; then
+    python_config_dir=$(python3-config --configdir)
+elif command -v python-config &>/dev/null; then
+    python_config_dir=$(python-config --configdir)
+else
+    python_config_dir=$(python3 -c "import sysconfig; print(sysconfig.get_config_var('LIBPL'))" 2>/dev/null)
+fi
 
 sudo apt-get install -y ncurses-dev # terminal library
 
-VIM_VER="v7.4.1692"
+VIM_VER="v9.1.0"
 
 tmpdir=$(mktemp -d)
 
 pushd "$tmpdir" || exit
-wget https://github.com/vim/vim/archive/v7.4.1692.tar.gz
+wget https://github.com/vim/vim/archive/${VIM_VER}.tar.gz
 tar zxf ${VIM_VER}.tar.gz
 cd vim-${VIM_VER:1} || exit
 ./configure --enable-pythoninterp \
@@ -23,7 +28,7 @@ cd vim-${VIM_VER:1} || exit
     --prefix=/usr
 make
 sudo make install
-rm -r ${VIM_VER} && rm ${VIM_VER}.tar.gz
+rm -rf "vim-${VIM_VER:1}" && rm -f "${VIM_VER}.tar.gz"
 popd || exit
 # --enable-python3interp
 # --with-python3-config-dir

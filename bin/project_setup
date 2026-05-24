@@ -16,7 +16,7 @@ if [ -L ".agents" ]; then
 fi
 
 if [ -d ".agent" ] && [ ! -d ".agents" ]; then
-  echo "Moving .agent directory to .agent..."
+  echo "Moving .agent directory to .agents..."
   mv ".agent" ".agents"
 fi
 

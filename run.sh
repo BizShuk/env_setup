@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-ln -sf $HOME/.bsah_plugin ./config  
+ln -sf $HOME/.bash_plugin ./config  

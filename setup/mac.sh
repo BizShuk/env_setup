@@ -17,7 +17,7 @@ echo -e "\n# [curl]" >>~/.bash_plugin
 echo "export PATH=$(brew --prefix curl)/bin:\${PATH}" >>~/.bash_plugin
 
 # [Go]
-./go_setup.sh
+./go.sh
 
 # [uv]
 curl -LsSf https://astral.sh/uv/install.sh | sh

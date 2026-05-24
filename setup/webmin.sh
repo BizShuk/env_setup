@@ -7,3 +7,4 @@ sudo sh webmin-setup-repo.sh
 sudo apt-get update
 sudo apt-get install webmin --install-recommends
 
+rm -f webmin-setup-repo.sh
