@@ -9,7 +9,7 @@ pushd "$REPO_DIR/pkg/ctags-${ctags_ver}" || exit
     make
     sudo make install
     make distclean
-popd
+popd || exit
 
 
 echo "export PATH=\$PATH:$USER_LIB/bin" >> $INSTALL_DIR/.bash_plugin

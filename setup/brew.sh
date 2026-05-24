@@ -17,6 +17,7 @@ echo -e "\n\n\n# Homwbrew" >>"${HOME}/.bash_plugin"
 
 popd || exit
 
+# shellcheck source=/dev/null
 source "${HOME}/.bash_plugin"
 brew update --force
 
