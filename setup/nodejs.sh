@@ -35,6 +35,7 @@ nvm use --delete-prefix "${NODE_VER}" --silent
 #  NPM
 echo run this if npm is not there: curl -L http://npmjs.org/install.sh | sh
 
+# shellcheck source=/dev/null
 source ${HOME}/.bash_plugin
 
 NPM_PREFIX=$(npm config get prefix)
@@ -44,4 +45,5 @@ export PATH=${NPM_PREFIX}/bin:\$PATH
 
 EOF
 
+# shellcheck source=/dev/null
 source ${HOME}/.bash_plugin
