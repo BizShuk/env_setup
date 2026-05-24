@@ -50,7 +50,7 @@ export USER_TMP=${HOME}/tmp
 
 [ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"
 
-[ ! -e "$USER_LIB" ] && ln -s "$USER_LIB" "${HOME}/projects/env_setup/config/"
+[ ! -d "$USER_LIB" ] && mkdir -p "$USER_LIB"
 
 
 # env_setup path

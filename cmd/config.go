@@ -79,23 +79,23 @@ func newConfigCmd() *cobra.Command {
 			value, _ := cmd.Flags().GetString("value")
 
 			if key == "" || value == "" {
-				fmt.Println("Error: --key and --value flags are required for 'config set'.")
+				cmd.Println("Error: --key and --value flags are required for 'config set'.")
 				return
 			}
 
 			config, err := readConfig()
 			if err != nil {
-				fmt.Println(err)
+				cmd.Println(err)
 				return
 			}
 
 			config[key] = value
 			err = writeConfig(config)
 			if err != nil {
-				fmt.Println(err)
+				cmd.Println(err)
 				return
 			}
-			fmt.Printf("Configuration set: %s = %s\n", key, value)
+			cmd.Printf("Configuration set: %s = %s\n", key, value)
 		},
 	}
 	configSetCmd.Flags().StringP("key", "k", "", "Configuration key")
@@ -112,20 +112,20 @@ func newConfigCmd() *cobra.Command {
 			key, _ := cmd.Flags().GetString("key")
 
 			if key == "" {
-				fmt.Println("Error: --key flag is required for 'config get'.")
+				cmd.Println("Error: --key flag is required for 'config get'.")
 				return
 			}
 
 			config, err := readConfig()
 			if err != nil {
-				fmt.Println(err)
+				cmd.Println(err)
 				return
 			}
 
 			if val, ok := config[key]; ok {
-				fmt.Printf("%s = %s\n", key, val)
+				cmd.Printf("%s = %s\n", key, val)
 			} else {
-				fmt.Printf("Key '%s' not found in configuration.\n", key)
+				cmd.Printf("Key '%s' not found in configuration.\n", key)
 			}
 		},
 	}
