@@ -1,6 +1,8 @@
 package main
 
 import (
+	"errors"
+
 	"github.com/spf13/cobra"
 )
 
@@ -13,14 +15,16 @@ func newCalcCmd() *cobra.Command {
 		Use:   "calc",
 		Short: "Performs simple arithmetic operations",
 		Long:  `A command to perform addition or subtraction on two numbers.`,
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			switch operation {
 			case "add":
 				cmd.Printf("Result: %d\n", num1+num2)
+				return nil
 			case "sub":
 				cmd.Printf("Result: %d\n", num1-num2)
+				return nil
 			default:
-				cmd.Println("Error: Invalid operation. Use 'add' or 'sub'.")
+				return errors.New("invalid operation. Use 'add' or 'sub'")
 			}
 		},
 	}

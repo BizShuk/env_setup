@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 openssl_ver="3.0.13"
 openssl="openssl-${openssl_ver}"

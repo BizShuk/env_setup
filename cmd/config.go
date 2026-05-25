@@ -74,28 +74,26 @@ func newConfigCmd() *cobra.Command {
 		Use:   "set",
 		Short: "Set a configuration value",
 		Long:  `Sets a key-value pair in the configuration.`,
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			key, _ := cmd.Flags().GetString("key")
 			value, _ := cmd.Flags().GetString("value")
 
 			if key == "" || value == "" {
-				cmd.Println("Error: --key and --value flags are required for 'config set'.")
-				return
+				return fmt.Errorf("--key and --value flags are required for 'config set'")
 			}
 
 			config, err := readConfig()
 			if err != nil {
-				cmd.Println(err)
-				return
+				return err
 			}
 
 			config[key] = value
 			err = writeConfig(config)
 			if err != nil {
-				cmd.Println(err)
-				return
+				return err
 			}
 			cmd.Printf("Configuration set: %s = %s\n", key, value)
+			return nil
 		},
 	}
 	configSetCmd.Flags().StringP("key", "k", "", "Configuration key")
@@ -108,18 +106,16 @@ func newConfigCmd() *cobra.Command {
 		Use:   "get",
 		Short: "Get a configuration value",
 		Long:  `Gets the value for a specified configuration key.`,
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			key, _ := cmd.Flags().GetString("key")
 
 			if key == "" {
-				cmd.Println("Error: --key flag is required for 'config get'.")
-				return
+				return fmt.Errorf("--key flag is required for 'config get'")
 			}
 
 			config, err := readConfig()
 			if err != nil {
-				cmd.Println(err)
-				return
+				return err
 			}
 
 			if val, ok := config[key]; ok {
@@ -127,6 +123,7 @@ func newConfigCmd() *cobra.Command {
 			} else {
 				cmd.Printf("Key '%s' not found in configuration.\n", key)
 			}
+			return nil
 		},
 	}
 	configGetCmd.Flags().StringP("key", "k", "", "Configuration key")

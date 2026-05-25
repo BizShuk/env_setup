@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 source "$(dirname "$0")/settings.sh"
 
@@ -28,7 +29,7 @@ else
     make -j
     make install
     ln -sf "${OPENSSL_INSTALL_PATH}" "${OPENSSL_LIB_PATH}"
-    cd ..
+    cd .. || exit 1
     rm -rf openssl-${OPENSSL_VER}
     rm -f ${OPENSSL_TAR}
 fi

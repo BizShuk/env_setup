@@ -205,3 +205,7 @@ export PATH="/Users/bytedance/.antigravity-ide/antigravity-ide/bin:/Users/shuk/.
 
 # for bit
 export PATH=$PATH:$HOME/bin/bit
+
+
+# Added by Antigravity CLI installer
+export PATH="${HOME}/.local/bin:$PATH"

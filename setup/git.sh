@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 source "$(dirname "$0")/settings.sh"
 
 GIT_VERSION=${GIT_VERSION:-2.32.0}

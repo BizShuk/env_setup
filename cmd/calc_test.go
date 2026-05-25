@@ -39,11 +39,11 @@ func TestCalcCmd(t *testing.T) {
 	}
 
 	// Test invalid operation
-	out, err = executeCommand(root, "calc", "--num1", "10", "--num2", "5", "--operation", "invalid")
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+	_, err = executeCommand(root, "calc", "--num1", "10", "--num2", "5", "--operation", "invalid")
+	if err == nil {
+		t.Fatal("expected error, got nil")
 	}
-	if !strings.Contains(out, "Error: Invalid operation") {
-		t.Errorf("expected error message, got %q", out)
+	if !strings.Contains(err.Error(), "invalid operation") {
+		t.Errorf("expected error message to contain 'invalid operation', got %v", err)
 	}
 }

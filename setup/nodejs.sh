@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 # [NVM github](https://github.com/creationix/nvm)
 
 source "$(dirname "$0")/settings.sh"
@@ -11,7 +12,8 @@ mkdir "${NVM_DIR}"
 
 git clone https://github.com/creationix/nvm.git "${NVM_DIR}"
 
-cd "${NVM_DIR}" && git checkout "$(git describe --abbrev=0 --tags)"
+cd "${NVM_DIR}" || exit 1
+git checkout "$(git describe --abbrev=0 --tags)"
 
 # shellcheck source=/dev/null
 source "${NVM_DIR}/nvm.sh"

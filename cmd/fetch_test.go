@@ -26,8 +26,8 @@ func TestFetchCmd(t *testing.T) {
 	}
 
 	// Test fetch fail (bad URL)
-	out, err = executeCommand(root, "fetch", "--url", "http://invalid-url-that-does-not-exist.local")
-	if !strings.Contains(out, "Error fetching URL") {
-		t.Errorf("expected error message in output, got %q (err: %v)", out, err)
+	_, err = executeCommand(root, "fetch", "--url", "http://invalid-url-that-does-not-exist.local")
+	if err == nil {
+		t.Error("expected error for invalid URL, got nil")
 	}
 }

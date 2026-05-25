@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # [Notice]
 # .bashrc will not execute , but .bash_profile will

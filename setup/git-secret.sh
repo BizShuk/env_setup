@@ -1,15 +1,17 @@
 #! /bin/bash
+set -euo pipefail
 
 source "$(dirname "$0")/settings.sh"
 
 tmpdir=$(mktemp -d)
 
-pushd $tmpdir
+pushd "$tmpdir" || exit 1
 
 git clone https://github.com/sobolevn/git-secret.git git-secret
-cd git-secret && make build
+cd git-secret || exit 1
+make build
 PREFIX=$HOME make install
 
-popd
+popd || exit 1
 
-rm -rf $tmpdir
+rm -rf "$tmpdir"

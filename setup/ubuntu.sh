@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 . "$(dirname "$0")/settings.sh"
 
 
@@ -60,16 +61,14 @@ sudo cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 #####
 ##### Add user and group
 #####
-id -u shuk
-if [ "$?" != "0" ]; then
+if ! id -u shuk &>/dev/null; then
     sudo useradd shuk -m -s /bin/bash
     sudo passwd shuk
     ## ?? echo 'userid:newpasswd' | chpasswd
     ## ?? usermod --password PASSWORD USERNAME
 fi
 
-getent group shuk
-if [ "$?" != "0" ]; then
+if ! getent group shuk &>/dev/null; then
     sudo groupadd shuk
 fi
 

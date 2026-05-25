@@ -19,7 +19,6 @@
 │   ├── system/
 │   ├── vscode/
 │   ├── mac_cleanup
-│   ├── project_setup
 │   └── scan_private_network
 ├── cmd/
 │   ├── calc.go
@@ -69,13 +68,13 @@
 
 - `環境與工具配置腳本模組化`：將安裝程序分為系統層級安裝（如 `mac.sh`, `ubuntu.sh`）與開發工具層級安裝（如 `go.sh`, `nodejs.sh`），實現低耦合與安裝步驟重用。
 - `命令列工具採用 Cobra`：使用 Go 語言與 `cobra` 庫建置 CLI `smain`，易於擴充子命令，且不需要複雜的外部依賴。
-- `環境設定與軟連結設計`：透過 `bin/project_setup` 生成 `.agents` 目錄，使 AI Agent 規則與工作流能在開發環境中統一存取，不因單一平台或工具而失效。
+- `環境設定與軟連結設計`：透過 `run.sh` 建立必要的設定軟連結，使專案環境得以存取使用者層級配置。
 
 ## 模組對應 (Module Mapping)
 
 | 業務領域 (Domain)                                                      | 套件/模組 (Package/Module)    | 進入點 (Entry Point)                                   |
 | ---------------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------ |
-| 環境與開發工具配置 (Environment and Development Tooling Configuration) | `setup/`, `bin/project_setup` | `setup/mac.sh`, `setup/ubuntu.sh`, `bin/project_setup` |
+| 環境與開發工具配置 (Environment and Development Tooling Configuration) | `setup/`                      | `setup/mac.sh`, `setup/ubuntu.sh`                     |
 | 開發者實用命令列工具與腳本 (Developer Utility CLI Tools and Scripts)   | `cmd/`, `bin/`                | `cmd/main.go` (`main()`), `run.sh`                     |
 
 ## 開發指南 (Development Guide)
@@ -93,9 +92,6 @@
 ```bash
 # macOS 環境初始化
 ./setup/mac.sh
-
-# 專案環境與 AI Agent 初始化配置
-./bin/project_setup
 ```
 
 ### 建置 (Build)

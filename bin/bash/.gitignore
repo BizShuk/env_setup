@@ -60,3 +60,5 @@ dist
 output
 .npmrc
 .gdpa
+
+**/.claude/settings.local.json

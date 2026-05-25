@@ -1,16 +1,19 @@
 package main
 
 import (
+	"os"
+
 	"github.com/spf13/cobra"
 )
 
 func RootCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "Shuk Usage",
-		Short: "Shuk Usage",
-		Long:  ``,
-		Run: func(cmd *cobra.Command, args []string) {
+		Use:   "smain",
+		Short: "smain CLI tool",
+		Long:  `A utility command-line tool for developers.`,
+		RunE: func(cmd *cobra.Command, args []string) error {
 			// Do Stuff Here
+			return nil
 		},
 	}
 
@@ -27,5 +30,7 @@ func RootCmd() *cobra.Command {
 }
 
 func main() {
-	RootCmd().Execute()
+	if err := RootCmd().Execute(); err != nil {
+		os.Exit(1)
+	}
 }

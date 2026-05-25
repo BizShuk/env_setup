@@ -42,7 +42,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*",
         "*.md": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -671,5 +671,6 @@
     "[go]": {
         "editor.defaultFormatter": "golang.go"
     },
-    "workbench.secondarySideBar.defaultVisibility": "hidden"
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "extensions.ignoreRecommendations": true
 }

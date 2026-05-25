@@ -1,5 +1,6 @@
 #!/bin/bash
 source "$(dirname "$0")/settings.sh"
+set -euo pipefail
 
 
 # Go env
@@ -47,5 +48,5 @@ ln -sf "$GO_ROOT"/bin/go "$USER_BIN"/go
 
 
 # golangci linter
-curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.60.3
+curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.64.5
 ln -sf "${HOME}/bin/.golangci.yml" ~/

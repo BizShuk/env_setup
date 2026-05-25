@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -12,18 +11,18 @@ func newLsCmd() *cobra.Command {
 		Use:   "ls",
 		Short: "Lists directory contents",
 		Long:  `A command to list files and directories in a specified path.`,
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			path, _ := cmd.Flags().GetString("path")
 
 			files, err := os.ReadDir(path)
 			if err != nil {
-				fmt.Printf("Error reading directory %s: %v\n", path, err)
-				return
+				return err
 			}
 
 			for _, file := range files {
-				fmt.Println(file.Name())
+				cmd.Println(file.Name())
 			}
+			return nil
 		},
 	}
 	cmd.Flags().StringP("path", "p", ".", "Path to the directory to list")

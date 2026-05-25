@@ -12,11 +12,11 @@
 
 1. 使用者執行 `setup/` 下的特定系統腳本（例如 `mac.sh` 或 `ubuntu.sh`）以安裝基礎工具與開發庫。
 2. 執行軟體專屬的安裝腳本（如 `go.sh`, `nodejs.sh`, `ctags_setup.sh`）來建立程式語言開發與輔助工具環境。
-3. 執行 `bin/project_setup` 以初始化 AI Agent 所需的 `.agents` 配置目錄、生成 `settings.json` 與軟連結。
+3. 執行 `run.sh` 建立本地設定檔案的軟連結。
 
 `核心實體 (Key Entities):` `環境設定指令檔 (Setup Scripts)`, `專案配置檔 (Project Configuration)`, `代理配置目錄 (Agent Configuration Directory)`
 
-`相關處理器 (Related Handlers):` [mac.sh](file:///Users/shuk/projects/env_setup/setup/mac.sh), [ubuntu.sh](file:///Users/shuk/projects/env_setup/setup/ubuntu.sh), [bash_env_setup.sh](file:///Users/shuk/projects/env_setup/setup/bash_env_setup.sh), [project_setup](file:///Users/shuk/projects/env_setup/bin/project_setup)
+`相關處理器 (Related Handlers):` [mac.sh](file:///Users/shuk/projects/env_setup/setup/mac.sh), [ubuntu.sh](file:///Users/shuk/projects/env_setup/setup/ubuntu.sh), [bash_env_setup.sh](file:///Users/shuk/projects/env_setup/setup/bash_env_setup.sh)
 
 ---
 
@@ -48,11 +48,8 @@
 # macOS 系統初始化
 ./setup/mac.sh
 
-# Go 語言開發環境安裝
-./setup/go.sh
-
-# 專案環境與 AI Agent 初始化配置
-./bin/project_setup
+# 執行軟連結設定
+./run.sh
 ```
 
 ### 2. 開發者實用命令列工具與腳本

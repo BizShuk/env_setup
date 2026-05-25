@@ -1,10 +1,11 @@
 #!/bin/bash
+set -euo pipefail
 
 source "$(dirname "$0")/settings.sh"
 
 homebrew_ver="5.0.3"
 
-pushd "${USER_LOCAL}" || exit
+pushd "${USER_LOCAL}" || exit 1
 
 rm -rf homebrew
 # mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
@@ -12,10 +13,10 @@ mkdir homebrew && curl -L https://github.com/Homebrew/brew/archive/refs/tags/${h
 
 # git clone https://github.com/Homebrew/brew homebrew
 
-echo -e "\n\n\n# Homwbrew" >>"${HOME}/.bash_plugin"
+echo -e "\n\n\n# Homebrew" >>"${HOME}/.bash_plugin"
 ./homebrew/bin/brew shellenv >>"${HOME}/.bash_plugin"
 
-popd || exit
+popd || exit 1
 
 # shellcheck source=/dev/null
 source "${HOME}/.bash_plugin"
