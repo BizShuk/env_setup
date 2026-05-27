@@ -1,3 +1,5 @@
+[init]
+	defaultbranch = master
 [user]
 	name = shuk.liu
 	email = biz.shuk@gmail.com
