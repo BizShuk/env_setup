@@ -121,8 +121,8 @@ get_python-config-dir () {
 
 # alias claude="claude"
 # alias claudew="CLAUDE_CONFIG_DIR=~/.claude-work claude --settings ~/projects/env_setup/claude/llmbox.json"
-alias claudew="claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json"
-# alias claudem="CLAUDE_CONFIG_DIR=~/.claude-minimax claude --settings ~/projects/env_setup/claude/minimax.json"
+# alias claudew="claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json"
+alias claudew="claude-w --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json"
 
 alias claudem='ANTHROPIC_AUTH_TOKEN=$MINIMAX_API_KEY claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/minimax.json '
 alias agentbox='npx @gdpa/agent-box@latest'

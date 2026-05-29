@@ -107,7 +107,7 @@
         "{target,out,dist,output}": true,
         "{.mvn,node_modules,__pycache__,.venv}": true,
         "{__debug_bin*}": true,
-        "{**/*_test.go}": true,
+        "{**/*_test.go}": false,
         "{gen/**,kitex_gen/**,thrift_gen/**}": true,
         "-1": true
     },
@@ -207,8 +207,11 @@
         ],
         "compounds": []
     },
+    "editor.fontFamily": "SF Mono",
     // [terminal]
     "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontFamily": "SF Mono",
+    "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.tabs.title": "${process} ${task}",
     "terminal.integrated.commandsToSkipShell": [
         "editor.action.rename",
