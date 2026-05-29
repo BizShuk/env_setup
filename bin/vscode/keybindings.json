@@ -507,7 +507,21 @@
         "args": {
             "commands": [
                 "workbench.action.newGroupBelow",
-                "workbench.action.minimizeOtherEditors"
+                "workbench.action.minimizeOtherEditors",
+                "workbench.action.createTerminalEditor"
+            ]
+        }
+    },
+    {
+        "key": "ctrl+alt+cmd+p", // 請替換為您想要的快捷鍵
+        "command": "testCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "vscode.open",
+                    "args": ["${/README.md"]
+                },
+                "workbench.action.pinEditor"
             ]
         }
     },

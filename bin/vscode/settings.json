@@ -153,7 +153,10 @@
         // inherited from files.exclude,
         "/var/folders/**": true,
         "**/thrift_gen/**": true,
-        "**/kitex_gen/**": true
+        "**/kitex_gen/**": true,
+        "plans/**": true,
+        "logs/**": true,
+        "go.sum": true
     },
     "search.showLineNumbers": true,
     "search.collapseResults": "auto",
@@ -648,7 +651,7 @@
     "prettier.tabWidth": 4,
     "prettier.htmlWhitespaceSensitivity": "ignore",
     // [python]
-    "python.defaultInterpreterPath": "~/.venv/bin/python",
+    "python.defaultInterpreterPath": "${userHome}/.venv/bin/python",
     "python.terminal.activateEnvironment": true,
     "python.languageServer": "Default",
     // [csv]
@@ -672,9 +675,11 @@
     "http.systemCertificatesNode": true,
     "redhat.telemetry.enabled": false,
     "[go]": {
-        "editor.defaultFormatter": "golang.go"
+        "editor.defaultFormatter": "golang.go",
+        "editor.codeLens": true
     },
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "extensions.ignoreRecommendations": true,
-    "git.replaceTagsWhenPull": true
+    "git.replaceTagsWhenPull": true,
+    "commentTranslate.hover.enabled": false
 }
