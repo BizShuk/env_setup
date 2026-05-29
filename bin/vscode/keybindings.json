@@ -554,10 +554,6 @@
         "command": "-workbench.action.focusBelowGroup"
     },
     {
-        "key": "shift+cmd+[",
-        "command": "workbench.action.toggleEditorWidths"
-    },
-    {
         "key": "cmd+8",
         "command": "-workbench.action.focusEighthEditorGroup"
     },
@@ -611,10 +607,6 @@
         "command": "-workbench.action.moveEditorRightInGroup"
     },
     {
-        "key": "shift+cmd+]",
-        "command": "workbench.action.focusNextGroup"
-    },
-    {
         "key": "ctrl+shift+2",
         "command": "-workbench.action.terminal.sendSequence",
         "when": "terminalFocus"
@@ -626,5 +618,13 @@
     {
         "key": "alt+cmd+up",
         "command": "workbench.action.moveEditorToAboveGroup"
+    },
+    {
+        "key": "shift+cmd+[",
+        "command": "workbench.action.toggleEditorWidths"
+    },
+    {
+        "key": "shift+cmd+]",
+        "command": "workbench.action.focusNextGroup"
     }
 ]
