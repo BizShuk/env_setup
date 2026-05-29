@@ -1,8 +1,0 @@
-{
-  "name": "Env Setup (Ubuntu)",
-  "dockerComposeFile": "docker-compose.yaml",
-  "service": "workspace",
-  "workspaceFolder": "/home/shuk/projects/env_setup",
-  "remoteUser": "shuk",
-  "postCreateCommand": "git config --global --add safe.directory /home/shuk/projects/env_setup"
-}

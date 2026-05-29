@@ -21,8 +21,8 @@ pushd "$tmpdir" || exit
 wget https://github.com/vim/vim/archive/${VIM_VER}.tar.gz
 tar zxf ${VIM_VER}.tar.gz
 cd vim-${VIM_VER:1} || exit
-./configure --enable-pythoninterp \
-    --with-python-config-dir="${python_config_dir}" \
+./configure --enable-python3interp \
+    --with-python3-config-dir="${python_config_dir}" \
     --enable-perlinterp \
     --with-features=huge \
     --enable-cscope \
@@ -31,14 +31,12 @@ make
 sudo make install
 rm -rf "vim-${VIM_VER:1}" && rm -f "${VIM_VER}.tar.gz"
 popd || exit
-# --enable-python3interp
-# --with-python3-config-dir
+rm -rf "$tmpdir"
 
 # for ctag
-. ./ctags_setup.sh
+. "$(dirname "$0")/ctags_setup.sh"
 
 git submodule init
 git submodule update
 
-echo "check :py print("yes") and edit tmp.c with for snippets"
-#echo "check :py3 print("yes") and edit tmp.c with for snippets"
+echo "check :py3 print(\"yes\") and edit tmp.c with for snippets"

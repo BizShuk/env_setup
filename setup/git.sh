@@ -2,12 +2,13 @@
 set -euo pipefail
 source "$(dirname "$0")/settings.sh"
 
-GIT_VERSION=${GIT_VERSION:-2.32.0}
+
+GIT_VERSION=${GIT_VERSION:-2.45.2}
 GIT_DISTRIBUTION="git-${GIT_VERSION}"
 
-sudo apt-get install libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
-sudo apt-get install asciidoc xmlto docbook2x
-sudo apt-get install install-info
+sudo apt-get install -y libcurl4-gnutls-dev libexpat1-dev gettext libz-dev libssl-dev
+sudo apt-get install -y asciidoc xmlto docbook2x
+sudo apt-get install -y install-info
 
 tmpdir=$(mktemp -d)
 
@@ -23,3 +24,4 @@ make all doc info
 sudo make install install-doc install-html install-info
 
 popd || exit
+rm -rf "$tmpdir"

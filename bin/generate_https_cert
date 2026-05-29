@@ -15,6 +15,7 @@ STATE="Taiwan"
 CITY="Taipei"
 ORG="None"
 OU="None"
+FORCE=false
 
 # Colors for output
 RED='\033[0;31m'
@@ -39,6 +40,7 @@ OPTIONS:
     -l, --city CITY          City or Locality
     --org ORG                Organization name
     --ou UNIT                Organizational Unit
+    -f, --force              Force overwrite existing files without confirmation
     -h, --help               Show this help message
 
 EXAMPLES:
@@ -98,6 +100,10 @@ while [[ $# -gt 0 ]]; do
             OU="$2"
             shift 2
             ;;
+        -f|--force)
+            FORCE=true
+            shift
+            ;;
         -h|--help)
             show_help
             exit 0
@@ -135,14 +141,18 @@ SUBJECT="/C=${COUNTRY}/CN=${DOMAIN}"
 
 # Check if files already exist
 if [[ -f "$KEY_FILE" ]] || [[ -f "$CERT_FILE" ]]; then
-    echo -e "${YELLOW}Warning: Certificate files already exist:${NC}"
-    [[ -f "$KEY_FILE" ]] && echo "  - $KEY_FILE"
-    [[ -f "$CERT_FILE" ]] && echo "  - $CERT_FILE"
-    read -p "Overwrite? (y/N): " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        echo "Aborted."
-        exit 0
+    if [[ "$FORCE" == "true" ]]; then
+        echo -e "${YELLOW}Force option enabled. Overwriting existing files...${NC}"
+    else
+        echo -e "${YELLOW}Warning: Certificate files already exist:${NC}"
+        [[ -f "$KEY_FILE" ]] && echo "  - $KEY_FILE"
+        [[ -f "$CERT_FILE" ]] && echo "  - $CERT_FILE"
+        read -p "Overwrite? (y/N): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            echo "Aborted."
+            exit 0
+        fi
     fi
 fi
 

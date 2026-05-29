@@ -61,15 +61,15 @@ sudo cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 #####
 ##### Add user and group
 #####
-if ! id -u shuk &>/dev/null; then
-    sudo useradd shuk -m -s /bin/bash
-    sudo passwd shuk
+if ! id -u "$user" &>/dev/null; then
+    sudo useradd "$user" -m -s /bin/bash
+    sudo passwd "$user"
     ## ?? echo 'userid:newpasswd' | chpasswd
     ## ?? usermod --password PASSWORD USERNAME
 fi
 
-if ! getent group shuk &>/dev/null; then
-    sudo groupadd shuk
+if ! getent group "$user" &>/dev/null; then
+    sudo groupadd "$user"
 fi
 
 #####

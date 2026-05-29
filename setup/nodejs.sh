@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
-# [NVM github](https://github.com/creationix/nvm)
+# [NVM github](https://github.com/nvm-sh/nvm)
 
 source "$(dirname "$0")/settings.sh"
 
@@ -10,7 +10,7 @@ NVM_DIR=${USER_LIB}/nvm
 rm -rf "${NVM_DIR}"
 mkdir "${NVM_DIR}"
 
-git clone https://github.com/creationix/nvm.git "${NVM_DIR}"
+git clone https://github.com/nvm-sh/nvm.git "${NVM_DIR}"
 
 cd "${NVM_DIR}" || exit 1
 git checkout "$(git describe --abbrev=0 --tags)"
@@ -35,8 +35,7 @@ EOF
 
 nvm use --delete-prefix "${NODE_VER}" --silent
 
-#  NPM
-echo run this if npm is not there: curl -L http://npmjs.org/install.sh | sh
+
 
 # shellcheck source=/dev/null
 source ${HOME}/.bash_plugin
