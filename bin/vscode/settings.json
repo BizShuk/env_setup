@@ -102,6 +102,7 @@
         "{*.code-workspace,.golangci.yml,go.sum}": true,
         "{.specify,.gemini,.serena,.ttadk,.coco}": true,
         "{AGENTS.md}": true,
+        "{.claude}": true,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,
         "{target,out,dist,output}": true,

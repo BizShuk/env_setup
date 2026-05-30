@@ -49,3 +49,6 @@ EOF
 
 # shellcheck source=/dev/null
 source ${HOME}/.bash_plugin
+
+
+npm install -g pm2
