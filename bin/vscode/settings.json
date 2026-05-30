@@ -42,7 +42,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*",
         "*.md": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard.json",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -100,7 +100,7 @@
         "{archive,*.bak*}": true,
         "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
         "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.specify,.gemini,.agent,.serena,.ttadk,.coco,.vscode}": true,
+        "{.specify,.gemini,.serena,.ttadk,.coco}": true,
         "{AGENTS.md}": true,
         "{.devops,.settings}": true,
         "{.classpath,.project}": true,
@@ -109,6 +109,7 @@
         "{__debug_bin*}": true,
         "{**/*_test.go}": false,
         "{gen/**,kitex_gen/**,thrift_gen/**}": true,
+        "{docs,plans,specs,reports}": true,
         "-1": true
     },
     "files.watcherExclude": {
