@@ -463,7 +463,8 @@
     },
     {
         "key": "ctrl+tab",
-        "command": "workbench.action.nextPanelView"
+        "command": "workbench.action.nextPanelView",
+        "when": "panelFocus"
     },
     {
         "key": "alt+k",

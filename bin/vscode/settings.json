@@ -223,7 +223,8 @@
         "workbench.action.terminal.rename",
         "workbench.action.toggleEditorWidths",
         "workbench.action.nextEditor",
-        "workbench.action.createTerminalEditor"
+        "workbench.action.createTerminalEditor",
+        "workbench.action.nextEditor"
     ],
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.mouseWheelScrollSensitivity": 3,
@@ -269,7 +270,16 @@
     "gopls": {
         "ui.completion.usePlaceholders": true,
         "formatting.gofumpt": true,
-        "build.directoryFilters": ["-**/lib/go/pkg/**"],
+        "build.directoryFilters": [
+            "-**/lib/go/pkg",
+            "-node_modules",
+            "-__pycache__"
+        ],
+        "ui.navigation.diagnosticFilters": [
+            "-**/lib/go/pkg",
+            "-node_modules",
+            "-__pycache__"
+        ],
         "analyses": {}
     },
     "go.buildFlags": ["-gcflags=-m -l"],
