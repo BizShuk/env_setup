@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EditPriorityHigh</key>
+	<string>@$2</string>
+	<key>EditPriorityLow</key>
+	<string>@$1</string>
+	<key>EditPriorityNone</key>
+	<string>@$0</string>
+</dict>
+</plist>

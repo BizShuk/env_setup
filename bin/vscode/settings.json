@@ -108,7 +108,7 @@
         "{target,out,dist,output}": true,
         "{.mvn,node_modules,__pycache__,.venv}": true,
         "{__debug_bin*}": true,
-        "{**/*_test.go}": false,
+        "{**/*_test.go}": true,
         "{gen/**,kitex_gen/**,thrift_gen/**}": true,
         "{docs,plans,specs,reports}": true,
         "-1": true

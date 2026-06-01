@@ -626,5 +626,15 @@
     {
         "key": "shift+cmd+]",
         "command": "workbench.action.focusNextGroup"
+    },
+    {
+        "key": "cmd+n",
+        "command": "claude-vscode.newConversation",
+        "when": "auxiliaryBarFocus && config.claudeCode.enableNewConversationShortcut && activeWebviewPanelId == 'claudeVSCodePanel' || claude-vscode.sideBarActive && config.claudeCode.enableNewConversationShortcut && !editorFocus && !panelFocus"
+    },
+    {
+        "key": "cmd+n",
+        "command": "-claude-vscode.newConversation",
+        "when": "config.claudeCode.enableNewConversationShortcut && activeWebviewPanelId == 'claudeVSCodePanel' || claude-vscode.sideBarActive && config.claudeCode.enableNewConversationShortcut && !editorFocus && !panelFocus"
     }
 ]
