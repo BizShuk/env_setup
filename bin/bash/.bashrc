@@ -209,5 +209,6 @@ export PATH=$PATH:$HOME/bin/bit
 
 # Added by Antigravity CLI installer
 export PATH="${HOME}/.local/bin:$PATH"
+
 # opencode
 export PATH=/Users/bytedance/.opencode/bin:$PATH
