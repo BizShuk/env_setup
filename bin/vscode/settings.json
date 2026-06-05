@@ -40,7 +40,7 @@
         ".env": ".env.*,",
         "main.go": "go.mod,handler.go",
         "go.mod": "go.sum",
-        "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*",
+        "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*,${capture}*.tmpl,${capture}.csv",
         "*.md": "${capture}*.md",
         "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard.json",
         "*.sqlite": "${capture}.${extname}-*",
@@ -96,21 +96,25 @@
     "files.eol": "\n",
     "files.trimTrailingWhitespace": false,
     "files.exclude": {
+        // Project Metadata
         "{.svn,.hg,.DS_Store,Thumbs.db}": true,
-        "{archive,*.bak*}": true,
-        "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
-        "{*.code-workspace,.golangci.yml,go.sum}": true,
-        "{.specify,.gemini,.serena,.ttadk,.coco}": true,
-        "{AGENTS.md}": true,
-        "{.claude}": true,
-        "{.devops,.settings}": true,
-        "{.classpath,.project}": true,
+        "{.classpath,.project,.devops,.settings}": true,
+        "{**/.mvn,**/node_modules,**/__pycache__,**/.venv,**/__debug_bin*}": true,
+        "{gen/**,kitex_gen/**,thrift_gen/**}": true, // Can be deleted later
         "{target,out,dist,output}": true,
-        "{.mvn,node_modules,__pycache__,.venv}": true,
-        "{__debug_bin*}": true,
+        // Workspace config
+        "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
+        "{.vscode}": true,
+        // Backup
+        "{archive,*.bak*}": true,
+        // Agents
+        "{AGENTS.md,.agents}": true,
+        "{GEMINI.md,.gemini}": true,
+        "{CLAUDE.md,.claude}": false,
+        // Testing files
         "{**/*_test.go}": true,
-        "{gen/**,kitex_gen/**,thrift_gen/**}": true,
-        "{docs,plans,specs,reports}": true,
+        // Documentation
+        "{**/docs,**/plans,**/specs}": true,
         "-1": true
     },
     "files.watcherExclude": {
@@ -283,7 +287,7 @@
         "analyses": {}
     },
     "go.buildFlags": ["-gcflags=-m -l"],
-    "go.lintTool": "golangci-lint-v2",
+    "go.lintTool": "golangci-lint",
     // "go.lintTool": "golangci-lint", // [go linter]
     // "go.formatTool": "custom",
     // "go.formatTool": "goimports",
