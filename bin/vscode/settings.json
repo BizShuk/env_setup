@@ -228,7 +228,9 @@
         "workbench.action.toggleEditorWidths",
         "workbench.action.nextEditor",
         "workbench.action.createTerminalEditor",
-        "workbench.action.nextEditor"
+        "workbench.action.nextEditor",
+        "workbench.action.openEditorAtIndex3",
+        "workbench.action.openEditorAtIndex4"
     ],
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.mouseWheelScrollSensitivity": 3,

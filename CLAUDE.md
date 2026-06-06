@@ -72,10 +72,10 @@
 
 ## 模組對應 (Module Mapping)
 
-| 業務領域 (Domain)                                                      | 套件/模組 (Package/Module)    | 進入點 (Entry Point)                                   |
-| ---------------------------------------------------------------------- | ----------------------------- | ------------------------------------------------------ |
-| 環境與開發工具配置 (Environment and Development Tooling Configuration) | `setup/`                      | `setup/mac.sh`, `setup/ubuntu.sh`                     |
-| 開發者實用命令列工具與腳本 (Developer Utility CLI Tools and Scripts)   | `cmd/`, `bin/`                | `cmd/main.go` (`main()`), `run.sh`                     |
+| 業務領域 (Domain)                                                      | 套件/模組 (Package/Module) | 進入點 (Entry Point)               |
+| ---------------------------------------------------------------------- | -------------------------- | ---------------------------------- |
+| 環境與開發工具配置 (Environment and Development Tooling Configuration) | `setup/`                   | `setup/mac.sh`, `setup/ubuntu.sh`  |
+| 開發者實用命令列工具與腳本 (Developer Utility CLI Tools and Scripts)   | `cmd/`, `bin/`             | `cmd/main.go` (`main()`), `run.sh` |
 
 ## 開發指南 (Development Guide)
 
