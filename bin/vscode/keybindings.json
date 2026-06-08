@@ -392,10 +392,6 @@
         "when": "editorTextFocus && editorLangId == 'html'"
     },
     {
-        "key": "alt+cmd+c",
-        "command": "antigravity.generateCommitMessage"
-    },
-    {
         "key": "shift+cmd+i",
         "command": "-frontMatter.insertMedia",
         "when": "editorTextFocus"
@@ -506,23 +502,67 @@
         "key": "ctrl+alt+cmd+n", // Replace with your desired keys
         "command": "runCommands",
         "args": {
+            "label": "開啟此專案開發排版",
             "commands": [
                 "workbench.action.newGroupBelow",
                 "workbench.action.minimizeOtherEditors",
-                "workbench.action.createTerminalEditor"
+                "workbench.action.createTerminalEditor",
+                {
+                    "command": "workbench.action.terminal.sendSequence",
+                    "args": { "text": "claudem\n" }
+                }
             ]
         }
     },
+    // {
+    //     "key": "ctrl+alt+cmd+p", // 請替換為您想要的快捷鍵
+    //     "command": "runCommands",
+    //     "label": "開啟此專案開發排版",
+    //     "args": {
+    //         "commands": [
+    //             {
+    //                 "command": "vscode.open",
+    //                 "args": ["${/README.md"]
+    //             },
+    //             "workbench.action.pinEditor"
+    //         ]
+    //     }
+    // },
     {
         "key": "ctrl+alt+cmd+p", // 請替換為您想要的快捷鍵
-        "command": "testCommands",
+        "command": "runCommands",
         "args": {
             "commands": [
+                // 1. 開啟專案內的 CLAUDE.md (Group 1)
+
                 {
                     "command": "vscode.open",
-                    "args": ["${/README.md"]
+                    "args": ["/Users/shuk/projects/inf/CLAUDE.md"]
                 },
-                "workbench.action.pinEditor"
+                // 2. 向右拆分區塊 (焦點轉移到右側，建立 Group 2)
+                "workbench.action.newGroupBelow",
+                // 3. 在 Group 2 建立 terminal 並執行 claudem
+                "workbench.action.createTerminalEditor"
+                {
+                    "command": "workbench.action.terminal.sendSequence",
+                    "args": { "text": "claudem\n" }
+                },
+                // 4. 在 Group 2 向下拆分 (建立 Group 3)
+                "workbench.action.newGroupRight",
+                // // 5. 在 Group 3 建立 terminal 並執行 ncdu
+                "workbench.action.createTerminalEditor",
+                {
+                    "command": "workbench.action.terminal.sendSequence",
+                    "args": { "text": "ncdu\n" }
+                },
+                // // 6. 在 Group 3 再向下拆分 (建立 Group 4)
+                "workbench.action.newGroupRight",
+                // // 7. 在 Group 4 建立 terminal 並執行 port_listenor monitor
+                "workbench.action.createTerminalEditor",
+                {
+                    "command": "workbench.action.terminal.sendSequence",
+                    "args": { "text": "port_listenor monitor\n" }
+                }
             ]
         }
     },
@@ -637,5 +677,15 @@
         "key": "cmd+n",
         "command": "-claude-vscode.newConversation",
         "when": "config.claudeCode.enableNewConversationShortcut && activeWebviewPanelId == 'claudeVSCodePanel' || claude-vscode.sideBarActive && config.claudeCode.enableNewConversationShortcut && !editorFocus && !panelFocus"
+    },
+    {
+        "key": "alt+cmd+c",
+        "command": "-copyFilePath",
+        "when": "!editorFocus"
+    },
+    {
+        "key": "alt+cmd+c",
+        "command": "antigravity.generateCommitMessage",
+        "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
     }
 ]

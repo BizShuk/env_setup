@@ -42,7 +42,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*,${capture}*.tmpl,${capture}.csv",
         "*.md": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard.json",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard.json,ecosystem.config.js.json",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -98,7 +98,7 @@
     "files.exclude": {
         // Project Metadata
         "{.svn,.hg,.DS_Store,Thumbs.db}": true,
-        "{.classpath,.project,.devops,.settings}": true,
+        "{.classpath,.project,.devops,.settings,.antigravity,.playwright-cli}": true,
         "{**/.mvn,**/node_modules,**/__pycache__,**/.venv,**/__debug_bin*}": true,
         "{gen/**,kitex_gen/**,thrift_gen/**}": true, // Can be deleted later
         "{target,out,dist,output}": true,
@@ -230,7 +230,8 @@
         "workbench.action.createTerminalEditor",
         "workbench.action.nextEditor",
         "workbench.action.openEditorAtIndex3",
-        "workbench.action.openEditorAtIndex4"
+        "workbench.action.openEditorAtIndex4",
+        "workbench.action.terminal.rename"
     ],
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.mouseWheelScrollSensitivity": 3,
@@ -699,5 +700,7 @@
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "extensions.ignoreRecommendations": true,
     "git.replaceTagsWhenPull": true,
-    "commentTranslate.hover.enabled": false
+    "commentTranslate.hover.enabled": false,
+    "python.createEnvironment.trigger": "off",
+    "workbench.colorTheme": "Mermaid Dark"
 }

@@ -213,9 +213,6 @@ export PATH="${HOME}/.local/bin:$PATH"
 # opencode
 export PATH=${HOME}/.opencode/bin:$PATH
 
-# opencode
-export PATH=${HOME}/.opencode/bin:$PATH
-
 
 # Added by Antigravity CLI installer
 export PATH="${HOME}/.local/bin:$PATH"
