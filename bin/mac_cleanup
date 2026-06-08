@@ -99,6 +99,34 @@ reset () {
     fi
 }
 
+runtimeCache() {
+    brew cleanup --prune=all
+    go clean -cache
+    pip cache purge    
+    if [ -d "$HOME/projects" ]; then
+        find "$HOME/projects" -name "node_modules" -type d -prune -exec rm -rf '{}' +
+    fi
+
+    rm -rf ~/.cache/uv/archive-v0/
+
+    # 刪除 npx 快取 (Delete npx cache)
+    rm -rf ~/.npm/_npx
+
+    # 尋找所有 *venv* 資料夾並刪除，但排除 ~/.venv (Find and remove all *venv* folders except ~/.venv)
+    find "$HOME" -mindepth 1 \
+        \( -path "$HOME/.venv" \
+        -o -path "$HOME/Library" \
+        -o -path "$HOME/.Trash" \
+        -o -path "$HOME/.cargo" \
+        -o -path "$HOME/.rustup" \
+        -o -path "$HOME/.npm" \
+        -o -path "$HOME/.nvm" \
+        -o -path "$HOME/.cache" \
+        -o -path "$HOME/.local" \) -prune \
+        -o -type d -name "*venv*" -prune -exec rm -rf '{}' +
+}
+
+
 remove_java() {
     if confirm "Uninstall all Java Virtual Machines and Java internet plugins?"; then
         echo "Uninstalling Java..."
@@ -137,6 +165,9 @@ while getopts "fj" opt; do
         ;;
   esac
 done
+
+# 執行執行期快取清理 (Execute runtime cache cleanup)
+runtimeCache
 
 
 

@@ -42,7 +42,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*,${capture}*.tmpl,${capture}.csv",
         "*.md": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard.json,ecosystem.config.js.json",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard,ecosystem.config.js",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -670,7 +670,7 @@
     "prettier.tabWidth": 4,
     "prettier.htmlWhitespaceSensitivity": "ignore",
     // [python]
-    "python.defaultInterpreterPath": "${userHome}/.venv/bin/python",
+    "python.defaultInterpreterPath": "~/.venv/bin/python",
     "python.terminal.activateEnvironment": true,
     "python.languageServer": "Default",
     // [csv]
