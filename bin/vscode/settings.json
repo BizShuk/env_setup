@@ -55,7 +55,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*,${capture}*.tmpl,${capture}.csv",
         "*.md": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard,ecosystem.config.js",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard,ecosystem.config.js,.markdownlint*",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -687,7 +687,7 @@
     "prettier.tabWidth": 4,
     "prettier.htmlWhitespaceSensitivity": "ignore",
     // [python]
-    "python.defaultInterpreterPath": "~/.venv/bin/python",
+    "python.defaultInterpreterPath": "/Users/shuk/.venv/bin/python",
     "python.terminal.activateEnvironment": true,
     "python.languageServer": "Default",
     // [csv]
@@ -719,5 +719,6 @@
     "git.replaceTagsWhenPull": true,
     "commentTranslate.hover.enabled": false,
     "python.createEnvironment.trigger": "off",
-    "workbench.colorTheme": "Mermaid Dark"
+    "workbench.colorTheme": "Mermaid Dark",
+    "security.promptForLocalFileProtocolHandling": false
 }
