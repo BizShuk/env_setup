@@ -654,7 +654,18 @@
             "previewLimit": 50,
             "driver": "SQLite",
             "name": "DB1.local",
-            "database": "${workspaceFolder:crawler}/inf/db/local.sqlite"
+            "database": "${workspaceFolder}/local.sqlite"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "username": "${env:VSCODE_POSTGRES_USERNAME}",
+            "password": "${env:VSCODE_POSTGRES_PASSWORD}",
+            "name": "localhost",
+            "database": "postgres"
         }
     ],
     "sqltools.results.location": "current",
