@@ -3,7 +3,20 @@
     "window.openFoldersInNewWindow": "on",
     // [workbench]
     "workbench.startupEditor": "none",
-    "workbench.colorCustomizations": {},
+    "workbench.colorCustomizations": {
+        // 衝突 (Conflicted) 的顏色
+        "gitDecoration.conflictingResourceForeground": "#FF0000",
+        "gitDecoration.addedResourceForeground": "#00ff41",
+        "gitDecoration.untrackedResourceForeground": "#00d4ff",
+        "gitDecoration.deletedResourceForeground": "#FF0000",
+        "gitDecoration.modifiedResourceForeground": "#00ffcc", // 使用顯眼的青色
+
+        // 2. 調整 Submodule (或其他資源) 的狀態顏色，這有時會影響 Staged 檔案的顯示
+        "gitDecoration.stageModifiedResourceForeground": "#00ffcc",
+        "editorOverviewRuler.addedForeground": "#00ff41",
+        "editorOverviewRuler.modifiedForeground": "#ffcc00",
+        "editorOverviewRuler.deletedForeground": "#ff4444"
+    },
     "workbench.editor.enablePreview": false,
     "workbench.auxiliaryActivityBar.location": "default",
     "workbench.editor.tabActionLocation": "right",
@@ -72,7 +85,7 @@
     "editor.tabSize": 4,
     "editor.unicodeHighlight.invisibleCharacters": false,
     "editor.wordWrap": "wordWrapColumn",
-    "editor.wordWrapColumn": 220,
+    "editor.wordWrapColumn": 200,
     "editor.quickSuggestions": {
         "comments": "on",
         "strings": "on",
@@ -85,6 +98,10 @@
     },
     // [scm]
     "scm.defaultViewMode": "tree",
+    "scm.diffDecorations": "all",
+    "scm.diffDecorationsGutterWidth": 5,
+    "scm.diffDecorationsGutterVisibility": "always",
+
     // [diff editor]
     "diffEditor.ignoreTrimWhitespace": true,
     "diffEditor.codeLens": true,
@@ -267,7 +284,7 @@
     "git.pruneOnFetch": true,
     "git.showPushSuccessNotification": true,
     "git.untrackedChanges": "separate",
-    "git.blame.editorDecoration.enabled": true,
+    "git.blame.editorDecoration.enabled": false,
     "git.blame.statusBarItem.enabled": false,
     // [go]
     "go.toolsManagement.autoUpdate": true,
