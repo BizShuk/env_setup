@@ -16,6 +16,29 @@
         "editorOverviewRuler.addedForeground": "#00ff41",
         "editorOverviewRuler.modifiedForeground": "#ffcc00",
         "editorOverviewRuler.deletedForeground": "#ff4444"
+        // // === 深色主題：刪除區域設定 (Dark-Theme Removed Colors) ===
+        // // 刪除行的整行背景：採用低飽和暗紅（透明度約 8%），當作舒適的背景底色
+        // "diffEditor.removedLineBackground": "#da4c4c14",
+        // // 具體刪除字元的背景：稍微加深（透明度 22%），精準鎖定被刪除的字
+        // "diffEditor.removedTextBackground": "#da4c4c38",
+        // // 刪除字元的邊框：用淡淡的紅框鎖定字元，避免深色背景下模糊
+        // "diffEditor.removedTextBorder": "#da4c4c45",
+
+        // // === 深色主題：新增區域設定 (Dark-Theme Inserted Colors) ===
+        // // 新增行的整行背景：採用低飽和暗綠（透明度約 8%），不與程式碼高亮衝突
+        // "diffEditor.insertedLineBackground": "#2ea04314",
+        // // 具體新增字元的背景：稍微加深（透明度 22%）
+        // "diffEditor.insertedTextBackground": "#2ea04338",
+        // // 新增字元的邊框：用淡淡的綠框輔助視覺定錨
+        // "diffEditor.insertedTextBorder": "#2ea04345",
+
+        // // === 側邊行號區與捲軸提示 (Gutter & Ruler) ===
+        // // 程式碼左側行號邊欄 (Gutter) 的刪除與新增指示條（調低亮度避免過閃）
+        // "diffEditorGutter.removedLineBackground": "#da4c4c88",
+        // "diffEditorGutter.insertedLineBackground": "#2ea04388",
+        // // 右側導覽捲軸 (Overview Ruler) 的標記顏色，維持點綴即可
+        // "diffEditorOverviewRuler.removedForeground": "#da4c4c66",
+        // "diffEditorOverviewRuler.insertedForeground": "#2ea04366"
     },
     "workbench.editor.enablePreview": false,
     "workbench.auxiliaryActivityBar.location": "default",
@@ -120,18 +143,18 @@
         "{gen/**,kitex_gen/**,thrift_gen/**}": true, // Can be deleted later
         "{target,out,dist,output}": true,
         // Workspace config
-        "{.git,.geminiignore,.gitlab,.pre-commit-config.yaml}": true,
+        "{**/.git,**/.geminiignore,**/.gitlab,.pre-commit-config.yaml}": true,
         "{.vscode}": true,
         // Backup
         "{archive,*.bak*}": true,
         // Agents
-        "{AGENTS.md,.agents}": true,
-        "{GEMINI.md,.gemini}": true,
+        "{**/AGENTS.md,**/.agents}": true,
+        "{**/GEMINI.md,**/.gemini}": true,
         "{CLAUDE.md,.claude}": false,
         // Testing files
         "{**/*_test.go}": true,
         // Documentation
-        "{**/docs,**/plans,**/specs}": true,
+        "{**/docs,**/specs}": true,
         "-1": true
     },
     "files.watcherExclude": {

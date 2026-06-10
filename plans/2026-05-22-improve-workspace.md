@@ -13,12 +13,12 @@
 ### Task 1: 修復安裝指令檔的拼寫與路徑錯誤 (Fix Typo and Path Errors in Setup Scripts)
 
 `Files:`
-- Modify: `setup/mac.sh`
+- Modify: `scripts/mac.sh`
 - Modify: `run.sh`
 - Modify: `bin/project_setup`
 
-- [ ] `Step 1: 修改 setup/mac.sh 中無效的 Go 腳本呼叫`
-  將 `setup/mac.sh` 中的 `./go_setup.sh` 改為 `./go.sh`。
+- [ ] `Step 1: 修改 scripts/mac.sh 中無效的 Go 腳本呼叫`
+  將 `scripts/mac.sh` 中的 `./go_setup.sh` 改為 `./go.sh`。
 
 - [ ] `Step 2: 修改 run.sh 中的拼寫錯誤`
   將 `run.sh` 中的 `.bsah_plugin` 改為 `.bash_plugin`。
@@ -33,13 +33,13 @@
 ### Task 2: 最佳化配置邏輯與路徑 (Optimize Configuration Logic and Paths)
 
 `Files:`
-- Modify: `setup/settings.sh`
+- Modify: `scripts/settings.sh`
 - Modify: `cmd/config.go`
 - Modify: `bin/project_setup`
 
-- [ ] `Step 1: 修改 setup/settings.sh 的目錄建立邏輯`
-  將 `setup/settings.sh` 中的：
-  `[ ! -e "$USER_LIB" ] && ln -s "$USER_LIB" "${HOME}/projects/env_setup/config/"`
+- [ ] `Step 1: 修改 scripts/settings.sh 的目錄建立邏輯`
+  將 `scripts/settings.sh` 中的：
+  `[ ! -e "$USER_LIB" ] && ln -s "$USER_LIB" "${HOME}/projects/env_scripts/config/"`
   替換為：
   `[ ! -d "$USER_LIB" ] && mkdir -p "$USER_LIB"`。
 
@@ -64,10 +64,10 @@
 ### Task 3: 擴充 Zsh 終端機環境支援 (Expand Support for Zsh Shell)
 
 `Files:`
-- Modify: `setup/bash_env_setup.sh`
+- Modify: `scripts/bash_env_setup.sh`
 
-- [ ] `Step 1: 在 setup/bash_env_setup.sh 中偵測 Zsh 並寫入配置`
-  在 `setup/bash_env_setup.sh` 末尾，新增檢測使用者預設 shell 的邏輯，如果使用者使用的是 Zsh，則在 `${INSTALL_DIR}/.zshrc` 中載入配置：
+- [ ] `Step 1: 在 scripts/bash_env_setup.sh 中偵測 Zsh 並寫入配置`
+  在 `scripts/bash_env_setup.sh` 末尾，新增檢測使用者預設 shell 的邏輯，如果使用者使用的是 Zsh，則在 `${INSTALL_DIR}/.zshrc` 中載入配置：
   ```bash
   if [ -f "${INSTALL_DIR}/.zshrc" ]; then
       if ! grep -q "bash_plugin" "${INSTALL_DIR}/.zshrc"; then
@@ -79,12 +79,12 @@
 ### Task 4: Go 工具鏈品質提升 (Go Toolchain Quality Improvements)
 
 `Files:`
-- Modify: `setup/go.sh`
+- Modify: `scripts/go.sh`
 - Create: `cmd/calc_test.go`
 - Create: `cmd/config_test.go`
 
 - [ ] `Step 1: 更新 golangci-lint 的安裝版本`
-  修改 `setup/go.sh` 中的 `golangci-lint` 安裝版本，將 `v2.7.2` 改為當前穩定版（例如 `v1.60.3`）。
+  修改 `scripts/go.sh` 中的 `golangci-lint` 安裝版本，將 `v2.7.2` 改為當前穩定版（例如 `v1.60.3`）。
 
 - [ ] `Step 2: 為 cmd/calc.go 新增單元測試`
   建立 `cmd/calc_test.go`，並編寫測試程式碼：

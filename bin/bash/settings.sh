@@ -56,7 +56,7 @@ export USER_TMP=${HOME}/tmp
 # env_setup path
 export REPO_DIR=${USER_PROJECT}/env_setup
 export REPO_PKG=${REPO_DIR}/pkg
-export REPO_SETUP=${REPO_DIR}/setup
+export REPO_SCRIPTS=${REPO_DIR}/scripts
 
 
 # system folder

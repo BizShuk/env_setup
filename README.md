@@ -10,13 +10,13 @@
 
 `領域流程 (Domain Flow):`
 
-1. 使用者執行 `setup/` 下的特定系統腳本（例如 `mac.sh` 或 `ubuntu.sh`）以安裝基礎工具與開發庫。
+1. 使用者執行 `scripts/` 下的特定系統腳本（例如 `mac.sh` 或 `ubuntu.sh`）以安裝基礎工具與開發庫。
 2. 執行軟體專屬的安裝腳本（如 `go.sh`, `nodejs.sh`, `ctags_setup.sh`）來建立程式語言開發與輔助工具環境。
 3. 執行 `run.sh` 建立本地設定檔案的軟連結。
 
 `核心實體 (Key Entities):` `環境設定指令檔 (Setup Scripts)`, `專案配置檔 (Project Configuration)`, `代理配置目錄 (Agent Configuration Directory)`
 
-`相關處理器 (Related Handlers):` [mac.sh](file:///Users/shuk/projects/env_setup/setup/mac.sh), [ubuntu.sh](file:///Users/shuk/projects/env_setup/setup/ubuntu.sh), [bash_env_setup.sh](file:///Users/shuk/projects/env_setup/setup/bash_env_setup.sh)
+`相關處理器 (Related Handlers):` [mac.sh](file:///Users/shuk/projects/env_setup/scripts/mac.sh), [ubuntu.sh](file:///Users/shuk/projects/env_setup/scripts/ubuntu.sh), [bash_env_setup.sh](file:///Users/shuk/projects/env_setup/scripts/bash_env_setup.sh)
 
 ---
 
@@ -46,7 +46,7 @@
 在新的 macOS 或 Ubuntu 環境中，依序執行對應的安裝腳本：
 ```bash
 # macOS 系統初始化
-./setup/mac.sh
+./scripts/mac.sh
 
 # 執行軟連結設定
 ./run.sh

@@ -4,4 +4,4 @@
 
 . ~/settings.sh
 
-. "$REPO_SETUP/go_setup.sh"
+. "$REPO_SCRIPTS/go_setup.sh"

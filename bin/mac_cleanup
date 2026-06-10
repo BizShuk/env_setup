@@ -71,7 +71,7 @@ rm -rf ~/Library/Containers/com.apple.podcasts/Data/tmp/StreamedMedia/*.mp3
 rm -rf ~/Library/iTunes/iPhone\ Software\ Updates/*
 rm -rf ~/Library/Application\ Support/MobileSync/Backup/*
 
-BREWFILE_PATH="$HOME/projects/env_setup/setup/Brewfile"
+BREWFILE_PATH="$HOME/projects/env_setup/scripts/Brewfile"
 if [ -f "$BREWFILE_PATH" ]; then
     brew bundle cleanup --file="$BREWFILE_PATH" --force
 else

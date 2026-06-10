@@ -9,7 +9,7 @@
 > [!IMPORTANT]
 > 業務領域 (Business Domain) 定義：
 > 本專案經排除 `devops/` 內容後，將被劃分為以下兩個核心業務領域。請確認是否符合您的專案定位：
-> 1. `環境與開發工具配置 (Environment and Development Tooling Configuration)`: 包含 `setup/` 中的系統與軟體安裝腳本，以及 `bin/project_setup`。
+> 1. `環境與開發工具配置 (Environment and Development Tooling Configuration)`: 包含 `scripts/` 中的系統與軟體安裝腳本，以及 `bin/project_setup`。
 > 2. `開發者實用命令列工具與腳本 (Developer Utility CLI Tools and Scripts)`: 包含 `cmd/` 的 Go 語言 Cobra 實用工具 `smain`，與 `bin/` 底下的各種維護及效能檢測腳本。
 
 > [!WARNING]

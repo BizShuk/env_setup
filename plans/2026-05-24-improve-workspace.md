@@ -13,14 +13,14 @@
 ### Task 1: 安裝指令檔拼寫與路徑修正 (Setup Scripts Typo and Path Fixes)
 
 `Files:`
-- Modify: `setup/mac.sh`
+- Modify: `scripts/mac.sh`
 - Modify: `run.sh`
 - Modify: `bin/project_setup`
-- Modify: `setup/vim.sh`
-- Modify: `setup/webmin.sh`
+- Modify: `scripts/vim.sh`
+- Modify: `scripts/webmin.sh`
 
-- [ ] `Step 1: 修改 setup/mac.sh 中無效的 Go 腳本呼叫`
-  將 `setup/mac.sh` 第 20 行的 `./go_setup.sh` 修改為 `./go.sh`。
+- [ ] `Step 1: 修改 scripts/mac.sh 中無效的 Go 腳本呼叫`
+  將 `scripts/mac.sh` 第 20 行的 `./go_setup.sh` 修改為 `./go.sh`。
 
 - [ ] `Step 2: 修改 run.sh 中的軟連結來源拼寫錯誤`
   將 `run.sh` 第 4 行的 `.bsah_plugin` 修正為 `.bash_plugin`。
@@ -31,9 +31,9 @@
 - [ ] `Step 4: 重命名 troubleshotting 目錄`
   將專案根目錄下的 `troubleshotting` 目錄重新命名為 `troubleshooting`。
 
-- [ ] `Step 5: 修改 setup/vim.sh 中的無效目錄刪除路徑與 Python 依賴，並更新 Vim 版本至 v9.1.0`
+- [ ] `Step 5: 修改 scripts/vim.sh 中的無效目錄刪除路徑與 Python 依賴，並更新 Vim 版本至 v9.1.0`
   - 修改 `source "${HOME}"/settings.sh` 為 `source "$(dirname "$0")/settings.sh"`。
-  - 移除 `source ~/projects/ubuntu_setup/alias/python-config.sh` 的依賴。
+  - 移除 `source ~/projects/ubuntu_scripts/alias/python-config.sh` 的依賴。
   - 使用內建檢測方式獲取 `python_config_dir`。
   - 將 `VIM_VER` 更新為 `v9.1.0`。
   - 修改清理步驟為刪除正確的解壓目錄 `vim-${VIM_VER:1}`。
@@ -50,15 +50,15 @@
   rm -rf "vim-${VIM_VER:1}" && rm -f "${VIM_VER}.tar.gz"
   ```
 
-- [ ] `Step 6: 修改 setup/webmin.sh，在安裝結束後清理下載的暫存安裝指令檔`
-  在 `setup/webmin.sh` 的末尾加入清除下載檔案的命令：
+- [ ] `Step 6: 修改 scripts/webmin.sh，在安裝結束後清理下載的暫存安裝指令檔`
+  在 `scripts/webmin.sh` 的末尾加入清除下載檔案的命令：
   ```bash
   rm -f webmin-setup-repo.sh
   ```
 
 - [ ] `Step 7: 提交變更 (Git Commit)`
   ```bash
-  git add setup/mac.sh run.sh bin/project_setup setup/vim.sh setup/webmin.sh
+  git add scripts/mac.sh run.sh bin/project_setup scripts/vim.sh scripts/webmin.sh
   git commit -m "fix: resolve typos, paths, and dependencies in setup scripts"
   ```
 
@@ -67,14 +67,14 @@
 ### Task 2: 配置邏輯與路徑優化 (Configuration Logic and Path Optimizations)
 
 `Files:`
-- Modify: `setup/settings.sh`
+- Modify: `scripts/settings.sh`
 - Modify: `cmd/config.go`
 - Modify: `bin/project_setup`
-- Modify: `setup/bash_env_setup.sh`
-- Modify: `setup/nodejs.sh`
+- Modify: `scripts/bash_env_setup.sh`
+- Modify: `scripts/nodejs.sh`
 
-- [ ] `Step 1: 修改 setup/settings.sh 的使用者程式庫目錄初始化邏輯`
-  將 `setup/settings.sh` 第 53 行的軟連結建立指令替換為安全的目錄建立指令：
+- [ ] `Step 1: 修改 scripts/settings.sh 的使用者程式庫目錄初始化邏輯`
+  將 `scripts/settings.sh` 第 53 行的軟連結建立指令替換為安全的目錄建立指令：
   ```bash
   [ ! -d "$USER_LIB" ] && mkdir -p "$USER_LIB"
   ```
@@ -101,8 +101,8 @@
 - [ ] `Step 3: 移除 bin/project_setup 中的忽略檔案軟連結`
   移除 `bin/project_setup` 第 49 行的 `ln -sfh .gitignore .geminiignore`。改為獨立檢查，若 `.geminiignore` 不存在則建立空檔案。
 
-- [ ] `Step 4: 修改 setup/bash_env_setup.sh 的連結邏輯，加入 safe_link 備份機制`
-  - 在 `setup/bash_env_setup.sh` 中新增 `safe_link` 函數。
+- [ ] `Step 4: 修改 scripts/bash_env_setup.sh 的連結邏輯，加入 safe_link 備份機制`
+  - 在 `scripts/bash_env_setup.sh` 中新增 `safe_link` 函數。
   - 將所有 `ln -sf` 替換為 `safe_link`，並明確寫出目標檔案路徑。
   ```bash
   safe_link() {
@@ -116,15 +116,15 @@
   }
   ```
 
-- [ ] `Step 5: 修改 setup/nodejs.sh 以使用相對路徑引入設定檔`
-  將 `setup/nodejs.sh` 第 4 行修改為相對路徑導入：
+- [ ] `Step 5: 修改 scripts/nodejs.sh 以使用相對路徑引入設定檔`
+  將 `scripts/nodejs.sh` 第 4 行修改為相對路徑導入：
   ```bash
   source "$(dirname "$0")/settings.sh"
   ```
 
 - [ ] `Step 6: 提交變更 (Git Commit)`
   ```bash
-  git add setup/settings.sh cmd/config.go bin/project_setup setup/bash_env_setup.sh setup/nodejs.sh
+  git add scripts/settings.sh cmd/config.go bin/project_setup scripts/bash_env_setup.sh scripts/nodejs.sh
   git commit -m "refactor: optimize configuration paths, backup mechanism and dependencies"
   ```
 
@@ -133,11 +133,11 @@
 ### Task 3: 終端機 Shell 支援與性能優化 (Terminal Shell Support & Performance Optimization)
 
 `Files:`
-- Modify: `setup/bash_env_setup.sh`
-- Modify: `setup/nodejs.sh`
+- Modify: `scripts/bash_env_setup.sh`
+- Modify: `scripts/nodejs.sh`
 
-- [ ] `Step 1: 修改 setup/bash_env_setup.sh，新增對 Zsh 終端機環境的支援`
-  在 `setup/bash_env_setup.sh` 的末尾加入對 Zsh 的檢測。若使用者預設使用 Zsh 或已存在 `.zshrc`，則自動在 `~/.zshrc` 中寫入對 `~/.bash_plugin` 的載入指令：
+- [ ] `Step 1: 修改 scripts/bash_env_setup.sh，新增對 Zsh 終端機環境的支援`
+  在 `scripts/bash_env_setup.sh` 的末尾加入對 Zsh 的檢測。若使用者預設使用 Zsh 或已存在 `.zshrc`，則自動在 `~/.zshrc` 中寫入對 `~/.bash_plugin` 的載入指令：
   ```bash
   if [ -f "${INSTALL_DIR}/.zshrc" ] || [ "$SHELL" = "*/zsh" ] || [ -n "$ZSH_VERSION" ]; then
       [ ! -f "${INSTALL_DIR}/.zshrc" ] && touch "${INSTALL_DIR}/.zshrc"
@@ -147,7 +147,7 @@
   fi
   ```
 
-- [ ] `Step 2: 修改 setup/nodejs.sh 以消除終端機啟動延遲`
+- [ ] `Step 2: 修改 scripts/nodejs.sh 以消除終端機啟動延遲`
   在執行 `nodejs.sh` 安裝時，預先計算好 `npm config get prefix` 的結果並靜態寫入到 `~/.bash_plugin`，取代每次開啟終端機時的動態指令呼叫：
   ```bash
   NPM_PREFIX=$(npm config get prefix)
@@ -160,7 +160,7 @@
 
 - [ ] `Step 3: 提交變更 (Git Commit)`
   ```bash
-  git add setup/bash_env_setup.sh setup/nodejs.sh
+  git add scripts/bash_env_setup.sh scripts/nodejs.sh
   git commit -m "perf: add zsh support and eliminate terminal startup lag by caching npm prefix"
   ```
 
@@ -169,7 +169,7 @@
 ### Task 4: Go 工具與測試品質提升 (Go Toolchain & Testing Improvements)
 
 `Files:`
-- Modify: `setup/go.sh`
+- Modify: `scripts/go.sh`
 - Modify: `cmd/calc.go`
 - Modify: `cmd/fetch.go`
 - Create: `cmd/calc_test.go`
@@ -177,8 +177,8 @@
 - Create: `cmd/fetch_test.go`
 - Modify: `CLAUDE.md`
 
-- [ ] `Step 1: 修改 setup/go.sh，升級 golangci-lint 安裝版本`
-  將 `setup/go.sh` 第 50 行的 `golangci-lint` 安裝版本從 `v2.7.2` 更新為穩定版 `v1.60.3`。
+- [ ] `Step 1: 修改 scripts/go.sh，升級 golangci-lint 安裝版本`
+  將 `scripts/go.sh` 第 50 行的 `golangci-lint` 安裝版本從 `v2.7.2` 更新為穩定版 `v1.60.3`。
 
 - [ ] `Step 2: 修改 cmd/calc.go，將 flag 類型改為 Cobra 自動驗證的 IntVar 型別`
   重構 `newCalcCmd()`，直接使用 `IntVar` 旗標以利 Cobra 在解析時自動做格式與型別檢查。
@@ -309,7 +309,7 @@
 
 - [ ] `Step 9: 提交變更 (Git Commit)`
   ```bash
-  git add setup/go.sh cmd/calc.go cmd/fetch.go cmd/calc_test.go cmd/config_test.go cmd/fetch_test.go CLAUDE.md
+  git add scripts/go.sh cmd/calc.go cmd/fetch.go cmd/calc_test.go cmd/config_test.go cmd/fetch_test.go CLAUDE.md
   git commit -m "test: add unit tests for calc, config, and fetch commands; upgrade go linter version"
   ```
 
@@ -319,10 +319,10 @@
 
 `Files:`
 - Modify: `bin/mac_cleanup`
-- Modify: `setup/ubuntu.sh`
+- Modify: `scripts/ubuntu.sh`
 - Modify: `bin/scan_private_network`
-- Modify: `setup/openssl_setup.sh`
-- Modify: `setup/openssl_mac_setup.sh`
+- Modify: `scripts/openssl_setup.sh`
+- Modify: `scripts/openssl_mac_setup.sh`
 
 - [ ] `Step 1: 修改 bin/mac_cleanup，將高風險操作改為可選並加確認提示`
   - 新增 `confirm` 輔助函數。
@@ -337,7 +337,7 @@
   }
   ```
 
-- [ ] `Step 2: 修改 setup/ubuntu.sh，修復權限、移除廢棄套件與修正 locale 拼寫`
+- [ ] `Step 2: 修改 scripts/ubuntu.sh，修復權限、移除廢棄套件與修正 locale 拼寫`
   - 將 `upgrade` 加上 `sudo`：`sudo apt-get update && sudo apt-get upgrade -y`。
   - 移除 `python-dev`。
   - 修正拼寫錯誤：`LC_ADDRESSE` 改為 `LC_ADDRESS`，`LC_IDENTICFICATION` 改為 `LC_IDENTIFICATION`。
@@ -347,10 +347,10 @@
   - 在腳本開頭加入 `traceroute` 與 `nmap` 檢查，如果未安裝則顯示錯誤並退出。
   - 新增 `get_local_ip` 等函數，優先使用 `ip addr` 指令，若無則降級使用 `ifconfig`，提高相容性。
 
-- [ ] `Step 4: 修改 setup/openssl_setup.sh，升級編譯版本至 3.0.13`
+- [ ] `Step 4: 修改 scripts/openssl_setup.sh，升級編譯版本至 3.0.13`
   將 OpenSSL 版本升級至安全穩定的 `3.0.13`。
 
-- [ ] `Step 5: 修改 setup/openssl_mac_setup.sh`
+- [ ] `Step 5: 修改 scripts/openssl_mac_setup.sh`
   - 修改為優先使用 Homebrew 安裝 `openssl@3`。
   - 若無 Homebrew，則偵測目前主機架構為 `darwin64-arm64-cc` 或是 `darwin64-x86_64-cc` 以動態配置編譯目標。
   - 將 OpenSSL 安裝路徑下的 `ssl/man` 修正為 3.x 版本的 `share/man`。
@@ -360,6 +360,6 @@
 
 - [ ] `Step 7: 提交變更 (Git Commit)`
   ```bash
-  git add bin/mac_cleanup setup/ubuntu.sh bin/scan_private_network setup/openssl_setup.sh setup/openssl_mac_setup.sh
+  git add bin/mac_cleanup scripts/ubuntu.sh bin/scan_private_network scripts/openssl_setup.sh scripts/openssl_mac_setup.sh
   git commit -m "sec: enhance safety in cleanup scripts, fix compatibility issues and upgrade openssl versions"
   ```
