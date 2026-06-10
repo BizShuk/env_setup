@@ -1,12 +1,3 @@
-# OPENSPEC:START
-# OpenSpec shell completions configuration
-if [ -d "/Users/bytedance/.local/share/bash-completion/completions" ]; then
-  for f in "/Users/bytedance/.local/share/bash-completion/completions"/*; do
-    [ -f "$f" ] && . "$f"
-  done
-fi
-# OPENSPEC:END
-
 #!/bin/bash
 
 # ~/.bashrc: executed by bash(1) for non-login shells.
