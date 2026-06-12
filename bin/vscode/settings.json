@@ -40,7 +40,6 @@
         // "diffEditorOverviewRuler.removedForeground": "#da4c4c66",
         // "diffEditorOverviewRuler.insertedForeground": "#2ea04366"
     },
-    "workbench.editor.enablePreview": false,
     "workbench.auxiliaryActivityBar.location": "default",
     "workbench.editor.tabActionLocation": "right",
     "workbench.editorAssociations": {
@@ -78,7 +77,7 @@
         "go.mod": "go.sum",
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*,${capture}*.tmpl,${capture}.csv",
         "*.md": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard,ecosystem.config.js,.markdownlint*",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard,ecosystem.config.js,.markdownlint*,local.sql",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -134,7 +133,6 @@
     // [files]
     "files.autoSave": "off",
     "files.eol": "\n",
-    "files.trimTrailingWhitespace": false,
     "files.exclude": {
         // 系統與中繼資料 (System & Metadata - Human non-readable)
         "{.DS_Store,Thumbs.db,.svn,.hg}": true,
@@ -172,7 +170,8 @@
         "*.bosun": "bosun",
         "*.ignore": "gitignore",
         "{*.timer,*.service}": "ini",
-        "{*.plan}": "markdown"
+        "{*.plan,*.ignore}": "markdown",
+        "LICENSE": "plaintext"
     },
     // [search]
     "search.useIgnoreFiles": true,
@@ -303,11 +302,11 @@
             "-node_modules",
             "-__pycache__"
         ],
-        "ui.navigation.diagnosticFilters": [
-            "-**/lib/go/pkg",
-            "-node_modules",
-            "-__pycache__"
-        ],
+        // "ui.navigation.diagnosticFilters": [
+        //     "-**/lib/go/pkg",
+        //     "-node_modules",
+        //     "-__pycache__"
+        // ],
         "analyses": {}
     },
     "go.buildFlags": ["-gcflags=-m -l"],
@@ -643,9 +642,9 @@
             "server": "localhost",
             "port": 5432,
             "driver": "PostgreSQL",
-            "username": "${env:VSCODE_POSTGRES_USERNAME}",
-            "password": "${env:VSCODE_POSTGRES_PASSWORD}",
-            "name": "localhost",
+            "username": "admin",
+            "password": "adminpassword",
+            "name": "pg-local",
             "database": "postgres"
         }
     ],
@@ -732,8 +731,11 @@
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "extensions.ignoreRecommendations": true,
     "git.replaceTagsWhenPull": true,
+    "git.autoRepositoryDetection": true,
+    "git.repositoryScanMaxDepth": 5,
     "commentTranslate.hover.enabled": false,
     "python.createEnvironment.trigger": "off",
     "workbench.colorTheme": "Mermaid Dark",
-    "security.promptForLocalFileProtocolHandling": false
+    "security.promptForLocalFileProtocolHandling": false,
+    "vscodeMarkdownNotes.workspaceFilenameConvention": "relativePaths"
 }

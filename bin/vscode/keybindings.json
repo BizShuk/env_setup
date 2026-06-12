@@ -45,12 +45,12 @@
     {
         "key": "alt+cmd+down",
         "command": "workbench.action.terminal.focusNext",
-        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+        "when": "terminalFocus"
     },
     {
         "key": "alt+cmd+up",
         "command": "workbench.action.terminal.focusPrevious",
-        "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus || terminalFocus && terminalProcessSupported && !terminalEditorFocus"
+        "when": "terminalFocus"
     },
     {
         "key": "shift+cmd+]",
@@ -441,7 +441,7 @@
     {
         "key": "f2",
         "command": "workbench.action.terminal.rename",
-        "when": "terminalEditorFocus"
+        "when": "terminalEditorFocus || terminalFocus"
     },
     {
         "key": "alt+k",
@@ -654,11 +654,13 @@
     },
     {
         "key": "alt+cmd+down",
-        "command": "workbench.action.moveEditorToBelowGroup"
+        "command": "workbench.action.moveEditorToBelowGroup",
+        "when": "editorFocus"
     },
     {
         "key": "alt+cmd+up",
-        "command": "workbench.action.moveEditorToAboveGroup"
+        "command": "workbench.action.moveEditorToAboveGroup",
+        "when": "editorFocus"
     },
     {
         "key": "shift+cmd+[",
