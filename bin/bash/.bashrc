@@ -183,8 +183,11 @@ fi
 # supress zsh in mac
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-export PATH=$HOME/.local/bin:$PATH
+
 . "$HOME/.local/bin/env"
+
+# Added by Antigravity CLI installer
+export PATH="${HOME}/.local/bin:$PATH"
 
 # export SEC_TOKEN_STRING=$(doas env | grep SEC_TOKEN_STRING | cut -d = -f2)
 
@@ -194,16 +197,8 @@ export PATH="/Users/bytedance/.antigravity/antigravity/bin:/Users/shuk/.antigrav
 # Added by Antigravity IDE
 export PATH="/Users/bytedance/.antigravity-ide/antigravity-ide/bin:/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"
 
-# for bit
-export PATH=$PATH:$HOME/bin/bit
-
-
-# Added by Antigravity CLI installer
-export PATH="${HOME}/.local/bin:$PATH"
-
 # opencode
 export PATH=${HOME}/.opencode/bin:$PATH
 
 
-# Added by Antigravity CLI installer
-export PATH="${HOME}/.local/bin:$PATH"
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
