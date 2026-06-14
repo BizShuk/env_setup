@@ -43,12 +43,12 @@
         "when": "panelFocus"
     },
     {
-        "key": "alt+cmd+down",
+        "key": "ctrl+tab",
         "command": "workbench.action.terminal.focusNext",
         "when": "terminalFocus"
     },
     {
-        "key": "alt+cmd+up",
+        "key": "ctrl+shift+tab",
         "command": "workbench.action.terminal.focusPrevious",
         "when": "terminalFocus"
     },
@@ -458,7 +458,7 @@
         "when": "auxiliaryBarFocus"
     },
     {
-        "key": "ctrl+tab",
+        "key": "alt+cmd+down",
         "command": "workbench.action.nextPanelView",
         "when": "panelFocus"
     },
