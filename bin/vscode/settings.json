@@ -47,7 +47,8 @@
         "*.md": "default",
         "*.mm.md": "markmap-vscode.markmap",
         "*.markdown": "default",
-        "*.csv": "default"
+        "*.csv": "default",
+        "*.mp4": "analyticsignal.preview-mp4"
     },
     "workbench.tree.renderIndentGuides": "always",
     "workbench.tree.expandMode": "singleClick",

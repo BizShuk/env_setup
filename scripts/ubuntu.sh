@@ -29,6 +29,15 @@ sudo apt-get install -y dnsutils
 sudo apt-get install -y ibus-chewing    # 新酷音
 
 
+#####
+##### Input method (fcitx)
+#####
+# pick one of: fcitx-mozc (日文) / fcitx-googlepinyin (簡中) / ibus-chewing (繁中, ibus)
+# --install-suggests pulls in the matching engine & table packages
+sudo apt-get install -y fcitx-mozc fcitx-googlepinyin --install-suggests
+# after install, run `im-config` to set fcitx as the system input method
+
+
 
 #####
 ##### Locale
