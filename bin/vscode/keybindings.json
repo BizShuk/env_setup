@@ -655,12 +655,12 @@
     {
         "key": "alt+cmd+down",
         "command": "workbench.action.moveEditorToBelowGroup",
-        "when": "editorFocus"
+        "when": "editorFocus || terminalEditorFocus"
     },
     {
         "key": "alt+cmd+up",
         "command": "workbench.action.moveEditorToAboveGroup",
-        "when": "editorFocus"
+        "when": "editorFocus || terminalEditorFocus"
     },
     {
         "key": "shift+cmd+[",
