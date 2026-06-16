@@ -152,7 +152,7 @@
         "{**/AGENTS.md,**/.agents,**/GEMINI.md,**/.gemini}": true,
         "{CLAUDE.md,.claude}": false,
         // 測試與非必要文件 (Tests & Documentation)
-        "{**/*_test.go,**/specs}": false
+        "{**/*_test.go,**/specs}": true
     },
     "files.watcherExclude": {
         // 依賴與快取 (Dependencies & Caches)

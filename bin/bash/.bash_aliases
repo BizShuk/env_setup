@@ -125,6 +125,6 @@ get_python-config-dir () {
 alias claudew="claude-w --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json"
 alias claudem='ANTHROPIC_AUTH_TOKEN=$MINIMAX_API_KEY claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/minimax.json '
 alias codexm='codex --profile m3'
-
+alias claude="claude --allow-dangerously-skip-permissions"
 
 alias agentbox='npx @gdpa/agent-box@latest'
