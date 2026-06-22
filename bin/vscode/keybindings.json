@@ -249,7 +249,19 @@
     },
     {
         "key": "ctrl+shift+c",
-        "command": "vscode-containers.views.containers.focus"
+        "command": "vscode-containers.views.containers.focus",
+        "when":"!navigableContainerFocused"
+    },
+    {
+        "key": "ctrl+shift+c",
+        "command": "vscode-containers.views.containers.focus",
+        "when":"!navigableContainerFocused"
+    },
+    },
+    {
+        "key": "ctrl+shift+c",
+        "command": "superset.focusView",
+        "when":"navigableContainerFocused."
     },
     {
         "key": "ctrl+alt+cmd+m",
