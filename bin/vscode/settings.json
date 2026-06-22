@@ -147,10 +147,10 @@
         // IDE 與開發工具設定 (IDE & Tool Settings)
         "{.classpath,.project,.settings,.antigravity,.playwright-cli,.devops}": true,
         // 備份與封存 (Backups & Archives)
-        "{archive,*.bak*}": true,
+        "{*.bak*}": true,
         // AI 智能體配置 (AI Agents Meta)
-        "{**/AGENTS.md,**/.agents,**/GEMINI.md}": true,
-        "{CLAUDE.md,.claude}": false,
+        "{**/AGENTS.md,**/GEMINI.md}": true,
+        "{**/.claude,**/.agents}": false,
         // 測試與非必要文件 (Tests & Documentation)
         "{**/*_test.go,go.sum,**/specs}": true
     },
@@ -740,5 +740,6 @@
     "workbench.colorTheme": "Mermaid Dark",
     "security.promptForLocalFileProtocolHandling": false,
     "vscodeMarkdownNotes.workspaceFilenameConvention": "relativePaths",
-    "markdown.preview.fontSize": 18
+    "markdown.preview.fontSize": 18,
+    "githubIssues.ignoreMilestones": []
 }
