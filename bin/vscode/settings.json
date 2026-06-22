@@ -141,18 +141,18 @@
         // 專案快取與套件依賴 (Dependencies & Caches)
         "{**/node_modules,**/__pycache__,**/.venv,**/.mvn}": true,
         // 建置產出與自動產生代碼 (Build Artifacts & Generated Code)
-        "{gen/**,kitex_gen/**,thrift_gen/**,target,out,dist,output,**/__debug_bin*}": true,
+        "{gen/**,kitex_gen/**,thrift_gen/**,target,**/out,dist,output,**/__debug_bin*}": true,
         // 版本控制與工作區設定 (Version Control & Workspace Configs)
-        "{**/.git,**/.geminiignore,**/.gitlab,.pre-commit-config.yaml,.vscode}": true,
+        "{**/.git,**/.geminiignore,**/.gitlab,.pre-commit-config.yaml}": true,
         // IDE 與開發工具設定 (IDE & Tool Settings)
         "{.classpath,.project,.settings,.antigravity,.playwright-cli,.devops}": true,
         // 備份與封存 (Backups & Archives)
         "{archive,*.bak*}": true,
         // AI 智能體配置 (AI Agents Meta)
-        "{**/AGENTS.md,**/.agents,**/GEMINI.md,**/.gemini}": true,
+        "{**/AGENTS.md,**/.agents,**/GEMINI.md}": true,
         "{CLAUDE.md,.claude}": false,
         // 測試與非必要文件 (Tests & Documentation)
-        "{**/*_test.go,**/specs}": true
+        "{**/*_test.go,go.sum,**/specs}": true
     },
     "files.watcherExclude": {
         // 依賴與快取 (Dependencies & Caches)
@@ -554,15 +554,15 @@
     "githubIssues.queries": [
         {
             "label": "My Issues",
-            "query": "\"pm2 m\" is not smooth UI operation. need to turning"
+            "query": "is:issue state:open archived:false assignee:${owner} repo:${owner}/${repository} sort:updated-desc"
         },
         {
             "label": "Created Issues",
-            "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
+            "query": "author:${user} state:open sort:created-desc"
         },
         {
             "label": "Recent Issues",
-            "query": "state:open repo:${owner}/${repository} sort:updated-desc"
+            "query": "is:issue state:open user:${user} sort:updated-desc"
         }
     ],
     "githubPullRequests.queries": [
@@ -630,7 +630,7 @@
     "containers.images.groupBy": "Registry",
     "containers.images.sortBy": "Label",
     // SQLite
-    "sqltools.useNodeRuntime": true,
+    "sqltools.useNodeRuntime": false,
     "sqltools.connections": [
         {
             "previewLimit": 50,
@@ -739,5 +739,6 @@
     "python.createEnvironment.trigger": "off",
     "workbench.colorTheme": "Mermaid Dark",
     "security.promptForLocalFileProtocolHandling": false,
-    "vscodeMarkdownNotes.workspaceFilenameConvention": "relativePaths"
+    "vscodeMarkdownNotes.workspaceFilenameConvention": "relativePaths",
+    "markdown.preview.fontSize": 18
 }
