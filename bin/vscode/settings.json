@@ -172,7 +172,7 @@
         "*.bosun": "bosun",
         "*.ignore": "gitignore",
         "{*.timer,*.service}": "ini",
-        "{*.plan,*.ignore}": "markdown",
+        "{*.plan,*.ignore,*.todo}": "markdown",
         "LICENSE": "plaintext"
     },
     // [search]
