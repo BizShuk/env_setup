@@ -244,7 +244,9 @@
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontFamily": "SF Mono",
     "terminal.integrated.copyOnSelection": true,
-    "terminal.integrated.tabs.title": "${process} ${task}",
+    // "terminal.integrated.tabs.title": "${process} ${task}",
+    "terminal.integrated.tabs.title": "${sequence}",
+    "terminal.integrated.tabs.description": "${task}${separator}${cwdFolder}",
     "terminal.integrated.commandsToSkipShell": [
         "editor.action.rename",
         "workbench.action.terminal.rename",
@@ -556,6 +558,10 @@
         {
             "label": "My Issues",
             "query": "is:issue state:open archived:false assignee:${owner} repo:${owner}/${repository} sort:updated-desc"
+        },
+        {
+            "label": "Repo Issues",
+            "query": "is:issue state:open archived:false repo:${owner}/${repository} sort:updated-desc"
         },
         {
             "label": "Created Issues",
