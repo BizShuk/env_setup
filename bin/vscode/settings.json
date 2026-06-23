@@ -180,9 +180,10 @@
     "search.followSymlinks": false,
     "search.exclude": {
         // 繼承自 files.exclude (Inherited from files.exclude)
-        "/var/folders/**": true,
-        "plans/**": true,
-        "logs/**": true,
+        "/var/folders": true,
+        "**/plans": true,
+        "**/docs": true,
+        "**/logs": true,
         // 鎖定檔與二進位檔案排除 (Lockfiles & Caches Exclude)
         "{go.sum,package-lock.json,pnpm-lock.yaml,yarn.lock}": true
     },
