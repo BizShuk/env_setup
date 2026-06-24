@@ -137,15 +137,15 @@
     "files.eol": "\n",
     "files.exclude": {
         // 系統與中繼資料 (System & Metadata - Human non-readable)
-        "{.DS_Store,Thumbs.db,.svn,.hg}": true,
+        "{.DS_Store,Thumbs.db,**/.svn,**/.hg}": true,
         // 專案快取與套件依賴 (Dependencies & Caches)
         "{**/node_modules,**/__pycache__,**/.venv,**/.mvn}": true,
         // 建置產出與自動產生代碼 (Build Artifacts & Generated Code)
-        "{gen/**,kitex_gen/**,thrift_gen/**,target,**/out,dist,output,**/__debug_bin*}": true,
+        "{**/gen,**/kitex_gen,**/thrift_gen,**/target,**/out,**/dist,**/output,**/__debug_bin*}": true,
         // 版本控制與工作區設定 (Version Control & Workspace Configs)
         "{**/.git,**/.geminiignore,**/.gitlab,.pre-commit-config.yaml}": true,
         // IDE 與開發工具設定 (IDE & Tool Settings)
-        "{.classpath,.project,.settings,.antigravity,.playwright-cli,.devops}": true,
+        "{**/.classpath,**/.project,**/.settings,**/.antigravity,**/.playwright-cli,**/.devops}": true,
         // 備份與封存 (Backups & Archives)
         "{*.bak*}": true,
         // AI 智能體配置 (AI Agents Meta)
