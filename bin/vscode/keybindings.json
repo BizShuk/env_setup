@@ -701,5 +701,9 @@
         "key": "alt+cmd+c",
         "command": "antigravity.generateCommitMessage",
         "when": "sideBarFocus && activeViewlet == 'workbench.view.scm'"
+    },
+    {
+        "key": "cmd+shift+s",
+        "command": "superset.terminals.focus",
     }
 ]
