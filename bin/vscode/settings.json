@@ -587,11 +587,11 @@
         },
         {
             "label": "Created By Me",
-            "query": "repo:${owner}/${repository} is:open author:${user}"
+            "query": "is:open author:${user}"
         },
         {
             "label": "All Open",
-            "query": "default"
+            "query": "is:open user:${user}"
         }
     ],
     // [Editor by Language]
