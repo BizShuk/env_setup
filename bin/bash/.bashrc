@@ -14,6 +14,12 @@ source ~/settings.sh
 # - ctrl + r,   Incremental reverse search of bash history
 # - ctrl + w, 	Removes the command/argument before the cursor
 
+## set PATH variables (available for both interactive and non-interactive shells) ##
+export PATH="${HOME}/bin:$PATH"
+export PATH="${HOME}/.local/bin:$PATH"
+export PATH=${HOME}/.opencode/bin:$PATH
+. "$HOME/.cargo/env"
+
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
 
@@ -22,7 +28,6 @@ export LANG="en_US.UTF-8"
 
 ## set default env varaible ##
 export TERM="xterm-256color"
-export PATH=${HOME}/.local/bin:${HOME}/bin:$PATH
 #export CDPATH=.:$HOME:$project_dir;
 export PS1='\[$(tput bold)\]\[$(tput setaf 7)\][\[$(tput setaf 2)\]\u\[$(tput setaf 7)\]@\[$(tput setaf 6)\]\h\[$(tput setaf 7)\]]\[$(tput setaf 2)\]$PWD\[$(tput setaf 7)\]\$\[$(tput sgr0)\] '
 
@@ -184,21 +189,9 @@ fi
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 
-. "$HOME/.local/bin/env"
-
-# Added by Antigravity CLI installer
-export PATH="${HOME}/.local/bin:$PATH"
+# . "$HOME/.local/bin/env"
 
 # export SEC_TOKEN_STRING=$(doas env | grep SEC_TOKEN_STRING | cut -d = -f2)
-
-# Added by Antigravity
-export PATH="/Users/bytedance/.antigravity/antigravity/bin:/Users/shuk/.antigravity/antigravity/bin:$PATH"
-
-# Added by Antigravity IDE
-export PATH="/Users/bytedance/.antigravity-ide/antigravity-ide/bin:/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"
-
-# opencode
-export PATH=${HOME}/.opencode/bin:$PATH
 
 
 [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
@@ -206,4 +199,4 @@ export PATH=${HOME}/.opencode/bin:$PATH
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init.bash 2>/dev/null || :
-. "$HOME/.cargo/env"
+

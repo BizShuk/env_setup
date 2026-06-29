@@ -150,9 +150,9 @@
         "{*.bak*}": true,
         // AI 智能體配置 (AI Agents Meta)
         "{**/AGENTS.md,**/GEMINI.md}": true,
-        "{**/.claude,**/.agents}": false,
+        "{**/.agents}": false,
         // 測試與非必要文件 (Tests & Documentation)
-        "{**/*_test.go,go.sum,**/specs}": true
+        "{**/*_test.go,go.sum}": true
     },
     "files.watcherExclude": {
         // 依賴與快取 (Dependencies & Caches)
