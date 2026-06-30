@@ -127,4 +127,3 @@ alias claudew="ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --dangerously-skip-pe
 alias claudem='ANTHROPIC_AUTH_TOKEN=$MINIMAX_API_KEY claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/minimax.json '
 alias codexm='codex --profile m3'
 
-alias vs-plugin-build="npx @vscode/vsce package"
