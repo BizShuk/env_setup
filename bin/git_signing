@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# 定義文字顏色與樣式
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+UNDERLINE='\033[4m'
+NC='\033[0m' # 清除顏色 (No Color)
+
+# 清除畫面
+clear
+
+echo -e "${GREEN}${BOLD}======================================================================"
+echo -e " 🚀 GitHub 提交簽署設定指引 (Commit Signing Guideline)"
+echo -e "======================================================================${NC}\n"
+
+echo -e "${YELLOW}${BOLD}💡 核心觀念（生活化比喻）：${NC}"
+echo -e "這就像去銀行開戶，預設情況下你在 Git 輸入名字就能提交（容易被冒充）。"
+echo -e "現在我們要利用電腦裡的 ${CYAN}${BOLD}SSH 金鑰${NC} 當作「${UNDERLINE}個人印章${NC}」，並把印鑑證明送給 GitHub。"
+echo -e "以後只要寫完代碼自動蓋章，GitHub 就會放行 ${GREEN}${BOLD}合併 (Merge)${NC} 並發給你綠色的 ${GREEN}${BOLD}已驗證 (Verified)${NC} 標籤！\n"
+
+echo -e "${GREEN}${BOLD}----------------------------------------------------------------------"
+echo -e "🛠️ 實作拆解步驟 (Step-by-Step Instructions)"
+echo -e "----------------------------------------------------------------------${NC}\n"
+
+# 步驟 1
+echo -e "${YELLOW}${BOLD}[步驟 1]${NC} ${BOLD}切換 Git 簽署格式為 SSH (Change Sign Format)${NC}"
+echo -e "  👉 告訴 Git 我們不要用傳統 GPG，改用更好管理的 SSH 連線金鑰來蓋章。"
+echo -e "  ${BLUE}指令：${NC} git config --global gpg.format ssh\n"
+
+# 步驟 2
+echo -e "${YELLOW}${BOLD}[步驟 2]${NC} ${BOLD}指定你的印章檔案路徑 (Set Signing Key)${NC}"
+echo -e "  👉 告訴 Git 你的公鑰檔案放在 ${CYAN}~/.ssh${NC} 裡面的哪裡（請確保該檔案存在，通常為 id_ed25519.pub）。"
+echo -e "  ${BLUE}指令：${NC} git config --global user.signingkey ~/.ssh/id_ed25519.pub\n"
+
+# 步驟 3
+echo -e "${YELLOW}${BOLD}[步驟 3]${NC} ${BOLD}開啟自動簽署功能 (Enable Commit Signing)${NC}"
+echo -e "  👉 啟動開關，讓以後每次執行 ${CYAN}git commit${NC} 時電腦都會自動幫你蓋章，不需要手動加參數。"
+echo -e "  ${BLUE}指令：${NC} git config --global commit.gpgsign true\n"
+
+# 步驟 4
+echo -e "${YELLOW}${BOLD}[步驟 4]${NC} ${BOLD}複製你的公鑰內容 (Copy Public Key)${NC}"
+echo -e "  👉 執行以下指令，把畫面上出現的那一大串以 ${CYAN}ssh-ed25519...${NC} 開頭的文字 ${BOLD}完整複製${NC} 下來。"
+echo -e "  ${BLUE}指令：${NC} cat ~/.ssh/id_ed25519.pub\n"
+
+# 步驟 5
+echo -e "${YELLOW}${BOLD}[步驟 5]${NC} ${BOLD}將印鑑證明上傳至 GitHub (Add Key to GitHub)${NC}"
+echo -e "  👉 1. 登入 GitHub 網站 ➡️ 點選右上角個人頭像 ➡️ 進入 ${BOLD}Settings${NC}。"
+echo -e "  👉 2. 左側選單找到 ${BOLD}SSH and GPG keys${NC} ➡️ 點擊 ${GREEN}New SSH key${NC}。"
+echo -e "  👉 3. ${RED}${BOLD}[最關鍵]${NC} 在 ${YELLOW}${BOLD}Key type${NC} 下拉選單中，必須改選為 ${GREEN}${BOLD}Signing Key (簽署金鑰)${NC}。"
+echo -e "  👉 4. 將剛剛步驟 4 複製的內容完整貼進 ${BOLD}Key${NC} 區塊並儲存。\n"
+
+echo -e "${GREEN}${BOLD}======================================================================"
+echo -e " 🎉 設定完成！之後新產生的 Commit 就能順利通過分支保護規則了！"
+echo -e "======================================================================${NC}\n"

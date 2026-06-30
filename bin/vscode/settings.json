@@ -748,5 +748,6 @@
     "security.promptForLocalFileProtocolHandling": false,
     "vscodeMarkdownNotes.workspaceFilenameConvention": "relativePaths",
     "markdown.preview.fontSize": 18,
-    "githubIssues.ignoreMilestones": []
+    "githubIssues.ignoreMilestones": [],
+    "githubPullRequests.pullBranch": "never"
 }

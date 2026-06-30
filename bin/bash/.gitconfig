@@ -3,6 +3,7 @@
 [user]
 	name = shuk.liu
 	email = biz.shuk@gmail.com
+	signingkey = ~/.ssh/id_ed25519.pub
 [merge]
 	log = 25
 [color]
@@ -38,13 +39,14 @@
     helper = cache --timeout=3600
 #    helper = store         # save credential forever , with option "--file <file>"
 [http]
-	sslVerify = false
+	sslVerify = true
 [push]
     default = current
 [pull]
     rebase = true
 [commit]
     template = ~/.gitmessage
+	gpgsign = true
 
 [pull]
 	rebase = true
@@ -58,3 +60,5 @@
     insteadOf = https://code.byted.org/
 [safe]
 	directory = *
+[gpg]
+	format = ssh
