@@ -749,5 +749,6 @@
     "vscodeMarkdownNotes.workspaceFilenameConvention": "relativePaths",
     "markdown.preview.fontSize": 18,
     "githubIssues.ignoreMilestones": [],
-    "githubPullRequests.pullBranch": "never"
+    "githubPullRequests.pullBranch": "never",
+    "task.allowAutomaticTasks": "on"
 }
