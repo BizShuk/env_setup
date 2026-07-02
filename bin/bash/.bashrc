@@ -18,7 +18,6 @@ source ~/settings.sh
 export PATH="${HOME}/bin:$PATH"
 export PATH="${HOME}/.local/bin:$PATH"
 export PATH=${HOME}/.opencode/bin:$PATH
-. "$HOME/.cargo/env"
 
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
@@ -200,3 +199,6 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init.bash 2>/dev/null || :
 
+
+# Added by Antigravity IDE
+export PATH="/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"

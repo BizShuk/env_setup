@@ -371,7 +371,6 @@
         "SA9003": false
     },
     // [highlight] [todo]
-    "highlight.enabled": true,
     "highlight.regexes": {
         // $, S$
         "([S]{0,1}\\$)": [
@@ -513,45 +512,6 @@
             }
         ]
     },
-    "todo.file.name": "README.todo",
-    "todo.tags.names": [
-        "Critical",
-        "High",
-        "Low",
-        "Today",
-        "Doing",
-        "Pending",
-        "Planning",
-        "Monthly",
-        "Weekend",
-        "Morning",
-        "Evening"
-    ],
-    "todo.colors.tags.foreground": [],
-    "todo.colors.tags.background": [
-        "#e54545",
-        "#e59f45",
-        "#e5d145",
-        "#303030",
-        "#303030",
-        "#0f0f0f",
-        "#0f0f0f",
-        "",
-        "",
-        "",
-        ""
-    ],
-    "todo.file.include": ["README.todo"],
-    "todo.file.exclude": ["[!{README.todo}]"],
-    "todo-tree.highlights.enabled": false,
-    // "todo-tree.filtering.includeGlobs": ["**/*.{go,md,ts,js,py,css,html}"],
-    // "todo-tree.filtering.ignoreGitSubmodules": true,
-    // "todo-tree.general.tags": ["ISSUE", "TODO", "XXX", "[ ]", "[x]"],
-    // "todo-tree.tree.groupedByTag": true,
-    // "todo-tree.general.tagGroups": {},
-    // "todo-tree.tree.groupedBySubTag": false,
-    // "todo.embedded.include": ["**/*.{go,md,ts,js,py,css,html,sh}"],
-    // "todo.embedded.exclude": ["**", "**/*"],
     // [github]
     "githubPullRequests.pushBranch": "always",
     "githubIssues.queries": [
