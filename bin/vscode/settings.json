@@ -242,7 +242,7 @@
     "editor.fontFamily": "SF Mono",
     // [terminal]
     "terminal.integrated.fontSize": 12,
-    "terminal.integrated.fontFamily": "SF Mono",
+    "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.copyOnSelection": true,
     // "terminal.integrated.tabs.title": "${process} ${task}",
     "terminal.integrated.tabs.title": "${sequence}",
