@@ -8,7 +8,7 @@ ctags_ver="5.8"
 pushd "$REPO_DIR/pkg/ctags-${ctags_ver}" || exit
     ./configure --prefix="$USER_LIB"
     make
-    sudo make install
+    make install
     make distclean
 popd || exit
 
