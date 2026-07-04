@@ -547,11 +547,15 @@
         },
         {
             "label": "Created By Me",
-            "query": "is:open author:${user}"
+            "query": "repo:${owner}/${repository} is:open author:${user}"
         },
         {
             "label": "All Open",
-            "query": "is:open user:${user}"
+            "query": "repo:${owner}/${repository} is:open user:${user}"
+        },
+        {
+            "label": "All Open",
+            "query": "default"
         }
     ],
     // [Editor by Language]
@@ -704,7 +708,6 @@
     "git.repositoryScanMaxDepth": 5,
     "commentTranslate.hover.enabled": false,
     "python.createEnvironment.trigger": "off",
-    "workbench.colorTheme": "Mermaid Dark",
     "security.promptForLocalFileProtocolHandling": false,
     "vscodeMarkdownNotes.workspaceFilenameConvention": "relativePaths",
     "markdown.preview.fontSize": 18,
