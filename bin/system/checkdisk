@@ -1,0 +1,20 @@
+#!/bin/bash
+
+echo "After f3write finishes, f3read will check the written data collapsed or not."
+
+diskutil list
+
+# Pasue for user input whether to continue
+
+echo "Press device name, like /dev/disk4s2."
+read -r device_name
+
+echo "Checking device: ${device_name}..."
+diskutil info "${device_name}"
+
+echo "Press disk volumn path, like /Volumes/backup."
+read -r device_path
+
+
+f3write "${device_path}"
+f3read "${device_path}"

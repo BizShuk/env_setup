@@ -1,1 +1,1 @@
-system/network_security_audit-mac.sh
+mac/network_security_audit-mac.sh

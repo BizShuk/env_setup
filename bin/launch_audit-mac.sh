@@ -1,1 +1,1 @@
-system/launch_audit-mac.sh
+mac/launch_audit-mac.sh
