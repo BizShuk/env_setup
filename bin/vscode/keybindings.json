@@ -314,14 +314,8 @@
         "command": "workbench.action.terminal.resizePaneUp"
     },
     {
-        "key": "ctrl+cmd+up",
-        "command": "-workbench.action.terminal.resizePaneUp",
-        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
-    },
-    {
-        "key": "ctrl+cmd+down",
-        "command": "-workbench.action.terminal.resizePaneDown",
-        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+        "key": "ctrl+alt+cmd+down",
+        "command": "workbench.action.terminal.resizePaneDown"
     },
     {
         "key": "cmd+4",
