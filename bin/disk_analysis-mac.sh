@@ -1,1 +1,1 @@
-security/disk_analysis-mac.sh
+system/disk_analysis-mac.sh

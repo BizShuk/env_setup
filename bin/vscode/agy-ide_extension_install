@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# 定義你的清單檔案名稱
+LIST_FILE="${HOME}/projects/env_setup/bin/vscode/agy-ide_extension_list.txt"
+
+# 檢查清單檔案是否存在
+if [ ! -f "$LIST_FILE" ]; then
+    echo "❌ 錯誤：找不到 $LIST_FILE 檔案！"
+    exit 1
+fi
+
+echo "🔄 [1/2] 開始安裝清單中的擴充功能..."
+# 逐行讀取清單並安裝
+while IFS= read -r ext || [ -n "$ext" ]; do
+    if [ ! -z "$ext" ]; then
+        echo "正在安裝: $ext"
+        agy-ide --install-extension "$ext" --force
+    fi
+done < "$LIST_FILE"
+
+echo "🧹 [2/2] 開始清除不在清單中的擴充功能..."
+# 找出已安裝但不在清單中的套件
+to_remove=$(agy-ide --list-extensions | grep -vFf "$LIST_FILE" || true)
+
+if [ -n "$to_remove" ]; then
+    echo "⚠️ 發現以下已安裝但不在清單中的擴充功能："
+    echo "$to_remove"
+    read -p "確定要解除安裝這些擴充功能嗎？(y/N) " confirm
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        echo "$to_remove" | while read -r uninstalled_ext; do
+            if [ ! -z "$uninstalled_ext" ]; then
+                echo "🔥 正在移除: $uninstalled_ext"
+                agy-ide --uninstall-extension "$uninstalled_ext"
+            fi
+        done
+    else
+        echo "⏭️ 已取消清除作業。"
+    fi
+else
+    echo "✨ 沒有需要清除的擴充功能。"
+fi
+
+echo "🎉 同步完成！請重啟 (Restart) VS Code/Antigravity 以套用變更。"

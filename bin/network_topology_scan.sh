@@ -1,1 +1,1 @@
-security/network_topology_scan.sh
+system/network_topology_scan.sh
