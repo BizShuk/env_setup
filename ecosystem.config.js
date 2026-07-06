@@ -8,25 +8,22 @@ module.exports = {
             cron: "0 10 * * 5"
         },
         // { // has problme with pm2
-        //     namespace: "Infra",
+        //     namespace: "Local",
         //     name: "Infra Compose",
         //     script: "docker",
-        //     args: ["compose", "up"],
-        //     config_dir: "~/.config/inf"
+        //     args: ["compose", "up"]
         // },
         {
             namespace: "Local",
             name: "Port Listenor",
             script: "port_listenor",
-            args: ["monitor"],
-            config_dir: "~/.config/port_listenor"
+            args: ["monitor"]
         },
         {
             namespace: "Local",
             name: "File Watcher",
             script: "file_watcher",
-            args: ["monitor"],
-            config_dir: "~/.config/file_watcher"
+            args: ["monitor"]
         },
         {
             namespace: "Local",

@@ -686,5 +686,13 @@
     {
         "key": "cmd+shift+r",
         "command": "workbench.action.tasks.runTask",
+    },
+    {
+        "key": "cmd+l",
+        "command": "-continue.focusContinueInput"
+    },
+    {
+        "key": "cmd+shift+l",
+        "command": "-continue.focusContinueInputWithoutClear"
     }
 ]

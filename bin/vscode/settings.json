@@ -716,5 +716,10 @@
     "markdown.preview.fontSize": 18,
     "githubIssues.ignoreMilestones": [],
     "githubPullRequests.pullBranch": "never",
-    "task.allowAutomaticTasks": "on"
+    "task.allowAutomaticTasks": "on",
+    "yaml.schemas": {
+        "file:///Users/shuk/.antigravity-ide/extensions/continue.continue-2.1.0/config-yaml-schema.json": [
+            ".continue/**/*.yaml"
+        ]
+    }
 }

@@ -17,7 +17,6 @@ source ~/settings.sh
 ## set PATH variables (available for both interactive and non-interactive shells) ##
 export PATH="${HOME}/bin:$PATH"
 export PATH="${HOME}/.local/bin:$PATH"
-export PATH=${HOME}/.opencode/bin:$PATH
 
 ## If not running interactively, don't do anything ##
 [ -z "$PS1" ] && return
