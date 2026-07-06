@@ -124,6 +124,7 @@ get_python-config-dir () {
 alias claude="claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/settings.json"
 # alias claudew="CLAUDE_CONFIG_DIR=~/.claude-work claude --settings ~/projects/env_setup/claude/llmbox.json"
 alias claudew="ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json"
+alias claudew2="ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY2 claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json"
 alias claudem='ANTHROPIC_AUTH_TOKEN=$MINIMAX_API_KEY claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/minimax.json '
 alias codexm='codex --profile m3'
 
