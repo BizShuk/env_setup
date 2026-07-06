@@ -379,16 +379,7 @@
         "key": "shift+cmd+c",
         "command": "workbench.view.extension.containersView"
     },
-    {
-        "key": "shift+cmd+v",
-        "command": "office.html.preview",
-        "when": "editorTextFocus && editorLangId == 'html'"
-    },
-    {
-        "key": "ctrl+shift+v",
-        "command": "-office.html.preview",
-        "when": "editorTextFocus && editorLangId == 'html'"
-    },
+
     {
         "key": "shift+cmd+i",
         "command": "-frontMatter.insertMedia",

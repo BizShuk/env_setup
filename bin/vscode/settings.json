@@ -47,8 +47,7 @@
         "*.md": "default",
         "*.mm.md": "markmap-vscode.markmap",
         "*.markdown": "default",
-        "*.csv": "default",
-        "*.mp4": "analyticsignal.preview-mp4"
+        "*.csv": "default"
     },
     "workbench.tree.renderIndentGuides": "always",
     "workbench.tree.expandMode": "singleClick",
@@ -85,7 +84,11 @@
         "*.sqlite3": "${capture}.${extname}-*",
         "*.db3": "${capture}.${extname}-*",
         "*.sdb": "${capture}.${extname}-*",
-        "*.s3db": "${capture}.${extname}-*"
+        "*.s3db": "${capture}.${extname}-*",
+        "*.jpg": "${capture}.json",
+        "*.jpeg": "${capture}.json",
+        "*.heic": "${capture}.json",
+        "*.png": "${capture}.json"
     },
     "editor.autoIndent": "advanced",
     "editor.codeActions.triggerOnFocusChange": true,
@@ -150,7 +153,7 @@
         "{*.bak*}": true,
         // AI 智能體配置 (AI Agents Meta)
         "{**/AGENTS.md,**/GEMINI.md}": true,
-        "{**/.agents}": false,
+        "{**/.agents}": true,
         // 測試與非必要文件 (Tests & Documentation)
         "{**/*_test.go,go.sum}": true
     },
@@ -171,7 +174,7 @@
         "{*.sh,*.info}": "shellscript",
         "*.bosun": "bosun",
         "*.ignore": "gitignore",
-        "{*.timer,*.service}": "ini",
+        "{*.timer,*.service,*.toml}": "ini",
         "{*.plan,*.ignore,*.todo}": "markdown",
         "LICENSE": "plaintext"
     },
