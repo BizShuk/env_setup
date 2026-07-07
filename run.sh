@@ -9,6 +9,11 @@ GREEN='\033[0;32m'  # 成功訊息 (Success)
 BLUE='\033[0;34m'   # 資訊訊息 (Info)
 NC='\033[0m'        # 重置色彩 (No Color - reset)
 
+# ======================================
+# Golang tools
+go install github.com/bizshuk/pm2@master
+go install github.com/bizshuk/skills@master
+
 # ============================================================================
 # 工具操作說明 (Tool Operation Description)
 # 此腳本 (This script) 重新建立 config/ 目錄中的符號連結 (recreates
