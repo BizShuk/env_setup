@@ -198,6 +198,3 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init.bash 2>/dev/null || :
 
-
-# Added by Antigravity IDE
-export PATH="/Users/shuk/.antigravity-ide/antigravity-ide/bin:$PATH"

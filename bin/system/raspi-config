@@ -1,7 +1,0 @@
-#! /bin/bash
-
-
-## this is for note about raspi config command
-
-
-raspi-config

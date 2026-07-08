@@ -5,7 +5,7 @@
 # Description: 顯示詳盡的系統硬體資訊 (Show Detailed System Hardware Info)
 # ==============================================================================
 
-BASE_DIR="$(dirname "$0")/system"
+BASE_DIR="$(dirname "$0")"
 
 echo "=================================================="
 echo "          系統硬體檢測 (SYSTEM HARDWARE)          "

@@ -6,8 +6,12 @@
 user="$(whoami)"
 export user
 
-export passwd="zxcvasdf"
-export email="biz.shuk@gmail.com"
+# Personal credentials (passwd, email, tokens) are loaded from a git-ignored
+# private settings file. See docs/bin_index.md / plans for the convention.
+if [ -f "${HOME}/.config/env_setup/settings.private.sh" ]; then
+    # shellcheck disable=SC1090
+    source "${HOME}/.config/env_setup/settings.private.sh"
+fi
 
 # darwin for Mac , linux for ubuntu, linux, ...
 os=$(uname | tr '[:upper:]' '[:lower:]')

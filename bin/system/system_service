@@ -1,4 +1,0 @@
-#!/bin/bash
-
-
-ls /etc/systemd/system/ /usr/lib/systemd/system/

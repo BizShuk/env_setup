@@ -26,6 +26,12 @@ config/.ssh
 config/.vscode
 config/lib
 log/
+
+# Personal/private runtime state (loaded by run.sh, settings.sh, etc.)
+settings.private.sh
+.bash_local
+*.bak
+**/.DS_Store
 .vscode/settings.json
 .claude/skills/abase/SKILL.md
 .claude/skills/aeolus/SKILL.md

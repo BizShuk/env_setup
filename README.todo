@@ -1,0 +1,66 @@
+# TODO
+
+- [ ] 執行 `plans/2026-07-08-env-setup-structural-cleanup.md` — env_setup 結構整理 (truthful docs / 去重 / sanitization / scalability / bugfix)
+
+## <structural-cleanup>
+
+> 對應 `plans/2026-07-08-env-setup-structural-cleanup.md`。
+> 體檢後新增項目: (a) `bin/system/system_info:8` BASE_DIR bug；(b) `bin/system/README.md` 標題錯置 (寫「安全性稽核」, 實為「硬體偵測」)；(c) `run.sh` 與 `bin/system/system_link` 之目標路徑分歧 (`./tmp/` vs `./config/`)；(d) 23 個未列入原 plan 的 `bin/` 入口 (見 `docs/bin_index.md`)；(e) `pkg/linux/*.md` 7 份 ubuntu 筆記需搬遷；(f) `bin/scan_target_network` 為第三個 network scanner；(g) `bin/system/brew_bundle_dump` 與 `bin/mac/mac_cleanup` 都硬編 Brewfile 路徑。
+
+- [ ] Phase 1 — 盤點與文件校正 (truthful docs)
+    - [ ] 建立 `bin/README.md` (短索引)
+    - [ ] 建立 `docs/bin_index.md` (完整索引, 含所有 23 個補列入口)
+    - [ ] 修改 `README.md` 移除 `cmd/`、`smain`、`bin/project_setup` 敘述
+    - [ ] 修改 `CLAUDE.md` 移除 Cobra / logrus 依賴；同步目錄結構
+    - [ ] 改寫 `specs/20260217-fix-agent-symlink.md` 為 `20260217-agent-dir-rename.md`
+    - [ ] 標 `specs/20260218-monitoring-system-update.md` 為 `OUT_OF_SCOPE` (本 repo 不含 devops)
+    - [ ] `plans/2026-05-22-*.md`, `plans/2026-05-24-*.md` 標 `## ARCHIVED`
+    - [ ] 修正 `bin/system/README.md` 標題與內容
+- [ ] Phase 2 — 安全化 (sanitize)
+    - [ ] `bin/bash/settings.sh` 移除 `passwd` / `email`；改由 `~/.config/env_setup/settings.private.sh` 提供
+    - [ ] 刪除 `bin/bytedance_setup.sh` (含明文密碼 + merge conflict markers)
+    - [ ] `.gitignore` 加入 `settings.private.sh`, `.bash_local`, `*.bak`, `log/`, `tmp/`, `**/.DS_Store`
+    - [ ] `bin/bash/.bash_*` 之個人 alias 改以 `~/.bash_local` 包裝
+- [ ] Phase 3 — 移除 vendored 與 dead code
+    - [ ] 刪除 `bin/git-secret` (vendored, 52KB / 2082 行) — 改用 `brew install git-secret`
+    - [ ] `pkg/ctags-5.8/` (vendored, 2.2MB / 111 檔) 改為 `git submodule`
+    - [ ] 刪除 `bin/system/system_performance.sh`, `raspi-config`, `system_service`
+    - [ ] `tmp/doas-install.sh` → `archive/`
+    - [ ] `pkg/linux/Linux_kernel_structure.png` + 7 份 `*.md` → `docs/notes/`
+    - [ ] 刪除 `pkg/ufw/` (整個目錄, 從未被使用)
+    - [ ] 搬 `pkg/sysctl/` 至 `docs/templates/sysctl/`
+    - [ ] 移除空目錄 `mac/`, `grafana/`, `inf/`, `log/app/`, `log/rpc/`, `openclaw/yuna/`
+    - [ ] 移除 `skills/bytedance/`, `skills/gdpa/` (空 stubs)
+- [ ] Phase 4 — 結構去重與重組 (structural dedup)
+    - [ ] 合併 `bin/system/system_link` → `run.sh`；目標路徑統一為 `./config/` (取代 `./tmp/`)
+    - [ ] 建立 `bin/mac/_lib_audit.sh`；重構四個 audit 腳本 (`disk`, `launch`, `login`, `network_security`)
+    - [ ] 整合三個 network scanner (`bin/scan_private_network`, `bin/scan_target_network`, `bin/system/network_topology_scan.sh`) → `bin/network/scan_network.sh --mode=private|target|topology`
+    - [ ] 修正 `bin/system/system_info:8` BASE_DIR bug
+    - [ ] 刪除 `bin/goswitch` (硬編 `~/settings.sh` + 指向不存在之 `go_setup.sh`)
+    - [ ] 刪除 `bin/claudew` (與 `bin/bash/.bash_aliases:126` 重複)
+    - [ ] `bin/mac/*.sh` 統一加 `mac_` 前綴與 `.sh` 後綴 (例: `mac_cleanup` → `mac_cleanup.sh`)
+    - [ ] `bin/system/brew_bundle_dump` 與 `bin/mac/mac_cleanup` 改用 `settings.sh` 之 `REPO_SCRIPTS`
+    - [ ] Q3 決策後, `bin/backup` 與 `bin/backupSync` 整併為 `bin/backup --mode=diff|sync`
+- [ ] Phase 5 — 可擴展性 (scalability)
+    - [ ] 寫入 `bin/<area>/_lib_*.sh` 慣例至 `bin/README.md` 與 `docs/bin_index.md`
+    - [ ] 建立 `bin/network/` 區
+    - [ ] `ecosystem.config.js` 確認皆用 `./bin/<area>/<tool>` 全路徑
+    - [ ] `CLAUDE.md` `## 慣例` 加入新工具的加入流程
+- [ ] Phase 6 — 驗證 (verification)
+    - [ ] `./run.sh` 正常
+    - [ ] `bin/system/system_info` 10 個硬體 sub-tool 全部輸出 (驗 bug fix)
+    - [ ] `bin/mac/*_audit*.sh` 仍能寫出 markdown 報告
+    - [ ] `bin/network/scan_network.sh --mode=topology --no-scan` 可用
+    - [ ] `shellcheck` 通過 (`bin/<area>/*.sh`)
+    - [ ] `git grep 'cmd/'` / `git grep 'project_setup'` / `git grep 'smain'` 無殘留
+
+## Open Questions
+
+- Q1: `pkg/sysctl/` 與 `pkg/ufw/` 是否仍維護？若無則刪除 (Phase 3.6 / 3.7)
+- Q2: `bin/agy-ide_extension_install` 與 `bin/agy-ide_extension_dump` 是否仍指向有效工具？若 `agy-ide` 不存在則整組刪除
+- Q3: `bin/backup` 與 `bin/backupSync` 整併為 `bin/backup --mode=diff|sync`？
+- Q4: `claudew*` 個人 alias 改放 `~/.bash_local` 個人層級？
+- Q5: `bin/scan_target_network` 是否仍使用？若否, 與 `scan_private_network` 一併整合
+- Q6: `skills/bytedance/`, `skills/gdpa/` 是否有人維護？若否, 直接刪除 (Phase 3.8)
+
+## Archive
