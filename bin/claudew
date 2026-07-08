@@ -1,0 +1,4 @@
+#!/bin/bash 
+
+
+ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/Llmbox.json "$@"
