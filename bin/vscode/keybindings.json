@@ -694,5 +694,9 @@
     {
         "key": "cmd+shift+l",
         "command": "-continue.focusContinueInputWithoutClear"
+    },
+    {
+        "key": "alt+shift+s",
+        "command": "workbench.view.extension.superset-overall"
     }
 ]
