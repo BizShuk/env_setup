@@ -5,8 +5,13 @@
 
 set -euo pipefail
 
-# Define the Brewfile location
-BREWFILE="${HOME}/projects/env_setup/scripts/Brewfile"
+# 環境變數入口 (Settings)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=../bash/settings.sh
+. "$SCRIPT_DIR/../bash/settings.sh"
+
+# 從 settings.sh 取得 REPO_SCRIPTS, 避免硬編 ${HOME}/projects/env_setup/scripts
+BREWFILE="${REPO_SCRIPTS}/Brewfile"
 
 # Ensure the directory exists
 BREWFILE_DIR=$(dirname "${BREWFILE}")

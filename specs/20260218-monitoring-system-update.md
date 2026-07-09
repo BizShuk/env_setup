@@ -4,6 +4,8 @@
 **Topic**: Monitoring System Expansion & Local DNS Optimization
 **Status**: Completed (Staged)
 
+> ⚠️ **OUT_OF_SCOPE** (2026-07-09): 本規格涉及 `devops/docker-compose.yaml`、`devops/grafana/*`、`bosun` 告警框架等, 屬於 `inf` / `gosdk` 框架層或獨立 devops repo, **不在 `env_setup` 範圍**。本 repo 僅負責本機開發環境設定, 不含監控後端、容器編排或 OpenTSDB/Bosun 整合。保留此檔僅作為歷史變更紀錄; 後續工作應遷移至 `inf` repo 或獨立 `devops` repo。
+
 ## 🛠️ 更新內容摘要 (Summary)
 
 本次更新主要集中於擴展時間序列數據庫 (Time Series Database, TSDB) 的支援，並完善開發環境在不同作業系統下的網路配置。

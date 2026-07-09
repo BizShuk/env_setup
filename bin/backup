@@ -1,45 +1,129 @@
 #!/bin/bash
+# backup — 統一備份入口 (合併自舊 bin/backup 與 bin/backupSync)
+#
+# 用法 (Usage):
+#   backup <target_path>            # 純備份: 只加不減
+#   backup <target_path> --sync     # 強制同步: 刪除目標端多出檔案, 需 yes 確認
+#   backup <target_path> --source PWD  # 備份來源改為當前目錄
+#
+# 預設行為 (Default):
+#   1. 備份來源 = ~/Documents/Archive/
+#   2. 排除清單 = ~/backup.ignore (不存在則自動建立空檔)
+#   3. rsync 選項 = -avL --progress --exclude-from=~/backup.ignore
+#   4. diff 寫入 = tmp/archive.diff
+#
+# --sync 模式 (Force Mirror):
+#   1. rsync 加 --delete, 目標端多出檔案會被刪除
+#   2. 執行前需手動輸入 "yes" 確認
+#   3. diff 不套用排除清單 (要看到完整差異)
 
-set -e
+set -euo pipefail
 
-# backup -i <input_path> to assign input_path to variable(input_path) if -i <input_path> is passed as argument
-
-
-# if 1 param passed, then assign it to backup_path
+# ---- 參數解析 (Argument Parsing) -------------------------------------------
 backup_path=""
-backup_ignore_path="${HOME}/backup.ignore"
+backup_source="${HOME}/Documents/Archive/"
+sync_mode=0
+use_pwd=0
 
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --sync)
+            sync_mode=1
+            shift
+            ;;
+        --source)
+            use_pwd=1
+            shift
+            ;;
+        --source=*)
+            use_pwd=1
+            shift
+            ;;
+        -h|--help)
+            sed -n '2,18p' "$0"
+            exit 0
+            ;;
+        -*)
+            echo "Unknown option: $1" >&2
+            exit 1
+            ;;
+        *)
+            if [ -z "$backup_path" ]; then
+                backup_path="$1"
+            else
+                echo "Too many positional arguments. Got '$1' after '$backup_path'." >&2
+                exit 1
+            fi
+            shift
+            ;;
+    esac
+done
+
+# ---- 備份來源決定 (Source Selection) ---------------------------------------
+if [ "$use_pwd" -eq 1 ]; then
+    backup_source="$(pwd)/"
+fi
+
+# ---- 排除清單 (Exclude File) -----------------------------------------------
+backup_ignore_path="${HOME}/backup.ignore"
 if [ ! -f "$backup_ignore_path" ]; then
-    echo "backup.ignore file does not exist. Create a empty in ${backup_ignore_path}"
+    echo "backup.ignore not found. Creating empty file at ${backup_ignore_path}"
     touch "$backup_ignore_path"
 fi
 
-if [ "$#" -eq 1 ]; then
-    backup_path="$1"
-fi
-
-# verify the backup path exists or not or whether it's empty
+# ---- 目標路徑驗證 (Target Validation) --------------------------------------
 if [ -z "$backup_path" ]; then
-    echo "Backup path is empty. Exiting. format like '/Volumes/backup_all'"
+    echo "Backup path is empty. Exiting." >&2
+    echo "Usage: backup <target_path> [--sync] [--source PWD]" >&2
     exit 1
 fi
 
 if [ ! -d "$backup_path" ]; then
-    echo "Backup path $backup_path does not exist. Exiting."
+    echo "Backup path $backup_path does not exist. Exiting." >&2
     exit 1
 fi
 
-# remove if there is trailing slash
+# 拒絕尾端斜線, 避免 rsync 將多餘的 "/" 視為再進一層
 if [[ "$backup_path" == */ ]]; then
+    echo "Backup path must not end with '/'. Exiting." >&2
     exit 1
 fi
 
+# ---- Sync 模式確認 (Force Mirror Confirmation) -----------------------------
+if [ "$sync_mode" -eq 1 ]; then
+    echo "This will delete target files that are not in source: ${backup_source}"
+    read -r -p "Type 'yes' to continue: " force_continue
+    if [ "$force_continue" != "yes" ]; then
+        echo "Aborted."
+        exit 1
+    fi
+fi
 
+# ---- 執行 rsync (Run Rsync) ------------------------------------------------
+echo "From: ${backup_source}"
+echo "To:   ${backup_path}"
 
-rsync -avL --progress --exclude-from="${backup_ignore_path}" ~/Documents/Archive/ "${backup_path}"
+if [ "$sync_mode" -eq 1 ]; then
+    rsync -avL --progress --delete --exclude-from="${backup_ignore_path}" \
+        "${backup_source}" "${backup_path}"
+else
+    rsync -avL --progress --exclude-from="${backup_ignore_path}" \
+        "${backup_source}" "${backup_path}"
+fi
 
+# ---- 差異比對 (Diff) -------------------------------------------------------
 echo ""
 echo "Start diffing..."
 
-diff -r -X "${backup_ignore_path}" ~/Documents/Archive "${backup_path}" > tmp/archive.diff
+# 確保 tmp/ 目錄存在
+mkdir -p tmp
+
+# diff 來源需為「目錄」(去掉尾端斜線), 與 rsync 對齊
+diff_source="${backup_source%/}"
+if [ "$sync_mode" -eq 1 ]; then
+    diff -r "${diff_source}" "${backup_path}" > tmp/archive.diff
+else
+    diff -r -X "${backup_ignore_path}" "${diff_source}" "${backup_path}" > tmp/archive.diff
+fi
+
 echo "Finished diffing. Check tmp/archive.diff for details."

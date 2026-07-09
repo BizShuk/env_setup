@@ -1,6 +1,8 @@
 # env_setup 工作區改進計劃 (Workspace Improvements) Implementation Plan
 
-> `For agentic workers:` REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> ⚠️ **ARCHIVED** (2026-07-09): 本計畫涉及 `cmd/smain` (Go + Cobra)、`bin/project_setup` 等已於 2026-07 結構清理時移除的元件; 全部步驟已被 `plans/2026-07-08-env-setup-structural-cleanup.md` 取代。保留此檔僅作為歷史決策紀錄, **不再執行**。
+
+> `For agentic workers:` REQUIRED SUB-KILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 `Goal:` 修復 env_setup 專案中的安裝腳本錯誤、最佳化設定檔路徑、增加 Zsh 支援，以及為 Go 命令列工具新增單元測試。
 

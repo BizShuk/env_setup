@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# Script to restore macOS custom keyboard shortcuts exported by
+# bin/mac/mac_keyboard_shortcuts_dump.sh.
+#
+#   1. Symbolic Hotkeys -> defaults import com.apple.symbolichotkeys
+#   2. App Shortcuts    -> NSUserKeyEquivalents rebuilt key-by-key
+#      (global + per-app), so other settings in those domains are untouched.
+
+set -euo pipefail
+
+EXPORT_DIR="${HOME}/projects/env_setup/bin/mac/keyboard_shortcuts"
+APP_DIR="${EXPORT_DIR}/app"
+MANIFEST="${EXPORT_DIR}/manifest.txt"
+
+if [ ! -d "${EXPORT_DIR}" ]; then
+    echo "❌ Export directory not found: ${EXPORT_DIR}"
+    echo "   Run bin/mac/mac_keyboard_shortcuts_dump.sh first."
+    exit 1
+fi
+
+# Rebuild a NSUserKeyEquivalents dict from an extracted plist into <domain>.
+# Resets the key to an empty dict first, then re-adds each shortcut. Using
+# -dict-add (instead of writing the raw plist) keeps any other keys in the
+# domain intact and safely handles shortcut names that contain spaces.
+restore_user_key_equivalents() {
+    local domain="$1" file="$2"
+    plutil -convert json -o - "${file}" | /usr/bin/python3 -c '
+import json, sys, subprocess
+domain = sys.argv[1]
+shortcuts = json.load(sys.stdin)
+subprocess.run(["defaults", "write", domain, "NSUserKeyEquivalents", "-dict"], check=True)
+for name, combo in shortcuts.items():
+    subprocess.run(
+        ["defaults", "write", domain, "NSUserKeyEquivalents", "-dict-add", name, combo],
+        check=True,
+    )
+' "${domain}"
+}
+
+echo "Restoring macOS keyboard shortcuts from: ${EXPORT_DIR}"
+echo ""
+
+# --- 1. Symbolic Hotkeys ----------------------------------------------------
+if [ -f "${EXPORT_DIR}/symbolichotkeys.plist" ]; then
+    defaults import com.apple.symbolichotkeys "${EXPORT_DIR}/symbolichotkeys.plist"
+    echo "✅ Symbolic Hotkeys restored"
+fi
+
+# --- 2. Global App Shortcuts ------------------------------------------------
+if [ -f "${EXPORT_DIR}/global.plist" ]; then
+    restore_user_key_equivalents "-g" "${EXPORT_DIR}/global.plist"
+    echo "✅ Global App Shortcuts restored"
+fi
+
+# --- 3. Per-app App Shortcuts ----------------------------------------------
+if [ -f "${MANIFEST}" ]; then
+    while IFS= read -r domain; do
+        [ -n "${domain}" ] || continue
+        file="${APP_DIR}/${domain}.plist"
+        if [ -f "${file}" ]; then
+            restore_user_key_equivalents "${domain}" "${file}"
+            echo "✅ ${domain} restored"
+        fi
+    done < "${MANIFEST}"
+fi
+
+# Flush the preferences cache so the changes are picked up.
+killall cfprefsd 2>/dev/null || true
+
+echo ""
+echo "✅ Done."
+echo "⚠️  Log out and back in (or restart) for all shortcuts to fully apply."

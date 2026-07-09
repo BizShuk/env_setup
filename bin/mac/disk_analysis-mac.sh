@@ -7,6 +7,12 @@
 #    -h, --help    顯示使用說明
 # ============================================================
 
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=_lib_audit.sh
+. "$SCRIPT_DIR/_lib_audit.sh"
+
 INTERACTIVE_CLEAN=false
 for arg in "$@"; do
   case "$arg" in
@@ -24,39 +30,14 @@ for arg in "$@"; do
   esac
 done
 
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-GREEN='\033[0;32m'
-CYAN='\033[0;36m'
-BOLD='\033[1m'
-NC='\033[0m' # No Color
+audit_init "disk_analysis"
 
-REPORT_DIR="$HOME/.config/system/data"
-mkdir -p "$REPORT_DIR"
-REPORT_FILE="$REPORT_DIR/disk_analysis-$(date +%Y%m%d).report.md"
-
-# 終端輸出（帶顏色）
-term_log() {
-  echo -e "$1"
-}
-
-# 寫入 Markdown 檔案（移除 ANSI 轉義碼）
-md_log() {
-  echo -e "$1" | sed $'s/\033[[0-9;]*m//g' >> "$REPORT_FILE"
-}
-
-# 同時輸出
-log() {
-  term_log "$1"
-  md_log "$1"
-}
-
-# 大標題
+# 大標題: disk_analysis 慣用 H1 標題, 與 _lib_audit.sh 預設 (H2) 不同, 在此覆寫
 header() {
   term_log "\n${BOLD}${CYAN}════════════════${NC}"
   term_log "${BOLD}${CYAN}  $1${NC}"
   term_log "${BOLD}${CYAN}════════════════${NC}"
-  
+
   md_log "\n# $1"
 }
 
@@ -78,13 +59,13 @@ md_code_block_end() {
 run_cmd() {
   local cmd="$1"
   term_log "${CYAN}> $cmd${NC}"
-  
+
   local cmd_out
   cmd_out=$(eval "$cmd" 2>&1)
-  
+
   # 印在終端
   echo "$cmd_out"
-  
+
   # 寫入 markdown
   # shellcheck disable=SC2001
   {

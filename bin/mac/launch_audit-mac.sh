@@ -3,30 +3,15 @@
 # 檢查所有 LaunchAgents / LaunchDaemons，找出可疑的持久化後門
 # 執行方式：bash mac_launch_audit.sh
 
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-GREEN='\033[0;32m'
-CYAN='\033[0;36m'
-BOLD='\033[1m'
-NC='\033[0m' # No Color
+set -euo pipefail
 
-REPORT_DIR="$HOME/.config/system/data"
-mkdir -p "$REPORT_DIR"
-REPORT="${REPORT_DIR}/launch_audit-$(date +%Y%m%d).report.md"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=_lib_audit.sh
+. "$SCRIPT_DIR/_lib_audit.sh"
 
-term_log() {
-  echo -e "$1"
-}
+audit_init "launch_audit"
 
-md_log() {
-  echo -e "$1" | sed $'s/\033[[0-9;]*m//g' >> "$REPORT"
-}
-
-log() {
-  term_log "$1"
-  md_log "$1"
-}
-
+# 覆寫 header 為 H1 標題 (lib 預設為 H2)
 header() {
   term_log "\n${BOLD}${CYAN}════════════════${NC}"
   term_log "${BOLD}${CYAN}  $1${NC}"
@@ -37,18 +22,18 @@ header() {
 run_cmd() {
   local cmd="$1"
   term_log "${CYAN}> $cmd${NC}"
-  
+
   local cmd_out
   cmd_out=$(eval "$cmd" 2>&1)
-  
+
   # 印在終端
   echo "$cmd_out"
-  
+
   # 寫入 markdown
-  echo "" >> "$REPORT"
-  echo "\`\`\`text" >> "$REPORT"
-  echo "$cmd_out" | sed $'s/\033[[0-9;]*m//g' >> "$REPORT"
-  echo "\`\`\`" >> "$REPORT"
+  echo "" >> "$REPORT_FILE"
+  echo "\`\`\`text" >> "$REPORT_FILE"
+  echo "$cmd_out" | sed $'s/\033[[0-9;]*m//g' >> "$REPORT_FILE"
+  echo "\`\`\`" >> "$REPORT_FILE"
 }
 
 md_code_block_start() {
@@ -91,7 +76,7 @@ is_whitelisted() {
 }
 
 # 確保 Markdown 報告第一行即為 H1 標題，避免 MD041 錯誤
-echo "# 🔍 Mac 啟動程序稽核報告 (Launch Process Persistence Audit)" > "$REPORT"
+echo "# 🔍 Mac 啟動程序稽核報告 (Launch Process Persistence Audit)" > "$REPORT_FILE"
 term_log "🔍 Mac 啟動程序稽核報告 (Launch Process Persistence Audit)"
 
 log "分析時間：\`$(date)\`"
@@ -196,14 +181,14 @@ plist_out=$(for dir in \
       done
 done)
 echo "$plist_out"
-echo "$plist_out" >> "$REPORT"
+echo "$plist_out" >> "$REPORT_FILE"
 md_code_block_end
 
 # ---- 摘要 ----
 log ""
-log "✅ 稽核完成。完整報告已儲存至：\`$REPORT\`"
+log "✅ 稽核完成。完整報告已儲存至：\`$REPORT_FILE\`"
 log ""
 log "建議：把此報告複製給 Claude，針對「\`⚠️ 非標準來源\`」和「\`🔴\`」項目進行逐一核查。"
 echo ""
-echo "報告路徑：$REPORT"
+echo "報告路徑：$REPORT_FILE"
 

@@ -19,6 +19,10 @@
 [submodule "libgit2"]
 	path = pkg/libgit2
 	url = https://github.com/libgit2/libgit2.git
+[submodule "ctags-5.8"]
+	path = pkg/ctags-5.8
+	url = https://git.code.sf.net/p/ctags/code
+	branch = master
 [submodule "bin/bash/.vim/bundle/vim-snippets"]
 	path = bin/bash/.vim/bundle/vim-snippets
 	url = https://github.com/BizShuk/vim-snippets.git

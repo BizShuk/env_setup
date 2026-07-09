@@ -1,7 +1,0 @@
-#!/bin/bash
-
-
-
-. ~/settings.sh
-
-. "$REPO_SCRIPTS/go_setup.sh"

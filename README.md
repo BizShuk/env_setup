@@ -54,23 +54,23 @@
 
 ### macOS 系統稽核與清理 (macOS Audit & Cleanup)
 
-`bin/mac/` 提供磁碟清理 (`mac_cleanup`) 與四個安全稽核腳本 (`disk_analysis-mac.sh`、`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/system/data/`。
+`bin/mac/` 提供磁碟清理 (`mac_cleanup.sh`) 與四個安全稽核腳本 (`disk_analysis-mac.sh`、`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/system/data/`。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者手動執行 `bin/mac/mac_cleanup`，或由 pm2 在 `0 5 * * 5` (每週五 05:00) 觸發 audit 腳本。
-2. `mac_cleanup` 刪 `/private/var/log`、`/private/var/tmp`、`~/Library/Caches`、`~/.Trash`，並 `tmutil deletelocalsnapshots` 與 `docker system prune` (若 docker 存在)。
+1. 使用者手動執行 `bin/mac/mac_cleanup.sh`，或由 pm2 在 `0 5 * * 5` (每週五 05:00) 觸發 audit 腳本。
+2. `mac_cleanup.sh` 刪 `/private/var/log`、`/private/var/tmp`、`~/Library/Caches`、`~/.Trash`，並 `tmutil deletelocalsnapshots` 與 `docker system prune` (若 docker 存在)。
 3. 稽核腳本檢查 `LaunchAgents/LaunchDaemons`、登入帳戶、開啟通訊埠、敏感目錄權限，最後呼叫 `md_log` 寫出帶時間戳的報告。
 
 `核心實體 (Key Entities):` `稽核報告 (Audit Report)`, `磁碟垃圾 (Disk Junk)`, `LaunchAgent`, `開啟通訊埠 (Open Port)`
 
-`相關處理器 (Related Handlers):` [bin/mac/mac_cleanup](file:///Users/bytedance/projects/env_setup/bin/mac/mac_cleanup), [bin/mac/disk_analysis-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/disk_analysis-mac.sh), [bin/mac/launch_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/network_security_audit-mac.sh)
+`相關處理器 (Related Handlers):` [bin/mac/mac_cleanup.sh](file:///Users/bytedance/projects/env_setup/bin/mac/mac_cleanup), [bin/mac/disk_analysis-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/disk_analysis-mac.sh), [bin/mac/launch_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/network_security_audit-mac.sh)
 
 ---
 
 ### 網路拓撲與設備掃描 (Network Topology & Device Scan)
 
-`bin/scan_private_network`、`bin/scan_target_network` 與 `bin/system/network_topology_scan.sh` 三個入口用 `traceroute` + `nmap` 探測本機所連私有網段，產出 `network.topo` 或 markdown 拓樸報告。
+`bin/network/scan_network.sh` 為統一入口（`--mode=private|target|topology|topology-no-scan`），用 `traceroute` + `nmap` 探測本機所連私有網段，產出 `network.topo` 或 markdown 拓樸報告。
 
 `領域流程 (Domain Flow):`
 
@@ -80,13 +80,13 @@
 
 `核心實體 (Key Entities):` `私有 IP (Private IP)`, `Hop 節點`, `通訊埠掃描結果 (Port Scan Result)`, `網路拓樸報告 (Network Topology Report)`
 
-`相關處理器 (Related Handlers):` [bin/scan_private_network](file:///Users/bytedance/projects/env_setup/bin/scan_private_network), [bin/scan_target_network](file:///Users/bytedance/projects/env_setup/bin/scan_target_network), [bin/system/network_topology_scan.sh](file:///Users/bytedance/projects/env_setup/bin/system/network_topology_scan.sh)
+`相關處理器 (Related Handlers):` [bin/network/scan_network.sh](file:///Users/bytedance/projects/env_setup/bin/network/scan_network.sh), [bin/system/network_topology_scan.sh](file:///Users/bytedance/projects/env_setup/bin/system/network_topology_scan.sh)
 
 ---
 
 ### 開發者輔助工具 (Developer Helpers)
 
-`bin/` 根目錄與各子目錄的零碎小工具：`json` (pretty-print)、`git_signing` (GPG 簽章指引)、`find_symbolic_link` (找 symlink)、`iconv_big5_utf8` (編碼轉換)、`file_encoding` (編碼偵測)、`check_alive` / `check_service` (健康檢查)、`listen_port` (port 監聽)、`generate_https_cert` / `generator_pem.sh` (憑證)、`backup` / `backupSync` (備份)、`reverse_ln` (反向 symlink)、`ssoLogin.sh` / `ssoLogin_faas.sh` (SSO 登入)、`claudew` (Claude CLI 包裝)、`goswitch` (切換 Go 版本)、`mac_keyboard_shortcuts_dump` / `mac_keyboard_shortcuts_restore`、`mac_extension_list`、`ssh_keygen` / `ssh_key_compare` / `ssh_config` / `sshd_config`。
+`bin/` 根目錄與各子目錄的零碎小工具：`json` (pretty-print)、`git_signing` (GPG 簽章指引)、`find_symbolic_link` (找 symlink)、`iconv_big5_utf8` (編碼轉換)、`file_encoding` (編碼偵測)、`check_alive` / `check_service` (健康檢查)、`listen_port` (port 監聽)、`generate_https_cert` / `generator_pem.sh` (憑證)、`backup` / `backupSync` (備份)、`reverse_ln` (反向 symlink)、`ssoLogin.sh` / `ssoLogin_faas.sh` (SSO 登入)、`claudew` (Claude CLI 包裝)、`goswitch` (切換 Go 版本)、`mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh`、`mac_extension_list.sh`、`ssh_keygen` / `ssh_key_compare` / `ssh_config` / `sshd_config`。
 
 `領域流程 (Domain Flow):`
 
@@ -96,7 +96,7 @@
 
 `核心實體 (Key Entities):` `Helper Script`, `Symlink 目標`, `Bash Alias`
 
-`相關處理器 (Related Handlers):` [bin/json](file:///Users/bytedance/projects/env_setup/bin/json), [bin/git_signing](file:///Users/bytedance/projects/env_setup/bin/git_signing), [bin/listen_port](file:///Users/bytedance/projects/env_setup/bin/listen_port), [bin/mac/mac_keyboard_shortcuts_dump](file:///Users/bytedance/projects/env_setup/bin/mac/mac_keyboard_shortcuts_dump), [bin/bash/.bash_aliases](file:///Users/bytedance/projects/env_setup/bin/bash/.bash_aliases)
+`相關處理器 (Related Handlers):` [bin/json](file:///Users/bytedance/projects/env_setup/bin/json), [bin/git_signing](file:///Users/bytedance/projects/env_setup/bin/git_signing), [bin/listen_port](file:///Users/bytedance/projects/env_setup/bin/listen_port), [bin/mac/mac_keyboard_shortcuts_dump.sh](file:///Users/bytedance/projects/env_setup/bin/mac/mac_keyboard_shortcuts_dump.sh), [bin/bash/.bash_aliases](file:///Users/bytedance/projects/env_setup/bin/bash/.bash_aliases)
 
 ---
 
@@ -166,13 +166,13 @@ flowchart TD
 
 ### 5. 網路掃描
 ```bash
-./bin/scan_private_network      # 產出 ./network.topo
-./bin/system/network_topology_scan.sh
+./bin/network/scan_network.sh --mode=private      # 產出 ./network.topo
+./bin/network/scan_network.sh --mode=topology
 ```
 
 ### 6. 開發者 helper
 ```bash
-./bin/json < cmd/config.json
+./bin/json < bin/system/config/some.json
 ./bin/listen_port 8080
 ```
 
@@ -187,7 +187,7 @@ pm2 start ecosystem.config.js
 
 - [ ] **修正 `bin/system/system_info:8` 之 `BASE_DIR` 路徑 bug**：目前 `BASE_DIR="$(dirname "$0")/system"` 拼成 `bin/system/system`，sub-tool 全部找不到，執行後立即壞掉；改為 `BASE_DIR="$(dirname "$0")"`，因腳本本身已位於 `bin/system/`。
 - [ ] **修正 `bin/system/README.md` 標題與內容錯置**：目前標題寫「安全性稽核與工具」，實際本目錄是 `bin/system/` (硬體偵測)，macOS 稽核腳本在 `bin/mac/`；同步把「`network_topology_scan-mac.sh`」改回 `network_topology_scan.sh`，並把誤指的 `disk_analysis-mac.sh` / `launch_audit-mac.sh` 等條目改歸 `bin/mac/`。
-- [ ] **三個 network scanner 整合為單一入口**：`bin/scan_private_network`、`bin/scan_target_network` 與 `bin/system/network_topology_scan.sh` 皆跑 traceroute + nmap，職責重疊；規劃以 `bin/network/scan_network.sh --mode=private|target|topology` 取代，減少維護面。
+- [x] **三個 network scanner 整合為單一入口**：`bin/scan_private_network`、`bin/scan_target_network` 與 `bin/system/network_topology_scan.sh` 皆跑 traceroute + nmap，職責重疊；以 `bin/network/scan_network.sh --mode=private|target|topology` 取代完成（舊三檔已 git rm，Q5 整合驗證於 `README.todo` @2026-07-09）。
 - [ ] **`run.sh` 與 `bin/system/system_link` 目標路徑分歧**：`run.sh` 寫到 `./tmp/`，`system_link` 寫到 `./config/`；兩份 symlink 表實際不同（含 `claude/.claude` 等），規劃合併為 `run.sh` 單一入口並統一目標路徑。
 - [ ] **移除 vendored 與 dead code**：`bin/git-secret` (52KB / 2082 行) 改用 `brew install git-secret`；`pkg/ctags-5.8/` (2.2MB / 111 檔) 改為 git submodule；`bin/system/raspi-config` 與 `bin/system/system_service` (一行 dead code) 直接刪除。
 - [ ] **安全化 `bin/bash/settings.sh`**：移除明文 `passwd` / `email`，改以 git-ignored `~/.config/env_setup/settings.private.sh` 提供；`.gitignore` 補上 `settings.private.sh`, `.bash_local`, `log/`, `tmp/`。

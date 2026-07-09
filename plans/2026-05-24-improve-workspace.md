@@ -1,5 +1,7 @@
 # env_setup 工作區改善計劃 (Workspace Improvements) Implementation Plan
 
+> ⚠️ **ARCHIVED** (2026-07-09): 本計畫涉及 `cmd/smain` (Go + Cobra)、`bin/project_setup`、`scripts/settings.sh` 中 `USER_LIB` 軟連結邏輯等已於 2026-07 結構清理時移除或重做的元件; 全部步驟已被 `plans/2026-07-08-env-setup-structural-cleanup.md` 取代。保留此檔僅作為歷史決策紀錄, **不再執行**。
+
 > `For agentic workers:` REQUIRED SUB-SKILL: Use `superpowers:subagent-driven-development` (recommended) or `superpowers:executing-plans` to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 `Goal:` 審查、驗證並修復 `env_setup` 專案中的安裝與清理腳本錯誤、優化設定檔讀寫路徑、增加 Zsh 終端機支援、升級 `golangci-lint` 與 OpenSSL 編譯版本、以及為 Go 命令列工具 `smain` 新增單元測試。

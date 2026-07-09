@@ -2,30 +2,15 @@
 # macOS Network Security Audit Script
 # Run: bash network_security_audit-mac.sh
 
-RED='\033[0;31m'
-YELLOW='\033[1;33m'
-GREEN='\033[0;32m'
-CYAN='\033[0;36m'
-BOLD='\033[1m'
-NC='\033[0m' # No Color
+set -euo pipefail
 
-REPORT_DIR="$HOME/.config/system/data"
-mkdir -p "$REPORT_DIR"
-REPORT_FILE="$REPORT_DIR/network_security_audit-$(date +%Y%m%d).report.md"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=_lib_audit.sh
+. "$SCRIPT_DIR/_lib_audit.sh"
 
-term_log() {
-  echo -e "$1"
-}
+audit_init "network_security_audit"
 
-md_log() {
-  echo -e "$1" | sed $'s/\033[[0-9;]*m//g' >> "$REPORT_FILE"
-}
-
-log() {
-  term_log "$1"
-  md_log "$1"
-}
-
+# 覆寫 header 為 H1 標題
 header() {
   term_log "\n${BOLD}${CYAN}════════════════${NC}"
   term_log "${BOLD}${CYAN}  $1${NC}"
@@ -41,13 +26,13 @@ subheader() {
 run_cmd() {
   local cmd="$1"
   term_log "${CYAN}> $cmd${NC}"
-  
+
   local cmd_out
   cmd_out=$(eval "$cmd" 2>&1)
-  
+
   # 印在終端
   echo "$cmd_out"
-  
+
   # 寫入 markdown
   echo "" >> "$REPORT_FILE"
   echo "\`\`\`text" >> "$REPORT_FILE"

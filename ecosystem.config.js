@@ -13,18 +13,20 @@ module.exports = {
         //     script: "docker",
         //     args: ["compose", "up"]
         // },
-        {
-            namespace: "Local",
-            name: "Port Listenor",
-            script: "port_listenor",
-            args: ["monitor"]
-        },
-        {
-            namespace: "Local",
-            name: "File Watcher",
-            script: "file_watcher",
-            args: ["monitor"]
-        },
+        // ⚠️ Port Listenor / File Watcher 需先實作對應 bin/port_listenor 與 bin/file_watcher
+        // 暫停常駐任務 (dead config), 待工具到位後改用 ./bin/<area>/<tool> 全路徑
+        // {
+        //     namespace: "Local",
+        //     name: "Port Listenor",
+        //     script: "port_listenor",
+        //     args: ["monitor"]
+        // },
+        // {
+        //     namespace: "Local",
+        //     name: "File Watcher",
+        //     script: "file_watcher",
+        //     args: ["monitor"]
+        // },
         {
             namespace: "Local",
             name: "Disk Analysis",
