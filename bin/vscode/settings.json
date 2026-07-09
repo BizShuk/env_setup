@@ -154,6 +154,7 @@
         // AI 智能體配置 (AI Agents Meta)
         "{**/AGENTS.md,**/GEMINI.md}": true,
         "{**/.agents}": true,
+        "{**/.geminiignore,**/.claudeignore}": true,
         // 測試與非必要文件 (Tests & Documentation)
         "{**/*_test.go,go.sum}": true
     },
