@@ -128,6 +128,9 @@ if [ -f "${HOME}/.bash_local" ]; then
 fi
 
 alias claude="claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/settings.json"
+# 以下 claudew* / claudem* alias 依賴私密 API token (TIKTOK_API_KEY, MINIMAX_API_KEY 等),
+# 為避免 token 進入 git, 改放至 git-ignored 的 ~/.bash_local。
+# 範本 (snippet) 可參考 docs/notes/bash-local-aliases.md。
 alias codexm='codex --profile m3'
 
 # 以下 claudew* / claudem* alias 預配置，使用來自 ~/.bash_local 的私密 API token (TIKTOK_API_KEY, MINIMAX_API_KEY 等)
@@ -138,4 +141,10 @@ alias claudew-b='ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --allow-dangerously
 alias claudew2='ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY2 claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json'
 alias claudem='ANTHROPIC_AUTH_TOKEN=$MINIMAX_API_KEY claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/minimax.json'
 
+
+# 載入個人化 alias (若 ~/.bash_local 存在)
+if [ -f "${HOME}/.bash_local" ]; then
+    # shellcheck disable=SC1090
+    . "${HOME}/.bash_local"
+fi
 

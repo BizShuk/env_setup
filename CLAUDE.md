@@ -29,6 +29,7 @@
 │   │   ├── disk_analysis-mac.sh / launch_audit-mac.sh
 │   │   ├── login_audit-mac.sh / network_security_audit-mac.sh
 │   │   ├── mac_keyboard_shortcuts_dump.sh / mac_keyboard_shortcuts_restore.sh
+│   │   ├── mac_keyboard_shortcuts_dump.sh / mac_keyboard_shortcuts_restore.sh
 │   │   ├── mac_extension_list
 │   │   ├── lib.py / ls_sys_path.py
 │   │   └── keyboard_shortcuts/    # plist 樣板
@@ -110,6 +111,8 @@
 ```
 
 - **`bin/bash/settings.sh` 為唯一環境變數入口**：所有腳本 `source settings.sh` 取得 `USER_BIN`、`REPO_DIR`、`REPO_SCRIPTS`、`OS`、`ARCH`、`KERNEL_NAME` 等；個人敏感值 (`passwd`/`email`/`token`) 改由 `~/.config/env_setup/settings.private.sh` 提供 (git-ignored)。
+- **`bin/bash/settings.sh` 為唯一環境變數入口**：所有腳本 `source settings.sh` 取得 `USER_BIN`、`REPO_DIR`、`REPO_SCRIPTS`、`OS`、`ARCH`、`KERNEL_NAME` 等；個人敏感值 (`passwd`/`email`/`token`) 改由 `~/.config/env_setup/settings.private.sh` 提供 (git-ignored)。
+
 ## 技術棧 (Tech Stack)
 
 - Language: Bash/Shell (主要)、Python (輔助, `bin/mac/lib.py` / `ls_sys_path.py`)、AppleScript (`pkg/mac/applescript/toggleFn.scpt`)
@@ -132,6 +135,8 @@
 - **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 與常駐任務，namespace = `Local`；新增任務以 `./bin/<area>/<tool>` 全路徑註冊。
 - **macOS 稽核與硬體偵測分流**：`bin/mac/` 為 macOS 專屬 (`mac_cleanup.sh`、`*_audit-mac.sh`)；`bin/system/` 為跨平台硬體偵測 (`*_info`、`system_info`)。`bin/system/README.md` 目前標題錯置需修正。
 - **不引入 Go/Cobra 框架**：本 repo 為純 shell + python 工具集；不混用 binary CLI。
+- **macOS 稽核與硬體偵測分流**：`bin/mac/` 為 macOS 專屬 (`mac_cleanup.sh`、`*_audit-mac.sh`)；`bin/system/` 為跨平台硬體偵測 (`*_info`、`system_info`)。`bin/system/README.md` 目前標題錯置需修正。
+- **不引入 Go/Cobra 框架**：本 repo 為純 shell + python 工具集；不混用 binary CLI。
 
 ## 模組對應 (Module Mapping)
 
@@ -140,6 +145,8 @@
 | 機器初始化與開發工具安裝 (Bootstrap & Tooling)     | `scripts/`, `bin/bash/settings.sh`                                    | `./scripts/mac.sh`, `./scripts/ubuntu.sh`, `./scripts/go.sh`                                          |
 | 使用者與 IDE 設定軟連結 (User Config & IDE Link)   | `run.sh`, `bin/bash/`, `bin/vscode/`                                  | `./run.sh` (含 `link_ide_config()` 函式)                                                              |
 | 硬體與系統狀態偵測 (Hardware & System Probe)       | `bin/system/`                                                         | `./bin/system/system_info`, `./bin/system/checkdisk`, `./bin/system/system_dump`                      |
+| macOS 系統稽核與清理 (macOS Audit & Cleanup)       | `bin/mac/`                                                            | `./bin/mac/mac_cleanup.sh`, `./bin/mac/disk_analysis-mac.sh`                                             |
+| 網路拓撲與設備掃描 (Network Topology & Scan)        | `bin/scan_private_network`, `bin/scan_target_network`, `bin/system/network_topology_scan.sh` | 對應入口直接執行 (規劃整合至 `bin/network/scan_network.sh`)                                            |
 | macOS 系統稽核與清理 (macOS Audit & Cleanup)       | `bin/mac/`                                                            | `./bin/mac/mac_cleanup.sh`, `./bin/mac/disk_analysis-mac.sh`                                             |
 | 網路拓撲與設備掃描 (Network Topology & Scan)        | `bin/network/scan_network.sh` (--mode=private\|target\|topology\|topology-no-scan), `bin/system/network_topology_scan.sh` | `./bin/network/scan_network.sh --mode=...`                                                  |
 | 開發者輔助工具 (Developer Helpers)                 | `bin/` 根目錄 + `bin/bash/.bash_aliases`                              | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                                              |
@@ -178,6 +185,7 @@
 - `./bin/mac/disk_analysis-mac.sh` 驗證 audit 報告輸出
 - `shellcheck bin/<area>/*.sh` (若已安裝)
 - `git grep -n 'smain\|project_setup'` 確認無殘留敘述
+- `git grep -n 'smain\|project_setup'` 確認無殘留敘述
 
 ### 部署 (Deploy)
 
@@ -198,6 +206,16 @@
     3. 若需 root 入口，在 `bin/<tool>` 加 symlink `bin/<tool> -> <area>/<tool>`
     4. 將工具加入 `docs/bin_index.md`
     5. 若需排程，在 `ecosystem.config.js` 用 `./bin/<area>/<tool>` 全路徑註冊
+- 共用 helper 慣例 (Shared Helper):
+    - 跨腳本共用函式 / 樣板 / 常數放至 `bin/<area>/_lib_<purpose>.sh` (底線前綴標明「非直接執行, 僅供 source」)
+    - 使用方式: `source "$(dirname "$0")/_lib_<purpose>.sh"`
+    - 範例: `bin/mac/_lib_audit.sh` 提供 `term_log` / `md_log` / `log` / `header` / `audit_init` 給所有 `bin/mac/*_audit-mac.sh` 使用
+- 環境變數入口 (Settings):
+    - 所有腳本 `source "$(dirname "$0")/../bash/settings.sh"` 取得 `REPO_DIR`, `REPO_SCRIPTS`, `OS`, `ARCH`, `KERNEL_NAME`
+    - 不得在 `bin/bash/settings.sh` 內 commit 明文 `passwd` / `email` / `token` / API key; 私密值一律讀 `~/.config/env_setup/settings.private.sh` 或 `~/.bash_local`
+- 個人 alias (Personal Alias):
+    - 公開 / 共用 alias 寫 `bin/bash/.bash_aliases` (git tracked)
+    - 含私密 token 的 alias (`claudew*` / `claudem*` 等) 寫 `~/.bash_local` (git-ignored), 範本見 `docs/notes/bash-local-aliases.md`
 - 共用 helper 慣例 (Shared Helper):
     - 跨腳本共用函式 / 樣板 / 常數放至 `bin/<area>/_lib_<purpose>.sh` (底線前綴標明「非直接執行, 僅供 source」)
     - 使用方式: `source "$(dirname "$0")/_lib_<purpose>.sh"`
