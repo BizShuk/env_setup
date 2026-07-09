@@ -8,7 +8,7 @@
 | ----------------------------- | ----------- | --------------------------------------------------------------------- |
 | `settings.sh`                 | 來源檔      | 共用環境變數入口 (`USER_BIN`、`REPO_DIR`、`OS`、`ARCH`)               |
 | `.bashrc`                     | dotfile     | 互動式 bash 啟動                                                      |
-| `.bash_aliases`               | dotfile     | `claudew`、`codexm`、`goswitch` 等 alias                              |
+| `.bash_aliases`               | dotfile     | `claudew-s`、`claudew-b`、`claudew2`、`codexm` 等 alias           |
 | `.bash_function`              | dotfile     | 共用 shell function                                                   |
 | `.bash_logout`                | dotfile     | logout hook                                                           |
 | `.gitconfig` / `.gitmessage`  | dotfile     | git 設定 / commit 樣板                                                |
@@ -80,7 +80,7 @@
 | `backup` / `backupSync`       | 備份              | 備份單檔 / 同步備份                                              |
 | `network/scan_network.sh`     | 網路掃描          | 統一入口, --mode=private\|target\|topology\|topology-no-scan      |
 | `ssoLogin.sh` / `ssoLogin_faas.sh` | 登入          | SSO / FaaS 登入                                                |
-| `claudew`                     | Claude CLI 包裝   | 帶環境變數啟動 Claude                                           |
+| `claudew` / `claudem`         | Claude CLI 包裝 | 帶 ANTHROPIC_AUTH_TOKEN 啟動 claude (llmbox / minimax profile) |
 | `goswitch`                    | Go 版本切換       | 切換 Go toolchain                                               |
 | `bytedance_setup.sh`          | ⚠️ 含明文密碼      | 預計刪除, 敏感值改讀 `~/.config/env_setup/settings.private.sh` |
 | `ssh_config` / `sshd_config`  | SSH               | ssh client / server 設定                                        |

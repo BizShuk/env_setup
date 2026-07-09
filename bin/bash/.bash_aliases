@@ -128,18 +128,15 @@ if [ -f "${HOME}/.bash_local" ]; then
 fi
 
 alias claude="claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/settings.json"
-# 以下 claudew* / claudem* alias 依賴私密 API token (TIKTOK_API_KEY, MINIMAX_API_KEY 等),
+# 以下 claudew-s / claudew-b / claudew2 alias 依賴私密 API token (TIKTOK_API_KEY, TIKTOK_API_KEY2 等),
 # 為避免 token 進入 git, 改放至 git-ignored 的 ~/.bash_local。
+# 基礎 claudew / claudem 已提升為 bin/claudew 與 bin/claudem 實體 script file (取代 alias 以避免 alias 限制)。
 # 範本 (snippet) 可參考 docs/notes/bash-local-aliases.md。
 alias codexm='codex --profile m3'
 
-# 以下 claudew* / claudem* alias 預配置，使用來自 ~/.bash_local 的私密 API token (TIKTOK_API_KEY, MINIMAX_API_KEY 等)
-# 範本可參考 docs/notes/bash-local-aliases.md
-alias claudew='ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json'
 alias claudew-s='ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --allow-dangerously-skip-permissions --effort max --model glm-5.2 --settings ~/projects/cc-plugin/config/llmbox.json -p "look whole project for consistency, remove redundancy, structural, scalable. make a plan to ./plans/ and add an entry in README.todo"'
 alias claudew-b='ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --allow-dangerously-skip-permissions --effort max --model glm-5.2 --settings ~/projects/cc-plugin/config/llmbox.json -p "evlauate current business scope and find out high value aspects. make a plan to ./plans/ and add an entry in README.todo"'
 alias claudew2='ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY2 claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json'
-alias claudem='ANTHROPIC_AUTH_TOKEN=$MINIMAX_API_KEY claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/minimax.json'
 
 
 # 載入個人化 alias (若 ~/.bash_local 存在)

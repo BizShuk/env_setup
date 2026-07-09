@@ -86,13 +86,13 @@
 
 ### 開發者輔助工具 (Developer Helpers)
 
-`bin/` 根目錄與各子目錄的零碎小工具：`json` (pretty-print)、`git_signing` (GPG 簽章指引)、`find_symbolic_link` (找 symlink)、`iconv_big5_utf8` (編碼轉換)、`file_encoding` (編碼偵測)、`check_alive` / `check_service` (健康檢查)、`listen_port` (port 監聽)、`generate_https_cert` / `generator_pem.sh` (憑證)、`backup` / `backupSync` (備份)、`reverse_ln` (反向 symlink)、`ssoLogin.sh` / `ssoLogin_faas.sh` (SSO 登入)、`claudew` (Claude CLI 包裝)、`goswitch` (切換 Go 版本)、`mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh`、`mac_extension_list.sh`、`ssh_keygen` / `ssh_key_compare` / `ssh_config` / `sshd_config`。
+`bin/` 根目錄與各子目錄的零碎小工具：`json` (pretty-print)、`git_signing` (GPG 簽章指引)、`find_symbolic_link` (找 symlink)、`iconv_big5_utf8` (編碼轉換)、`file_encoding` (編碼偵測)、`check_alive` / `check_service` (健康檢查)、`listen_port` (port 監聽)、`generate_https_cert` / `generator_pem.sh` (憑證)、`backup` / `backupSync` (備份)、`reverse_ln` (反向 symlink)、`ssoLogin.sh` / `ssoLogin_faas.sh` (SSO 登入)、`claudew` / `claudem` (Claude CLI 包裝, 帶 token 與 profile)、`goswitch` (切換 Go 版本)、`mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh`、`mac_extension_list.sh`、`ssh_keygen` / `ssh_key_compare` / `ssh_config` / `sshd_config`。
 
 `領域流程 (Domain Flow):`
 
 1. 使用者在 `${HOME}/bin` (symlink 指向 `bin/`) 內直接呼叫 `json < file` 或 `listen_port 8080`。
 2. 各工具多為薄殼腳本：呼叫系統 CLI (`nmap` / `traceroute` / `openssl` / `git`) 並加入預設參數。
-3. 與 `bin/bash/.bash_aliases` 內的 `claudew`, `codexm`, `goswitch` 等 alias 連動，部分具體值由 `~/.bash_local` 個人層級提供。
+3. 與 `bin/bash/.bash_aliases` 內的 `claudew-s`, `claudew-b`, `claudew2`, `codexm`, `goswitch` 等 alias 連動；基礎 `claudew` / `claudem` 為 `bin/claudew` / `bin/claudem` 實體 script file；部分具體值由 `~/.bash_local` 個人層級提供。
 
 `核心實體 (Key Entities):` `Helper Script`, `Symlink 目標`, `Bash Alias`
 

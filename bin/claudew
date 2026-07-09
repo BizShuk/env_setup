@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# claudew — llmbox profile 的 Claude CLI 入口 (使用 TIKTOK_API_KEY)
+# 第二組 token 走 claudew2 alias (見 bin/bash/.bash_aliases)
+# 其餘變體 (claudew-s / claudew-b) 維持 alias 形式 (依個人決策)
+
+ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/llmbox.json "$@"

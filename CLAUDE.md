@@ -58,7 +58,7 @@
 │   │   ├── generate_https_cert / generator_pem.sh
 │   │   ├── backup / backupSync
 │   │   ├── ssoLogin.sh / ssoLogin_faas.sh
-│   │   ├── claudew / goswitch
+│   │   ├── claudew / claudem / goswitch
 │   │   ├── bytedance_setup.sh     # ⚠️ 含明文密碼, 預計刪除
 │   │   ├── ssh_config / sshd_config / ssh_keygen / ssh_key_compare
 │   │   ├── ssh.md
@@ -215,7 +215,7 @@
     - 不得在 `bin/bash/settings.sh` 內 commit 明文 `passwd` / `email` / `token` / API key; 私密值一律讀 `~/.config/env_setup/settings.private.sh` 或 `~/.bash_local`
 - 個人 alias (Personal Alias):
     - 公開 / 共用 alias 寫 `bin/bash/.bash_aliases` (git tracked)
-    - 含私密 token 的 alias (`claudew*` / `claudem*` 等) 寫 `~/.bash_local` (git-ignored), 範本見 `docs/notes/bash-local-aliases.md`
+    - 含私密 token 的 alias (`claudew-s` / `claudew-b` / `claudew2` 等) 寫 `~/.bash_local` (git-ignored), 範本見 `docs/notes/bash-local-aliases.md`；基礎 `claudew` / `claudem` 已提升為 `bin/claudew` / `bin/claudem` 實體 script file (取代 alias 以避免 alias 對 `set -e` 與 stdin 行為的限制)
 - 共用 helper 慣例 (Shared Helper):
     - 跨腳本共用函式 / 樣板 / 常數放至 `bin/<area>/_lib_<purpose>.sh` (底線前綴標明「非直接執行, 僅供 source」)
     - 使用方式: `source "$(dirname "$0")/_lib_<purpose>.sh"`
