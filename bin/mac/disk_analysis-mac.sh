@@ -61,7 +61,7 @@ run_cmd() {
   term_log "${CYAN}> $cmd${NC}"
 
   local cmd_out
-  cmd_out=$(eval "$cmd" 2>&1)
+  cmd_out=$(set +o pipefail; eval "$cmd" 2>&1) || true
 
   # 印在終端
   echo "$cmd_out"
@@ -115,17 +115,23 @@ run_cmd 'du -sh /Applications/*.app 2>/dev/null | sort -rh | head -20'
 header "3. 前 20 大檔案與資料夾 (Top 20 Largest Items)"
 # ─────────────────────────────────────────
 subheader "家目錄下前 20 大項目（排除系統保護路徑）"
-run_cmd 'find ~ \( -path "*/Library/Containers/com.apple.Safari/Data/Library/Caches*" -o -path "*/.Trash*" \) -prune -o -maxdepth 8 -not -path "*/proc/*" -not -path "*/.git/*" -print 2>/dev/null | xargs -I{} du -sh {} 2>/dev/null | sort -rh | head -20'
+# 動態取得家目錄下非隱藏且不屬於 Library/OrbStack 的目錄與檔案，避免進入虛擬掛載或大量系統快取
+dirs=()
+for d in ~/*; do
+  name=$(basename "$d")
+  if [[ "$name" != "Library" && "$name" != "OrbStack" ]]; then
+    dirs+=("$(printf "%q" "$d")")
+  fi
+done
+dirs_str="${dirs[*]}"
+
+run_cmd "find $dirs_str -maxdepth 4 -not -path '*/.git*' -print0 2>/dev/null | xargs -0 du -sh 2>/dev/null | sort -rh | head -20"
 
 subheader "🔍 超過 5GB 的資料夾深度展開 (Drilldown: Folders > 5GB)"
-# 對 Section 3 top-20 中任何 >5GB 的資料夾，再向下挖 2 層並列出前 15 大子項目
+# 對 Section 3 中任何 >5GB 的資料夾，再向下挖 2 層並列出前 15 大子項目
 DRILLDOWN_THRESHOLD_KB=$((5 * 1024 * 1024))  # 5 GiB
 # shellcheck disable=SC2016
-big_items=$(find ~ \( -path "*/Library/Containers/com.apple.Safari/Data/Library/Caches*" -o -path "*/.Trash*" \) -prune -o -maxdepth 8 -type d -not -path "*/proc/*" -not -path "*/.git/*" -print 2>/dev/null \
-  | xargs -I{} du -k -d 0 {} 2>/dev/null \
-  | awk -F'\t' -v thr="$DRILLDOWN_THRESHOLD_KB" '$1 > thr { printf "%d\t%s\n", $1, $2 }' \
-  | sort -rn \
-  | head -15)
+big_items=$(eval "set +o pipefail; find $dirs_str -maxdepth 4 -type d -not -path '*/.git*' -print0 2>/dev/null | xargs -0 du -k -d 0 2>/dev/null | awk -F'\t' -v thr=\"\$DRILLDOWN_THRESHOLD_KB\" '\$1 > thr { printf \"%d\t%s\n\", \$1, \$2 }' | sort -rn | head -15")
 if [ -z "$big_items" ]; then
   log "（沒有超過 5GB 的資料夾）"
 else
@@ -189,9 +195,13 @@ log "\n超過 60 天未存取的下載檔案："
 run_cmd 'find ~/Downloads -maxdepth 2 -atime +60 -type f 2>/dev/null | xargs -I{} du -sh {} 2>/dev/null | sort -rh | head -20'
 
 subheader "[iOS/iPadOS 備份 iOS Backups]"
-IOS_SIZE=$(du -sh ~/Library/Application\ Support/MobileSync/Backup 2>/dev/null | cut -f1)
-log "iOS 備份大小：\`${IOS_SIZE}\`"
-run_cmd 'ls -lah ~/Library/Application\ Support/MobileSync/Backup/ 2>/dev/null'
+if [ -d ~/Library/Application\ Support/MobileSync/Backup ]; then
+  IOS_SIZE=$(du -sh ~/Library/Application\ Support/MobileSync/Backup 2>/dev/null | cut -f1)
+  log "iOS 備份大小：\`${IOS_SIZE}\`"
+  run_cmd 'ls -lah ~/Library/Application\ Support/MobileSync/Backup/ 2>/dev/null'
+else
+  log "（無 iOS 備份）"
+fi
 
 subheader "[Time Machine 快照 Local Snapshots]"
 if tmutil listlocalsnapshots / &>/dev/null; then
@@ -264,9 +274,12 @@ else
 fi
 
 subheader "[Xcode] 衍生資料與模擬器 (Derived Data & Simulators)"
-XCODE_DD=$(du -sh ~/Library/Developer/Xcode/DerivedData 2>/dev/null | cut -f1)
-XCODE_SIM=$(du -sh ~/Library/Developer/CoreSimulator 2>/dev/null | cut -f1)
-XCODE_ARCH=$(du -sh ~/Library/Developer/Xcode/Archives 2>/dev/null | cut -f1)
+XCODE_DD="0B"
+[ -d ~/Library/Developer/Xcode/DerivedData ] && XCODE_DD=$(du -sh ~/Library/Developer/Xcode/DerivedData 2>/dev/null | cut -f1) || true
+XCODE_SIM="0B"
+[ -d ~/Library/Developer/CoreSimulator ] && XCODE_SIM=$(du -sh ~/Library/Developer/CoreSimulator 2>/dev/null | cut -f1) || true
+XCODE_ARCH="0B"
+[ -d ~/Library/Developer/Xcode/Archives ] && XCODE_ARCH=$(du -sh ~/Library/Developer/Xcode/Archives 2>/dev/null | cut -f1) || true
 log "Derived Data：\`${XCODE_DD}\`"
 log "iOS Simulators：\`${XCODE_SIM}\`"
 log "Archives（打包檔）：\`${XCODE_ARCH}\`"
@@ -293,9 +306,11 @@ if [ -d ~/miniconda3 ]; then
 fi
 
 subheader "[Gradle 快取] Android/Java Build Caches"
-GRADLE_SIZE=$(du -sh ~/.gradle 2>/dev/null | cut -f1)
+GRADLE_SIZE="0B"
+[ -d ~/.gradle ] && GRADLE_SIZE=$(du -sh ~/.gradle 2>/dev/null | cut -f1) || true
 log "\`~/.gradle\`：\`${GRADLE_SIZE}\`"
-GRADLE_CACHE=$(du -sh ~/.gradle/caches 2>/dev/null | cut -f1)
+GRADLE_CACHE="0B"
+[ -d ~/.gradle/caches ] && GRADLE_CACHE=$(du -sh ~/.gradle/caches 2>/dev/null | cut -f1) || true
 log "\`~/.gradle/caches\`（可安全清除）：\`${GRADLE_CACHE}\`"
 
 subheader "[虛擬機器磁碟映像 VM Disk Images]"
@@ -303,7 +318,9 @@ run_cmd 'find ~ -maxdepth 6 \( -name "*.vmdk" -o -name "*.vdi" -o -name "*.qcow2
 
 subheader "[Homebrew] 舊版套件快取"
 if command -v brew &>/dev/null; then
-  BREW_CACHE=$(du -sh "$(brew --cache)" 2>/dev/null | cut -f1)
+  BREW_CACHE_DIR=$(brew --cache 2>/dev/null) || true
+  BREW_CACHE="0B"
+  [ -n "$BREW_CACHE_DIR" ] && [ -d "$BREW_CACHE_DIR" ] && BREW_CACHE=$(du -sh "$BREW_CACHE_DIR" 2>/dev/null | cut -f1) || true
   log "Homebrew 快取：\`${BREW_CACHE}\`"
   log "可執行 \`brew cleanup\` 清除舊版本"
 else
@@ -311,17 +328,69 @@ else
 fi
 
 subheader "[郵件 Mail] 附件與訊息快取"
-MAIL_SIZE=$(du -sh ~/Library/Mail 2>/dev/null | cut -f1)
+MAIL_SIZE="0B"
+[ -d ~/Library/Mail ] && MAIL_SIZE=$(du -sh ~/Library/Mail 2>/dev/null | cut -f1) || true
 log "Apple Mail 資料：\`${MAIL_SIZE}\`"
-MAIL_CACHE=$(du -sh ~/Library/Caches/com.apple.mail* 2>/dev/null | cut -f1)
+MAIL_CACHE="0B"
+# Use a glob check or silence errors
+(ls -d ~/Library/Caches/com.apple.mail* &>/dev/null) && MAIL_CACHE=$(du -sh ~/Library/Caches/com.apple.mail* 2>/dev/null | cut -f1) || true
 log "Mail 快取：\`${MAIL_CACHE}\`"
 
 subheader "[照片 Photos] 資料庫"
 run_cmd 'find ~ -name "*.photoslibrary" -maxdepth 5 2>/dev/null | xargs -I{} du -sh {} 2>/dev/null | sort -rh'
 
 subheader "[Spotlight 索引 & 臨時檔案]"
-SPOTLIGHT=$(du -sh /.Spotlight-V100 2>/dev/null | cut -f1)
+SPOTLIGHT="0B"
+[ -d /.Spotlight-V100 ] && SPOTLIGHT=$(du -sh /.Spotlight-V100 2>/dev/null | cut -f1) || true
 log "Spotlight 索引：\`${SPOTLIGHT}\`"
+
+subheader "[System Var] 系統變動目錄 \`/private/var\` 遞迴掃描 (>1GB 往下掃)"
+log "正在掃描 \`/private/var\` 下大於 1GB 的資料夾..."
+
+scan_var_large() {
+  local dir="$1"
+  local indent="$2"
+  local threshold_mb=1024
+
+  if [ -h "$dir" ]; then
+    return
+  fi
+  if [ ! -d "$dir" ]; then
+    return
+  fi
+
+  local children
+  children=$(set +o pipefail; du -m -d 1 "$dir" 2>/dev/null | sort -rn)
+  if [ -z "$children" ]; then
+    return
+  fi
+
+  echo "$children" | while IFS=$'\t' read -r size_mb path; do
+    if [ -z "$path" ]; then
+      continue
+    fi
+    if [ "$path" = "$dir" ]; then
+      continue
+    fi
+    
+    if [ "$size_mb" -ge "$threshold_mb" ]; then
+      local human
+      if [ "$size_mb" -ge 1024 ]; then
+        human=$(awk -v m="$size_mb" 'BEGIN { printf "%.1fGB", m/1024 }')
+      else
+        human="${size_mb}MB"
+      fi
+      
+      log "${indent}- 📂 \`$path\` — 合計 \`$human\`"
+      
+      if [ -d "$path" ] && [ ! -h "$path" ]; then
+        scan_var_large "$path" "${indent}  "
+      fi
+    fi
+  done
+}
+
+scan_var_large "/private/var" ""
 
 # ─────────────────────────────────────────
 header "7. 重複檔案偵測提示 (Duplicate File Hints)"

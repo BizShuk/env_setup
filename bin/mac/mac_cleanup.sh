@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # 環境變數入口 (Settings)
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="${HOME}/projects/env_setup/bin"
 # shellcheck source=../bash/settings.sh
-. "$SCRIPT_DIR/../bash/settings.sh"
+. "$SCRIPT_DIR/bash/settings.sh"
 
 confirm() {
     read -p "$1 [y/N]: " response
@@ -172,7 +172,38 @@ runtimeCache() {
     go clean -cache
     pip cache purge    
     if [ -d "$HOME/projects" ]; then
-        find "$HOME/projects" -name "node_modules" -type d -prune -exec rm -rf '{}' +
+        echo "=== node_modules 清理評估 ==="
+        local temp_file
+        temp_file=$(mktemp)
+        find "$HOME/projects" -name "node_modules" -type d -prune > "$temp_file"
+
+        local count=0
+        while IFS= read -r dir; do
+            if [ -n "$dir" ]; then
+                local size_str
+                size_str=$(du -sh "$dir" 2>/dev/null | cut -f1)
+                echo "  - $dir ($size_str)"
+                count=$((count + 1))
+            fi
+        done < "$temp_file"
+
+        if [ "$count" -gt 0 ]; then
+            echo "=============================="
+            if confirm "是否確認刪除上述共 $count 個 node_modules 目錄？"; then
+                while IFS= read -r dir; do
+                    if [ -n "$dir" ]; then
+                        rm -rf "$dir"
+                    fi
+                done < "$temp_file"
+                echo "node_modules 清理完成。"
+            else
+                echo "已取消 node_modules 清理。"
+            fi
+        else
+            echo "未找到任何 node_modules 目錄。"
+            echo "=============================="
+        fi
+        rm -f "$temp_file"
     fi
 
     rm -rf ~/.cache/uv/archive-v0/
