@@ -140,17 +140,17 @@
 
 ## 模組對應 (Module Mapping)
 
-| 業務領域 (Domain)                                  | 套件/模組 (Package/Module)                                            | 進入點 (Entry Point)                                                                                  |
-| -------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| 機器初始化與開發工具安裝 (Bootstrap & Tooling)     | `scripts/`, `bin/bash/settings.sh`                                    | `./scripts/mac.sh`, `./scripts/ubuntu.sh`, `./scripts/go.sh`                                          |
-| 使用者與 IDE 設定軟連結 (User Config & IDE Link)   | `run.sh`, `bin/bash/`, `bin/vscode/`                                  | `./run.sh` (含 `link_ide_config()` 函式)                                                              |
-| 硬體與系統狀態偵測 (Hardware & System Probe)       | `bin/system/`                                                         | `./bin/system/system_info`, `./bin/system/checkdisk`, `./bin/system/system_dump`                      |
-| macOS 系統稽核與清理 (macOS Audit & Cleanup)       | `bin/mac/`                                                            | `./bin/mac/mac_cleanup.sh`, `./bin/mac/disk_analysis-mac.sh`                                             |
-| 網路拓撲與設備掃描 (Network Topology & Scan)        | `bin/scan_private_network`, `bin/scan_target_network`, `bin/system/network_topology_scan.sh` | 對應入口直接執行 (規劃整合至 `bin/network/scan_network.sh`)               |
-| macOS 系統稽核與清理 (macOS Audit & Cleanup)       | `bin/mac/`                                                            | `./bin/mac/mac_cleanup.sh`, `./bin/mac/disk_analysis-mac.sh`                                             |
-| 網路拓撲與設備掃描 (Network Topology & Scan)        | `bin/network/scan_network.sh` (--mode=private\|target\|topology\|topology-no-scan), `bin/system/network_topology_scan.sh` | `./bin/network/scan_network.sh --mode=...`                                                  |
-| 開發者輔助工具 (Developer Helpers)                 | `bin/` 根目錄 + `bin/bash/.bash_aliases`                              | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                                              |
-| 觀測排程與稽核報告 (Observability Cron & Reports)   | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                      | `pm2 start ecosystem.config.js`                                                                       |
+| 業務領域 (Domain)                                 | 套件/模組 (Package/Module)                                                                                                | 進入點 (Entry Point)                                                             |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 機器初始化與開發工具安裝 (Bootstrap & Tooling)    | `scripts/`, `bin/bash/settings.sh`                                                                                        | `./scripts/mac.sh`, `./scripts/ubuntu.sh`, `./scripts/go.sh`                     |
+| 使用者與 IDE 設定軟連結 (User Config & IDE Link)  | `run.sh`, `bin/bash/`, `bin/vscode/`                                                                                      | `./run.sh` (含 `link_ide_config()` 函式)                                         |
+| 硬體與系統狀態偵測 (Hardware & System Probe)      | `bin/system/`                                                                                                             | `./bin/system/system_info`, `./bin/system/checkdisk`, `./bin/system/system_dump` |
+| macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `bin/mac/`                                                                                                                | `./bin/mac/mac_cleanup.sh`, `./bin/mac/disk_analysis-mac.sh`                     |
+| 網路拓撲與設備掃描 (Network Topology & Scan)      | `bin/scan_private_network`, `bin/scan_target_network`, `bin/system/network_topology_scan.sh`                              | 對應入口直接執行 (規劃整合至 `bin/network/scan_network.sh`)                      |
+| macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `bin/mac/`                                                                                                                | `./bin/mac/mac_cleanup.sh`, `./bin/mac/disk_analysis-mac.sh`                     |
+| 網路拓撲與設備掃描 (Network Topology & Scan)      | `bin/network/scan_network.sh` (--mode=private\|target\|topology\|topology-no-scan), `bin/system/network_topology_scan.sh` | `./bin/network/scan_network.sh --mode=...`                                       |
+| 開發者輔助工具 (Developer Helpers)                | `bin/` 根目錄 + `bin/bash/.bash_aliases`                                                                                  | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                        |
+| 觀測排程與稽核報告 (Observability Cron & Reports) | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                                                                          | `pm2 start ecosystem.config.js`                                                  |
 
 ## 開發指南 (Development Guide)
 
