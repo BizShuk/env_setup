@@ -66,6 +66,7 @@ declare -a SYMLINKS=(
     "${HOME}/.bash_plugin:${HOME}/projects/env_setup/tmp/.bash_plugin"
     "${HOME}/.colima:${HOME}/projects/env_setup/tmp/.colima"
     "${HOME}/.config:${HOME}/projects/env_setup/tmp/.config"
+    "${HOME}/.config/system:${HOME}/projects/env_setup/tmp/system"
     "${HOME}/.gemini:${HOME}/projects/env_setup/tmp/.gemini"
     "${HOME}/.screenrc:${HOME}/projects/env_setup/tmp/.screenrc"
     "${HOME}/.ssh:${HOME}/projects/env_setup/tmp/.ssh"
