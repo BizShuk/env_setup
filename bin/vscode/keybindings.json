@@ -124,32 +124,55 @@
         "when": "!sideBarFocus"
     },
     {
-        "key": "cmd+1",
-        "command": "workbench.action.focusSideBar",
-        "when": "!sideBarFocus"
+        "key": "cmd+b",
+        "command": "workbench.action.focusSideBar"
     },
     {
         "key": "cmd+1",
-        "command": "workbench.action.toggleSidebarVisibility",
-        "when": "sideBarFocus"
+        "command": "workbench.action.toggleEditorWidths"
     },
     {
         "key": "cmd+2",
-        "command": "workbench.action.focusActiveEditorGroup"
+        "command": "workbench.action.focusNextGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "cmd+2",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "!editorFocus"
     },
     {
         "key": "cmd+3",
-        "command": "workbench.action.focusPanel",
-        "when": "!panelFocus"
+        "command": "workbench.action.focusPanel"
+    },
+    {
+        "key": "cmd+3",
+        "command": "workbench.action.toggleMaximizedPanel",
+        "when": "panelVisible"
     },
     {
         "key": "cmd+3",
         "command": "workbench.action.togglePanel",
-        "when": "panelFocus"
+        "when": "!panelVisible"
+    },
+    {
+        "key": "cmd+2",
+        "command": "workbench.action.togglePanel",
+        "when": "panelVisible"
     },
     {
         "key": "cmd+4",
         "command": "workbench.action.toggleAuxiliaryBar"
+    },
+    {
+        "key": "cmd+5",
+        "command": "workbench.action.maximizeAuxiliaryBar",
+        "when": "auxiliaryBarVisible && !auxiliaryBarMaximized"
+    },
+    {
+        "key": "cmd+5",
+        "command": "workbench.action.restoreAuxiliaryBar",
+        "when": "auxiliaryBarVisible && auxiliaryBarMaximized"
     },
     {
         "key": "shift+cmd+alt+f",
@@ -242,23 +265,17 @@
     {
         "key": "ctrl+shift+c",
         "command": "vscode-containers.views.containers.focus",
-        "when":"!navigableContainerFocused"
+        "when": "!navigableContainerFocused"
     },
     {
         "key": "ctrl+shift+c",
         "command": "vscode-containers.views.containers.focus",
-        "when":"!navigableContainerFocused"
-    },
+        "when": "!navigableContainerFocused"
     },
     {
         "key": "ctrl+shift+c",
         "command": "superset.focusView",
-        "when":"navigableContainerFocused."
-    },
-    {
-        "key": "ctrl+alt+cmd+m",
-        "command": "workbench.action.toggleMaximizedPanel",
-        "when": "panelFocus"
+        "when": "navigableContainerFocused."
     },
     {
         "key": "cmd+e cmd+e",
@@ -531,7 +548,7 @@
                 // 2. 向右拆分區塊 (焦點轉移到右側，建立 Group 2)
                 "workbench.action.newGroupBelow",
                 // 3. 在 Group 2 建立 terminal 並執行 claudem
-                "workbench.action.createTerminalEditor"
+                "workbench.action.createTerminalEditor",
                 {
                     "command": "workbench.action.terminal.sendSequence",
                     "args": { "text": "claudem\n" }
@@ -652,14 +669,6 @@
         "when": "editorFocus || terminalEditorFocus"
     },
     {
-        "key": "shift+cmd+[",
-        "command": "workbench.action.toggleEditorWidths"
-    },
-    {
-        "key": "shift+cmd+]",
-        "command": "workbench.action.focusNextGroup"
-    },
-    {
         "key": "cmd+n",
         "command": "claude-vscode.newConversation",
         "when": "auxiliaryBarFocus && config.claudeCode.enableNewConversationShortcut && activeWebviewPanelId == 'claudeVSCodePanel' || claude-vscode.sideBarActive && config.claudeCode.enableNewConversationShortcut && !editorFocus && !panelFocus"
@@ -681,11 +690,11 @@
     },
     {
         "key": "cmd+shift+s",
-        "command": "superset.terminals.focus",
+        "command": "superset.terminals.focus"
     },
     {
         "key": "cmd+shift+r",
-        "command": "workbench.action.tasks.runTask",
+        "command": "workbench.action.tasks.runTask"
     },
     {
         "key": "cmd+l",
