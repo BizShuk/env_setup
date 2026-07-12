@@ -134,12 +134,12 @@
     {
         "key": "cmd+2",
         "command": "workbench.action.focusNextGroup",
-        "when": "editorFocus"
+        "when": "editorFocus || terminalEditorFocus || activeWebviewPanelId"
     },
     {
         "key": "cmd+2",
         "command": "workbench.action.focusActiveEditorGroup",
-        "when": "!editorFocus"
+        "when": "!editorFocus && !terminalEditorFocus && !activeWebviewPanelId"
     },
     {
         "key": "cmd+3",
