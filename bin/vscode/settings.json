@@ -96,7 +96,7 @@
     "editor.copyWithSyntaxHighlighting": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.find.seedSearchStringFromSelection": "selection",
-    "editor.fontSize": 12,
+    "editor.fontSize": 16,
     "editor.formatOnSave": true,
     "editor.inlineSuggest.edits.showCollapsed": true,
     "editor.inlineSuggest.enabled": true,
@@ -245,7 +245,7 @@
     },
     "editor.fontFamily": "SF Mono",
     // [terminal]
-    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontSize": 14,
     "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.copyOnSelection": true,
     // "terminal.integrated.tabs.title": "${process} ${task}",
