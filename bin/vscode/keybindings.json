@@ -128,6 +128,10 @@
         "command": "workbench.action.focusSideBar"
     },
     {
+        "key": "cmd+b",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
         "key": "cmd+1",
         "command": "workbench.action.toggleEditorWidths"
     },
