@@ -11,6 +11,11 @@
 ├── README.todo
 ├── run.sh                         # 唯一 symlink 入口 + IDE profile 套用
 ├── ecosystem.config.js            # pm2 cron + 常駐任務
+├── go.mod / go.sum                # macbackup Go module (module github.com/bizshuk/env_setup)
+├── main.go                        # macbackup 組合根 (composition root)
+├── build.sh                       # go build -> ~/.local/bin/macbackup
+├── cmd/backup/                    # macbackup 命令層 (CLI command list)
+├── svc/backup/                    # macbackup 服務層 (與 macOS defaults/plutil 互動 + 邏輯)
 ├── .geminiignore -> .gitignore
 ├── .gitmodules                    # 10 個 vim 插件 + libgit2
 ├── .vscode/                       # repo 自身 VSCode 設定
@@ -134,9 +139,9 @@
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。
 - **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 與常駐任務，namespace = `Local`；新增任務以 `./bin/<area>/<tool>` 全路徑註冊。
 - **macOS 稽核與硬體偵測分流**：`bin/mac/` 為 macOS 專屬 (`mac_cleanup.sh`、`*_audit-mac.sh`)；`bin/system/` 為跨平台硬體偵測 (`*_info`、`system_info`)。`bin/system/README.md` 目前標題錯置需修正。
-- **不引入 Go/Cobra 框架**：本 repo 為純 shell + python 工具集；不混用 binary CLI。
+- **原則上不引入 Go/Cobra 框架**：本 repo 以純 shell + python 工具集為主，不混用 binary CLI。唯一例外為 repo root 的 macbackup Go module(macOS 設定 backup/import 工具)：因需 gosdk config 慣例路徑 (`~/.config/env_setup/data/`) 與逐一 diff/確認的互動邏輯,以 Go 實作。採 `main.go`(root,組合根)+ `cmd/backup/`(命令層)+ `svc/backup/`(服務層,封裝 macOS `defaults`/`plutil` 互動)三層,不使用 cobra;由 `build.sh` 建置到 `~/.local/bin/macbackup`(git-ignored,不 commit binary)。
 - **macOS 稽核與硬體偵測分流**：`bin/mac/` 為 macOS 專屬 (`mac_cleanup.sh`、`*_audit-mac.sh`)；`bin/system/` 為跨平台硬體偵測 (`*_info`、`system_info`)。`bin/system/README.md` 目前標題錯置需修正。
-- **不引入 Go/Cobra 框架**：本 repo 為純 shell + python 工具集；不混用 binary CLI。
+- **原則上不引入 Go/Cobra 框架**：本 repo 以純 shell + python 工具集為主，不混用 binary CLI。唯一例外為 repo root 的 macbackup Go module(macOS 設定 backup/import 工具)：因需 gosdk config 慣例路徑 (`~/.config/env_setup/data/`) 與逐一 diff/確認的互動邏輯,以 Go 實作。採 `main.go`(root,組合根)+ `cmd/backup/`(命令層)+ `svc/backup/`(服務層,封裝 macOS `defaults`/`plutil` 互動)三層,不使用 cobra;由 `build.sh` 建置到 `~/.local/bin/macbackup`(git-ignored,不 commit binary)。
 
 ## 模組對應 (Module Mapping)
 

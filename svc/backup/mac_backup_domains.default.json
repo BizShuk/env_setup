@@ -1,0 +1,11 @@
+[
+  { "domain": "com.apple.dock",                                    "note": "Dock 位置、大小、magnification、自動隱藏" },
+  { "domain": "com.apple.finder",                                  "note": "Finder 檢視、副檔名、路徑列、搜尋範圍" },
+  { "domain": "com.apple.symbolichotkeys",                         "note": "系統快捷鍵 (Spotlight / 截圖 / Mission Control)" },
+  { "domain": "com.apple.screencapture",                           "note": "截圖格式、儲存位置、陰影" },
+  { "domain": "com.apple.menuextra.clock",                         "note": "選單列時鐘格式" },
+  { "domain": "com.apple.controlcenter",                           "note": "控制中心 / 選單列項目顯示" },
+  { "domain": "com.apple.AppleMultitouchTrackpad",                 "note": "內建觸控板手勢與敲擊" },
+  { "domain": "com.apple.driver.AppleBluetoothMultitouch.trackpad","note": "藍牙觸控板手勢與敲擊" },
+  { "domain": "NSGlobalDomain",                                    "note": "全域偏好 (鍵盤重複、捲動、tap-to-click、App 快捷鍵)" }
+]

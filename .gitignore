@@ -318,3 +318,12 @@ settings.private.sh
 .claude/skills/workflow-builder/SKILL.md
 bin/bash/.npmrc
 .codegraphy/*
+
+# macbackup: repo root `go build .` 產生的 binary (build.sh 實際安裝到 ~/.local/bin)
+/env_setup
+
+# 全域 ~/.gitignore 的 `backup/` 會誤傷這兩個 Go package 目錄,於此 repo 取消忽略
+!/svc/backup/
+!/cmd/backup/
+
+
