@@ -1,11 +1,23 @@
 #!/bin/bash
 
-source ~/settings.sh
+# bin/ssh_keygen — 產生預設 SSH key (id_rsa or id_ed25519)
+#
+# email 來源: `git config --global user.email` (Phase 7.2 closure)
+# fallback: `noreply@local` (避免空字串造成 ssh-keygen -C "" 損壞註解)
+#
+# 路徑: 透過相對 source 取 settings.sh 共用變數 (Phase 7.2 closure)
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=settings.sh disable=SC1091
+. "$SCRIPT_DIR/settings.sh"
+
+USER_EMAIL="$(git config --global user.email 2>/dev/null || true)"
+[ -z "$USER_EMAIL" ] && USER_EMAIL="noreply@local"
 
 if [ -f "${INSTALL_DIR}/.ssh/id_rsa.pub" ]; then
     echo "SSH key already exists. Skipping key generation."
 else
-    ssh-keygen -t rsa -b 4096 -C "${email}" -f "${INSTALL_DIR}/.ssh/id_rsa"
+    ssh-keygen -t rsa -b 4096 -C "${USER_EMAIL}" -f "${INSTALL_DIR}/.ssh/id_rsa"
 fi
 
 

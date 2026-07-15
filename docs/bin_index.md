@@ -45,10 +45,11 @@
 | `myip`                          | 查詢本機對外 IP                                                |
 | `checkdisk`                     | 磁碟使用率                                                     |
 | `list_big_files.sh`             | 大檔掃描                                                       |
-| `network_topology_scan.sh`      | traceroute + nmap 拓樸掃描                                     |
 | `brew_bundle_dump`              | 匯出 Brewfile                                                  |
-| `system_performance.sh`       | 性能檢測 cheatsheet                                            |
+| `uninstall_codex.sh`            | 反安裝 Codex CLI（清理 PATH / config / cache）                |
 | `config/`                       | pf 防火牆樣板                                                  |
+
+> Phase 7.1 刪除：`network_topology_scan.sh`（dead path, 已由 `bin/network/scan_network.sh` dispatcher 取代, 見 §6）
 
 ## 4. `bin/vscode/` — IDE Profile
 
@@ -80,28 +81,40 @@
 | `backup` / `backupSync`       | 備份              | 備份單檔 / 同步備份                                              |
 | `network/scan_network.sh`     | 網路掃描          | 統一入口, --mode=private\|target\|topology\|topology-no-scan      |
 | `ssoLogin.sh` / `ssoLogin_faas.sh` | 登入          | SSO / FaaS 登入                                                |
-| `claudew` / `claudem`         | Claude CLI 包裝 | 帶 ANTHROPIC_AUTH_TOKEN 啟動 claude (llmbox / minimax profile) |
-| `goswitch`                    | Go 版本切換       | 切換 Go toolchain                                               |
-| `bytedance_setup.sh`          | ⚠️ 含明文密碼      | 預計刪除, 敏感值改讀 `~/.config/env_setup/settings.private.sh` |
+| `claudew` / `claudem`         | Claude CLI 包裝 | alias 已升格為實體腳本（commit `38e3556`），引用 `~/.bash_local` 之 token env var；為唯一入口 |
 | `ssh_config` / `sshd_config`  | SSH               | ssh client / server 設定                                        |
-| `ssh_keygen` / `ssh_key_compare` | SSH            | 產生 / 比對 ssh key                                            |
+| `ssh_keygen` / `ssh_key_compare` | SSH            | 產生 / 比對 ssh key（Phase 7.2 `ssh_keygen` 改用 `git config --global user.email` + fallback `noreply@local`） |
 | `ssh.md`                      | 文件             | 個人 notes                                                      |
 | `strip-docker-image-README.md` | 文件             | docker image README 模板                                        |
-| `devcontainer`                | devcontainer      | dev container 設定                                              |
-| `git-secret`                  | ⚠️ vendored       | 52KB / 2082 行, 規劃改用 `brew install git-secret`              |
-| `go`                          | symlink           | → `~/.local/go1.26.3.darwin-arm64/bin/go` (Go toolchain)         |
-| `mac` / `system` / `vscode`   | 目錄              | 對應子目錄 (見 §1–§4)                                            |
-| `mac_extension_list.sh`          | 來源檔            | 位於 `bin/mac/`, 在根層無副本                                    |
-| `system_link`                 | symlink (broken)  | → `bin/system/system_link` (目標不存在, 與 `run.sh` 整併)       |
-| `system_performance.sh`       | symlink (broken)  | → `bin/system/system_performance.sh` (目標不存在, 待修)         |
-| `raspi-config`                | symlink (broken)  | → `bin/system/raspi-config` (目標不存在, 待移除)                |
-| `system_service`              | symlink (broken)  | → `bin/system/system_service` (目標不存在, 待移除)              |
-| `devcontainer`                | symlink (broken)  | → 外部 `~/Library/Application Support/Code/User/...` (外部路徑) |
-| `disk_analysis-mac.sh` / `launch_audit-mac.sh` / `login_audit-mac.sh` / `network_security_audit-mac.sh` | symlink | → `bin/mac/<tool>` 根層便捷入口               |
-| `list_big_files.sh` / `network_topology_scan.sh` | symlink | → `bin/system/<tool>.sh` 根層便捷入口                          |
-| `settings.sh`                 | symlink           | → `bin/bash/settings.sh`                                        |
-| `system_info` / `system_dump` | symlink           | → `bin/system/<tool>`                                           |
-| `file_encoding.sample.csv`    | 樣本              | 編碼偵測範例                                                    |
+| `devcontainer`                | devcontainer      | → 外部 `~/Library/Application Support/Code/User/...` (外部路徑) |
+| `mac` / `system` / `vscode` / `network` / `bash` / `bin` / `utils` | 目錄 | 對應子目錄（見 §1–§4 + §6 Go wrapper） |
+| `mac_cleanup.sh` / `mac_extension_list.sh` / `mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh` | symlink | → `bin/mac/<tool>` 根層便捷入口 |
+| `disk_analysis-mac.sh` / `launch_audit-mac.sh` / `login_audit-mac.sh` / `network_security_audit-mac.sh` | symlink | → `bin/mac/<tool>` 根層便捷入口 |
+| `list_big_files.sh` / `system_dump` / `system_info` / `checkdisk` / `brew_bundle_dump` | symlink | → `bin/system/<tool>` 根層便捷入口 |
+| `agy-ide_extension_dump` / `agy-ide_extension_install` / `vscode_extension_dump` | symlink | → `bin/vscode/<tool>` 根層便捷入口 |
+| `backupSync`                  | symlink 相容        | → `bin/backup` 舊名相容, 規劃 git rm                              |
+| `_lib_audit.sh`               | symlink             | → `bin/mac/_lib_audit.sh` (Phase 4.2 helper, 4 個 audit script source) |
+| `settings.sh`                 | symlink             | → `bin/bash/settings.sh`                                          |
+| `file_encoding.sample.csv`    | 樣本                | 編碼偵測範例                                                      |
+
+### 5.1 Go toolchain 鎖版 (Phase 7.7)
+
+> `bin/bin/` 與 `bin/utils/` 為 Go 版本鎖版 wrapper, 透過 symlink 鏈固定到 `~/.local/go1.26.3.darwin-arm64/bin/go`, 避免系統 Go 切換造成專案編譯錯亂。
+
+| 路徑 | 內容 |
+| --- | --- |
+| `bin/bin/go` | symlink → `../utils/go` |
+| `bin/utils/go` | symlink → `/Users/shuk/.local/go1.26.3.darwin-arm64/bin/go` |
+
+> Phase 7 已刪 dead reference：`goswitch`, `bytedance_setup.sh`, `git-secret`, `system_link`, `system_performance.sh`, `raspi-config`, `system_service`, `network_topology_scan.sh`。
+
+## 6. `bin/network/` — 統一網路掃描入口 (Phase 4.3 closure)
+
+| 項目                  | 說明                                                       |
+| --------------------- | ---------------------------------------------------------- |
+| `scan_network.sh`     | 統一 dispatcher, `--mode=private\|target\|topology\|topology-no-scan` |
+
+> Phase 7.1: 已刪除舊 `bin/scan_private_network`, `bin/scan_target_network`, `bin/scan_devices`, `bin/system/network_topology_scan.sh`, `bin/network_topology_scan.sh`。新入口為 `bin/network/scan_network.sh`。
 
 ## 加入流程 (Add New Tool)
 
