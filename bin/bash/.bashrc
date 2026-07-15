@@ -150,6 +150,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 # Bash config
+[ -f ~/.env.profile ] && source "${HOME}/.env.profile"     # Personal identity (git-ignored)
 [ ! -f ~/.bash_local ] && touch ~/.bash_local
 [ -f ~/.bash_local ] && source "${HOME}/.bash_local"       # Local config
 
