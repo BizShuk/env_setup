@@ -334,10 +334,10 @@ env_setup/
 > 已於 2026-07-15 落地。
 
 - [x] Step 7.1：刪除 `bin/network_topology_scan.sh`（root symlink）與 `bin/system/network_topology_scan.sh`（source via `git rm`）；dispatcher `bin/network/scan_network.sh --mode=topology` 為唯一入口
-- [x] Step 7.2：`bin/ssh_keygen` 改讀 `$(git config --global user.email 2>/dev/null || echo "noreply@local")`；fallback 為 `noreply@local` 而非空字串（同步修 `source ~/settings.sh` 為相對路徑）
-- [x] Step 7.3：`bin/bash/.gitconfig` 移除 `email = biz.shuk@gmail.com` 行；改為註解指示 `git config --global user.email "<your-email>"`
+- [x] Step 7.2 — ROLLED BACK 2026-07-15：`bin/ssh_keygen` 原改讀 `git config --global user.email` + fallback `noreply@local`；改為直接 hardcode `biz.shuk@gmail.com`（使用者 2026-07-15 決定: `.gitconfig` 與本檔視為個人層級, tracked repo 可含個人 email；與 Phase 2 預設 sanitize 方向相反）；保留 `. "$SCRIPT_DIR/settings.sh"` 路徑修正為獨立 bug fix
+- [x] Step 7.3 — ROLLED BACK 2026-07-15：`bin/bash/.gitconfig` 移除 `email = biz.shuk@gmail.com` → 復原（使用者 2026-07-15 決定: `.gitconfig` 視為個人層級, tracked repo 可含個人 email）
 - [x] Step 7.4：commit `.gitignore` 與 `bin/vscode/settings.json` 既有 staged 修改 + 3 個 `plans/` 內舊 plan 的 staged deletion
-- [x] Step 7.5：將 `pkg/mac/README.backup.md` 復原為 `pkg/mac/README.md`（`pkg/mac/` 內已無正式 README, backup 為 canonical 內容, 內容為 table column alignment 微調）
+- [x] Step 7.5 — REVISED 2026-07-15：將 `pkg/mac/README.backup.md` 復原為 `pkg/mac/README.md` → 改拆: `pkg/mac/README.md` 為目錄簡介（reference 風格, 約 1.5KB），59KB checklist 內容移至 `specs/2026-07-15-macos-backup-checklist.md`；理由: 單一龐大檢查表不應與目錄簡介混於同一檔
 - [x] Step 7.6：WebFetch 驗證 `pkg/ctags-5.8/` submodule URL (https://git.code.sf.net/p/ctags/code) → 404；從 `.gitmodules` 移除該條目；`scripts/ctags_setup.sh` 已 brew fallback, 不影響日常使用
 - [x] Step 7.7：`docs/bin_index.md` 與 `bin/README.md` 補 `bin/bin/` + `bin/utils/` Go wrapper 索引；移除 `network_topology_scan.sh`, `system_link`, `system_performance.sh`, `raspi-config`, `system_service`, `goswitch`, `bytedance_setup.sh`, `git-secret` 等已刪 dead 條目
 - [x] Step 7.8：套用 §7 patch A-F 至本 plan（已 by 本次 edit 完成）
@@ -345,7 +345,7 @@ env_setup/
 ### Phase 8 — 第 7 輪 audit (re-revision) [2026-07-15 新增]
 
 - [ ] Step 8.1：完整執行 `bin/system/system_info`, `bin/mac/*_audit-mac.sh`, `bin/network/scan_network.sh --mode=topology-no-scan` 三類入口, 確認 Phase 4-7 修改未引入回歸
-- [ ] Step 8.2：`git grep -nE 'biz\.shuk|gmail\.com|TIKTOK_API_KEY=[^$]'` 確認無明文個資殘留（排除 `archive/`, `README.todo`, `.bash_aliases` 中的 env var 引用）
+- [ ] Step 8.2：`git grep -nE 'biz\.shuk|gmail\.com'` 確認 tracked 個資僅在明確標示為「個人層級」之檔案（`bin/bash/.gitconfig`, `bin/ssh_keygen`, `bin/bash/.bash_aliases` 中的 alias 形式）；其餘位置應為空（Phase 7.2/7.3 rollback 後, 此 grep 預期會在上述兩檔 hit, 不視為 regression）
 - [ ] Step 8.3：`bin/bash/.gitconfig` 改動後, 重新 `git config --local include.path ../path/to/.gitconfig` 驗本地 `.git/config` 仍能 parse
 
 ## 6. 測試策略 (Verification Plan)
@@ -383,8 +383,8 @@ env_setup/
 - Q4: `claude/claudew*` 個人 alias 改放 `~/.bash_local` 個人層級？
 - Q5: `bin/scan_target_network` 是否仍使用？若否, 與 `scan_private_network` 一併整合
 - Q6: `skills/bytedance/`, `skills/gdpa/` 是否有人維護？若否, 直接刪除
-- Q7: `bin/ssh_keygen:8` 之 `${email}` 在 `settings.sh` 不再 export 後, 現行為空字串。是否改讀 `git config user.email` 或 fallback 到 `noreply@local`？（Phase 7.2 已採用 git config + fallback 方案）
-- Q8: `pkg/mac/README.backup.md` 是否應復原為 `pkg/mac/README.md`, 或歸入 `archive/`？（Phase 7.5 已復原為 `pkg/mac/README.md`）
+- Q7: `bin/ssh_keygen:8` 之 `${email}` 在 `settings.sh` 不再 export 後, 現行為空字串。是否改讀 `git config user.email` 或 fallback 到 `noreply@local`？（Phase 7.2 ROLLED BACK 2026-07-15; 改為 hardcode `biz.shuk@gmail.com`, 使用者決定 tracked 可含個人 email）
+- Q8: `pkg/mac/README.backup.md` 是否應復原為 `pkg/mac/README.md`, 或歸入 `archive/`？（Phase 7.5 REVISED 2026-07-15; 不直接復原為 `pkg/mac/README.md`, 改拆: `pkg/mac/README.md` 為目錄簡介 + `specs/2026-07-15-macos-backup-checklist.md` 為 59KB checklist）
 - Q9: `pkg/ctags-5.8/` submodule URL (https://git.code.sf.net/p/ctags/code) 是否仍活著? 若否應從 `.gitmodules` 移除？（Phase 7.6 已 WebFetch 確認 404, 從 `.gitmodules` 移除條目, scripts 仍 brew fallback）
 - Q10: 3 個 `plans/` 內 old plan 與 `pkg/mac/README.backup.md` 修改是否同 commit？（Phase 7.4 採分批, plans 與工作樹殘留歸最後 commit）
 

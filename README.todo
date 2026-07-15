@@ -81,11 +81,11 @@
     - `plans/2026-05-22-*.md`, `plans/2026-05-24-*.md` 標 `## ARCHIVED`
     - 修正 `bin/system/README.md` 標題與內容
 
-- [x] Phase 7 — 閉環 (closure) @2026-07-15_11:00:00 @Completed @<structural-cleanup>
+- [x] Phase 7 — 閉環 (closure) @2026-07-15_12:30:00 @Completed @<structural-cleanup>
     - 刪除 `bin/network_topology_scan.sh` (root symlink) 與 `bin/system/network_topology_scan.sh` (source via `git rm`)；dispatcher 為唯一入口
-    - `bin/ssh_keygen` 改讀 `git config --global user.email` + fallback `noreply@local`；同步修 `source ~/settings.sh` 為相對路徑
-    - `bin/bash/.gitconfig` 移除 `email = biz.shuk@gmail.com` 行；改為註解指示 global config
-    - 將 `pkg/mac/README.backup.md` 復原為 `pkg/mac/README.md`
+    - `bin/ssh_keygen` Phase 7.2 ROLLED BACK 2026-07-15 → hardcode `biz.shuk@gmail.com`；保留 `. "$SCRIPT_DIR/settings.sh"` 路徑修正為獨立 bug fix
+    - `bin/bash/.gitconfig` Phase 7.3 ROLLED BACK 2026-07-15 → 復原 `email = biz.shuk@gmail.com`（使用者決定: `.gitconfig` 為個人層級, tracked repo 可含個人 email）
+    - `pkg/mac/README.md` Phase 7.5 REVISED 2026-07-15 → 拆分: 目錄簡介 (`pkg/mac/README.md`, 約 1.5KB) + reference `specs/2026-07-15-macos-backup-checklist.md` (59KB checklist)
     - 從 `.gitmodules` 移除 `pkg/ctags-5.8/` (URL 404, scripts 仍 brew fallback)
     - `docs/bin_index.md` 補 `bin/bin/` + `bin/utils/` Go wrapper 索引；移除 dead reference
     - 對應 audit: `plans/2026-07-15-env-setup-plan-revision.md`

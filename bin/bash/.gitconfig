@@ -2,8 +2,7 @@
 	defaultbranch = master
 [user]
 	name = shuk.liu
-	# Phase 7.3: email 移至個人層級 (`git config --global user.email "<your-email>"`)
-	# 此檔追蹤的 .gitconfig 不再 commit 真實 email；保留 `name` 與 `signingkey` 作為共同基礎。
+	email = biz.shuk@gmail.com
 	signingkey = ~/.ssh/id_ed25519.pub
 [merge]
 	log = 25
@@ -51,14 +50,6 @@
 
 [pull]
 	rebase = true
-[url "gitr"]
-    insteadOf = git://git.byted.org/
-[credential "https://code.byted.org"]
-    username = shuk.liu
-[url "ssh://shuk.liu@git.byted.org:29418"]
-    insteadOf = https://git.byted.org
-[url "git@code.byted.org:"]
-    insteadOf = https://code.byted.org/
 [safe]
 	directory = *
 [gpg]
