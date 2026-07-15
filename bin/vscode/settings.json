@@ -78,7 +78,7 @@
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*,${capture}*.tmpl,${capture}.csv",
         "*.md": "${capture}*.md",
         "*.sh": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,crontab.*,dashboard*,ecosystem.config.js,.markdownlint*,local.sql,README.todo",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,*.code-workspace,crontab.*,dashboard*,ecosystem.config.js,.markdownlint*,local.sql,README.todo",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",

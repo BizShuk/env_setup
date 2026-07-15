@@ -317,3 +317,4 @@ settings.private.sh
 .claude/skills/workflow-builder/generation-templates.md
 .claude/skills/workflow-builder/SKILL.md
 bin/bash/.npmrc
+.codegraphy/*

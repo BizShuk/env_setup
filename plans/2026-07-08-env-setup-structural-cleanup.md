@@ -187,7 +187,7 @@ env_setup/
 - `bin/system/system_service` (一行 dead code)
 - `bin/bytedance_setup.sh` (含明文密碼 + merge conflict markers)
 - `bin/goswitch` (broken symlink target + 硬編 `~/settings.sh`)
-- `bin/claudew` (個人 alias, 與 `bin/bash/.bash_aliases:126` 重複)
+- `bin/claudew` (alias 已從 `.bash_aliases` 升格為實體腳本, commit `38e3556` 為「migrate」語意, **保留為 canonical 入口** — Step 4.5 原述「刪除」應改為「保留」)
 - `mac/`, `grafana/`, `inf/`, `log/app/`, `log/rpc/`, `openclaw/yuna/` (空目錄)
 - `skills/bytedance/`, `skills/gdpa/` (空 stubs)
 
@@ -207,7 +207,7 @@ env_setup/
 #### 4.3.4 安全化 (sanitize)
 
 - `bin/bash/settings.sh` 移除 `passwd`, `email`；改從 `~/.config/env_setup/settings.private.sh` 讀取 (`source` 帶 `[ -f ... ] &&` 守衛)
-- `bin/bash/.bashrc`, `bin/bash/.bash_aliases`, `bin/bash/.bash_function` 內個人化片段 (`claudew*`, `codexm`) 改以 `source ~/.bash_local` 包裝；具體值留個人層級
+- （與 Step 2.5 CANCELLED 同步）`bin/bash/.bashrc`, `bin/bash/.bash_aliases`, `bin/bash/.bash_function` 內個人化片段不再改 `~/.bash_local` 包裝；敏感值改由 `~/.config/env_setup/settings.private.sh` 提供, alias 本身留 `.bash_aliases` 引用 env var（見 §11.1 Step 2.5 決議）
 - `.gitignore` 加入 `settings.private.sh`, `.bash_local`, `*.bak`, `log/`, `tmp/`, `**/.DS_Store`
 
 #### 4.3.5 文件對齊 (doc sync)
@@ -327,6 +327,27 @@ env_setup/
 - [ ] Step 6.6：`git grep -n 'cmd/'` 與 `git grep -n 'project_setup'` 確認無殘留
 - [ ] Step 6.7：`git grep -n 'smain'` 確認無殘留
 
+### Phase 7 — 閉環 (closure) [2026-07-15 新增]
+
+> 觸發: Phase 1-6 落後 audit 發現 4-5 個真實 pending items + 2 處 plan 內部矛盾。
+> 對應 `plans/2026-07-15-env-setup-plan-revision.md`。
+> 已於 2026-07-15 落地。
+
+- [x] Step 7.1：刪除 `bin/network_topology_scan.sh`（root symlink）與 `bin/system/network_topology_scan.sh`（source via `git rm`）；dispatcher `bin/network/scan_network.sh --mode=topology` 為唯一入口
+- [x] Step 7.2：`bin/ssh_keygen` 改讀 `$(git config --global user.email 2>/dev/null || echo "noreply@local")`；fallback 為 `noreply@local` 而非空字串（同步修 `source ~/settings.sh` 為相對路徑）
+- [x] Step 7.3：`bin/bash/.gitconfig` 移除 `email = biz.shuk@gmail.com` 行；改為註解指示 `git config --global user.email "<your-email>"`
+- [x] Step 7.4：commit `.gitignore` 與 `bin/vscode/settings.json` 既有 staged 修改 + 3 個 `plans/` 內舊 plan 的 staged deletion
+- [x] Step 7.5：將 `pkg/mac/README.backup.md` 復原為 `pkg/mac/README.md`（`pkg/mac/` 內已無正式 README, backup 為 canonical 內容, 內容為 table column alignment 微調）
+- [x] Step 7.6：WebFetch 驗證 `pkg/ctags-5.8/` submodule URL (https://git.code.sf.net/p/ctags/code) → 404；從 `.gitmodules` 移除該條目；`scripts/ctags_setup.sh` 已 brew fallback, 不影響日常使用
+- [x] Step 7.7：`docs/bin_index.md` 與 `bin/README.md` 補 `bin/bin/` + `bin/utils/` Go wrapper 索引；移除 `network_topology_scan.sh`, `system_link`, `system_performance.sh`, `raspi-config`, `system_service`, `goswitch`, `bytedance_setup.sh`, `git-secret` 等已刪 dead 條目
+- [x] Step 7.8：套用 §7 patch A-F 至本 plan（已 by 本次 edit 完成）
+
+### Phase 8 — 第 7 輪 audit (re-revision) [2026-07-15 新增]
+
+- [ ] Step 8.1：完整執行 `bin/system/system_info`, `bin/mac/*_audit-mac.sh`, `bin/network/scan_network.sh --mode=topology-no-scan` 三類入口, 確認 Phase 4-7 修改未引入回歸
+- [ ] Step 8.2：`git grep -nE 'biz\.shuk|gmail\.com|TIKTOK_API_KEY=[^$]'` 確認無明文個資殘留（排除 `archive/`, `README.todo`, `.bash_aliases` 中的 env var 引用）
+- [ ] Step 8.3：`bin/bash/.gitconfig` 改動後, 重新 `git config --local include.path ../path/to/.gitconfig` 驗本地 `.git/config` 仍能 parse
+
 ## 6. 測試策略 (Verification Plan)
 
 | 層級 | 工具 / 動作 | 期望 |
@@ -362,6 +383,10 @@ env_setup/
 - Q4: `claude/claudew*` 個人 alias 改放 `~/.bash_local` 個人層級？
 - Q5: `bin/scan_target_network` 是否仍使用？若否, 與 `scan_private_network` 一併整合
 - Q6: `skills/bytedance/`, `skills/gdpa/` 是否有人維護？若否, 直接刪除
+- Q7: `bin/ssh_keygen:8` 之 `${email}` 在 `settings.sh` 不再 export 後, 現行為空字串。是否改讀 `git config user.email` 或 fallback 到 `noreply@local`？（Phase 7.2 已採用 git config + fallback 方案）
+- Q8: `pkg/mac/README.backup.md` 是否應復原為 `pkg/mac/README.md`, 或歸入 `archive/`？（Phase 7.5 已復原為 `pkg/mac/README.md`）
+- Q9: `pkg/ctags-5.8/` submodule URL (https://git.code.sf.net/p/ctags/code) 是否仍活著? 若否應從 `.gitmodules` 移除？（Phase 7.6 已 WebFetch 確認 404, 從 `.gitmodules` 移除條目, scripts 仍 brew fallback）
+- Q10: 3 個 `plans/` 內 old plan 與 `pkg/mac/README.backup.md` 修改是否同 commit？（Phase 7.4 採分批, plans 與工作樹殘留歸最後 commit）
 
 ## 10. 引用 (References)
 
@@ -385,11 +410,14 @@ env_setup/
 | 2.5 | 個人 alias → `~/.bash_local` | **CANCELLED**；效益低，隱私由 `settings.private.sh` 機制承載（Step 2.1） |
 | 3.3 | 刪除 dead system files | `system_performance.sh`（cheatsheet）、`raspi-config`、`system_service` 直接 `rm`；`cmd_usage.md:186` 之 reference 變 stale（不影響執行） |
 | 3.4 | 移除 `tmp/doas-install.sh` | 直接 `rm`，**未**走 `archive/`（`archive/` 尚未建立） |
-| 3.5 | 搬移 `pkg/linux/*.md` | 7 份 markdown 落入 `pkg/linux/notes/`（**非**初版之 `docs/notes/`） |
+| 3.5 | 搬移 `pkg/linux/*.md` | 7 份 markdown → `docs/notes/ubuntu_note_*.md`；`pkg/linux/` 不再生 `notes/` 子目錄（`§11.2` 對應條目為最終落地描述） |
 | 3.7 | 移除空目錄 | 額外清掉 `bin/bit/`、`skills/`（含 bytedance, gdpa）、`.claude/skills/lark_docs/`、`openclaw/`（父目錄）；保留 `vim/bundle/*` 9 個 submodules |
 | 3.8 | 移除 `skills/{bytedance,gdpa}` | **已被 Step 3.7 涵蓋**（`skills/` 整個連同子目錄一起刪除） |
 | 4.1 | 合併 `system_link` → `run.sh` | 目標路徑為 `./tmp/`（**非**初版之 `./config/`）；claude/ 死路徑全移除；Antigravity 採 `Antigravity IDE/User` |
 | 4.4 | 修 `system_info:8` `BASE_DIR` bug | `$(dirname "$0")/system` → `$(dirname "$0")`；10 個 sub-tool 全部輸出驗證 |
+| 4.0a | ctags submodule URL 驗證 | `.gitmodules` 條目於 commit `7799639` 設定；`scripts/ctags_setup.sh` 已 brew fallback；本地 `pkg/ctags-5.8/` 未初始化（Phase 7.6 確認 URL dead 後從 `.gitmodules` 移除） |
+| 4.0b | `bin/bin/` + `bin/utils/` Go wrapper | `bin/bin/go -> ../utils/go -> ~/.local/go1.26.3.darwin-arm64/bin/go`；繞過系統 Go 切換；Phase 7.7 補入 `bin/README.md` 與 `docs/bin_index.md` |
+| 4.0c | `bin/claudew` / `bin/claudem` migrate | commit `38e3556` 將 `alias claudew=` 從 `.bash_aliases` 移至 `bin/claudew` 實體腳本；`bin/claudem` 同；**保留為唯一入口**（覆蓋原 Step 4.5「刪除」描述） |
 
 ### 11.2 與初版規格之主要分歧 (drift)
 
