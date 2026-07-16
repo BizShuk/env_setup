@@ -133,7 +133,7 @@ alias claude="claude --allow-dangerously-skip-permissions --settings ~/projects/
 # 基礎 claudew / claudem 已提升為 bin/claudew 與 bin/claudem 實體 script file (取代 alias 以避免 alias 限制)。
 # 範本 (snippet) 可參考 docs/notes/bash-local-aliases.md。
 alias codexm='codex --profile m3'
-alias claudex='claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/codex.json'
+alias claudex='ANTHROPIC_AUTH_TOKEN=$AGENTSDK_PROXY_API_KEY claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/codex.json'
 alias claudeg='claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/grok.json'
 
 

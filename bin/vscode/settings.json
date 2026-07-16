@@ -96,7 +96,7 @@
     "editor.copyWithSyntaxHighlighting": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.find.seedSearchStringFromSelection": "selection",
-    "editor.fontSize": 16,
+    "editor.fontSize": 12,
     "editor.formatOnSave": true,
     "editor.inlineSuggest.edits.showCollapsed": true,
     "editor.inlineSuggest.enabled": true,
@@ -196,7 +196,7 @@
     // "search.smartCase": true,
     // [Debug]
     "debug.toolBarLocation": "floating",
-    "debug.console.fontSize": 14,
+    "debug.console.fontSize": 8,
     "launch": {
         "version": "0.2.0",
         "configurations": [
@@ -245,7 +245,7 @@
     },
     "editor.fontFamily": "SF Mono",
     // [terminal]
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.copyOnSelection": true,
     // "terminal.integrated.tabs.title": "${process} ${task}",
@@ -714,7 +714,7 @@
     "python.createEnvironment.trigger": "off",
     "security.promptForLocalFileProtocolHandling": false,
     "vscodeMarkdownNotes.workspaceFilenameConvention": "relativePaths",
-    "markdown.preview.fontSize": 18,
+    "markdown.preview.fontSize": 16,
     "githubIssues.ignoreMilestones": [],
     "githubPullRequests.pullBranch": "never",
     "task.allowAutomaticTasks": "on",
