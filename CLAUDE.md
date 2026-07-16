@@ -31,6 +31,7 @@
 │   │   └── shell_script_sample.sh
 │   ├── mac/                       # macOS 專用工具
 │   │   ├── mac_cleanup
+│   │   ├── mac_static_ip.sh       # 固定 IPv4 / 顯示狀態 / 還原 DHCP
 │   │   ├── disk_analysis-mac.sh / launch_audit-mac.sh
 │   │   ├── login_audit-mac.sh / network_security_audit-mac.sh
 │   │   ├── mac_keyboard_shortcuts_dump.sh / mac_keyboard_shortcuts_restore.sh

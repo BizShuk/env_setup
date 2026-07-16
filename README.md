@@ -170,13 +170,22 @@ flowchart TD
 ./bin/network/scan_network.sh --mode=topology
 ```
 
-### 6. 開發者 helper
+### 6. macOS 固定區域網路 IP
+```bash
+./bin/mac/mac_static_ip.sh status
+./bin/mac/mac_static_ip.sh set 192.168.1.100 255.255.255.0 192.168.1.1 1.1.1.1 8.8.8.8
+./bin/mac/mac_static_ip.sh dhcp Wi-Fi
+```
+
+優先在路由器設定 DHCP reservation，避免固定 IP 與 DHCP pool 內其他裝置衝突。
+
+### 7. 開發者 helper
 ```bash
 ./bin/json < bin/system/config/some.json
 ./bin/listen_port 8080
 ```
 
-### 7. 啟動排程
+### 8. 啟動排程
 ```bash
 pm2 start ecosystem.config.js
 ```
