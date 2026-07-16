@@ -156,7 +156,7 @@
         "{**/.agents}": true,
         "{**/.geminiignore,**/.claudeignore}": true,
         // 測試與非必要文件 (Tests & Documentation)
-        "{**/*_test.go,go.sum}": true
+        "{**/*_test.go,**/*.test.ts,go.sum}": true
     },
     "files.watcherExclude": {
         // 依賴與快取 (Dependencies & Caches)
