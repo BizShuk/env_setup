@@ -248,6 +248,7 @@
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.tabs.enabled": true,
     // "terminal.integrated.tabs.title": "${process} ${task}",
     "terminal.integrated.tabs.title": "${sequence}",
     "terminal.integrated.tabs.description": "${task}${separator}${cwdFolder}",
