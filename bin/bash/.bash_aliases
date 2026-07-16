@@ -128,9 +128,10 @@ if [ -f "${HOME}/.bash_local" ]; then
 fi
 
 
+# [Codex]
+alias codex="codex --dangerously-bypass-approvals-and-sandbox"
 
-alias codex="codex --dangerously-bypass-approvals-and-sandboxalias"
-
+# [Claude]
 alias claude="claude --allow-dangerously-skip-permissions --settings ~/projects/cc-plugin/config/settings.json"
 # 以下 claudew-s / claudew-b / claudew2 alias 依賴私密 API token (TIKTOK_API_KEY, TIKTOK_API_KEY2 等),
 # 為避免 token 進入 git, 改放至 git-ignored 的 ~/.bash_local。
