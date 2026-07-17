@@ -7,6 +7,13 @@ module.exports = {
             args: ["clean", "-cache"],
             cron: "0 10 * * 5"
         },
+        {
+            namespace: "Local",
+            name: "Golang Clean ModCache",
+            script: "go",
+            args: ["clean", "-modcache"],
+            cron: "0 10 * * 5"
+        },
         // { // has problme with pm2
         //     namespace: "Local",
         //     name: "Infra Compose",

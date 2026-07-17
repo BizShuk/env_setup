@@ -146,7 +146,7 @@
         // 建置產出與自動產生代碼 (Build Artifacts & Generated Code)
         "{**/gen,**/kitex_gen,**/thrift_gen,**/target,**/out,**/dist,**/output,**/__debug_bin*}": true,
         // 版本控制與工作區設定 (Version Control & Workspace Configs)
-        "{**/.git,**/.geminiignore,**/.gitlab,.pre-commit-config.yaml}": true,
+        "{**/.git,**/.geminiignore,**/.gitlab,**/.gitkeep,.pre-commit-config.yaml}": true,
         // IDE 與開發工具設定 (IDE & Tool Settings)
         "{**/.classpath,**/.project,**/.settings,**/.antigravity,**/.playwright-cli,**/.devops}": true,
         // 備份與封存 (Backups & Archives)
