@@ -25,6 +25,8 @@ Examples:
   mac_static_ip.sh dhcp Wi-Fi
 
 The default service is Wi-Fi. If DNS is omitted, the router address is used.
+The status command also prints subnet-based candidate ranges and a copyable
+static-IP command when the current service has a usable IPv4 configuration.
 Use a DHCP reservation on the router when possible to prevent IP conflicts.
 EOF
 }
@@ -67,6 +69,214 @@ is_subnet_mask() {
     esac
 }
 
+ipv4_to_int() {
+    local address="$1"
+    local octets=()
+
+    is_ipv4 "${address}" || return 1
+    IFS='.' read -r -a octets <<< "${address}"
+    printf '%s\n' "$((10#${octets[0]} * 16777216 + 10#${octets[1]} * 65536 + 10#${octets[2]} * 256 + 10#${octets[3]}))"
+}
+
+int_to_ipv4() {
+    local value="$1"
+
+    printf '%d.%d.%d.%d\n' \
+        "$(( (value >> 24) & 255 ))" \
+        "$(( (value >> 16) & 255 ))" \
+        "$(( (value >> 8) & 255 ))" \
+        "$(( value & 255 ))"
+}
+
+network_bounds() {
+    local ip="$1"
+    local subnet="$2"
+    local ip_int
+    local subnet_int
+    local network_int
+    local broadcast_int
+
+    ip_int="$(ipv4_to_int "${ip}")" || return 1
+    subnet_int="$(ipv4_to_int "${subnet}")" || return 1
+    network_int=$((ip_int & subnet_int))
+    broadcast_int=$((network_int | (4294967295 ^ subnet_int)))
+    printf '%s %s\n' "${network_int}" "${broadcast_int}"
+}
+
+candidate_range() {
+    local network_int="$1"
+    local broadcast_int="$2"
+    local lower_percent="$3"
+    local upper_percent="$4"
+    local usable_start=$((network_int + 1))
+    local usable_end=$((broadcast_int - 1))
+    local usable_count=$((usable_end - usable_start + 1))
+    local start_offset
+    local end_offset
+
+    [ "${usable_count}" -gt 0 ] || return 1
+    start_offset=$(( (usable_count * lower_percent + 99) / 100 ))
+    end_offset=$((usable_count * upper_percent / 100))
+    [ "${start_offset}" -ge 1 ] || start_offset=1
+    [ "${end_offset}" -le "${usable_count}" ] || end_offset="${usable_count}"
+    [ "${start_offset}" -le "${end_offset}" ] || return 1
+
+    printf '%s %s\n' \
+        "$((usable_start + start_offset - 1))" \
+        "$((usable_start + end_offset - 1))"
+}
+
+random_uint() {
+    local maximum="$1"
+    local raw
+
+    [ "${maximum}" -gt 0 ] || return 1
+    if ! raw="$(od -An -N4 -tu4 /dev/urandom | tr -d '[:space:]')"; then
+        return 1
+    fi
+    [ -n "${raw}" ] || return 1
+    printf '%s\n' "$((10#${raw} % maximum))"
+}
+
+random_between() {
+    local lower="$1"
+    local upper="$2"
+    local width
+    local offset
+
+    [ "${lower}" -le "${upper}" ] || return 1
+    width=$((upper - lower + 1))
+    offset="$(random_uint "${width}")" || return 1
+    printf '%s\n' "$((lower + offset))"
+}
+
+networksetup_value() {
+    local label="$1"
+    local info="$2"
+    local line
+
+    while IFS= read -r line; do
+        case "${line}" in
+            "${label}: "*)
+                printf '%s\n' "${line#"${label}: "}"
+                return 0
+                ;;
+        esac
+    done <<< "${info}"
+
+    return 1
+}
+
+extract_dns_ipv4() {
+    local dns_output="$1"
+    local line
+
+    while IFS= read -r line; do
+        line="${line#"${line%%[![:space:]]*}"}"
+        line="${line%"${line##*[![:space:]]}"}"
+        is_ipv4 "${line}" && printf '%s\n' "${line}"
+    done <<< "${dns_output}"
+}
+
+show_suggestion() {
+    local service="$1"
+    local info="$2"
+    local dns_output="$3"
+    local ip
+    local subnet
+    local router
+    local bounds
+    local network_int
+    local broadcast_int
+    local first_range
+    local second_range
+    local first_start_int
+    local first_end_int
+    local second_start_int
+    local second_end_int
+    local selected_start_int
+    local selected_end_int
+    local selected_int
+    local selected_band
+    local first_start_ip
+    local first_end_ip
+    local second_start_ip
+    local second_end_ip
+    local selected_ip
+    local dns
+    local command
+    local dns_servers=()
+
+    if ! ip="$(networksetup_value 'IP address' "${info}")" || ! is_ipv4 "${ip}"; then
+        printf '\nRecommended static IP: unavailable (current IPv4 address was not found)\n'
+        return 0
+    fi
+    if ! subnet="$(networksetup_value 'Subnet mask' "${info}")" || ! is_subnet_mask "${subnet}"; then
+        printf '\nRecommended static IP: unavailable (current subnet mask was not found or is invalid)\n'
+        return 0
+    fi
+    if ! router="$(networksetup_value 'Router' "${info}")" || ! is_ipv4 "${router}"; then
+        printf '\nRecommended static IP: unavailable (current router was not found)\n'
+        return 0
+    fi
+    if ! bounds="$(network_bounds "${ip}" "${subnet}")"; then
+        printf '\nRecommended static IP: unavailable (could not calculate the current subnet)\n'
+        return 0
+    fi
+    read -r network_int broadcast_int <<< "${bounds}"
+
+    if ! first_range="$(candidate_range "${network_int}" "${broadcast_int}" 25 50)" \
+        || ! second_range="$(candidate_range "${network_int}" "${broadcast_int}" 75 100)"; then
+        printf '\nRecommended static IP: unavailable (the subnet has no usable host range, such as /31 or /32)\n'
+        return 0
+    fi
+    read -r first_start_int first_end_int <<< "${first_range}"
+    read -r second_start_int second_end_int <<< "${second_range}"
+
+    first_start_ip="$(int_to_ipv4 "${first_start_int}")"
+    first_end_ip="$(int_to_ipv4 "${first_end_int}")"
+    second_start_ip="$(int_to_ipv4 "${second_start_int}")"
+    second_end_ip="$(int_to_ipv4 "${second_end_int}")"
+
+    if ! selected_band="$(random_between 0 1)"; then
+        printf '\nRecommended static IP: unavailable (could not read /dev/urandom)\n'
+        return 0
+    fi
+    if [ "${selected_band}" -eq 0 ]; then
+        selected_start_int="${first_start_int}"
+        selected_end_int="${first_end_int}"
+    else
+        selected_start_int="${second_start_int}"
+        selected_end_int="${second_end_int}"
+    fi
+    if ! selected_int="$(random_between "${selected_start_int}" "${selected_end_int}")"; then
+        printf '\nRecommended static IP: unavailable (could not select a host address)\n'
+        return 0
+    fi
+    selected_ip="$(int_to_ipv4 "${selected_int}")"
+
+    while IFS= read -r dns; do
+        [ -n "${dns}" ] && dns_servers+=("${dns}")
+    done < <(extract_dns_ipv4 "${dns_output}")
+    [ "${#dns_servers[@]}" -gt 0 ] || dns_servers=("${router}")
+
+    command='mac_static_ip.sh set'
+    if [ "${service}" != "${DEFAULT_SERVICE}" ]; then
+        command="${command} $(printf '%q' "${service}")"
+    fi
+    command="${command} ${selected_ip} ${subnet} ${router}"
+    for dns in "${dns_servers[@]}"; do
+        command="${command} ${dns}"
+    done
+
+    printf '\nRecommended static IP:\n'
+    printf '  25%%-50%% range: %s - %s\n' "${first_start_ip}" "${first_end_ip}"
+    printf '  75%%-100%% range: %s - %s\n' "${second_start_ip}" "${second_end_ip}"
+    printf '  Selected address: %s\n' "${selected_ip}"
+    printf '  Command: %s\n' "${command}"
+    printf '  Note: confirm the address is unused, preferably reserve it outside the router DHCP pool.\n'
+}
+
 list_services() {
     networksetup -listallnetworkservices
 }
@@ -93,12 +303,17 @@ require_service() {
 
 show_status() {
     local service="$1"
+    local info
+    local dns_output
 
     require_service "${service}"
     printf 'Network service: %s\n' "${service}"
-    networksetup -getinfo "${service}"
+    info="$(networksetup -getinfo "${service}")"
+    printf '%s\n' "${info}"
     printf 'DNS servers:\n'
-    networksetup -getdnsservers "${service}"
+    dns_output="$(networksetup -getdnsservers "${service}" 2>&1 || true)"
+    printf '%s\n' "${dns_output}"
+    show_suggestion "${service}" "${info}" "${dns_output}"
 }
 
 confirm_change() {
@@ -230,4 +445,6 @@ main() {
     esac
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
+    main "$@"
+fi

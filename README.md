@@ -177,6 +177,8 @@ flowchart TD
 ./bin/mac/mac_static_ip.sh dhcp Wi-Fi
 ```
 
+`status` 會依目前子網路 (subnet) 顯示 `25%-50%` 與 `75%-100%` 的建議 IP 範圍，隨機選出一個可複製的 `mac_static_ip.sh set ...` 指令；指令不含 `--yes`，套用前仍會要求確認。
+
 優先在路由器設定 DHCP reservation，避免固定 IP 與 DHCP pool 內其他裝置衝突。
 
 ### 7. 開發者 helper

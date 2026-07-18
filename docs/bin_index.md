@@ -24,7 +24,7 @@
 | 項目                              | 說明                                                  |
 | --------------------------------- | ----------------------------------------------------- |
 | `mac_cleanup.sh`                     | 清理 `/private/var/log`、`~/Library/Caches`、`~/.Trash` |
-| `mac_static_ip.sh`                  | 顯示或設定固定 IPv4，並可還原 DHCP 與自動 DNS          |
+| `mac_static_ip.sh`                  | 顯示目前網路與建議固定 IPv4、設定固定 IPv4，並可還原 DHCP 與自動 DNS |
 | `disk_analysis-mac.sh`            | 磁碟與敏感目錄權限稽核                                |
 | `launch_audit-mac.sh`             | `LaunchAgents` / `LaunchDaemons` 稽核                 |
 | `login_audit-mac.sh`              | 登入帳戶與自動登入設定稽核                            |
