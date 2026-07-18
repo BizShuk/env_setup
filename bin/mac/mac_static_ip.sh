@@ -205,6 +205,7 @@ show_suggestion() {
     local selected_ip
     local dns
     local command
+    local reset_command
     local dns_servers=()
 
     if ! ip="$(networksetup_value 'IP address' "${info}")" || ! is_ipv4 "${ip}"; then
@@ -268,12 +269,14 @@ show_suggestion() {
     for dns in "${dns_servers[@]}"; do
         command="${command} ${dns}"
     done
+    reset_command="mac_static_ip.sh dhcp $(printf '%q' "${service}")"
 
     printf '\nRecommended static IP:\n'
     printf '  25%%-50%% range: %s - %s\n' "${first_start_ip}" "${first_end_ip}"
     printf '  75%%-100%% range: %s - %s\n' "${second_start_ip}" "${second_end_ip}"
     printf '  Selected address: %s\n' "${selected_ip}"
     printf '  Command: %s\n' "${command}"
+    printf '  Reset command: %s\n' "${reset_command}"
     printf '  Note: confirm the address is unused, preferably reserve it outside the router DHCP pool.\n'
 }
 

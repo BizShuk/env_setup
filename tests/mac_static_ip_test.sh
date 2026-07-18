@@ -66,6 +66,7 @@ assert_contains '25%-50% range: 192.168.1.64 - 192.168.1.127'
 assert_contains '75%-100% range: 192.168.1.191 - 192.168.1.254'
 assert_contains '1.1.1.1'
 assert_contains '8.8.8.8'
+assert_contains 'Reset command: mac_static_ip.sh dhcp Wi-Fi'
 
 COMMAND_LINE="$(grep -F 'Command: mac_static_ip.sh set ' <<< "${OUTPUT}" || true)"
 if [ -z "${COMMAND_LINE}" ]; then
