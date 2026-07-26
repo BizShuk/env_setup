@@ -711,5 +711,9 @@
     {
         "key": "alt+shift+s",
         "command": "workbench.view.extension.superset-overall"
+    },
+    {
+        "key": "alt+cmd+l",
+        "command": "chatgpt.addToThread"
     }
 ]

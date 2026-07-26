@@ -393,8 +393,6 @@ yarn.lock.bak
 tmp/
 temp/
 scratch/
-samples/
-sample/
 example/
 docs/_build/
 docs/build/

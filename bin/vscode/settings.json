@@ -148,7 +148,7 @@
         // 版本控制與工作區設定 (Version Control & Workspace Configs)
         "{**/.git,**/.geminiignore,**/.gitlab,**/.gitkeep,.pre-commit-config.yaml}": true,
         // IDE 與開發工具設定 (IDE & Tool Settings)
-        "{**/.classpath,**/.project,**/.settings,**/.antigravity,**/.playwright-cli,**/.devops}": true,
+        "{**/.classpath,**/.project,**/.settings,**/.antigravity,**/.playwright-cli,**/.devops,**/.superpowers,**/.next}": true,
         // 備份與封存 (Backups & Archives)
         "{*.bak*}": true,
         // AI 智能體配置 (AI Agents Meta)
@@ -209,21 +209,6 @@
                 "envFile": "${userHome}/.env"
             },
             {
-                "name": "Go Launch file",
-                "type": "go",
-                "request": "launch",
-                "mode": "debug",
-                "program": "${file}"
-                // "envFile": "${userHome}/.env",
-            },
-            {
-                "name": "Launch Chrome",
-                "request": "launch",
-                "type": "chrome",
-                "url": "http://localhost:3000",
-                "webRoot": "${workspaceFolder}"
-            },
-            {
                 // Should setup ts-node `npm i -d ts-node; npm i -g typescript`
                 "type": "node",
                 "name": "ts file",
@@ -231,14 +216,6 @@
                 "runtimeArgs": ["-r", "ts-node/register"],
                 "program": "${file}",
                 "envFile": "${userHome}/.env"
-            },
-            {
-                "name": "Python: Current File",
-                "type": "debugpy",
-                "request": "launch",
-                "program": "${file}",
-                "console": "internalConsole",
-                "python": "${command:python.interpreterPath}"
             }
         ],
         "compounds": []
@@ -723,5 +700,16 @@
         "file:///Users/shuk/.antigravity-ide/extensions/continue.continue-2.1.0/config-yaml-schema.json": [
             ".continue/**/*.yaml"
         ]
-    }
+    },
+    "window.zoomLevel": 1,
+    "sweetpad.system.taskExecutor": "v2",
+    "sweetpad.shellEnv.shell": "/bin/bash   ",
+    "sweetpad.shellEnv.timeout": 15000,
+    "sweetpad.system.logLevel": "debug",
+    "git.ignoreRebaseWarning": true,
+    "chatgpt.localeOverride": "en-US",
+    "window.density.editorTabHeight": "compact",
+
+    "workbench.editor.tabSizing": "fit",
+    "workbench.editor.tabSizingFixedMinWidth": 50
 }
