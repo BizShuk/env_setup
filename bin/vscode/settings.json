@@ -112,7 +112,7 @@
     "editor.tabSize": 4,
     "editor.unicodeHighlight.invisibleCharacters": false,
     "editor.wordWrap": "wordWrapColumn",
-    "editor.wordWrapColumn": 200,
+    "editor.wordWrapColumn": 120,
     "editor.quickSuggestions": {
         "comments": "on",
         "strings": "on",
@@ -720,5 +720,9 @@
         "**/.forgejo/workflows/*.yml",
         "**/.forgejo/workflows/*.yaml"
     ],
-    "superset.editorLayout.maxRatio": 0.9
+    "superset.editorLayout.maxRatio": 0.9,
+    "npm.autoDetect": "on",
+    "npm.scriptRunner": "bun",
+    "npm.packageManager": "bun",
+    "npm.scriptExplorerAction": "run"
 }

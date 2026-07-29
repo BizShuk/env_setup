@@ -335,7 +335,7 @@ yarn.lock.bak
 !.claude/
 !.claude/commands/
 !.claude/agents/
-!.claude/skills/
+!.claude/skills/*
 !.claude/settings.local.json
 !.claude/memories/
 !.claude/scheduled_tasks.json

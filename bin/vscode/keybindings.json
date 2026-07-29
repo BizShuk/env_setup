@@ -124,14 +124,6 @@
         "when": "!sideBarFocus"
     },
     {
-        "key": "cmd+b",
-        "command": "workbench.action.focusSideBar"
-    },
-    {
-        "key": "cmd+b",
-        "command": "workbench.action.toggleSidebarVisibility"
-    },
-    {
         "key": "cmd+1",
         "command": "workbench.action.toggleEditorWidths"
     },
@@ -715,5 +707,40 @@
     {
         "key": "alt+cmd+l",
         "command": "chatgpt.addToThread"
+    },
+    {
+        "key": "cmd+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+b",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "!sideBarVisible"
+    },
+    {
+        "key": "cmd+b",
+        "command": "workbench.action.focusSideBar",
+        "when": "sideBarVisible && !sideBarFocus"
+    },
+    {
+        "key": "cmd+b",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "sideBarVisible && sideBarFocus"
+    },
+    {
+        "key": "alt+cmd+right",
+        "command": "workbench.action.moveEditorToRightGroup"
+    },
+    {
+        "key": "alt+cmd+left",
+        "command": "workbench.action.moveEditorToLeftGroup"
+    },
+    {
+        "key": "alt+cmd+left",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "alt+cmd+right",
+        "command": "-workbench.action.nextEditor"
     }
 ]

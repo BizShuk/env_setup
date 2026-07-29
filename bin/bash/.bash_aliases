@@ -138,9 +138,9 @@ alias claude="claude --allow-dangerously-skip-permissions --settings ~/projects/
 # 基礎 claudew / claudem 已提升為 bin/claudew 與 bin/claudem 實體 script file (取代 alias 以避免 alias 限制)。
 # 範本 (snippet) 可參考 docs/notes/bash-local-aliases.md。
 alias codexm='codex --profile m3'
-alias claudep='ANTHROPIC_AUTH_TOKEN=$AGENTSDK_PROXY_API_KEY claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/proxy.json'
-alias claudex='ANTHROPIC_AUTH_TOKEN=$AGENTSDK_PROXY_API_KEY claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/codex.json'
-alias claudeg='ANTHROPIC_AUTH_TOKEN=$AGENTSDK_PROXY_API_KEY claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/grok.json'
+alias claudep='ANTHROPIC_AUTH_TOKEN=$PROXY_API_KEY claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/proxy.json'
+alias claudec='ANTHROPIC_AUTH_TOKEN=$PROXY_API_KEY claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/openai.json'
+alias claudex='ANTHROPIC_AUTH_TOKEN=$PROXY_API_KEY claude --allow-dangerously-skip-permissions  --settings ~/projects/cc-plugin/config/xai.json'
 
 
 alias claudew-s='ANTHROPIC_AUTH_TOKEN=$TIKTOK_API_KEY claude --allow-dangerously-skip-permissions --effort max --model glm-5.2 --settings ~/projects/cc-plugin/config/llmbox.json -p "look whole project for consistency, remove redundancy, structural, scalable. make a plan to ./plans/ and add an entry in README.todo"'
@@ -153,4 +153,3 @@ if [ -f "${HOME}/.bash_local" ]; then
     # shellcheck disable=SC1090
     . "${HOME}/.bash_local"
 fi
-
