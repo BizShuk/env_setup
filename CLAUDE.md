@@ -47,6 +47,7 @@
 │       ├── input.go / inputShow.go
 │       └── audio.go / audioShow.go
 ├── model/cleanup/                 # cleanup preview 純資料模型
+├── svc/runner.go                  # shared go-cmd lifecycle、byte-preserving I/O、cancellation
 ├── svc/cleanup/                   # discovery、size、exact-target apply
 ├── svc/backup/                    # backup service (與 macOS defaults/plutil 互動 + 邏輯)
 ├── svc/dump/                      # manifest commands、normalization、atomic write
@@ -150,6 +151,7 @@
 
 - Language: Bash/Shell (主要)、Go 1.26 (env_setup CLI)、Python (輔助)、AppleScript
 - Framework: `spf13/cobra` (CLI) + `bizshuk/gosdk` (config、logging、metrics)
+- Process execution: `github.com/go-cmd/cmd v1.4.3`
 - Build tool: `go build` (root CLI)；shell scripts 直接執行
 - Key dependencies:
     - `homebrew 5.0.3` (`scripts/brew.sh`)
@@ -169,6 +171,7 @@
 - **macOS 稽核與 cleanup 分流**：`env_setup cleanup` 擁有 cleanup catalog、preview 與逐項 confirmation；`bin/mac/*_audit-mac.sh` 保留 audit reports；跨平台硬體偵測由 `svc/system` 擁有。
 - **Cobra root 是唯一 Go CLI 入口**：`main.go` 初始化 gosdk config，`cmd/root.go` 組合 `cleanup`、`backup`、`dump`、`system` 與 `network` subcommands；domain I/O 分別下沉至對應的 `svc/<domain>/`。
 - **Cobra command 一個檔案一個 command**：檔名採 package-relative command path，不重複 package prefix。Package/root command 使用 `<package>.go`，direct child 使用 `<child>.go`，更深層 command 串接剩餘 path（例如 `cmd/backup/import.go`、`cmd/system/osShow.go`）。Host app 使用 constructor injection 建立 fresh command tree，避免 package-level flag state 在 tests 間殘留。
+- **external process lifecycle 由 shared go-cmd adapter 擁有**：`svc.Runner` 是 cleanup、dump、network 與 system production runners 的唯一 concrete implementation；各 domain 保留 consumer-defined small interface。Adapter 透過 go-cmd 管理 process group、exit status 與 cancellation，並以 `BeforeExec` 維持 byte-preserving stdin/stdout/stderr。
 - **backup metadata 是 snapshot time owner**：`backup list` 的 latest backup date 讀取 `backup.meta.json.timestamp`；legacy backup 缺少 metadata 時才 fallback 至最新 `.plist` modification time，沒有任何 backup 則顯示 `-`。
 - **manifest dump 是 Go-native service**：`env_setup dump mac|vscode|antigravity` 分別擁有 Homebrew、VS Code 與 Antigravity manifest export；IDE output 在完整取得後排序、去重並 atomic replace，舊 shell adapters 與 root symlinks不再是 runtime boundary。
 - **system probes 與 disk verification 是 Go-native services**：`svc/system` 透過 injected `Runner` 執行 platform commands，並由 information-specific Go files 解析輸出；不依賴 repo path 或 shell adapters。`system show` 聚合全部 probes，`system <information> show` 執行單一 probe；`system disk verify <volume-path>` 在 macOS 以 `diskutil` + F3 驗證 removable media。

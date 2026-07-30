@@ -29,7 +29,7 @@ func TestInspectListsDescriptionAndRecursiveSize(t *testing.T) {
 			Kind: SELECTOR_CONTENTS,
 			Path: root,
 		}},
-	}}, NewOSRunner())
+	}}, NewCommandRunner())
 
 	plan, err := service.Inspect(context.Background())
 	if err != nil {
@@ -76,7 +76,7 @@ func TestInspectOlderFilesKeepsRecentFilesOutOfPlan(t *testing.T) {
 			Path:          root,
 			OlderThanDays: 30,
 		}},
-	}}, NewOSRunner())
+	}}, NewCommandRunner())
 
 	plan, err := service.Inspect(context.Background())
 	if err != nil {

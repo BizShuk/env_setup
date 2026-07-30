@@ -81,7 +81,7 @@ func NewDefault() (*Service, error) {
 		SystemTemp:    "/tmp",
 		RepositoryDir: repositoryDir,
 	}
-	return New(DefaultDefinitions(paths), NewOSRunner()), nil
+	return New(DefaultDefinitions(paths), NewCommandRunner()), nil
 }
 
 // DefaultDefinitions 合併三個 legacy mac_cleanup scripts 的 cleanup catalog。

@@ -1,9 +1,13 @@
 package cleanup
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"os/exec"
+	"strings"
+
+	process "github.com/bizshuk/env_setup/svc"
 )
 
 // Runner 執行 catalog 中不適合直接以 filesystem API 處理的 commands。
@@ -12,21 +16,27 @@ type Runner interface {
 	Run(ctx context.Context, name string, args ...string) error
 }
 
-type osRunner struct{}
-
-// NewOSRunner 建立使用 os/exec 的 command runner。
-func NewOSRunner() Runner {
-	return osRunner{}
+type commandRunner struct {
+	processRunner process.Runner
 }
 
-func (osRunner) LookPath(file string) (string, error) {
+// NewCommandRunner 建立使用 go-cmd 的 command runner。
+func NewCommandRunner() Runner {
+	return commandRunner{processRunner: process.NewRunner()}
+}
+
+func (commandRunner) LookPath(file string) (string, error) {
 	return exec.LookPath(file)
 }
 
-func (osRunner) Run(ctx context.Context, name string, args ...string) error {
-	command := exec.CommandContext(ctx, name, args...)
-	if output, err := command.CombinedOutput(); err != nil {
-		return fmt.Errorf("%s: %w: %s", name, err, output)
+func (r commandRunner) Run(ctx context.Context, name string, args ...string) error {
+	var output bytes.Buffer
+	if err := r.processRunner.Run(ctx, nil, &output, &output, name, args...); err != nil {
+		details := strings.TrimSpace(output.String())
+		if details == "" {
+			return err
+		}
+		return fmt.Errorf("%w: %s", err, details)
 	}
 	return nil
 }

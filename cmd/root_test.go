@@ -12,7 +12,7 @@ import (
 )
 
 func TestRootContainsDomainSubcommands(t *testing.T) {
-	cleanupService := cleanupsvc.New(nil, cleanupsvc.NewOSRunner())
+	cleanupService := cleanupsvc.New(nil, cleanupsvc.NewCommandRunner())
 	dumpService := dumpsvc.New(dumpsvc.Options{})
 	systemService := systemsvc.New(systemsvc.Options{})
 	networkService := networksvc.New(networksvc.Options{})

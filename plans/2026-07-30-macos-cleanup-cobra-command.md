@@ -69,7 +69,7 @@ func TestInspectListsDescriptionAndRecursiveSize(t *testing.T) {
 		ID:          "cache",
 		Description: "清理測試 Cache",
 		Selectors:   []Selector{{Kind: SELECTOR_CONTENTS, Path: root}},
-	}}, NewOSRunner())
+	}}, NewCommandRunner())
 
 	plan, err := service.Inspect(context.Background())
 	require.NoError(t, err)

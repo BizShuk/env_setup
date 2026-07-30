@@ -20,7 +20,7 @@ func TestCleanupPreviewListsItemsWithoutPromptOrApply(t *testing.T) {
 		ID:          "test-cache",
 		Description: "清除測試 Cache",
 		Selectors:   []cleanupsvc.Selector{{Kind: cleanupsvc.SELECTOR_PATH, Path: target}},
-	}}, cleanupsvc.NewOSRunner())
+	}}, cleanupsvc.NewCommandRunner())
 	var output bytes.Buffer
 
 	command := NewCommand(service, strings.NewReader("y\n"), &output)
@@ -64,7 +64,7 @@ func TestCleanupApplyConfirmsOneByOne(t *testing.T) {
 			Description: "清除第二個 Cache",
 			Selectors:   []cleanupsvc.Selector{{Kind: cleanupsvc.SELECTOR_PATH, Path: second}},
 		},
-	}, cleanupsvc.NewOSRunner())
+	}, cleanupsvc.NewCommandRunner())
 	var output bytes.Buffer
 
 	command := NewCommand(service, strings.NewReader("y\nn\n"), &output)

@@ -23,7 +23,7 @@ func TestPlanApplyDeletesOnlyDiscoveredTargets(t *testing.T) {
 			Kind: SELECTOR_CONTENTS,
 			Path: root,
 		}},
-	}}, NewOSRunner())
+	}}, NewCommandRunner())
 	plan, err := service.Inspect(context.Background())
 	if err != nil {
 		t.Fatal(err)
@@ -46,7 +46,7 @@ func TestPlanApplyDeletesOnlyDiscoveredTargets(t *testing.T) {
 }
 
 func TestPlanApplyRejectsUnknownItem(t *testing.T) {
-	service := New(nil, NewOSRunner())
+	service := New(nil, NewCommandRunner())
 	plan, err := service.Inspect(context.Background())
 	if err != nil {
 		t.Fatal(err)

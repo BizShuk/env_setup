@@ -37,7 +37,7 @@ func New(options Options) *Service {
 		options.GOOS = runtime.GOOS
 	}
 	if options.Runner == nil {
-		options.Runner = NewOSRunner()
+		options.Runner = NewCommandRunner()
 	}
 	if options.LookPath == nil {
 		options.LookPath = exec.LookPath

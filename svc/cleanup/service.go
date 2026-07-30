@@ -32,7 +32,7 @@ type plannedAction struct {
 // New 建立使用指定 catalog 與 command runner 的 cleanup service。
 func New(definitions []Definition, runner Runner) *Service {
 	if runner == nil {
-		runner = NewOSRunner()
+		runner = NewCommandRunner()
 	}
 	return &Service{
 		definitions: append([]Definition(nil), definitions...),
