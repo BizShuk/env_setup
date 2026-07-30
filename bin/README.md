@@ -1,6 +1,6 @@
 # `bin/` — 可執行入口索引 (Entry Point Index)
 
-`bin/` 內 scripts 已透過 `bin/bash/settings.sh` 軟連結到 `~/bin`，可直接以 bare name 呼叫。Manifest dump、macOS cleanup、system information 與 network scan 分別使用 Go-native `env_setup dump`、`env_setup cleanup`、`env_setup system` 與 `env_setup network`。
+`bin/` 內 scripts 已透過 `bin/bash/settings.sh` 軟連結到 `~/bin`，可直接以 bare name 呼叫。Manifest sync、Codex uninstall、macOS cleanup、system information 與 network scan 分別使用 Go-native `env_setup install` / `env_setup dump`、`env_setup uninstall`、`env_setup cleanup`、`env_setup system` 與 `env_setup network`。
 
 ## 目錄分區 (Areas)
 
@@ -9,7 +9,6 @@
 | `bin/bash/`  | dotfiles、`settings.sh`、vim 設定、bash alias     | `settings.sh`、`.bashrc`、`.vimrc`                             |
 | `bin/mac/`   | macOS 專屬稽核與設定工具                          | `disk_analysis-mac.sh`、`mac_static_ip.sh`                     |
 | `bin/disk/`  | large-file scan                                  | `list_big_files.sh`                                            |
-| `bin/codex/` | Codex lifecycle utilities                          | `uninstall.sh`                                                 |
 | `bin/vscode/`| VSCode / Antigravity IDE 設定                     | `settings.json`、`keybindings.json`                            |
 | 根目錄 helper | 開發者輔助小工具 (見 `docs/bin_index.md` 完整索引) | `json`、`listen_port`                                          |
 

@@ -7,9 +7,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func newVSCodeCommand(service *dumpsvc.Service, out, errOut io.Writer) *cobra.Command {
+func newVSCodeExtensionCommand(service *dumpsvc.Service, out, errOut io.Writer) *cobra.Command {
 	return &cobra.Command{
-		Use:   "vscode",
+		Use:   "vscode-extension",
 		Short: "匯出 VS Code extensions manifest",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {

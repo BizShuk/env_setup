@@ -17,6 +17,14 @@
 | Exact Target | Preview discovery 已解析完成的實際 path。Apply 使用同一份 snapshot，不重新展開 glob；若 target 本身是 directory，會清除該 directory 的 subtree。 |
 | Command Action | 透過 argument array 執行的 external command（例如 `go clean -cache`），不經 shell interpolation。無法可靠估算 size 時顯示 `N/A`。 |
 
+## Uninstall Domain
+
+| 術語 | 定義 |
+| --- | --- |
+| Codex Uninstall Plan | `env_setup uninstall codex` 在 preview 時建立的 immutable item snapshot；包含 exact filesystem paths 與 matching user launchd labels，預設不修改 machine state。 |
+| Codex Uninstall Apply | `env_setup uninstall codex --apply`；逐一詢問 available targets，只有回答 `y` 或 `yes` 的 item 才會執行，且 apply 不重新展開 glob。 |
+| Optional Uninstall Scope | `--with-codexbar` 將 CodexBar app 納入 plan；`--purge-system` 將 matching `/Library` launchd files 與 `/etc/codex` 納入需要 `sudo` 的 plan。兩者都不會隱含啟用 apply。 |
+
 ## Backup Domain
 
 | 術語 | 定義 |
@@ -36,13 +44,14 @@
 | Disk Verification | `env_setup system disk verify <volume-path>`；macOS-only command，先確認 write operation，再依序執行 `diskutil info`、`f3write` 與 `f3read`。 |
 | F3 | Fight Flash Fraud；以 write/read test files 驗證 removable media 的實際容量與資料完整性。Verification 會使用目標 volume 的可用空間。 |
 
-## Manifest Dump Domain
+## Manifest Sync Domain
 
 | 術語 | 定義 |
 | --- | --- |
 | Mac Manifest | `env_setup dump mac` 寫入的 `scripts/Brewfile`；包含目前 Homebrew taps、formulae、casks 與可取得的 Mac App Store entries。 |
-| IDE Extension Manifest | `env_setup dump vscode|antigravity` 寫入的 tracked extension ID 清單；輸出固定排序、去重並以 newline 結尾。 |
+| IDE Extension Manifest | `env_setup dump vscode-extension|antigravity-extension` 寫入的 tracked extension ID 清單；輸出固定排序、去重並以 newline 結尾。 |
 | Atomic Manifest Write | 先完整取得並正規化 extension output，再於目標目錄建立 temporary file 並 rename；external command 失敗時不覆寫既有 manifest。 |
+| Antigravity Extension Install | `env_setup install antigravity-extension`；逐項以 `--force` 安裝 manifest entries，列出 manifest 外的 installed extensions，且只有明確回答 `y/Y` 才會移除它們。 |
 
 ## Network Scan Domain
 

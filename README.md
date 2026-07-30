@@ -1,6 +1,6 @@
 # env_setup
 
-`env_setup` 是一個 framework 層級的機器初始化與開發者工具箱 (developer toolbox) repo：負責在 macOS / Ubuntu 新機器上安裝 OS 與開發工具 (Go, Node, brew, ctags, openssl, git-secret)，把 bash / vim / ssh / vscode 等 dotfiles 透過 `run.sh` 軟連結到使用者家目錄，並以 `env_setup` Go CLI 提供 dump、system、cleanup、backup 與 network commands；`bin/` 保留 macOS 稽核與開發者 helpers，pm2 負責 cron 排程。
+`env_setup` 是一個 framework 層級的機器初始化與開發者工具箱 (developer toolbox) repo：負責在 macOS / Ubuntu 新機器上安裝 OS 與開發工具 (Go, Node, brew, ctags, openssl, git-secret)，把 bash / vim / ssh / vscode 等 dotfiles 透過 `run.sh` 軟連結到使用者家目錄，並以 `env_setup` Go CLI 提供 install、uninstall、dump、system、cleanup、backup 與 network commands；`bin/` 保留 macOS 稽核與開發者 helpers，pm2 負責 cron 排程。
 
 ## 業務領域 (Business Domains)
 
@@ -52,19 +52,36 @@
 
 ---
 
-### 開發環境清單匯出 (Development Manifest Dump)
+### 開發環境清單同步 (Development Manifest Sync)
 
-`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode` 與 `dump antigravity` 分別更新 `bin/vscode/*_extension_list.txt`。
+`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode-extension` 與 `dump antigravity-extension` 分別更新 `bin/vscode/*_extension_list.txt`。`env_setup install antigravity-extension` 則從 tracked manifest 安裝 Antigravity extensions，並在移除 manifest 外的 extensions 前要求明確確認。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者在 repo 內執行 `env_setup dump mac`、`env_setup dump vscode` 或 `env_setup dump antigravity`。
+1. 使用者在 repo 內執行 `env_setup dump mac`、`env_setup dump vscode-extension` 或 `env_setup dump antigravity-extension`。
 2. Go service 先驗證 repo root 與必要 CLI，再執行 `brew bundle dump` 或 `<ide> --list-extensions`。
 3. IDE manifests 會排序、去重並以 atomic replacement 寫入，external command 失敗時保留舊檔。
+4. 使用者執行 `env_setup install antigravity-extension` 時，Go service 逐項以 `--force` 安裝 manifest entries；unlisted extensions 只會在回答 `y` 後移除。
 
-`核心實體 (Key Entities):` `Mac Manifest`, `IDE Extension Manifest`, `Repository Root`
+`核心實體 (Key Entities):` `Mac Manifest`, `IDE Extension Manifest`, `Extension Sync`, `Repository Root`
 
-`相關處理器 (Related Handlers):` `env_setup dump mac`, `env_setup dump vscode`, `env_setup dump antigravity`, [svc/dump](svc/dump)
+`相關處理器 (Related Handlers):` `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install antigravity-extension`, [svc/dump](svc/dump), [svc/install](svc/install)
+
+---
+
+### macOS Codex 移除 (macOS Codex Uninstall)
+
+`env_setup uninstall codex` 以 preview-first workflow 管理 Codex desktop app、per-user CLI、`~/.codex`、Library data 與 matching user launchd services。預設只列出 inspection 時解析完成的 exact targets；只有 `--apply` 才逐項詢問 `[y/N]` 並移除明確同意的 target。
+
+`領域流程 (Domain Flow):`
+
+1. 使用者先執行 `env_setup uninstall codex`，查看 app、CLI、configuration、cache、preferences、containers 與 launchd targets；此時不會 quit app 或修改檔案。
+2. `--with-codexbar` 將 `/Applications/CodexBar.app` 納入 scope；`--purge-system` 將 matching `/Library` launchd files 與 `/etc/codex` 納入需要 `sudo` 的 scope。
+3. 使用者加上 `--apply` 後，每個 available target 都必須個別確認。Apply 只使用同一份 immutable snapshot，不重新展開 glob。
+
+`核心實體 (Key Entities):` `Codex Uninstall Plan`, `Exact Target`, `Optional Uninstall Scope`, `launchd Label`
+
+`相關處理器 (Related Handlers):` `env_setup uninstall codex`, `env_setup uninstall codex --apply`, [svc/uninstall](svc/uninstall)
 
 ---
 
@@ -142,6 +159,7 @@ flowchart TD
     Helpers -->|"audit script"| Cron["pm2 cron<br/>ecosystem.config.js"]
     Cron -->|"產出 markdown"| Reports["稽核報告<br/>$AUDIT_REPORT_DIR"]
     Hardware["硬體偵測<br/>env_setup system show"] --> Support["支援與自我診斷"]
+    Uninstall["Codex 移除<br/>env_setup uninstall codex"] --> Support
     Network["網路掃描<br/>env_setup network"] --> Reports
 ```
 
@@ -179,12 +197,22 @@ env_setup system disk verify /Volumes/backup
 ./bin/list_big_files.sh
 ```
 
-### 3.1 匯出開發環境清單
+### 3.1 同步開發環境清單
 
 ```bash
 env_setup dump mac
-env_setup dump vscode
-env_setup dump antigravity
+env_setup dump vscode-extension
+env_setup dump antigravity-extension
+env_setup install antigravity-extension
+```
+
+### 3.2 macOS Codex 移除
+
+```bash
+env_setup uninstall codex                            # preview only
+env_setup uninstall codex --apply                    # 逐項確認
+env_setup uninstall codex --with-codexbar            # preview CodexBar scope
+env_setup uninstall codex --purge-system             # preview sudo scope
 ```
 
 ### 4. macOS 稽核與清理

@@ -22,8 +22,14 @@
 │   ├── dump/
 │   │   ├── dump.go                # dump parent command
 │   │   ├── mac.go                 # Homebrew / cask / tap / MAS manifest
-│   │   ├── vscode.go              # VS Code extensions manifest
-│   │   └── antigravity.go         # Antigravity extensions manifest
+│   │   ├── vscode-extension.go    # VS Code extensions manifest
+│   │   └── antigravity-extension.go # Antigravity extensions manifest
+│   ├── install/
+│   │   ├── install.go             # install parent command
+│   │   └── antigravity-extension.go # Antigravity extension restore/sync
+│   ├── uninstall/
+│   │   ├── uninstall.go           # uninstall parent command
+│   │   └── codex.go               # preview + per-target Codex removal
 │   ├── backup/
 │   │   ├── backup.go              # backup parent command
 │   │   ├── import.go              # backup import command
@@ -51,8 +57,10 @@
 ├── svc/cleanup/                   # discovery、size、exact-target apply
 ├── svc/backup/                    # backup service (與 macOS defaults/plutil 互動 + 邏輯)
 ├── svc/dump/                      # manifest commands、normalization、atomic write
+├── svc/install/                   # Antigravity manifest install、diff、confirmed removal
 ├── svc/network/                   # traceroute/nmap execution、parsing、topology rendering
 ├── svc/system/                    # system catalog、platform command execution/parsing
+├── svc/uninstall/                 # immutable Codex target discovery、launchd/sudo apply
 ├── .geminiignore -> .gitignore
 ├── .gitmodules                    # 10 個 vim 插件 + libgit2
 ├── .vscode/                       # repo 自身 VSCode 設定
@@ -77,15 +85,12 @@
 │   │   └── keyboard_shortcuts/    # plist 樣板
 │   ├── disk/                      # large-file scan
 │   │   └── list_big_files.sh
-│   ├── codex/                     # Codex lifecycle utilities
-│   │   └── uninstall.sh
 │   ├── vscode/                    # IDE 設定 + manifests / restore
 │   │   ├── settings.json / keybindings.json
 │   │   ├── snippets/
-│   │   ├── agy-ide_extension_install
 │   │   ├── agy-ide_extension_list.txt / vscode_extension_list.txt
 │   │   └── README.md
-│   ├── 根目錄 helper (23 個)     # 詳見 plans/2026-07-08 §2.6
+│   ├── 根目錄 helpers             # 詳見 docs/bin_index.md
 │   │   ├── json / git_signing / find_symbolic_link
 │   │   ├── iconv_big5_utf8 / file_encoding / reverse_ln
 │   │   ├── check_alive / check_service / listen_port
@@ -169,14 +174,15 @@
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。
 - **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 與常駐任務，namespace = `Local`；新增任務以 `./bin/<area>/<tool>` 全路徑註冊。
 - **macOS 稽核與 cleanup 分流**：`env_setup cleanup` 擁有 cleanup catalog、preview 與逐項 confirmation；`bin/mac/*_audit-mac.sh` 保留 audit reports；跨平台硬體偵測由 `svc/system` 擁有。
-- **Cobra root 是唯一 Go CLI 入口**：`main.go` 初始化 gosdk config，`cmd/root.go` 組合 `cleanup`、`backup`、`dump`、`system` 與 `network` subcommands；domain I/O 分別下沉至對應的 `svc/<domain>/`。
+- **Cobra root 是唯一 Go CLI 入口**：`main.go` 初始化 gosdk config，`cmd/root.go` 組合 `cleanup`、`backup`、`install`、`uninstall`、`dump`、`system` 與 `network` subcommands；domain I/O 分別下沉至對應的 `svc/<domain>/`。
 - **Cobra command 一個檔案一個 command**：檔名採 package-relative command path，不重複 package prefix。Package/root command 使用 `<package>.go`，direct child 使用 `<child>.go`，更深層 command 串接剩餘 path（例如 `cmd/backup/import.go`、`cmd/system/osShow.go`）。Host app 使用 constructor injection 建立 fresh command tree，避免 package-level flag state 在 tests 間殘留。
-- **external process lifecycle 由 shared go-cmd adapter 擁有**：`svc.Runner` 是 cleanup、dump、network 與 system production runners 的唯一 concrete implementation；各 domain 保留 consumer-defined small interface。Adapter 透過 go-cmd 管理 process group、exit status 與 cancellation，並以 `BeforeExec` 維持 byte-preserving stdin/stdout/stderr。
+- **external process lifecycle 由 shared go-cmd adapter 擁有**：`svc.Runner` 是 cleanup、dump、install、network、system 與 uninstall production runners 的唯一 concrete implementation；各 domain 保留 consumer-defined small interface。Adapter 透過 go-cmd 管理 process group、exit status 與 cancellation，並以 `BeforeExec` 維持 byte-preserving stdin/stdout/stderr。
 - **backup metadata 是 snapshot time owner**：`backup list` 的 latest backup date 讀取 `backup.meta.json.timestamp`；legacy backup 缺少 metadata 時才 fallback 至最新 `.plist` modification time，沒有任何 backup 則顯示 `-`。
-- **manifest dump 是 Go-native service**：`env_setup dump mac|vscode|antigravity` 分別擁有 Homebrew、VS Code 與 Antigravity manifest export；IDE output 在完整取得後排序、去重並 atomic replace，舊 shell adapters 與 root symlinks不再是 runtime boundary。
+- **manifest sync 是 Go-native service**：`env_setup dump mac|vscode-extension|antigravity-extension` 擁有 manifest export；`env_setup install antigravity-extension` 以 tracked manifest 安裝 extensions，並在移除 unlisted extensions 前要求 `y/Y` confirmation。IDE dump output 在完整取得後排序、去重並 atomic replace；舊 extension shell adapters 與 root symlinks 不再是 runtime boundary。
 - **system probes 與 disk verification 是 Go-native services**：`svc/system` 透過 injected `Runner` 執行 platform commands，並由 information-specific Go files 解析輸出；不依賴 repo path 或 shell adapters。`system show` 聚合全部 probes，`system <information> show` 執行單一 probe；`system disk verify <volume-path>` 在 macOS 以 `diskutil` + F3 驗證 removable media。
 - **network scans 是 Go-native services**：`svc/network` 透過 injected `Runner` 執行 `traceroute`、`nmap` 與 bounded ping fallback，並由 Go parser 解析 private hops、live hosts、services 與 topology；`bin/network/` 不再是 runtime boundary。
 - **cleanup apply 使用 immutable snapshot**：`svc/cleanup` 在 preview 時解析 exact targets 與 size；只有 `--apply` 且逐項確認後才套用該 snapshot，不在 apply 時重新擴大 glob scope。
+- **Codex uninstall 使用 immutable preview plan**：`env_setup uninstall codex` 預設只列出 exact app、CLI、user data 與 launchd targets；`--with-codexbar` / `--purge-system` 只擴大 inspection scope，仍需 `--apply` 與逐項確認。`svc/uninstall` 不在 apply 時重新展開 glob，且 external commands 不經 shell interpolation。
 
 ## 模組對應 (Module Mapping)
 
@@ -185,7 +191,8 @@
 | 機器初始化與開發工具安裝 (Bootstrap & Tooling)    | `scripts/`, `bin/bash/settings.sh`                                                                                        | `./scripts/mac.sh`, `./scripts/ubuntu.sh`, `./scripts/go.sh`                     |
 | 使用者與 IDE 設定軟連結 (User Config & IDE Link)  | `run.sh`, `bin/bash/`, `bin/vscode/`                                                                                      | `./run.sh` (含 `link_ide_config()` 函式)                                         |
 | 硬體與系統狀態偵測 (Hardware & System Probe)      | `cmd/system/`, `svc/system/`                                                                                               | `env_setup system show`, `env_setup system <information> show`, `env_setup system disk verify <volume-path>` |
-| 開發環境清單匯出 (Development Manifest Dump)      | `cmd/dump/`, `svc/dump/`, `scripts/Brewfile`, `bin/vscode/*_extension_list.txt`                                            | `env_setup dump mac`, `env_setup dump vscode`, `env_setup dump antigravity`      |
+| 開發環境清單同步 (Development Manifest Sync)      | `cmd/dump/`, `svc/dump/`, `cmd/install/`, `svc/install/`, `scripts/Brewfile`, `bin/vscode/*_extension_list.txt`             | `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install antigravity-extension` |
+| macOS Codex 移除 (macOS Codex Uninstall)          | `cmd/uninstall/`, `svc/uninstall/`                                                                                        | `env_setup uninstall codex`, `env_setup uninstall codex --apply`                 |
 | macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `cmd/cleanup/`, `model/cleanup/`, `svc/cleanup/`, `bin/mac/*_audit-mac.sh`                                                | `env_setup cleanup`, `env_setup cleanup --apply`                                 |
 | 網路與設備掃描 (Network & Device Scan)            | `cmd/network/`, `svc/network/`                                                                                            | `env_setup network private [target]`, `env_setup network target [cidr]`          |
 | 開發者輔助工具 (Developer Helpers)                | `bin/` 根目錄 + `bin/bash/.bash_aliases`                                                                                  | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                        |
@@ -221,7 +228,7 @@ Root Go CLI 執行 `./build.sh` 安裝至 `~/.local/bin/env_setup`；shell 工�
 ### 測試 (Test)
 
 - `./run.sh` 驗證 symlink 全部建立
-- `go test -count=1 ./...` 驗證 Cobra commands、system probes、network parsers、cleanup discovery 與 immutable apply
+- `go test -count=1 ./...` 驗證 Cobra commands、system probes、network parsers、cleanup/uninstall discovery 與 immutable apply
 - `env_setup system show` 驗證 10 個 system information adapters
 - `./bin/mac/disk_analysis-mac.sh` 驗證 audit 報告輸出
 - `shellcheck bin/<area>/*.sh` (若已安裝)
@@ -243,7 +250,7 @@ Root Go CLI 執行 `./build.sh` 安裝至 `~/.local/bin/env_setup`；shell 工�
     - 所有腳本 `source "$(dirname "$0")/settings.sh"` 取得共用變數
     - 不得在 `bin/bash/settings.sh` 內 commit 明文 `passwd` / `email` / `token`，一律改讀 `~/.config/env_setup/settings.private.sh`
 - 工具加入流程 (Scalability)：
-    1. 決定 area: `bash` / `mac` / `package` / `disk` / `codex` / `vscode` / `network`
+    1. 決定 area: `bash` / `mac` / `package` / `disk` / `vscode` / `network`
     2. 在 `bin/<area>/<tool>` 撰寫；需要共用 helper 時 `source bin/<area>/_lib_*.sh`
     3. 若需 root 入口，在 `bin/<tool>` 加 symlink `bin/<tool> -> <area>/<tool>`
     4. 將工具加入 `docs/bin_index.md`

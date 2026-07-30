@@ -20,8 +20,8 @@ func NewCommand(service *dumpsvc.Service, out, errOut io.Writer) *cobra.Command 
 	}
 	command.AddCommand(
 		newMacCommand(service, out, errOut),
-		newVSCodeCommand(service, out, errOut),
-		newAntigravityCommand(service, out, errOut),
+		newVSCodeExtensionCommand(service, out, errOut),
+		newAntigravityExtensionCommand(service, out, errOut),
 	)
 	return command
 }

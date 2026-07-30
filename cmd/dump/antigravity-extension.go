@@ -7,9 +7,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func newAntigravityCommand(service *dumpsvc.Service, out, errOut io.Writer) *cobra.Command {
+func newAntigravityExtensionCommand(service *dumpsvc.Service, out, errOut io.Writer) *cobra.Command {
 	return &cobra.Command{
-		Use:   "antigravity",
+		Use:   "antigravity-extension",
 		Short: "匯出 Antigravity IDE extensions manifest",
 		Args:  cobra.NoArgs,
 		RunE: func(command *cobra.Command, _ []string) error {

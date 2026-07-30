@@ -71,44 +71,76 @@ func TestDumpCommandHasNoShellRuntimeDependency(t *testing.T) {
 	}
 }
 
+func TestInstallCommandHasNoShellRuntimeDependency(t *testing.T) {
+	for _, path := range []string{
+		filepath.Join("..", "bin", "agy-ide_extension_install"),
+		filepath.Join("..", "bin", "vscode", "agy-ide_extension_install"),
+	} {
+		_, err := os.Lstat(path)
+		if err == nil {
+			t.Errorf("%s still exists; env_setup install must own extension restoration", path)
+			continue
+		}
+		if !os.IsNotExist(err) {
+			t.Errorf("stat %s: %v", path, err)
+		}
+	}
+}
+
+func TestUninstallCommandHasNoShellRuntimeDependency(t *testing.T) {
+	path := filepath.Join("..", "bin", "codex", "uninstall.sh")
+	_, err := os.Lstat(path)
+	if err == nil {
+		t.Errorf("%s still exists; env_setup uninstall must own Codex removal", path)
+		return
+	}
+	if !os.IsNotExist(err) {
+		t.Errorf("stat %s: %v", path, err)
+	}
+}
+
 func TestCobraCommandsUseOnePackageRelativeNamedFileEach(t *testing.T) {
 	want := map[string][]string{
-		"root.go":               {"env_setup"},
-		"backup/backup.go":      {"backup"},
-		"backup/import.go":      {"import"},
-		"backup/init.go":        {"init"},
-		"backup/list.go":        {"list"},
-		"cleanup/cleanup.go":    {"cleanup"},
-		"dump/antigravity.go":   {"antigravity"},
-		"dump/dump.go":          {"dump"},
-		"dump/mac.go":           {"mac"},
-		"dump/vscode.go":        {"vscode"},
-		"network/network.go":    {"network"},
-		"network/private.go":    {"private"},
-		"network/target.go":     {"target"},
-		"system/system.go":      {"system"},
-		"system/audio.go":       {"audio"},
-		"system/audioShow.go":   {"show"},
-		"system/cpu.go":         {"cpu"},
-		"system/cpuShow.go":     {"show"},
-		"system/disk.go":        {"disk"},
-		"system/diskShow.go":    {"show"},
-		"system/diskVerify.go":  {"verify"},
-		"system/display.go":     {"display"},
-		"system/displayShow.go": {"show"},
-		"system/gpu.go":         {"gpu"},
-		"system/gpuShow.go":     {"show"},
-		"system/input.go":       {"input"},
-		"system/inputShow.go":   {"show"},
-		"system/memory.go":      {"memory"},
-		"system/memoryShow.go":  {"show"},
-		"system/network.go":     {"network"},
-		"system/networkShow.go": {"show"},
-		"system/os.go":          {"os"},
-		"system/osShow.go":      {"show"},
-		"system/show.go":        {"show"},
-		"system/usb.go":         {"usb"},
-		"system/usbShow.go":     {"show"},
+		"root.go":                          {"env_setup"},
+		"backup/backup.go":                 {"backup"},
+		"backup/import.go":                 {"import"},
+		"backup/init.go":                   {"init"},
+		"backup/list.go":                   {"list"},
+		"cleanup/cleanup.go":               {"cleanup"},
+		"dump/antigravity-extension.go":    {"antigravity-extension"},
+		"dump/dump.go":                     {"dump"},
+		"dump/mac.go":                      {"mac"},
+		"dump/vscode-extension.go":         {"vscode-extension"},
+		"install/antigravity-extension.go": {"antigravity-extension"},
+		"install/install.go":               {"install"},
+		"network/network.go":               {"network"},
+		"network/private.go":               {"private"},
+		"network/target.go":                {"target"},
+		"system/system.go":                 {"system"},
+		"system/audio.go":                  {"audio"},
+		"system/audioShow.go":              {"show"},
+		"system/cpu.go":                    {"cpu"},
+		"system/cpuShow.go":                {"show"},
+		"system/disk.go":                   {"disk"},
+		"system/diskShow.go":               {"show"},
+		"system/diskVerify.go":             {"verify"},
+		"system/display.go":                {"display"},
+		"system/displayShow.go":            {"show"},
+		"system/gpu.go":                    {"gpu"},
+		"system/gpuShow.go":                {"show"},
+		"system/input.go":                  {"input"},
+		"system/inputShow.go":              {"show"},
+		"system/memory.go":                 {"memory"},
+		"system/memoryShow.go":             {"show"},
+		"system/network.go":                {"network"},
+		"system/networkShow.go":            {"show"},
+		"system/os.go":                     {"os"},
+		"system/osShow.go":                 {"show"},
+		"system/show.go":                   {"show"},
+		"system/usb.go":                    {"usb"},
+		"system/usbShow.go":                {"show"},
+		"uninstall/codex.go":               {"codex"},
+		"uninstall/uninstall.go":           {"uninstall"},
 	}
 
 	got := cobraCommandUsesByFile(t, ".")

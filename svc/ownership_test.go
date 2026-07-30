@@ -8,7 +8,7 @@ import (
 )
 
 func TestDomainRunnersUseSharedServiceRunner(t *testing.T) {
-	for _, domain := range []string{"cleanup", "dump", "network", "system"} {
+	for _, domain := range []string{"cleanup", "dump", "install", "network", "system", "uninstall"} {
 		path := filepath.Join(domain, "runner.go")
 		content, err := os.ReadFile(path)
 		if err != nil {

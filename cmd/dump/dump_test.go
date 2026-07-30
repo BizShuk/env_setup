@@ -22,7 +22,7 @@ func TestCommandContainsManifestDumpCommands(t *testing.T) {
 	})
 	command := dumpcmd.NewCommand(service, &bytes.Buffer{}, &bytes.Buffer{})
 
-	for _, name := range []string{"mac", "vscode", "antigravity"} {
+	for _, name := range []string{"mac", "vscode-extension", "antigravity-extension"} {
 		found, remaining, err := command.Find([]string{name})
 		if err != nil {
 			t.Errorf("find %q: %v", name, err)
@@ -36,9 +36,12 @@ func TestCommandContainsManifestDumpCommands(t *testing.T) {
 			t.Errorf("find %q returned %q", name, found.Name())
 		}
 	}
+	if got, want := len(command.Commands()), 3; got != want {
+		t.Fatalf("child command count = %d, want %d", got, want)
+	}
 }
 
-func TestVSCodeCommandExecutesDump(t *testing.T) {
+func TestVSCodeExtensionCommandExecutesDump(t *testing.T) {
 	repositoryDir := newCommandRepository(t)
 	runner := &commandRunner{
 		outputs: map[string]string{"code --list-extensions": "z.publisher\nA.publisher\n"},
@@ -50,7 +53,7 @@ func TestVSCodeCommandExecutesDump(t *testing.T) {
 		LookPath:      commandLookPath,
 	})
 	command := dumpcmd.NewCommand(service, &bytes.Buffer{}, &bytes.Buffer{})
-	command.SetArgs([]string{"vscode"})
+	command.SetArgs([]string{"vscode-extension"})
 
 	if err := command.Execute(); err != nil {
 		t.Fatal(err)

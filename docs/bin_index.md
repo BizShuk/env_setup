@@ -1,6 +1,6 @@
 # `bin/` 完整索引 (Full Entry Point Catalog)
 
-> `bin/` 內的 scripts 經 `~/bin` symlink 後可直接以 bare name 呼叫；manifest dump、macOS cleanup、system information 與 network scan 已移至 root Go CLI 的 `env_setup dump` / `env_setup cleanup` / `env_setup system` / `env_setup network`。
+> `bin/` 內的 scripts 經 `~/bin` symlink 後可直接以 bare name 呼叫；manifest sync、Codex uninstall、macOS cleanup、system information 與 network scan 已移至 root Go CLI 的 `env_setup install` / `env_setup uninstall` / `env_setup dump` / `env_setup cleanup` / `env_setup system` / `env_setup network`。
 
 ## 1. `bin/bash/` — dotfiles 與設定
 
@@ -41,15 +41,18 @@
 | Area | 項目 | 說明 |
 | --- | --- | --- |
 | `bin/disk/` | `list_big_files.sh` | large-file scan |
-| `bin/codex/` | `uninstall.sh` | 反安裝 Codex CLI/App 與 per-user data |
 | `pkg/sysctl/` | `pf.conf` | PF firewall template（非 executable） |
 
 Network scan 入口為 `env_setup network private [target]` 與
 `env_setup network target [cidr]`；implementation 位於 `cmd/network/` 與 `svc/network/`。
 F3 media validation 入口為 `env_setup system disk verify <volume-path>`；
 implementation 位於 `cmd/system/diskVerify.go` 與 `svc/system/diskVerify.go`。
-Manifest export 入口為 `env_setup dump mac|vscode|antigravity`；
+Manifest export 入口為 `env_setup dump mac|vscode-extension|antigravity-extension`；
 implementation 位於 `cmd/dump/` 與 `svc/dump/`。
+Antigravity extension restore 入口為 `env_setup install antigravity-extension`；
+implementation 位於 `cmd/install/` 與 `svc/install/`。
+Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview，
+`--apply` 才逐項確認；implementation 位於 `cmd/uninstall/` 與 `svc/uninstall/`。
 
 ## 4. `bin/vscode/` — IDE Profile
 
@@ -57,10 +60,9 @@ implementation 位於 `cmd/dump/` 與 `svc/dump/`。
 | ----------------------------------- | --------------------------------------------------- |
 | `settings.json` / `keybindings.json` | VSCode 設定                                         |
 | `snippets/`                         | 程式碼片段                                          |
-| `agy-ide_extension_install`          | 從 manifest 還原 Antigravity IDE extensions         |
 | `agy-ide_extension_list.txt` / `vscode_extension_list.txt` | 副檔名清單                                  |
 
-## 5. 根目錄 helper (23 個補列入口)
+## 5. 根目錄 helper
 
 > 本區為 `bin/` 根目錄下, 跨多業務領域的零碎小工具。新增時以 `bin/<area>/<tool>` 為主, 需要 root-level 入口時再加 symlink。
 
@@ -85,11 +87,10 @@ implementation 位於 `cmd/dump/` 與 `svc/dump/`。
 | `ssh.md`                      | 文件             | 個人 notes                                                      |
 | `strip-docker-image-README.md` | 文件             | docker image README 模板                                        |
 | `devcontainer`                | devcontainer      | → 外部 `~/Library/Application Support/Code/User/...` (外部路徑) |
-| `mac` / `disk` / `codex` / `vscode` / `bash` / `bin` / `utils` | 目錄 | 對應 domain 子目錄（見 §1–§4 + §5.1 Go wrapper） |
+| `mac` / `disk` / `vscode` / `bash` / `bin` / `utils` | 目錄 | 對應 domain 子目錄（見 §1–§4 + §5.1 Go wrapper） |
 | `mac_extension_list.sh` / `mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh` | symlink | → `bin/mac/<tool>` 根層便捷入口 |
 | `disk_analysis-mac.sh` / `launch_audit-mac.sh` / `login_audit-mac.sh` / `network_security_audit-mac.sh` | symlink | → `bin/mac/<tool>` 根層便捷入口 |
 | `list_big_files.sh` | symlink | → `bin/disk/list_big_files.sh` 根層便捷入口 |
-| `agy-ide_extension_install` | symlink | → `bin/vscode/agy-ide_extension_install` |
 | `backupSync`                  | symlink 相容        | → `bin/backup` 舊名相容, 規劃 git rm                              |
 | `_lib_audit.sh`               | symlink             | → `bin/mac/_lib_audit.sh` (Phase 4.2 helper, 4 個 audit script source) |
 | `settings.sh`                 | symlink             | → `bin/bash/settings.sh`                                          |
@@ -113,7 +114,7 @@ implementation 位於 `cmd/dump/` 與 `svc/dump/`。
 
 ## 加入流程 (Add New Tool)
 
-1. 決定 area: `bash` / `mac` / `disk` / `codex` / `vscode`
+1. 決定 area: `bash` / `mac` / `disk` / `vscode`
 2. 在 `bin/<area>/<tool>` 撰寫；需要共用 helper 時 `source bin/<area>/_lib_*.sh`
 3. 若需 root 入口, 在 `bin/<tool>` 加 symlink `bin/<tool> -> <area>/<tool>`
 4. 將工具補入本檔對應分類
