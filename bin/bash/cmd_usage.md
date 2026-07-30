@@ -183,7 +183,7 @@ e.g. `sudo locale-gen zh_TW.UTF-8 zh_CN.UTF-8 ...`
 
 # System monitor
 
- now in bin/system_performance
+Use `env_setup system show` for system information.
 
 ### chmod
 

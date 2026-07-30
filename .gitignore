@@ -405,6 +405,10 @@ downloads/
 backup/
 backups/
 archive/
+!cmd/backup/
+!cmd/backup/*.go
+!svc/backup/
+!svc/backup/*.go
 _.bak
 _.tmp
 _.temp

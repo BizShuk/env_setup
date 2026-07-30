@@ -696,6 +696,7 @@
     "githubIssues.ignoreMilestones": [],
     "githubPullRequests.pullBranch": "never",
     "task.allowAutomaticTasks": "on",
+
     "yaml.schemas": {
         "file:///Users/shuk/.antigravity-ide/extensions/continue.continue-2.1.0/config-yaml-schema.json": [
             ".continue/**/*.yaml"
@@ -717,5 +718,6 @@
     "npm.autoDetect": "on",
     "npm.scriptRunner": "bun",
     "npm.packageManager": "bun",
-    "npm.scriptExplorerAction": "run"
+    "npm.scriptExplorerAction": "run",
+    "task.quickOpen.history": 10
 }

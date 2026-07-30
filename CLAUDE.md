@@ -11,11 +11,47 @@
 ├── README.todo
 ├── run.sh                         # 唯一 symlink 入口 + IDE profile 套用
 ├── ecosystem.config.js            # pm2 cron + 常駐任務
-├── go.mod / go.sum                # macbackup Go module (module github.com/bizshuk/env_setup)
-├── main.go                        # macbackup 組合根 (composition root)
-├── build.sh                       # go build -> ~/.local/bin/macbackup
-├── cmd/backup/                    # macbackup 命令層 (CLI command list)
-├── svc/backup/                    # macbackup 服務層 (與 macOS defaults/plutil 互動 + 邏輯)
+├── go.mod / go.sum                # env_setup Go module (Cobra + gosdk)
+├── main.go                        # env_setup composition root
+├── build.sh                       # go build -> ~/.local/bin/env_setup
+├── cmd/
+│   ├── root.go                    # Cobra root + gosdk metric hook
+│   ├── command_file_test.go       # one command one named file architecture contract
+│   ├── cleanup/
+│   │   └── cleanup.go             # cleanup list / --apply confirmation
+│   ├── dump/
+│   │   ├── dump.go                # dump parent command
+│   │   ├── mac.go                 # Homebrew / cask / tap / MAS manifest
+│   │   ├── vscode.go              # VS Code extensions manifest
+│   │   └── antigravity.go         # Antigravity extensions manifest
+│   ├── backup/
+│   │   ├── backup.go              # backup parent command
+│   │   ├── import.go              # backup import command
+│   │   ├── init.go                # backup init command
+│   │   └── list.go                # backup list command
+│   ├── network/
+│   │   ├── network.go             # network parent command
+│   │   ├── private.go             # private route topology command
+│   │   └── target.go              # target CIDR discovery command
+│   └── system/
+│       ├── system.go              # system parent command
+│       ├── show.go                # aggregate show command
+│       ├── os.go / osShow.go
+│       ├── cpu.go / cpuShow.go
+│       ├── memory.go / memoryShow.go
+│       ├── gpu.go / gpuShow.go
+│       ├── disk.go / diskShow.go
+│       ├── usb.go / usbShow.go
+│       ├── display.go / displayShow.go
+│       ├── network.go / networkShow.go
+│       ├── input.go / inputShow.go
+│       └── audio.go / audioShow.go
+├── model/cleanup/                 # cleanup preview 純資料模型
+├── svc/cleanup/                   # discovery、size、exact-target apply
+├── svc/backup/                    # backup service (與 macOS defaults/plutil 互動 + 邏輯)
+├── svc/dump/                      # manifest commands、normalization、atomic write
+├── svc/network/                   # traceroute/nmap execution、parsing、topology rendering
+├── svc/system/                    # system catalog、platform command execution/parsing
 ├── .geminiignore -> .gitignore
 ├── .gitmodules                    # 10 個 vim 插件 + libgit2
 ├── .vscode/                       # repo 自身 VSCode 設定
@@ -30,7 +66,6 @@
 │   │   ├── cmd_usage.md           # 個人 cheat notes
 │   │   └── shell_script_sample.sh
 │   ├── mac/                       # macOS 專用工具
-│   │   ├── mac_cleanup
 │   │   ├── mac_static_ip.sh       # 固定 IPv4 / 顯示狀態 / 還原 DHCP
 │   │   ├── disk_analysis-mac.sh / launch_audit-mac.sh
 │   │   ├── login_audit-mac.sh / network_security_audit-mac.sh
@@ -39,22 +74,14 @@
 │   │   ├── mac_extension_list
 │   │   ├── lib.py / ls_sys_path.py
 │   │   └── keyboard_shortcuts/    # plist 樣板
-│   ├── system/                    # 跨平台系統工具
-│   │   ├── system_info            # 聚合 10 個 *_info + myip
-│   │   ├── system_dump            # 統一匯出套件清單
-│   │   ├── os_info / cpu_info / mem_info / gpu_info / disk_info
-│   │   ├── display_info / usb_info / input_info / audio_info
-│   │   ├── myip / checkdisk
-│   │   ├── list_big_files.sh / network_topology_scan.sh
-│   │   ├── brew_bundle_dump / raspi-config / system_service
-│   │   ├── system_performance.sh
-│   │   ├── config/                # pf 防火牆樣板等
-│   │   └── README.md              # 標題錯置 (標記修正)
-│   ├── vscode/                    # IDE 設定 + dump/restore
+│   ├── disk/                      # large-file scan
+│   │   └── list_big_files.sh
+│   ├── codex/                     # Codex lifecycle utilities
+│   │   └── uninstall.sh
+│   ├── vscode/                    # IDE 設定 + manifests / restore
 │   │   ├── settings.json / keybindings.json
 │   │   ├── snippets/
-│   │   ├── agy-ide_extension_install / agy-ide_extension_dump
-│   │   ├── vscode_extension_dump
+│   │   ├── agy-ide_extension_install
 │   │   ├── agy-ide_extension_list.txt / vscode_extension_list.txt
 │   │   └── README.md
 │   ├── 根目錄 helper (23 個)     # 詳見 plans/2026-07-08 §2.6
@@ -121,9 +148,9 @@
 
 ## 技術棧 (Tech Stack)
 
-- Language: Bash/Shell (主要)、Python (輔助, `bin/mac/lib.py` / `ls_sys_path.py`)、AppleScript (`pkg/mac/applescript/toggleFn.scpt`)
-- Framework: 無 (純 shell + python 工具集)
-- Build tool: `bash` (直接執行) / `wget` / `curl` 安裝 Go toolchain
+- Language: Bash/Shell (主要)、Go 1.26 (env_setup CLI)、Python (輔助)、AppleScript
+- Framework: `spf13/cobra` (CLI) + `bizshuk/gosdk` (config、logging、metrics)
+- Build tool: `go build` (root CLI)；shell scripts 直接執行
 - Key dependencies:
     - `homebrew 5.0.3` (`scripts/brew.sh`)
     - `go 1.26.3` + `golangci-lint v1.64.5` (`scripts/go.sh`)
@@ -139,10 +166,14 @@
 - **`~/bin` symlink 到 `bin/`**：在 `settings.sh` 內 `[ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"`，新工具直接落入 `bin/<area>/<tool>` 即可被 `PATH` 找到。
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。
 - **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 與常駐任務，namespace = `Local`；新增任務以 `./bin/<area>/<tool>` 全路徑註冊。
-- **macOS 稽核與硬體偵測分流**：`bin/mac/` 為 macOS 專屬 (`mac_cleanup.sh`、`*_audit-mac.sh`)；`bin/system/` 為跨平台硬體偵測 (`*_info`、`system_info`)。`bin/system/README.md` 目前標題錯置需修正。
-- **原則上不引入 Go/Cobra 框架**：本 repo 以純 shell + python 工具集為主，不混用 binary CLI。唯一例外為 repo root 的 macbackup Go module(macOS 設定 backup/import 工具)：因需 gosdk config 慣例路徑 (`~/.config/env_setup/data/`) 與逐一 diff/確認的互動邏輯,以 Go 實作。採 `main.go`(root,組合根)+ `cmd/backup/`(命令層)+ `svc/backup/`(服務層,封裝 macOS `defaults`/`plutil` 互動)三層,不使用 cobra;由 `build.sh` 建置到 `~/.local/bin/macbackup`(git-ignored,不 commit binary)。
-- **macOS 稽核與硬體偵測分流**：`bin/mac/` 為 macOS 專屬 (`mac_cleanup.sh`、`*_audit-mac.sh`)；`bin/system/` 為跨平台硬體偵測 (`*_info`、`system_info`)。`bin/system/README.md` 目前標題錯置需修正。
-- **原則上不引入 Go/Cobra 框架**：本 repo 以純 shell + python 工具集為主，不混用 binary CLI。唯一例外為 repo root 的 macbackup Go module(macOS 設定 backup/import 工具)：因需 gosdk config 慣例路徑 (`~/.config/env_setup/data/`) 與逐一 diff/確認的互動邏輯,以 Go 實作。採 `main.go`(root,組合根)+ `cmd/backup/`(命令層)+ `svc/backup/`(服務層,封裝 macOS `defaults`/`plutil` 互動)三層,不使用 cobra;由 `build.sh` 建置到 `~/.local/bin/macbackup`(git-ignored,不 commit binary)。
+- **macOS 稽核與 cleanup 分流**：`env_setup cleanup` 擁有 cleanup catalog、preview 與逐項 confirmation；`bin/mac/*_audit-mac.sh` 保留 audit reports；跨平台硬體偵測由 `svc/system` 擁有。
+- **Cobra root 是唯一 Go CLI 入口**：`main.go` 初始化 gosdk config，`cmd/root.go` 組合 `cleanup`、`backup`、`dump`、`system` 與 `network` subcommands；domain I/O 分別下沉至對應的 `svc/<domain>/`。
+- **Cobra command 一個檔案一個 command**：檔名採 package-relative command path，不重複 package prefix。Package/root command 使用 `<package>.go`，direct child 使用 `<child>.go`，更深層 command 串接剩餘 path（例如 `cmd/backup/import.go`、`cmd/system/osShow.go`）。Host app 使用 constructor injection 建立 fresh command tree，避免 package-level flag state 在 tests 間殘留。
+- **backup metadata 是 snapshot time owner**：`backup list` 的 latest backup date 讀取 `backup.meta.json.timestamp`；legacy backup 缺少 metadata 時才 fallback 至最新 `.plist` modification time，沒有任何 backup 則顯示 `-`。
+- **manifest dump 是 Go-native service**：`env_setup dump mac|vscode|antigravity` 分別擁有 Homebrew、VS Code 與 Antigravity manifest export；IDE output 在完整取得後排序、去重並 atomic replace，舊 shell adapters 與 root symlinks不再是 runtime boundary。
+- **system probes 與 disk verification 是 Go-native services**：`svc/system` 透過 injected `Runner` 執行 platform commands，並由 information-specific Go files 解析輸出；不依賴 repo path 或 shell adapters。`system show` 聚合全部 probes，`system <information> show` 執行單一 probe；`system disk verify <volume-path>` 在 macOS 以 `diskutil` + F3 驗證 removable media。
+- **network scans 是 Go-native services**：`svc/network` 透過 injected `Runner` 執行 `traceroute`、`nmap` 與 bounded ping fallback，並由 Go parser 解析 private hops、live hosts、services 與 topology；`bin/network/` 不再是 runtime boundary。
+- **cleanup apply 使用 immutable snapshot**：`svc/cleanup` 在 preview 時解析 exact targets 與 size；只有 `--apply` 且逐項確認後才套用該 snapshot，不在 apply 時重新擴大 glob scope。
 
 ## 模組對應 (Module Mapping)
 
@@ -150,11 +181,10 @@
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | 機器初始化與開發工具安裝 (Bootstrap & Tooling)    | `scripts/`, `bin/bash/settings.sh`                                                                                        | `./scripts/mac.sh`, `./scripts/ubuntu.sh`, `./scripts/go.sh`                     |
 | 使用者與 IDE 設定軟連結 (User Config & IDE Link)  | `run.sh`, `bin/bash/`, `bin/vscode/`                                                                                      | `./run.sh` (含 `link_ide_config()` 函式)                                         |
-| 硬體與系統狀態偵測 (Hardware & System Probe)      | `bin/system/`                                                                                                             | `./bin/system/system_info`, `./bin/system/checkdisk`, `./bin/system/system_dump` |
-| macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `bin/mac/`                                                                                                                | `./bin/mac/mac_cleanup.sh`, `./bin/mac/disk_analysis-mac.sh`                     |
-| 網路拓撲與設備掃描 (Network Topology & Scan)      | `bin/scan_private_network`, `bin/scan_target_network`, `bin/system/network_topology_scan.sh`                              | 對應入口直接執行 (規劃整合至 `bin/network/scan_network.sh`)                      |
-| macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `bin/mac/`                                                                                                                | `./bin/mac/mac_cleanup.sh`, `./bin/mac/disk_analysis-mac.sh`                     |
-| 網路拓撲與設備掃描 (Network Topology & Scan)      | `bin/network/scan_network.sh` (--mode=private\|target\|topology\|topology-no-scan), `bin/system/network_topology_scan.sh` | `./bin/network/scan_network.sh --mode=...`                                       |
+| 硬體與系統狀態偵測 (Hardware & System Probe)      | `cmd/system/`, `svc/system/`                                                                                               | `env_setup system show`, `env_setup system <information> show`, `env_setup system disk verify <volume-path>` |
+| 開發環境清單匯出 (Development Manifest Dump)      | `cmd/dump/`, `svc/dump/`, `scripts/Brewfile`, `bin/vscode/*_extension_list.txt`                                            | `env_setup dump mac`, `env_setup dump vscode`, `env_setup dump antigravity`      |
+| macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `cmd/cleanup/`, `model/cleanup/`, `svc/cleanup/`, `bin/mac/*_audit-mac.sh`                                                | `env_setup cleanup`, `env_setup cleanup --apply`                                 |
+| 網路與設備掃描 (Network & Device Scan)            | `cmd/network/`, `svc/network/`                                                                                            | `env_setup network private [target]`, `env_setup network target [cidr]`          |
 | 開發者輔助工具 (Developer Helpers)                | `bin/` 根目錄 + `bin/bash/.bash_aliases`                                                                                  | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                        |
 | 觀測排程與稽核報告 (Observability Cron & Reports) | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                                                                          | `pm2 start ecosystem.config.js`                                                  |
 
@@ -166,6 +196,7 @@
 - Bash/Zsh 終端機
 - 已安裝 `git`、`wget`、`curl` (macOS 內建, Ubuntu 由 `scripts/ubuntu.sh` 安裝)
 - `traceroute` + `nmap` (僅執行 network scanner 需)
+- `f3` (僅執行 macOS removable-media verification 需)
 
 ### 安裝 (Installation)
 
@@ -182,12 +213,13 @@
 
 ### 建置 (Build)
 
-無編譯步驟；新工具直接以可執行檔形式加入 `bin/<area>/<tool>` 並 `chmod +x`。
+Root Go CLI 執行 `./build.sh` 安裝至 `~/.local/bin/env_setup`；shell 工具直接加入 `bin/<area>/<tool>` 並 `chmod +x`。
 
 ### 測試 (Test)
 
 - `./run.sh` 驗證 symlink 全部建立
-- `./bin/system/system_info` 驗證 10 個 sub-tool (需先修 `BASE_DIR` bug)
+- `go test -count=1 ./...` 驗證 Cobra commands、system probes、network parsers、cleanup discovery 與 immutable apply
+- `env_setup system show` 驗證 10 個 system information adapters
 - `./bin/mac/disk_analysis-mac.sh` 驗證 audit 報告輸出
 - `shellcheck bin/<area>/*.sh` (若已安裝)
 - `git grep -n 'smain\|project_setup'` 確認無殘留敘述
@@ -200,14 +232,15 @@
 ## 慣例 (Conventions)
 
 - Shell 腳本命名 (Naming)：
-    - 跨平台腳本 `bin/system/<component>_<type>` (例：`os_info`、`system_dump`)
+    - 跨平台 system information 以 `svc/system/<information>.go` 實作；不新增 shell adapter
+    - network scans 以 `cmd/network/<command>.go` + `svc/network/` 實作；不新增 `bin/network/` adapter
     - macOS 腳本 `bin/mac/<mac_action>.sh` 或 `bin/mac/<mac_action>` (規劃統一加 `mac_` 前綴與 `.sh` 後綴)
     - helper 腳本 `bin/<area>/_lib_<purpose>.sh` (例：規劃中之 `bin/mac/_lib_audit.sh`)
 - 環境變數入口 (Settings)：
     - 所有腳本 `source "$(dirname "$0")/settings.sh"` 取得共用變數
     - 不得在 `bin/bash/settings.sh` 內 commit 明文 `passwd` / `email` / `token`，一律改讀 `~/.config/env_setup/settings.private.sh`
 - 工具加入流程 (Scalability)：
-    1. 決定 area: `bash` / `mac` / `system` / `vscode` / `network`
+    1. 決定 area: `bash` / `mac` / `package` / `disk` / `codex` / `vscode` / `network`
     2. 在 `bin/<area>/<tool>` 撰寫；需要共用 helper 時 `source bin/<area>/_lib_*.sh`
     3. 若需 root 入口，在 `bin/<tool>` 加 symlink `bin/<tool> -> <area>/<tool>`
     4. 將工具加入 `docs/bin_index.md`

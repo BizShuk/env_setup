@@ -1,15 +1,15 @@
 # `bin/` — 可執行入口索引 (Entry Point Index)
 
-`bin/` 內所有檔案已透過 `bin/bash/settings.sh` 軟連結到 `~/bin`, 任何子目錄的工具皆可直接以 bare name 呼叫 (例：`mac_cleanup.sh`、`system_info`)。
+`bin/` 內 scripts 已透過 `bin/bash/settings.sh` 軟連結到 `~/bin`，可直接以 bare name 呼叫。Manifest dump、macOS cleanup、system information 與 network scan 分別使用 Go-native `env_setup dump`、`env_setup cleanup`、`env_setup system` 與 `env_setup network`。
 
 ## 目錄分區 (Areas)
 
 | Area         | 用途                                              | 範例入口                                                       |
 | ------------ | ------------------------------------------------- | -------------------------------------------------------------- |
 | `bin/bash/`  | dotfiles、`settings.sh`、vim 設定、bash alias     | `settings.sh`、`.bashrc`、`.vimrc`                             |
-| `bin/mac/`   | macOS 專屬稽核與清理                              | `mac_cleanup.sh`、`disk_analysis-mac.sh`                       |
-| `bin/network/`| 跨平台網路掃描 (traceroute + nmap)              | `scan_network.sh`                                              |
-| `bin/system/`| 跨平台硬體與系統偵測                              | `system_info`、`checkdisk`、`myip`                             |
+| `bin/mac/`   | macOS 專屬稽核與設定工具                          | `disk_analysis-mac.sh`、`mac_static_ip.sh`                     |
+| `bin/disk/`  | large-file scan                                  | `list_big_files.sh`                                            |
+| `bin/codex/` | Codex lifecycle utilities                          | `uninstall.sh`                                                 |
 | `bin/vscode/`| VSCode / Antigravity IDE 設定                     | `settings.json`、`keybindings.json`                            |
 | 根目錄 helper | 開發者輔助小工具 (見 `docs/bin_index.md` 完整索引) | `json`、`listen_port`                                          |
 
@@ -18,7 +18,7 @@
 ### 工具命名 (Naming)
 
 - 新工具加入 `bin/<area>/<tool>`, 需要 root-level 入口時在 `bin/<tool>` 加 symlink
-- macOS 工具統一加 `mac_` 前綴與 `.sh` 後綴 (例：`mac_cleanup.sh`, `disk_analysis-mac.sh`)
+- macOS scripts 統一使用可辨識的 action 名稱與 `.sh` 後綴（例：`mac_static_ip.sh`, `disk_analysis-mac.sh`）
 
 ### 共用 helper 慣例 (Shared Helpers)
 

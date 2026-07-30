@@ -1,6 +1,6 @@
 # `bin/` 完整索引 (Full Entry Point Catalog)
 
-> `bin/` 根目錄目前共有 59 個項目 (含目錄、檔案、symlink)。所有檔案經 `~/bin` symlink 後可直接以 bare name 呼叫。
+> `bin/` 內的 scripts 經 `~/bin` symlink 後可直接以 bare name 呼叫；manifest dump、macOS cleanup、system information 與 network scan 已移至 root Go CLI 的 `env_setup dump` / `env_setup cleanup` / `env_setup system` / `env_setup network`。
 
 ## 1. `bin/bash/` — dotfiles 與設定
 
@@ -23,7 +23,6 @@
 
 | 項目                              | 說明                                                  |
 | --------------------------------- | ----------------------------------------------------- |
-| `mac_cleanup.sh`                     | 清理 `/private/var/log`、`~/Library/Caches`、`~/.Trash` |
 | `mac_static_ip.sh`                  | 顯示目前網路與建議固定 IPv4、設定固定 IPv4，並可還原 DHCP 與自動 DNS |
 | `disk_analysis-mac.sh`            | 磁碟與敏感目錄權限稽核                                |
 | `launch_audit-mac.sh`             | `LaunchAgents` / `LaunchDaemons` 稽核                 |
@@ -35,22 +34,22 @@
 | `lib.py` / `ls_sys_path.py`       | python 工具 (副檔名/路徑)                              |
 | `keyboard_shortcuts/`             | 鍵盤快捷鍵 plist 樣板                                 |
 
-## 3. `bin/system/` — 跨平台硬體 / 系統偵測
+## 3. Domain Utilities
 
-| 項目                            | 說明                                                          |
-| ------------------------------- | ------------------------------------------------------------- |
-| `system_info`                   | 聚合入口, 一次跑 10 個 sub-tool                                |
-| `system_dump`                   | 統一匯出 brew / vscode / agy-ide 套件清單                      |
-| `os_info` / `cpu_info` / `mem_info` / `gpu_info` / `disk_info` | 細粒度硬體偵測               |
-| `display_info` / `usb_info` / `input_info` / `audio_info`      | 顯示 / USB / 輸入 / 音訊      |
-| `myip`                          | 查詢本機對外 IP                                                |
-| `checkdisk`                     | 磁碟使用率                                                     |
-| `list_big_files.sh`             | 大檔掃描                                                       |
-| `brew_bundle_dump`              | 匯出 Brewfile                                                  |
-| `uninstall_codex.sh`            | 反安裝 Codex CLI（清理 PATH / config / cache）                |
-| `config/`                       | pf 防火牆樣板                                                  |
+`env_setup system` 與 `env_setup network` 已直接以 Go 實作 cross-platform probes/scans，不再需要 `bin/` adapter folders。原本混放的其他工具依 ownership 搬至：
 
-> Phase 7.1 刪除：`network_topology_scan.sh`（dead path, 已由 `bin/network/scan_network.sh` dispatcher 取代, 見 §6）
+| Area | 項目 | 說明 |
+| --- | --- | --- |
+| `bin/disk/` | `list_big_files.sh` | large-file scan |
+| `bin/codex/` | `uninstall.sh` | 反安裝 Codex CLI/App 與 per-user data |
+| `pkg/sysctl/` | `pf.conf` | PF firewall template（非 executable） |
+
+Network scan 入口為 `env_setup network private [target]` 與
+`env_setup network target [cidr]`；implementation 位於 `cmd/network/` 與 `svc/network/`。
+F3 media validation 入口為 `env_setup system disk verify <volume-path>`；
+implementation 位於 `cmd/system/diskVerify.go` 與 `svc/system/diskVerify.go`。
+Manifest export 入口為 `env_setup dump mac|vscode|antigravity`；
+implementation 位於 `cmd/dump/` 與 `svc/dump/`。
 
 ## 4. `bin/vscode/` — IDE Profile
 
@@ -58,8 +57,7 @@
 | ----------------------------------- | --------------------------------------------------- |
 | `settings.json` / `keybindings.json` | VSCode 設定                                         |
 | `snippets/`                         | 程式碼片段                                          |
-| `agy-ide_extension_install` / `_dump` | Antigravity IDE 副檔名管理                         |
-| `vscode_extension_dump`             | VSCode 副檔名匯出                                   |
+| `agy-ide_extension_install`          | 從 manifest 還原 Antigravity IDE extensions         |
 | `agy-ide_extension_list.txt` / `vscode_extension_list.txt` | 副檔名清單                                  |
 
 ## 5. 根目錄 helper (23 個補列入口)
@@ -80,7 +78,6 @@
 | `generate_https_cert`         | 憑證              | 產生 self-signed HTTPS 憑證                                    |
 | `generator_pem.sh`            | 憑證              | 產生 PEM                                                       |
 | `backup` / `backupSync`       | 備份              | 備份單檔 / 同步備份                                              |
-| `network/scan_network.sh`     | 網路掃描          | 統一入口, --mode=private\|target\|topology\|topology-no-scan      |
 | `ssoLogin.sh` / `ssoLogin_faas.sh` | 登入          | SSO / FaaS 登入                                                |
 | `claudew` / `claudem`         | Claude CLI 包裝 | alias 已升格為實體腳本（commit `38e3556`），引用 `~/.bash_local` 之 token env var；為唯一入口 |
 | `ssh_config` / `sshd_config`  | SSH               | ssh client / server 設定                                        |
@@ -88,11 +85,11 @@
 | `ssh.md`                      | 文件             | 個人 notes                                                      |
 | `strip-docker-image-README.md` | 文件             | docker image README 模板                                        |
 | `devcontainer`                | devcontainer      | → 外部 `~/Library/Application Support/Code/User/...` (外部路徑) |
-| `mac` / `system` / `vscode` / `network` / `bash` / `bin` / `utils` | 目錄 | 對應子目錄（見 §1–§4 + §6 Go wrapper） |
-| `mac_cleanup.sh` / `mac_extension_list.sh` / `mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh` | symlink | → `bin/mac/<tool>` 根層便捷入口 |
+| `mac` / `disk` / `codex` / `vscode` / `bash` / `bin` / `utils` | 目錄 | 對應 domain 子目錄（見 §1–§4 + §5.1 Go wrapper） |
+| `mac_extension_list.sh` / `mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh` | symlink | → `bin/mac/<tool>` 根層便捷入口 |
 | `disk_analysis-mac.sh` / `launch_audit-mac.sh` / `login_audit-mac.sh` / `network_security_audit-mac.sh` | symlink | → `bin/mac/<tool>` 根層便捷入口 |
-| `list_big_files.sh` / `system_dump` / `system_info` / `checkdisk` / `brew_bundle_dump` | symlink | → `bin/system/<tool>` 根層便捷入口 |
-| `agy-ide_extension_dump` / `agy-ide_extension_install` / `vscode_extension_dump` | symlink | → `bin/vscode/<tool>` 根層便捷入口 |
+| `list_big_files.sh` | symlink | → `bin/disk/list_big_files.sh` 根層便捷入口 |
+| `agy-ide_extension_install` | symlink | → `bin/vscode/agy-ide_extension_install` |
 | `backupSync`                  | symlink 相容        | → `bin/backup` 舊名相容, 規劃 git rm                              |
 | `_lib_audit.sh`               | symlink             | → `bin/mac/_lib_audit.sh` (Phase 4.2 helper, 4 個 audit script source) |
 | `settings.sh`                 | symlink             | → `bin/bash/settings.sh`                                          |
@@ -109,17 +106,14 @@
 
 > Phase 7 已刪 dead reference：`goswitch`, `bytedance_setup.sh`, `git-secret`, `system_link`, `system_performance.sh`, `raspi-config`, `system_service`, `network_topology_scan.sh`。
 
-## 6. `bin/network/` — 統一網路掃描入口 (Phase 4.3 closure)
+## 6. Network Scan Migration
 
-| 項目                  | 說明                                                       |
-| --------------------- | ---------------------------------------------------------- |
-| `scan_network.sh`     | 統一 dispatcher, `--mode=private\|target\|topology\|topology-no-scan` |
-
-> Phase 7.1: 已刪除舊 `bin/scan_private_network`, `bin/scan_target_network`, `bin/scan_devices`, `bin/system/network_topology_scan.sh`, `bin/network_topology_scan.sh`。新入口為 `bin/network/scan_network.sh`。
+`bin/network/` 已移除。Network scan domain 由 root Go CLI 的
+`env_setup network private|target` 與 `svc/network/` 擁有。
 
 ## 加入流程 (Add New Tool)
 
-1. 決定 area: `bash` / `mac` / `system` / `vscode` / `network`
+1. 決定 area: `bash` / `mac` / `disk` / `codex` / `vscode`
 2. 在 `bin/<area>/<tool>` 撰寫；需要共用 helper 時 `source bin/<area>/_lib_*.sh`
 3. 若需 root 入口, 在 `bin/<tool>` 加 symlink `bin/<tool> -> <area>/<tool>`
 4. 將工具補入本檔對應分類

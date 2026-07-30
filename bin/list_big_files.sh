@@ -1,1 +1,1 @@
-system/list_big_files.sh
+disk/list_big_files.sh

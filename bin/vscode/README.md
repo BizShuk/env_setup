@@ -15,9 +15,10 @@
 
 To dump installed extensions:
 
-    bin/vscode_extension_dump
+    env_setup dump vscode
+    env_setup dump antigravity
 
 To install extensions from `extensions.txt`:
 
     xargs -L 1 code --install-extension < bin/vscode/vscode_extension_list.txt
-    xargs -L 1 agy-ide --install-extension < bin/vscode/agy_extension_list.txt
+    xargs -L 1 agy-ide --install-extension < bin/vscode/agy-ide_extension_list.txt

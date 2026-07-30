@@ -66,28 +66,6 @@ func writeMeta(dir string, domains []string) error {
 	return os.WriteFile(filepath.Join(dir, "backup.meta.json"), data, 0o644)
 }
 
-// List 顯示網域清單與每個網域的 backup 狀態。
-func List(w io.Writer) error {
-	domains, err := LoadManifest()
-	if err != nil {
-		return err
-	}
-	fmt.Fprintf(w, "manifest: %s\nbackup:   %s\n\n", ManifestPath(), BackupDir())
-	fmt.Fprintf(w, "%-8s %-8s %s\n", "BACKUP", "LIVE", "DOMAIN")
-	for _, d := range domains {
-		backup := "-"
-		if _, err := os.Stat(backupFile(d.Domain)); err == nil {
-			backup = "yes"
-		}
-		live := "-"
-		if domainExists(d.Domain) {
-			live = "yes"
-		}
-		fmt.Fprintf(w, "%-8s %-8s %s\n", backup, live, d.Domain)
-	}
-	return nil
-}
-
 // Init 只把預設網域清單種入 config 目錄。
 func Init(w io.Writer) error {
 	if err := SeedManifest(); err != nil {

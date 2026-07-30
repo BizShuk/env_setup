@@ -139,18 +139,26 @@
     },
     {
         "key": "cmd+3",
-        "command": "workbench.action.focusPanel"
+        "command": "workbench.action.togglePanel",
+        "when": "!panelVisible"
     },
     {
         "key": "cmd+3",
         "command": "workbench.action.toggleMaximizedPanel",
-        "when": "panelVisible"
+        "when": "panelVisible && !panelMaximized"
     },
     {
         "key": "cmd+3",
-        "command": "workbench.action.togglePanel",
-        "when": "!panelVisible"
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.toggleMaximizedPanel",
+                "workbench.action.togglePanel"
+            ]
+        },
+        "when": "panelVisible && panelMaximized"
     },
+
     {
         "key": "cmd+2",
         "command": "workbench.action.togglePanel",

@@ -1,6 +1,6 @@
 # env_setup
 
-`env_setup` 是一個 framework 層級的機器初始化與開發者工具箱 (developer toolbox) repo：負責在 macOS / Ubuntu 新機器上安裝 OS 與開發工具 (Go, Node, brew, ctags, openssl, git-secret)，把 bash / vim / ssh / vscode 等 dotfiles 透過 `run.sh` 軟連結到使用者家目錄，並提供 `bin/` 內的可執行入口 (硬體偵測、macOS 稽核、網路掃描、開發者 helper) 與 pm2 cron 排程。
+`env_setup` 是一個 framework 層級的機器初始化與開發者工具箱 (developer toolbox) repo：負責在 macOS / Ubuntu 新機器上安裝 OS 與開發工具 (Go, Node, brew, ctags, openssl, git-secret)，把 bash / vim / ssh / vscode 等 dotfiles 透過 `run.sh` 軟連結到使用者家目錄，並以 `env_setup` Go CLI 提供 dump、system、cleanup、backup 與 network commands；`bin/` 保留 macOS 稽核與開發者 helpers，pm2 負責 cron 排程。
 
 ## 業務領域 (Business Domains)
 
@@ -38,49 +38,65 @@
 
 ### 硬體與系統狀態偵測 (Hardware & System Probe)
 
-`bin/system/` 提供 10 個細粒度 `*_info` 工具 (`os_info`, `cpu_info`, `mem_info`, `gpu_info`, `disk_info`, `display_info`, `usb_info`, `input_info`, `audio_info`, `myip`) 與聚合入口 `system_info`；另有 `checkdisk` (磁碟使用率)、`list_big_files.sh` (大檔掃描)、`system_dump` (統一匯出 brew/vscode/agy-ide 套件清單)、`system_performance.sh` (cheatsheet)。
+`env_setup system` 是硬體與系統狀態的統一 CLI；`system show` 聚合全部 10 個 probes，每種 information 也有自己的 `<information> show` command。`system disk verify <volume-path>` 在 macOS 以 `diskutil`、`f3write` 與 `f3read` 驗證 removable media 的容量與資料完整性。`svc/system/` 直接執行 platform commands 並整理輸出，不依賴 shell adapters 或 repo path。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者直接執行 `bin/system/<tool>`，或呼叫 `system_info` 一次跑完 10 個 sub-tool。
-2. 每個 sub-tool 透過 `system_profiler` (mac) 或 `lshw` / `lsblk` (linux) 取出對應章節，印到 stdout。
-3. `system_dump` 進一步把 `brew bundle dump`、`vscode_extension_dump`、`agy-ide_extension_dump` 的輸出彙整到 `bin/system/config/` 下的 dump 檔。
+1. 使用者執行 `env_setup system show`，或以 `env_setup system cpu show` 等 command 只查看單一 information。
+2. Go service 依 runtime platform 執行 `system_profiler` / `sysctl`（macOS）或對應 Linux commands，再由每個 probe file 解析並印到 stdout。
+3. 使用者執行 `env_setup system disk verify /Volumes/<name>`，確認 F3 write/read 操作後驗證 removable media；`--yes` 可略過互動確認。
 
-`核心實體 (Key Entities):` `硬體元件 (Hardware Component)`, `系統工具輸出 (System Probe Output)`, `Extension 清單 (Extension Manifest)`
+`核心實體 (Key Entities):` `硬體元件 (Hardware Component)`, `系統工具輸出 (System Probe Output)`
 
-`相關處理器 (Related Handlers):` [bin/system/system_info](file:///Users/bytedance/projects/env_setup/bin/system/system_info), [bin/system/system_dump](file:///Users/bytedance/projects/env_setup/bin/system/system_dump), [bin/system/checkdisk](file:///Users/bytedance/projects/env_setup/bin/system/checkdisk), [bin/system/myip](file:///Users/bytedance/projects/env_setup/bin/system/myip), [bin/system/list_big_files.sh](file:///Users/bytedance/projects/env_setup/bin/system/list_big_files.sh)
+`相關處理器 (Related Handlers):` `env_setup system show`, `env_setup system <information> show`, `env_setup system disk verify <volume-path>`, [svc/system](svc/system)
+
+---
+
+### 開發環境清單匯出 (Development Manifest Dump)
+
+`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode` 與 `dump antigravity` 分別更新 `bin/vscode/*_extension_list.txt`。
+
+`領域流程 (Domain Flow):`
+
+1. 使用者在 repo 內執行 `env_setup dump mac`、`env_setup dump vscode` 或 `env_setup dump antigravity`。
+2. Go service 先驗證 repo root 與必要 CLI，再執行 `brew bundle dump` 或 `<ide> --list-extensions`。
+3. IDE manifests 會排序、去重並以 atomic replacement 寫入，external command 失敗時保留舊檔。
+
+`核心實體 (Key Entities):` `Mac Manifest`, `IDE Extension Manifest`, `Repository Root`
+
+`相關處理器 (Related Handlers):` `env_setup dump mac`, `env_setup dump vscode`, `env_setup dump antigravity`, [svc/dump](svc/dump)
 
 ---
 
 ### macOS 系統稽核與清理 (macOS Audit & Cleanup)
 
-`bin/mac/` 提供磁碟清理 (`mac_cleanup.sh`) 與四個安全稽核腳本 (`disk_analysis-mac.sh`、`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/system/data/`。
+`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留四個安全稽核腳本 (`disk_analysis-mac.sh`、`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/system/data/`。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者手動執行 `bin/mac/mac_cleanup.sh`，或由 pm2 在 `0 5 * * 5` (每週五 05:00) 觸發 audit 腳本。
-2. `mac_cleanup.sh` 刪 `/private/var/log`、`/private/var/tmp`、`~/Library/Caches`、`~/.Trash`，並 `tmutil deletelocalsnapshots` 與 `docker system prune` (若 docker 存在)。
-3. 稽核腳本檢查 `LaunchAgents/LaunchDaemons`、登入帳戶、開啟通訊埠、敏感目錄權限，最後呼叫 `md_log` 寫出帶時間戳的報告。
+1. 使用者先執行 `env_setup cleanup`，查看每個 cleanup item 的 size 與 description；preview 不修改檔案。
+2. 使用者執行 `env_setup cleanup --apply` 後，CLI 才逐項顯示 `[y/N]` confirmation，且只套用明確同意的 item。
+3. pm2 在 `0 5 * * 5` (每週五 05:00) 觸發 audit scripts；它們檢查 `LaunchAgents/LaunchDaemons`、登入帳戶、開啟通訊埠與敏感目錄權限，再寫出帶時間戳的報告。
 
 `核心實體 (Key Entities):` `稽核報告 (Audit Report)`, `磁碟垃圾 (Disk Junk)`, `LaunchAgent`, `開啟通訊埠 (Open Port)`
 
-`相關處理器 (Related Handlers):` [bin/mac/mac_cleanup.sh](file:///Users/bytedance/projects/env_setup/bin/mac/mac_cleanup), [bin/mac/disk_analysis-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/disk_analysis-mac.sh), [bin/mac/launch_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/network_security_audit-mac.sh)
+`相關處理器 (Related Handlers):` `env_setup cleanup`, [bin/mac/disk_analysis-mac.sh](bin/mac/disk_analysis-mac.sh), [bin/mac/launch_audit-mac.sh](bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](bin/mac/network_security_audit-mac.sh)
 
 ---
 
 ### 網路拓撲與設備掃描 (Network Topology & Device Scan)
 
-`bin/network/scan_network.sh` 為統一入口（`--mode=private|target|topology|topology-no-scan`），用 `traceroute` + `nmap` 探測本機所連私有網段，產出 `network.topo` 或 markdown 拓樸報告。
+`env_setup network` 是統一入口：`network private [target]` 以 `traceroute` + `nmap` 分析本機所連私有網段並產出 `network.topo`；`network target [cidr]` 對指定 IPv4 CIDR 執行 host discovery。
 
 `領域流程 (Domain Flow):`
 
-1. 入口先 `command -v` 檢查 `traceroute` 與 `nmap` 是否存在；缺一即報錯退出。
-2. 透過 `is_private()` 判斷每個 hop 是否位於 RFC1918 / CGNAT (`100.64/10`) 段；持續 traceroute 直到遇見公網 IP。
-3. `nmap` 對最後一個私有 hop 進行 port scan；輸出可由 `--topology` 模式進一步輸出成 markdown 拓樸報告。
+1. `network private` 先檢查 `traceroute` 與 `nmap`；`network target` 優先使用 `nmap`，缺少時只對 `/24` 或更小的 IPv4 network 使用 bounded concurrent ping fallback。
+2. Go service 判斷每個 hop 是否位於 RFC1918 / CGNAT (`100.64/10`) 段；持續 traceroute 直到遇見公網 IP。
+3. `nmap` 對私有 subnet 進行 host / port discovery；`private` 寫入 topology file，`target` 將 live hosts 印到 stdout。
 
 `核心實體 (Key Entities):` `私有 IP (Private IP)`, `Hop 節點`, `通訊埠掃描結果 (Port Scan Result)`, `網路拓樸報告 (Network Topology Report)`
 
-`相關處理器 (Related Handlers):` [bin/network/scan_network.sh](file:///Users/bytedance/projects/env_setup/bin/network/scan_network.sh), [bin/system/network_topology_scan.sh](file:///Users/bytedance/projects/env_setup/bin/system/network_topology_scan.sh)
+`相關處理器 (Related Handlers):` `env_setup network private`, `env_setup network target`, [svc/network](svc/network)
 
 ---
 
@@ -125,8 +141,8 @@ flowchart TD
     Symlink -->|"~/.vscode -> bin/vscode/"| IDE["IDE Profile"]
     Helpers -->|"audit script"| Cron["pm2 cron<br/>ecosystem.config.js"]
     Cron -->|"產出 markdown"| Reports["稽核報告<br/>$AUDIT_REPORT_DIR"]
-    Hardware["硬體偵測<br/>bin/system/system_info"] --> SysDump["system_dump"]
-    Network["網路掃描<br/>bin/scan_*"] --> Reports
+    Hardware["硬體偵測<br/>env_setup system show"] --> Support["支援與自我診斷"]
+    Network["網路掃描<br/>env_setup network"] --> Reports
 ```
 
 `機器初始化` 是上游入口，提供 `settings.sh` 共用變數給所有後續腳本；
@@ -151,23 +167,51 @@ flowchart TD
 ```
 
 ### 3. 硬體 / 系統偵測
+
 ```bash
-./bin/system/system_info        # 一次跑 10 個 sub-tool
-./bin/system/checkdisk
-./bin/system/myip
+./build.sh
+env_setup system show
+env_setup system cpu show
+env_setup system network show
+env_setup system disk verify /Volumes/backup
+
+# 其他 domain tools
+./bin/list_big_files.sh
+```
+
+### 3.1 匯出開發環境清單
+
+```bash
+env_setup dump mac
+env_setup dump vscode
+env_setup dump antigravity
 ```
 
 ### 4. macOS 稽核與清理
 ```bash
-./bin/mac/mac_cleanup
+./build.sh
+env_setup cleanup
+env_setup cleanup --apply
 ./bin/mac/disk_analysis-mac.sh
 ./bin/mac/launch_audit-mac.sh
 ```
 
-### 5. 網路掃描
+### 4.1 macOS 設定備份
+
 ```bash
-./bin/network/scan_network.sh --mode=private      # 產出 ./network.topo
-./bin/network/scan_network.sh --mode=topology
+env_setup backup
+env_setup backup list    # 顯示 latest backup date 與 domain status
+env_setup backup import
+env_setup backup init
+```
+
+### 5. 網路掃描
+
+```bash
+./build.sh
+env_setup network private                         # traceroute 至 8.8.8.8，產出 ./network.topo
+env_setup network private 1.1.1.1 --output topology.txt
+env_setup network target 192.168.1.0/24
 ```
 
 ### 6. macOS 固定區域網路 IP
@@ -183,7 +227,7 @@ flowchart TD
 
 ### 7. 開發者 helper
 ```bash
-./bin/json < bin/system/config/some.json
+./bin/json < ./some.json
 ./bin/listen_port 8080
 ```
 
@@ -196,10 +240,9 @@ pm2 start ecosystem.config.js
 
 依實際檔案系統分析（參照 `plans/2026-07-08-env-setup-structural-cleanup.md` 的體檢結果）：
 
-- [ ] **修正 `bin/system/system_info:8` 之 `BASE_DIR` 路徑 bug**：目前 `BASE_DIR="$(dirname "$0")/system"` 拼成 `bin/system/system`，sub-tool 全部找不到，執行後立即壞掉；改為 `BASE_DIR="$(dirname "$0")"`，因腳本本身已位於 `bin/system/`。
-- [ ] **修正 `bin/system/README.md` 標題與內容錯置**：目前標題寫「安全性稽核與工具」，實際本目錄是 `bin/system/` (硬體偵測)，macOS 稽核腳本在 `bin/mac/`；同步把「`network_topology_scan-mac.sh`」改回 `network_topology_scan.sh`，並把誤指的 `disk_analysis-mac.sh` / `launch_audit-mac.sh` 等條目改歸 `bin/mac/`。
-- [x] **三個 network scanner 整合為單一入口**：`bin/scan_private_network`、`bin/scan_target_network` 與 `bin/system/network_topology_scan.sh` 皆跑 traceroute + nmap，職責重疊；以 `bin/network/scan_network.sh --mode=private|target|topology` 取代完成（舊三檔已 git rm，Q5 整合驗證於 `README.todo` @2026-07-09）。
-- [ ] **`run.sh` 與 `bin/system/system_link` 目標路徑分歧**：`run.sh` 寫到 `./tmp/`，`system_link` 寫到 `./config/`；兩份 symlink 表實際不同（含 `claude/.claude` 等），規劃合併為 `run.sh` 單一入口並統一目標路徑。
-- [ ] **移除 vendored 與 dead code**：`bin/git-secret` (52KB / 2082 行) 改用 `brew install git-secret`；`pkg/ctags-5.8/` (2.2MB / 111 檔) 改為 git submodule；`bin/system/raspi-config` 與 `bin/system/system_service` (一行 dead code) 直接刪除。
+- [x] **移除 system shell adapter layer**：`env_setup system` 已由 `svc/system` 直接執行與解析 platform commands；舊 adapter folder 與 `system_info` symlink 已移除。
+- [x] **移除 network shell adapter layer**：`env_setup network private|target` 已由 `svc/network` 直接執行與解析 network tools；`bin/network/` 已移除。
+- [x] **合併舊 system link 邏輯**：`run.sh` 是唯一 symlink setup 入口，目標統一為 `./tmp/`。
+- [x] **移除 vendored 與 dead code**：`git-secret` 改用 package manager，舊 Raspberry Pi / service one-liners 與其他 dead scripts 已移除。
 - [ ] **安全化 `bin/bash/settings.sh`**：移除明文 `passwd` / `email`，改以 git-ignored `~/.config/env_setup/settings.private.sh` 提供；`.gitignore` 補上 `settings.private.sh`, `.bash_local`, `log/`, `tmp/`。
 - [ ] **補 `bin/README.md` 與 `docs/bin_index.md` 索引**：`bin/` 根目錄目前 23 個入口無索引，新工具加入位置無慣例；建立 `bin/<area>/_lib_*.sh` 共用 helper 慣例並寫入文件。
