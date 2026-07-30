@@ -1,1 +1,0 @@
-mac/disk_analysis-mac.sh
