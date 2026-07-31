@@ -47,7 +47,7 @@
         "*.md": "default",
         "*.mm.md": "markmap-vscode.markmap",
         "*.markdown": "default",
-        "*.csv": "default"
+        "*.csv": "csv.editor"
     },
     "workbench.tree.renderIndentGuides": "always",
     "workbench.tree.expandMode": "singleClick",
