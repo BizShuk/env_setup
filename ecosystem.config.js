@@ -36,8 +36,9 @@ module.exports = {
         // },
         {
             namespace: "Local",
-            name: "Disk Analysis",
-            script: "./bin/mac/disk_analysis-mac.sh",
+            name: "Disk Cleanup Preview",
+            script: "env_setup",
+            args: ["cleanup"],
             cron: "0 5 * * 5"
         },
         {

@@ -16,7 +16,7 @@
 
 `核心實體 (Key Entities):` `安裝腳本 (Install Script)`, `Homebrew`, `Go Toolchain`, `Brewfile`
 
-`相關處理器 (Related Handlers):` [scripts/mac.sh](file:///Users/bytedance/projects/env_setup/scripts/mac.sh), [scripts/ubuntu.sh](file:///Users/bytedance/projects/env_setup/scripts/ubuntu.sh), [scripts/brew.sh](file:///Users/bytedance/projects/env_setup/scripts/brew.sh), [scripts/go.sh](file:///Users/bytedance/projects/env_setup/scripts/go.sh), [scripts/bash_env_setup.sh](file:///Users/bytedance/projects/env_setup/scripts/bash_env_setup.sh)
+`相關處理器 (Related Handlers):` [scripts/mac.sh](scripts/mac.sh), [scripts/ubuntu.sh](scripts/ubuntu.sh), [scripts/brew.sh](scripts/brew.sh), [scripts/go.sh](scripts/go.sh), [scripts/bash_env_setup.sh](scripts/bash_env_setup.sh)
 
 ---
 
@@ -32,7 +32,7 @@
 
 `核心實體 (Key Entities):` `系統設定檔 (System Config File)`, `使用者 dotfiles (User Dotfile)`, `IDE User 目錄 (IDE User Directory)`
 
-`相關處理器 (Related Handlers):` [run.sh](file:///Users/bytedance/projects/env_setup/run.sh), [bin/vscode/settings.json](file:///Users/bytedance/projects/env_setup/bin/vscode/settings.json), [bin/vscode/keybindings.json](file:///Users/bytedance/projects/env_setup/bin/vscode/keybindings.json)
+`相關處理器 (Related Handlers):` [run.sh](run.sh), [bin/vscode/settings.json](bin/vscode/settings.json), [bin/vscode/keybindings.json](bin/vscode/keybindings.json)
 
 ---
 
@@ -87,7 +87,7 @@
 
 ### macOS 系統稽核與清理 (macOS Audit & Cleanup)
 
-`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留四個安全稽核腳本 (`disk_analysis-mac.sh`、`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/system/data/`。
+`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/system/data/`。
 
 `領域流程 (Domain Flow):`
 
@@ -97,7 +97,7 @@
 
 `核心實體 (Key Entities):` `稽核報告 (Audit Report)`, `磁碟垃圾 (Disk Junk)`, `LaunchAgent`, `開啟通訊埠 (Open Port)`
 
-`相關處理器 (Related Handlers):` `env_setup cleanup`, [bin/mac/disk_analysis-mac.sh](bin/mac/disk_analysis-mac.sh), [bin/mac/launch_audit-mac.sh](bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](bin/mac/network_security_audit-mac.sh)
+`相關處理器 (Related Handlers):` `env_setup cleanup`, [bin/mac/launch_audit-mac.sh](bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](bin/mac/network_security_audit-mac.sh)
 
 ---
 
@@ -119,33 +119,33 @@
 
 ### 開發者輔助工具 (Developer Helpers)
 
-`bin/` 根目錄與各子目錄的零碎小工具：`json` (pretty-print)、`git_signing` (GPG 簽章指引)、`find_symbolic_link` (找 symlink)、`iconv_big5_utf8` (編碼轉換)、`file_encoding` (編碼偵測)、`check_alive` / `check_service` (健康檢查)、`listen_port` (port 監聽)、`generate_https_cert` / `generator_pem.sh` (憑證)、`backup` / `backupSync` (備份)、`reverse_ln` (反向 symlink)、`ssoLogin.sh` / `ssoLogin_faas.sh` (SSO 登入)、`claudew` / `claudem` (Claude CLI 包裝, 帶 token 與 profile)、`goswitch` (切換 Go 版本)、`mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh`、`mac_extension_list.sh`、`ssh_keygen` / `ssh_key_compare` / `ssh_config` / `sshd_config`。
+`bin/` 根目錄與各子目錄的零碎小工具：`json` (pretty-print)、`git_signing` (GPG 簽章指引)、`find_symbolic_link` (找 symlink)、`iconv_big5_utf8` (編碼轉換)、`file_encoding` (編碼偵測)、`generate_https_cert` / `generator_pem.sh` (憑證)、`backup` / `backupSync` (備份)、`reverse_ln` (反向 symlink)、`ssoLogin.sh` / `ssoLogin_faas.sh` (SSO 登入)、`claudew` / `claudem` (Claude CLI 包裝, 帶 token 與 profile)、`mac_keyboard_shortcuts_dump.sh` / `mac_keyboard_shortcuts_restore.sh`、`mac_extension_list.sh`、`ssh_keygen` / `ssh_key_compare` / `ssh_config` / `sshd_config`。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者在 `${HOME}/bin` (symlink 指向 `bin/`) 內直接呼叫 `json < file` 或 `listen_port 8080`。
+1. 使用者在 `${HOME}/bin` (symlink 指向 `bin/`) 內直接呼叫 `json < file` 或 `find_symbolic_link ~/bin`。
 2. 各工具多為薄殼腳本：呼叫系統 CLI (`nmap` / `traceroute` / `openssl` / `git`) 並加入預設參數。
-3. 與 `bin/bash/.bash_aliases` 內的 `claudew-s`, `claudew-b`, `claudew2`, `codexm`, `goswitch` 等 alias 連動；基礎 `claudew` / `claudem` 為 `bin/claudew` / `bin/claudem` 實體 script file；部分具體值由 `~/.bash_local` 個人層級提供。
+3. 與 `bin/bash/.bash_aliases` 內的 `claude`, `codex`, `codexm`, `claudep`, `claudew-s`, `claudew-b`, `claudew2` 等 alias 連動；基礎 `claudew` / `claudem` 為 `bin/claudew` / `bin/claudem` 實體 script file；alias 引用的 token 變數由 git-ignored 的 `~/.bash_local` 提供。
 
 `核心實體 (Key Entities):` `Helper Script`, `Symlink 目標`, `Bash Alias`
 
-`相關處理器 (Related Handlers):` [bin/json](file:///Users/bytedance/projects/env_setup/bin/json), [bin/git_signing](file:///Users/bytedance/projects/env_setup/bin/git_signing), [bin/listen_port](file:///Users/bytedance/projects/env_setup/bin/listen_port), [bin/mac/mac_keyboard_shortcuts_dump.sh](file:///Users/bytedance/projects/env_setup/bin/mac/mac_keyboard_shortcuts_dump.sh), [bin/bash/.bash_aliases](file:///Users/bytedance/projects/env_setup/bin/bash/.bash_aliases)
+`相關處理器 (Related Handlers):` [bin/json](bin/json), [bin/git_signing](bin/git_signing), [bin/find_symbolic_link](bin/find_symbolic_link), [bin/mac/mac_keyboard_shortcuts_dump.sh](bin/mac/mac_keyboard_shortcuts_dump.sh), [bin/bash/.bash_aliases](bin/bash/.bash_aliases)
 
 ---
 
 ### 觀測排程與稽核報告 (Observability Cron & Audit Reports)
 
-`ecosystem.config.js` 透過 pm2 註冊一組 `Local` namespace 任務：`Golang Clean Cache` (週五 10:00 跑 `go clean -cache`)、`Disk Analysis` / `Launch Audit` / `Login Audit` (週五 05:00 跑對應 `bin/mac/*` 腳本) 與常駐 `Port Listenor` / `File Watcher`。
+`ecosystem.config.js` 透過 pm2 註冊一組 `Local` namespace 任務：`Golang Clean Cache` / `Golang Clean ModCache` (週五 10:00 跑 `go clean`)、`Disk Cleanup Preview` (週五 05:00 跑 `env_setup cleanup` preview) 與 `Launch Audit` / `Login Audit` (週五 05:00 跑對應 `bin/mac/*` 腳本)。`Port Listenor` / `File Watcher` 為註解狀態，待對應工具實作後才啟用。
 
 `領域流程 (Domain Flow):`
 
 1. pm2 啟動時讀 `ecosystem.config.js` 註冊任務；cron 任務由 pm2 內部排程於指定時間觸發。
 2. 稽核類任務以 `./bin/mac/<audit>-mac.sh` 全路徑執行，輸出 markdown 報告。
-3. 常駐任務 (`port_listenor monitor`、`file_watcher monitor`) 持續監聽本機服務狀態與檔案異動。
+3. 磁碟任務呼叫 `env_setup cleanup` 的 preview 模式，只列出可清理項目與大小，不做任何刪除。
 
-`核心實體 (Key Entities):` `pm2 App`, `Cron 排程`, `稽核報告 (Audit Report)`, `Port 監聽紀錄 (Port Listen Log)`
+`核心實體 (Key Entities):` `pm2 App`, `Cron 排程`, `稽核報告 (Audit Report)`, `Cleanup Preview`
 
-`相關處理器 (Related Handlers):` [ecosystem.config.js](file:///Users/bytedance/projects/env_setup/ecosystem.config.js), [bin/mac/disk_analysis-mac.sh](file:///Users/bytedance/projects/env_setup/bin/mac/disk_analysis-mac.sh)
+`相關處理器 (Related Handlers):` [ecosystem.config.js](ecosystem.config.js), [bin/mac/launch_audit-mac.sh](bin/mac/launch_audit-mac.sh)
 
 ---
 
@@ -187,14 +187,11 @@ flowchart TD
 ### 3. 硬體 / 系統偵測
 
 ```bash
-./build.sh
+go build -o ~/.local/bin/env_setup .
 env_setup system show
 env_setup system cpu show
 env_setup system network show
 env_setup system disk verify /Volumes/backup
-
-# 其他 domain tools
-./bin/list_big_files.sh
 ```
 
 ### 3.1 同步開發環境清單
@@ -217,11 +214,11 @@ env_setup uninstall codex --purge-system             # preview sudo scope
 
 ### 4. macOS 稽核與清理
 ```bash
-./build.sh
+go build -o ~/.local/bin/env_setup .
 env_setup cleanup
 env_setup cleanup --apply
-./bin/mac/disk_analysis-mac.sh
 ./bin/mac/launch_audit-mac.sh
+./bin/mac/login_audit-mac.sh
 ```
 
 ### 4.1 macOS 設定備份
@@ -236,7 +233,7 @@ env_setup backup init
 ### 5. 網路掃描
 
 ```bash
-./build.sh
+go build -o ~/.local/bin/env_setup .
 env_setup network private                         # traceroute 至 8.8.8.8，產出 ./network.topo
 env_setup network private 1.1.1.1 --output topology.txt
 env_setup network target 192.168.1.0/24
@@ -256,7 +253,7 @@ env_setup network target 192.168.1.0/24
 ### 7. 開發者 helper
 ```bash
 ./bin/json < ./some.json
-./bin/listen_port 8080
+./bin/find_symbolic_link ~/bin
 ```
 
 ### 8. 啟動排程

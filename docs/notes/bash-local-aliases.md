@@ -2,7 +2,8 @@
 
 > 為避免 `TIKTOK_API_KEY` / `MINIMAX_API_KEY` 等私密 token 進入 git,
 > 這些私密變數一律放至 `${HOME}/.bash_local` (git-ignored)。
-> `bin/bash/.bash_aliases` 會自動 `source` 此檔 (若存在) 並使用其中定義的變數。
+> `bin/bash/.bash_aliases` 會在 alias 定義前自動 `source` 此檔一次 (若存在) 並使用其中定義的變數。
+> 此檔`只放變數`，所有 alias 一律定義於 git tracked 的 `bin/bash/.bash_aliases`。
 
 ## 範本 (Snippet)
 

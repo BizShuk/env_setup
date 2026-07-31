@@ -15,7 +15,7 @@
 
 完整 macOS 系統設定備份與還原的 `defaults` 命令檢查表, 見：
 
-[`specs/2026-07-15-macos-backup-checklist.md`](../../specs/2026-07-15-macos-backup-checklist.md)
+[`docs/specs/2026-07-15-macos-backup-checklist.md`](../../docs/specs/2026-07-15-macos-backup-checklist.md)
 
 該檔早期版本於 Phase 1 之前曾以 inline 形式塞於本目錄的 `README.backup.md` (59KB),
 對單一 git diff 不友善、亦不易被新協作者定位。Phase 7.5 之後改為獨立 spec,

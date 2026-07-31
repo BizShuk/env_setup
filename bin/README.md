@@ -7,17 +7,16 @@
 | Area         | 用途                                              | 範例入口                                                       |
 | ------------ | ------------------------------------------------- | -------------------------------------------------------------- |
 | `bin/bash/`  | dotfiles、`settings.sh`、vim 設定、bash alias     | `settings.sh`、`.bashrc`、`.vimrc`                             |
-| `bin/mac/`   | macOS 專屬稽核與設定工具                          | `disk_analysis-mac.sh`、`mac_static_ip.sh`                     |
-| `bin/disk/`  | large-file scan                                  | `list_big_files.sh`                                            |
+| `bin/mac/`   | macOS 專屬稽核與設定工具                          | `launch_audit-mac.sh`、`mac_static_ip.sh`                      |
 | `bin/vscode/`| VSCode / Antigravity IDE 設定                     | `settings.json`、`keybindings.json`                            |
-| 根目錄 helper | 開發者輔助小工具 (見 `docs/bin_index.md` 完整索引) | `json`、`listen_port`                                          |
+| 根目錄 helper | 開發者輔助小工具 (見 `docs/bin_index.md` 完整索引) | `json`、`find_symbolic_link`                                   |
 
 ## 慣例 (Conventions)
 
 ### 工具命名 (Naming)
 
 - 新工具加入 `bin/<area>/<tool>`, 需要 root-level 入口時在 `bin/<tool>` 加 symlink
-- macOS scripts 統一使用可辨識的 action 名稱與 `.sh` 後綴（例：`mac_static_ip.sh`, `disk_analysis-mac.sh`）
+- macOS scripts 統一使用可辨識的 action 名稱與 `.sh` 後綴（例：`mac_static_ip.sh`, `launch_audit-mac.sh`）
 
 ### 共用 helper 慣例 (Shared Helpers)
 
