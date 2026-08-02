@@ -198,5 +198,3 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 source ~/.orbstack/shell/init.bash 2>/dev/null || :
 
 
-# Added by swiftly
-. "/Users/shuk/.swiftly/env.sh"
