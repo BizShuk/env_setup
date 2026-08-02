@@ -30,7 +30,7 @@ func TestCommandContainsAntigravityExtensionCommand(t *testing.T) {
 	if got, want := found.Name(), "antigravity-extension"; got != want {
 		t.Fatalf("found command = %q, want %q", got, want)
 	}
-	if got, want := len(command.Commands()), 1; got != want {
+	if got, want := len(command.Commands()), 2; got != want {
 		t.Fatalf("child command count = %d, want %d", got, want)
 	}
 }
@@ -54,6 +54,31 @@ func TestAntigravityExtensionCommandExecutesInstall(t *testing.T) {
 	want := []string{
 		"agy-ide --install-extension A.publisher --force",
 		"agy-ide --list-extensions",
+	}
+	if strings.Join(runner.calls, "\n") != strings.Join(want, "\n") {
+		t.Fatalf("runner calls = %v, want %v", runner.calls, want)
+	}
+}
+
+func TestVSCodeExtensionCommandExecutesInstall(t *testing.T) {
+	runner := &installCommandRunner{outputs: map[string]string{
+		"code --list-extensions": "A.publisher\n",
+	}}
+	command := installcmd.NewCommand(
+		newInstallCommandService(t, runner),
+		strings.NewReader(""),
+		io.Discard,
+		io.Discard,
+	)
+	command.SetArgs([]string{"vscode-extension"})
+
+	if err := command.Execute(); err != nil {
+		t.Fatal(err)
+	}
+
+	want := []string{
+		"code --install-extension A.publisher --force",
+		"code --list-extensions",
 	}
 	if strings.Join(runner.calls, "\n") != strings.Join(want, "\n") {
 		t.Fatalf("runner calls = %v, want %v", runner.calls, want)

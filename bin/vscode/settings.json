@@ -711,13 +711,23 @@
     "chatgpt.localeOverride": "en-US",
     "window.density.editorTabHeight": "compact",
 
-    "workbench.editor.tabSizing": "fit",
-    "workbench.editor.tabSizingFixedMinWidth": 50,
-    "yaml.disableSchemaDetection": [],
+    "workbench.editor.tabSizing": "shrink",
+    "workbench.editor.tabSizingFixedMinWidth": 80,
+    "workbench.editor.tabSizingFixedMaxWidth": 120,
+    "yaml.disableSchemaDetection": [
+        "**/.github/workflows/*.yml",
+        "**/.github/workflows/*.yaml",
+        "**/.gitea/workflows/*.yml",
+        "**/.gitea/workflows/*.yaml",
+        "**/.forgejo/workflows/*.yml",
+        "**/.forgejo/workflows/*.yaml"
+    ],
     "superset.editorLayout.maxRatio": 0.9,
     "npm.autoDetect": "on",
     "npm.scriptRunner": "bun",
     "npm.packageManager": "bun",
     "npm.scriptExplorerAction": "run",
-    "task.quickOpen.history": 10
+    "task.quickOpen.history": 10,
+    "grok.summarizeRepliesAloud": false,
+    "grok.defaultEffort": "medium"
 }

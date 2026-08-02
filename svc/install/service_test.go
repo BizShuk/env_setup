@@ -76,6 +76,34 @@ func TestInstallAntigravityExtensionsRemovesUnlistedAfterConfirmation(t *testing
 	assertInstallCalls(t, runner.calls, want)
 }
 
+func TestInstallVSCodeExtensionsInstallsManifest(t *testing.T) {
+	repositoryDir := newInstallRepository(t, "A.publisher\n")
+	runner := &installRunner{outputs: map[string]string{
+		installCommandKey("code", "--list-extensions"): "A.publisher\n",
+	}}
+	service := installsvc.New(installsvc.Options{
+		RepositoryDir: repositoryDir,
+		Runner:        runner,
+		LookPath:      installLookPath,
+	})
+
+	err := service.InstallVSCodeExtensions(
+		t.Context(),
+		strings.NewReader(""),
+		io.Discard,
+		io.Discard,
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := []string{
+		installCommandKey("code", "--install-extension", "A.publisher", "--force"),
+		installCommandKey("code", "--list-extensions"),
+	}
+	assertInstallCalls(t, runner.calls, want)
+}
+
 func TestInstallAntigravityExtensionsRequiresExecutable(t *testing.T) {
 	runner := &installRunner{}
 	service := installsvc.New(installsvc.Options{

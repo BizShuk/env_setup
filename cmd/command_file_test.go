@@ -113,6 +113,7 @@ func TestCobraCommandsUseOnePackageRelativeNamedFileEach(t *testing.T) {
 		"dump/vscode-extension.go":         {"vscode-extension"},
 		"install/antigravity-extension.go": {"antigravity-extension"},
 		"install/install.go":               {"install"},
+		"install/vscode-extension.go":      {"vscode-extension"},
 		"network/network.go":               {"network"},
 		"network/private.go":               {"private"},
 		"network/target.go":                {"target"},

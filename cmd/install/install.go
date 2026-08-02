@@ -19,5 +19,6 @@ func NewCommand(service *installsvc.Service, in io.Reader, out, errOut io.Writer
 		},
 	}
 	command.AddCommand(newAntigravityExtensionCommand(service, in, out, errOut))
+	command.AddCommand(newVSCodeExtensionCommand(service, in, out, errOut))
 	return command
 }
