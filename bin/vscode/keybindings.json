@@ -710,7 +710,7 @@
     },
     {
         "key": "alt+shift+s",
-        "command": "workbench.view.extension.superset-overall"
+        "command": "workbench.view.extension.cli"
     },
     {
         "key": "alt+cmd+l",
