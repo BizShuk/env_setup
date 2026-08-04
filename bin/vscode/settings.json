@@ -130,7 +130,7 @@
     "scm.diffDecorationsGutterVisibility": "always",
 
     // [diff editor]
-    "diffEditor.ignoreTrimWhitespace": true,
+    "diffEditor.ignoreTrimWhitespace": false,
     "diffEditor.codeLens": true,
     "diffEditor.renderSideBySide": true,
     "diffEditor.useInlineViewWhenSpaceIsLimited": true,
@@ -354,11 +354,17 @@
         "SA9003": false
     },
     // [highlight] [todo]
+    "highlight.regexFlags": "gi",
     "highlight.regexes": {
         // $, S$
         "([S]{0,1}\\$)": [
             {
                 "color": "#FFFF00"
+            }
+        ],
+        "/^FROM .+/gm": [
+            {
+                "backgroundColor": "#87CEEB33"
             }
         ],
         // # test
