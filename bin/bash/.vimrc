@@ -16,7 +16,8 @@ filetype plugin on  "
 
 set hlsearch        " highlight search result after searched
 set incsearch       " highlight when searching
-set mouse=a         " move cursor to where mouse clicked
+set mouse=           " disable vim mouse handling; let the terminal own
+                     " select / copy / paste and scroll natively
 set wildmenu        " 有點類似列出完整的指令 ls a<tab>  :spe<tab>
 
 "set list            " turn on invisible characters like end of line as $

@@ -10,6 +10,12 @@ set -e
 # ============================================================================
 
 # ----------------------------------------------------------------------------
+# Environment: bin/bash/settings.sh is the single source of REPO_DIR
+# ----------------------------------------------------------------------------
+# shellcheck source=bin/bash/settings.sh
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/bash/settings.sh"
+
+# ----------------------------------------------------------------------------
 # Pre-flight: install golang tools that other env_setup scripts rely on
 # ----------------------------------------------------------------------------
 go install github.com/bizshuk/pm2@master
@@ -30,19 +36,19 @@ NC='\033[0m'
 link_ide_config() {
     local user_dir="$1"
     mkdir -p "$user_dir"
-    ln -sf "${HOME}/projects/env_setup/bin/vscode/settings.json" \
+    ln -sf "${REPO_DIR}/bin/vscode/settings.json" \
            "$user_dir/settings.json"
-    ln -sf "${HOME}/projects/env_setup/bin/vscode/keybindings.json" \
+    ln -sf "${REPO_DIR}/bin/vscode/keybindings.json" \
            "$user_dir/keybindings.json"
     rm -rf "$user_dir/snippets"
-    ln -sf "${HOME}/projects/env_setup/bin/vscode/snippets" \
+    ln -sf "${REPO_DIR}/bin/vscode/snippets" \
            "$user_dir/snippets"
 }
 
 # ----------------------------------------------------------------------------
 # Ensure runtime dirs exist
 # ----------------------------------------------------------------------------
-mkdir -p "${HOME}/projects/env_setup/tmp"
+mkdir -p "${REPO_DIR}/tmp"
 
 # ----------------------------------------------------------------------------
 # Symlink table: source -> target (relative to repo root, all under ./tmp/)
@@ -51,27 +57,27 @@ echo -e "${BLUE}Recreating symbolic links under ./tmp/...${NC}"
 
 declare -a SYMLINKS=(
     # Global system configurations
-    "/etc/fstab:${HOME}/projects/env_setup/tmp/fstab"
-    "/etc/group:${HOME}/projects/env_setup/tmp/group"
-    "/etc/hostname:${HOME}/projects/env_setup/tmp/hostname"
-    "/etc/hosts:${HOME}/projects/env_setup/tmp/hosts"
-    "/etc/localtime:${HOME}/projects/env_setup/tmp/localtime"
-    "/etc/ssl/openssl.cnf:${HOME}/projects/env_setup/tmp/openssl.cnf"
-    "/etc/passwd:${HOME}/projects/env_setup/tmp/passwd"
-    "/etc/sysctl.conf:${HOME}/projects/env_setup/tmp/sysctl.conf"
-    "/var/log/auth.log:${HOME}/projects/env_setup/tmp/auth.log"
-    "/etc/ssh/ssh_config:${HOME}/projects/env_setup/tmp/ssh_config"
+    "/etc/fstab:${REPO_DIR}/tmp/fstab"
+    "/etc/group:${REPO_DIR}/tmp/group"
+    "/etc/hostname:${REPO_DIR}/tmp/hostname"
+    "/etc/hosts:${REPO_DIR}/tmp/hosts"
+    "/etc/localtime:${REPO_DIR}/tmp/localtime"
+    "/etc/ssl/openssl.cnf:${REPO_DIR}/tmp/openssl.cnf"
+    "/etc/passwd:${REPO_DIR}/tmp/passwd"
+    "/etc/sysctl.conf:${REPO_DIR}/tmp/sysctl.conf"
+    "/var/log/auth.log:${REPO_DIR}/tmp/auth.log"
+    "/etc/ssh/ssh_config:${REPO_DIR}/tmp/ssh_config"
 
     # User home directory configurations
-    "${HOME}/.bash_plugin:${HOME}/projects/env_setup/tmp/.bash_plugin"
-    "${HOME}/.colima:${HOME}/projects/env_setup/tmp/.colima"
-    "${HOME}/.config:${HOME}/projects/env_setup/tmp/.config"
-    "${HOME}/.config/system:${HOME}/projects/env_setup/tmp/system"
-    "${HOME}/.gemini:${HOME}/projects/env_setup/tmp/.gemini"
-    "${HOME}/.screenrc:${HOME}/projects/env_setup/tmp/.screenrc"
-    "${HOME}/.ssh:${HOME}/projects/env_setup/tmp/.ssh"
-    "${HOME}/.vscode:${HOME}/projects/env_setup/tmp/.vscode"
-    "${HOME}/lib:${HOME}/projects/env_setup/tmp/lib"
+    "${HOME}/.bash_plugin:${REPO_DIR}/tmp/.bash_plugin"
+    "${HOME}/.colima:${REPO_DIR}/tmp/.colima"
+    "${HOME}/.config:${REPO_DIR}/tmp/.config"
+    "${HOME}/.config/system:${REPO_DIR}/tmp/system"
+    "${HOME}/.gemini:${REPO_DIR}/tmp/.gemini"
+    "${HOME}/.screenrc:${REPO_DIR}/tmp/.screenrc"
+    "${HOME}/.ssh:${REPO_DIR}/tmp/.ssh"
+    "${HOME}/.vscode:${REPO_DIR}/tmp/.vscode"
+    "${HOME}/lib:${REPO_DIR}/tmp/lib"
 )
 
 for link_pair in "${SYMLINKS[@]}"; do

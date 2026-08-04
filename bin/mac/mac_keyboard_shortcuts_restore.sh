@@ -9,7 +9,15 @@
 
 set -euo pipefail
 
-EXPORT_DIR="${HOME}/projects/env_setup/bin/mac/keyboard_shortcuts"
+# Resolve through the bin/ root symlink so settings.sh is found either way.
+_self="${BASH_SOURCE[0]}"
+while [ -L "${_self}" ]; do
+    _self="$(cd "$(dirname "${_self}")" && pwd)/$(readlink "${_self}")"
+done
+# shellcheck source=../bash/settings.sh
+source "$(cd "$(dirname "${_self}")" && pwd)/../bash/settings.sh"
+
+EXPORT_DIR="${REPO_DIR}/bin/mac/keyboard_shortcuts"
 APP_DIR="${EXPORT_DIR}/app"
 MANIFEST="${EXPORT_DIR}/manifest.txt"
 

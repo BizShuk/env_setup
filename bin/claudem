@@ -4,4 +4,4 @@
 # Token 從 ~/.bash_local 載入 (由 .bash_aliases 在 alias 內觸發,
 # 或本檔直接呼叫前 source alias/_lib_env.sh)。
 
-ANTHROPIC_AUTH_TOKEN=$MINIMAX_API_KEY claude --dangerously-skip-permissions --settings ~/projects/cc-plugin/config/minimax.json "$@"
+ANTHROPIC_AUTH_TOKEN=$MINIMAX_API_KEY claude --dangerously-skip-permissions --settings ~/projects/ai/cc-plugin/config/minimax.json "$@"

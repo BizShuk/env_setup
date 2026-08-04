@@ -4,10 +4,14 @@
 > macOS 13+ (Ventura/Sonoma/Sequoia) 為 **System Settings**；macOS 12 及更早為 **System Preferences**。
 > 對應備份工具將依本檔規格撰寫，放至 `bin/mac/` 內。
 
+> ⚠️ **狀態：設計提案 (proposed)，尚未實作。** 除 `bin/mac/mac_keyboard_shortcuts_dump.sh`／`_restore.sh`
+> 已落地外，本檔提到的 `dump/` 目錄與其餘 `*_dump.sh` 腳本目前都不存在。
+> 實作時路徑一律取 `bin/bash/settings.sh` 的 `${REPO_DIR}`，不得硬編 `~/projects/env_setup`。
+
 ## 使用方式 (Usage)
 
 1. 在源機 (source Mac) 對照本檔勾選要備份的項目。
-2. 執行對應 dump 腳本，全部輸出落入 `~/projects/env_setup/dump/`。
+2. 執行對應 dump 腳本，全部輸出落入 `${REPO_DIR}/dump/`。
 3. 把 `dump/` 隨專案 commit / rsync 到目的機。
 4. 在目的機 (target Mac) 執行對應 restore 腳本，必要者登出重啟生效。
 
@@ -547,27 +551,27 @@
 
 ```bash
 # 全網域 export
-mkdir -p ~/projects/env_setup/dump/defaults
+mkdir -p ${REPO_DIR}/dump/defaults
 for d in NSGlobalDomain com.apple.dock com.apple.finder com.apple.AppleMultitouchTrackpad \
          com.apple.Safari com.apple.Spotlight com.apple.Siri com.apple.LoginItemsPolicy \
          com.apple.symbolichotkeys com.apple.SoftwareUpdate com.apple.batterymode \
          com.apple.universalaccess com.apple.controlcenter com.apple.systempower \
          com.apple.doitnotdisturb com.apple.menuUI com.apple.TextInputMenuItems \
          com.apple.Terminal com.apple.ActivityMonitor com.apple.ScreenSaverChooser; do
-    defaults export "$d" "$HOME/projects/env_setup/dump/defaults/${d}.plist" 2>/dev/null
+    defaults export "$d" "${REPO_DIR}/dump/defaults/${d}.plist" 2>/dev/null
 done
 
 # 應用程式容器 (白名單)
-rsync -a --delete ~/Library/Application\ Support/iTerm2/ ~/projects/env_setup/dump/app-support/iTerm2/
-rsync -a --delete ~/Library/Application\ Support/Rectangle/ ~/projects/env_setup/dump/app-support/Rectangle/
-rsync -a --delete ~/Library/Application\ Support/Karabiner-Elements/ ~/projects/env_setup/dump/app-support/Karabiner-Elements/
+rsync -a --delete ~/Library/Application\ Support/iTerm2/ ${REPO_DIR}/dump/app-support/iTerm2/
+rsync -a --delete ~/Library/Application\ Support/Rectangle/ ${REPO_DIR}/dump/app-support/Rectangle/
+rsync -a --delete ~/Library/Application\ Support/Karabiner-Elements/ ${REPO_DIR}/dump/app-support/Karabiner-Elements/
 
 # LaunchAgents
-tar czf ~/projects/env_setup/dump/launchagents.tgz ~/Library/LaunchAgents/
+tar czf ${REPO_DIR}/dump/launchagents.tgz ~/Library/LaunchAgents/
 
 # 全機 (sudo)
-sudo tar czf ~/projects/env_setup/dump/system-launchdaemons.tgz /Library/LaunchDaemons/
-sudo cp /etc/sudoers.d/* ~/projects/env_setup/dump/ 2>/dev/null
+sudo tar czf ${REPO_DIR}/dump/system-launchdaemons.tgz /Library/LaunchDaemons/
+sudo cp /etc/sudoers.d/* ${REPO_DIR}/dump/ 2>/dev/null
 ```
 
 還原腳本 (反方向)：

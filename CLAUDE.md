@@ -261,7 +261,8 @@ Root Go CLI 以 `go build -o ~/.local/bin/env_setup .` 建置並安裝（`~/.loc
     - 所有腳本 `source "$(dirname "$0")/../bash/settings.sh"` 取得 `REPO_DIR`, `REPO_SCRIPTS`, `OS`, `ARCH`, `KERNEL_NAME`
     - 不得在 `bin/bash/settings.sh` 內 commit 明文 `passwd` / `email` / `token` / API key; 私密值一律讀 `~/.config/env_setup/settings.private.sh` 或 `~/.bash_local`
 - 個人 alias (Personal Alias):
-    - `所有 alias` 一律寫 `bin/bash/.bash_aliases` (git tracked)，包含 `claudew-s` / `claudew-b` / `claudew2`；alias 只引用變數名，不內嵌 token 值
+    - `env_setup 自有 alias` 一律寫 `bin/bash/.bash_aliases` (git tracked)；alias 只引用變數名，不內嵌 token 值
+    - `LLM CLI alias` (`claude*` / `codex*` / `claudew-s` / `claudew-b` / `claudew2`) 由 `~/projects/ai/cc-plugin/scripts/aliases.sh` 單一擁有，`.bash_aliases` 只負責 source 它；不得在本 repo 內重複定義
     - `~/.bash_local` (git-ignored) `只放變數`，不放 alias；由 `.bash_aliases` 於 alias 定義前 source 一次，範本見 `docs/notes/bash-local-aliases.md`
     - 基礎 `claudew` / `claudem` 已提升為 `bin/claudew` / `bin/claudem` 實體 script file (取代 alias 以避免 alias 對 `set -e` 與 stdin 行為的限制)
 - 錯誤處理 (Error Handling)：
