@@ -161,7 +161,9 @@ au BufNewFile,BufRead *.make set ft=make
 au BufNewFile,BufRead *.conf set ft=conf
 au BufNewFile,BufRead *.bash* set ft=bash
 " for autoformat
-au BufWrite * :Autoformat
+" guard: bundle/vim-autoformat submodule 未 init 時 :Autoformat 不存在，
+" 直接呼叫會讓每次 :w 都噴 E492。改為 write 當下才檢查 command 是否可用。
+au BufWrite * if exists(':Autoformat') | Autoformat | endif
 
 " Map
 " 

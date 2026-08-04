@@ -1,3 +1,12 @@
+# feedback 的 golangci-lint 設定。
+#
+# 這是 maratori 的 golden config(v2)加上`本專案刻意的例外`。
+# 之所以複製一份而不是靠 ~/.golangci.yml:feedback 是獨立 repo,
+# 別台機器 clone 下來跑 `npm run lint` 必須得到`一樣的結果`,
+# 不能依賴維護者家目錄裡剛好有什麼。
+#
+# 專案例外集中在檔案末端的 linters.exclusions.rules,每條都附理由。
+
 # ==================================================================================================
 #
 #                                              NOTICE
@@ -437,6 +446,10 @@ linters:
       # Use consistent method receiver names.
       # https://staticcheck.dev/docs/checks/#ST1016
       - -ST1016
+      # ALL_CAPS 命名。與 revive 的 var-naming 同一件事,
+      # 本專案的常數約定就是 SCREAMING_SNAKE_CASE(見 CLAUDE.md)。
+      # https://staticcheck.dev/docs/checks/#ST1003
+      - -ST1003
       # Omit embedded fields from selector expression.
       # https://staticcheck.dev/docs/checks/#QF1008
       - -QF1008
@@ -479,3 +492,37 @@ linters:
       - gosec
       - noctx
       - wrapcheck
+
+    # ---------- 以下是 feedback 專案的例外 ----------
+
+    # 常數一律 SCREAMING_SNAKE_CASE 是這個工作區的既有約定(見 CLAUDE.md 的「約定」),
+    # 跨所有 repo 一致。revive 的 var-naming 與它直接衝突,在這個專案關掉。
+    - text: "var-naming: don't use ALL_CAPS in Go names"
+      linters: [ revive ]
+
+    # cobra 命令依 gosdk 慣例是 package-level 的 exported var(檔名對應命令名),
+    # 另外 TRANSITIONS / INDEXES / ALL_STATUSES 是查表用的唯讀資料。
+    # 兩者都不是「可變全域狀態」,gochecknoglobals 抓的不是這個問題。
+    - path: '(cmd/.+|svc/triage/transition|model/(migrate|feedback)|handler/admin/view)\.go'
+      linters: [ gochecknoglobals ]
+
+    # 測試刻意與被測程式`同 package`:要驗的東西包含 Service.opts 的預設值套用、
+    # hashIP 的 salt 行為這類未匯出的細節。改成 _test package 就驗不到,
+    # 只能為了測試把它們匯出 —— 那是讓 linter 決定 API 形狀,本末倒置。
+    - path: '_test\.go'
+      linters: [ testpackage ]
+
+    # gosdk 的 log 套件在 init() 就呼叫 slog.SetDefault,
+    # 「用套件層級的 slog.*」是它文件化的用法,不是忘了注入 logger。
+    - linters: [ sloglint ]
+      text: 'default logger should not be used'
+
+    # cmd/ 的 fmt.Print 是 CLI 對使用者的輸出,不是被遺忘的除錯訊息。
+    - path: 'cmd/.+\.go'
+      linters: [ forbidigo ]
+
+    # note_store.go 與 reply_store.go 的結構刻意平行:
+    # 兩張表的存取模式本來就一樣,硬抽共用層會多出一層泛型間接,
+    # 換來的是更難讀。等到第三個 store 出現再說。
+    - path: 'model/(note|reply)_store\.go'
+      linters: [ dupl ]

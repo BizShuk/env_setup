@@ -1,0 +1,37 @@
+{
+  "name": "env-setup",
+  "version": "0.0.0",
+  "private": true,
+  "description": "機器初始化與開發者工具箱 (developer toolbox)：安裝 macOS / Ubuntu toolchain、軟連結 dotfiles，並以 env_setup Go CLI 提供 install / uninstall / dump / system / cleanup / backup / network commands。",
+  "scripts": {
+    "dev": "go run .",
+    "test": "go test -count=1 ./...",
+    "build": "go mod download && go build -o tmp/env_setup .",
+    "deploy": "go install .",
+    "lint": "gofmt -l . && go vet ./...",
+    "clean": "rm -f tmp/env_setup && go clean -cache",
+    "destroy": "pkill -f 'tmp/env_setup' || true",
+    "ci": "npm run lint && npm run test && npm run build",
+
+    "run:setup": "./run.sh",
+    "run:bootstrap": "./setup.sh",
+    "run:mac": "./scripts/mac.sh",
+    "run:ubuntu": "./scripts/ubuntu.sh",
+    "run:bash": "bash scripts/bash.sh",
+    "run:bash-env": "./scripts/bash_env_setup.sh",
+    "run:settings": "./scripts/settings.sh",
+    "run:brew": "./scripts/brew.sh",
+    "run:go": "./scripts/go.sh",
+    "run:nodejs": "./scripts/nodejs.sh",
+    "run:vim": "./scripts/vim.sh",
+    "run:git": "./scripts/git.sh",
+    "run:git-secret": "./scripts/git-secret.sh",
+    "run:ctags": "./scripts/ctags_setup.sh",
+    "run:openssl": "bash scripts/openssl_setup.sh",
+    "run:openssl-mac": "./scripts/openssl_mac_setup.sh",
+    "run:webmin": "./scripts/webmin.sh",
+    "run:mount-disk": "bash scripts/disk/mount_disk.sh",
+    "run:mount-disk-fstab": "bash scripts/disk/mount_disk_by_fstab.sh",
+    "run:pm2-apply": "pm2 apply"
+  }
+}

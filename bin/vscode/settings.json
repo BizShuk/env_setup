@@ -96,7 +96,7 @@
     "editor.copyWithSyntaxHighlighting": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.find.seedSearchStringFromSelection": "selection",
-    "editor.fontSize": 12,
+    "editor.fontSize": 14,
     "editor.formatOnSave": true,
     "editor.inlineSuggest.edits.showCollapsed": true,
     "editor.inlineSuggest.enabled": true,
@@ -177,7 +177,8 @@
         "*.ignore": "gitignore",
         "{*.timer,*.service,*.toml}": "ini",
         "{*.plan,*.ignore,*.todo}": "markdown",
-        "LICENSE": "plaintext"
+        "LICENSE": "plaintext",
+        "*.html": "html"
     },
     // [search]
     "search.useIgnoreFiles": true,
@@ -196,7 +197,7 @@
     // "search.smartCase": true,
     // [Debug]
     "debug.toolBarLocation": "floating",
-    "debug.console.fontSize": 8,
+    "debug.console.fontSize": 14,
     "launch": {
         "version": "0.2.0",
         "configurations": [
@@ -222,7 +223,7 @@
     },
     "editor.fontFamily": "SF Mono",
     // [terminal]
-    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontSize": 14,
     "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.tabs.enabled": true,
@@ -702,7 +703,7 @@
             ".continue/**/*.yaml"
         ]
     },
-    "window.zoomLevel": 1,
+    "window.zoomLevel": -1,
     "sweetpad.system.taskExecutor": "v2",
     "sweetpad.shellEnv.shell": "/bin/bash   ",
     "sweetpad.shellEnv.timeout": 15000,
@@ -714,14 +715,7 @@
     "workbench.editor.tabSizing": "shrink",
     "workbench.editor.tabSizingFixedMinWidth": 80,
     "workbench.editor.tabSizingFixedMaxWidth": 120,
-    "yaml.disableSchemaDetection": [
-        "**/.github/workflows/*.yml",
-        "**/.github/workflows/*.yaml",
-        "**/.gitea/workflows/*.yml",
-        "**/.gitea/workflows/*.yaml",
-        "**/.forgejo/workflows/*.yml",
-        "**/.forgejo/workflows/*.yaml"
-    ],
+    "yaml.disableSchemaDetection": [],
     "superset.editorLayout.maxRatio": 0.9,
     "npm.autoDetect": "on",
     "npm.scriptRunner": "bun",
@@ -729,5 +723,16 @@
     "npm.scriptExplorerAction": "run",
     "task.quickOpen.history": 10,
     "grok.summarizeRepliesAloud": false,
-    "grok.defaultEffort": "medium"
+    "grok.defaultEffort": "medium",
+    "cliLauncher.entries": [],
+    "superset.cliLauncher.hidden": [
+        "~/projects/web/scripts",
+        "~/projects/web/automation",
+        "~/projects/web/cmd",
+        "~/projects/web/docs",
+        "~/projects/web/plans",
+        "~/projects/web/pkg",
+        "~/projects/web/tmp",
+        "~/projects/web/config"
+    ]
 }
