@@ -127,3 +127,10 @@ if [ -f "${HOME}/.bash_local" ]; then
     . "${HOME}/.bash_local"
 fi
 
+# 載入 LLM CLI alias (claude / codex 各 provider profile)
+# 來源 (owner): ~/projects/ai/cc-plugin/scripts/aliases.sh
+if [ -f "${HOME}/projects/ai/cc-plugin/scripts/aliases.sh" ]; then
+    # shellcheck disable=SC1090
+    . "${HOME}/projects/ai/cc-plugin/scripts/aliases.sh"
+fi
+
