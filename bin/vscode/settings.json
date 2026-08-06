@@ -731,14 +731,6 @@
     "grok.summarizeRepliesAloud": false,
     "grok.defaultEffort": "medium",
     "cliLauncher.entries": [],
-    "superset.cliLauncher.hidden": [
-        "~/projects/web/scripts",
-        "~/projects/web/automation",
-        "~/projects/web/cmd",
-        "~/projects/web/docs",
-        "~/projects/web/plans",
-        "~/projects/web/pkg",
-        "~/projects/web/tmp",
-        "~/projects/web/config"
-    ]
+    "superset.cliLauncher.hidden": [],
+    "superset.cliLauncher.entries": []
 }
