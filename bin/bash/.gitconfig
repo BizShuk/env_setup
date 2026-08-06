@@ -23,6 +23,7 @@
     lr = ls-remote
     lf = ls-files
     wt = worktree
+    sm = submodule
     push = push --follow-tags
 	logv = log --name-status --graph --decorate
 	rollback = checkout

@@ -130,12 +130,12 @@
     {
         "key": "cmd+2",
         "command": "workbench.action.focusNextGroup",
-        "when": "editorFocus || terminalEditorFocus || activeWebviewPanelId"
+        "when": "editorTextFocus || editorFocus || terminalEditorFocus"
     },
     {
         "key": "cmd+2",
         "command": "workbench.action.focusActiveEditorGroup",
-        "when": "!editorFocus && !terminalEditorFocus && !activeWebviewPanelId"
+        "when": "!editorTextFocus && !editorFocus && !terminalEditorFocus"
     },
     {
         "key": "cmd+3",
@@ -157,12 +157,6 @@
             ]
         },
         "when": "panelVisible && panelMaximized"
-    },
-
-    {
-        "key": "cmd+2",
-        "command": "workbench.action.togglePanel",
-        "when": "panelVisible"
     },
     {
         "key": "cmd+4",
