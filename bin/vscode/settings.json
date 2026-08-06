@@ -734,5 +734,16 @@
     "grok.defaultEffort": "medium",
     "cliLauncher.entries": [],
     "superset.cliLauncher.hidden": [],
-    "superset.cliLauncher.entries": []
+    "superset.cliLauncher.entries": [],
+    "superset.cliLauncher.focused": [
+        "~/projects/ai/agentSDK",
+        "~/projects/ai/cc-plugin",
+        "~/projects/ai/customer_service",
+        "~/projects/ai/msgHub",
+        "~/projects/collections",
+        "~/projects/platform/architecture",
+        "~/projects/platform/superset",
+        "~/projects/env_setup",
+        "~/projects/data/vid-note"
+    ]
 }
