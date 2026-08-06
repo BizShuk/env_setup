@@ -711,7 +711,7 @@
             ".continue/**/*.yaml"
         ]
     },
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "sweetpad.system.taskExecutor": "v2",
     "sweetpad.shellEnv.shell": "/bin/bash   ",
     "sweetpad.shellEnv.timeout": 15000,
