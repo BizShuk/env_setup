@@ -734,9 +734,5 @@
     "grok.defaultEffort": "medium",
     "cliLauncher.entries": [],
     "superset.cliLauncher.hidden": [],
-    "superset.cliLauncher.entries": [
-        {
-            "path": "~/projects/platform/architecture"
-        }
-    ]
+    "superset.cliLauncher.entries": []
 }
