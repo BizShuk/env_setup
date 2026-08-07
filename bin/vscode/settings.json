@@ -153,7 +153,7 @@
         "{*.bak*}": true,
         // AI 智能體配置 (AI Agents Meta)
         "{**/AGENTS.md,**/GEMINI.md}": true,
-        "{**/.agents}": true,
+
         "{**/.geminiignore,**/.claudeignore}": true,
         // 測試與非必要文件 (Tests & Documentation)
         "{**/*_test.go,**/*.test.ts,go.sum}": true
@@ -593,25 +593,7 @@
     "containers.images.sortBy": "Label",
     // SQLite
     "sqltools.useNodeRuntime": false,
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "name": "DB1.local",
-            "database": "${workspaceFolder}/local.sqlite"
-        },
-        {
-            "ssh": "Disabled",
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "username": "admin",
-            "password": "adminpassword",
-            "name": "pg-local",
-            "database": "postgres"
-        }
-    ],
+    "sqltools.connections": [],
     "sqltools.results.location": "current",
     // [Remote]
     "remote.SSH.useExecServer": false,
@@ -711,7 +693,7 @@
             ".continue/**/*.yaml"
         ]
     },
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "sweetpad.system.taskExecutor": "v2",
     "sweetpad.shellEnv.shell": "/bin/bash   ",
     "sweetpad.shellEnv.timeout": 15000,
@@ -745,5 +727,6 @@
         "~/projects/platform/superset",
         "~/projects/env_setup",
         "~/projects/data/vid-note"
-    ]
+    ],
+    "superset.cliLauncher.focusedOnly": false
 }
