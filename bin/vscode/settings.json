@@ -678,7 +678,7 @@
     "extensions.ignoreRecommendations": true,
     "git.replaceTagsWhenPull": true,
     "git.autoRepositoryDetection": true,
-    "git.repositoryScanMaxDepth": 5,
+    "git.repositoryScanMaxDepth": 1,
     "commentTranslate.hover.enabled": false,
     "python.createEnvironment.trigger": "off",
     "security.promptForLocalFileProtocolHandling": false,
@@ -728,5 +728,18 @@
         "~/projects/env_setup",
         "~/projects/data/vid-note"
     ],
-    "superset.cliLauncher.focusedOnly": false
+    "superset.cliLauncher.focusedOnly": false,
+
+    // [Performance & Memory Optimizations]
+    "editor.minimap.enabled": false,
+    "telemetry.telemetryLevel": "off",
+    "typescript.tsserver.maxTsServerMemory": 2048,
+    "workbench.list.smoothScrolling": false,
+    "editor.smoothScrolling": false,
+    "editor.largeFileOptimizations": true,
+    "files.maxMemoryForLargeFilesMB": 256,
+    "workbench.editor.limit.enabled": true,
+    "workbench.editor.limit.value": 12,
+    "workbench.editor.limit.perEditorGroup": true,
+    "extensions.autoCheckUpdates": false
 }
