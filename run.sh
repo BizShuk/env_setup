@@ -16,10 +16,10 @@ set -e
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/bin/bash/settings.sh"
 
 # ----------------------------------------------------------------------------
-# Pre-flight: install golang tools that other env_setup scripts rely on
+# Pre-flight: install Superset default tools (pm2, skills, dux, ...)
 # ----------------------------------------------------------------------------
-go install github.com/bizshuk/pm2@master
-go install github.com/bizshuk/skills@master
+# shellcheck source=scripts/default_tools.sh
+"${REPO_DIR}/scripts/default_tools.sh"
 
 # ----------------------------------------------------------------------------
 # Color output
