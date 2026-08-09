@@ -705,14 +705,7 @@
     "workbench.editor.tabSizing": "shrink",
     "workbench.editor.tabSizingFixedMinWidth": 80,
     "workbench.editor.tabSizingFixedMaxWidth": 120,
-    "yaml.disableSchemaDetection": [
-        "**/.github/workflows/*.yml",
-        "**/.github/workflows/*.yaml",
-        "**/.gitea/workflows/*.yml",
-        "**/.gitea/workflows/*.yaml",
-        "**/.forgejo/workflows/*.yml",
-        "**/.forgejo/workflows/*.yaml"
-    ],
+    "yaml.disableSchemaDetection": [],
     "superset.editorLayout.maxRatio": 0.9,
     "npm.autoDetect": "on",
     "npm.scriptRunner": "bun",
