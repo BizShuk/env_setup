@@ -27,6 +27,8 @@ safe_link "${REPO_DIR}/bin/bash/.gitmessage" "${INSTALL_DIR}/.gitmessage"
 
 ### [screen] ###
 safe_link "${REPO_DIR}/bin/bash/.screenrc" "${INSTALL_DIR}/.screenrc"
+# Keep the non-hidden convenience path in sync with the canonical screen config.
+safe_link "${REPO_DIR}/bin/bash/.screenrc" "${INSTALL_DIR}/screenrc"
 
 
 ### [vim] ###

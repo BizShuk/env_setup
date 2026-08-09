@@ -2,7 +2,44 @@
 
 set -euo pipefail
 
-git rev-parse --show-toplevel >/dev/null
+projects_root=${PROJECTS_ROOT:-"${HOME:?HOME is required}/projects"}
+[[ -d "$projects_root" ]] || {
+    printf 'projects root does not exist: %s\n' "$projects_root" >&2
+    exit 1
+}
 
-git submodule foreach \
-    'git fetch origin master && (git switch master || git switch --track -c master origin/master)'
+repositories=0
+failures=0
+
+for repository in "$projects_root"/*/*; do
+    [[ -d "$repository" ]] || continue
+
+    top_level=$(git -C "$repository" rev-parse --show-toplevel 2>/dev/null) || continue
+    [[ "$top_level" == "$repository" ]] || continue
+
+    repositories=$((repositories + 1))
+    relative=${repository#"$projects_root"/}
+    printf '%s: synchronizing origin/master\n' "$relative"
+
+    if ! git -C "$repository" fetch origin master; then
+        printf '%s: fetch origin/master failed\n' "$relative" >&2
+        failures=$((failures + 1))
+        continue
+    fi
+
+    if git -C "$repository" show-ref --verify --quiet refs/heads/master; then
+        if ! git -C "$repository" switch master; then
+            printf '%s: switch to local master failed\n' "$relative" >&2
+            failures=$((failures + 1))
+        fi
+        continue
+    fi
+
+    if ! git -C "$repository" switch --track -c master origin/master; then
+        printf '%s: create local master tracking origin/master failed\n' "$relative" >&2
+        failures=$((failures + 1))
+    fi
+done
+
+printf 'summary repositories=%d failures=%d\n' "$repositories" "$failures"
+((failures == 0))
