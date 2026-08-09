@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+git rev-parse --show-toplevel >/dev/null
+
+git submodule foreach \
+    'git fetch origin master && (git switch master || git switch --track -c master origin/master)'

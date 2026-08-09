@@ -70,6 +70,7 @@ Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview�
 | ----------------------------- | ----------------- | ------------------------------------------------------------- |
 | `json`                        | 開發者 helper     | JSON pretty-print                                              |
 | `git_signing`                 | 開發者 helper     | GPG 簽章指引                                                  |
+| `git_submodule_master`        | Git helper        | 將第一層 submodules 切換至追蹤 `origin/master` 的 local `master` |
 | `find_symbolic_link`          | 開發者 helper     | 找出目錄下所有 symlink                                          |
 | `iconv_big5_utf8`             | 開發者 helper     | Big5 ↔ UTF-8 編碼轉換                                          |
 | `file_encoding`               | 開發者 helper     | 編碼偵測                                                      |
