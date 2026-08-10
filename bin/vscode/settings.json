@@ -279,7 +279,6 @@
     "git.untrackedChanges": "separate",
     "git.blame.editorDecoration.enabled": true,
     "git.blame.statusBarItem.enabled": false,
-    "git.graph.showAllBranches": true,
     // [go]
     "go.toolsManagement.autoUpdate": true,
     "go.diagnostic.vulncheck": "Off", // ???
@@ -666,9 +665,6 @@
         "default": "right",
         "jupyter-notebook": "right"
     },
-    "gitlens.ai.model": "vscode",
-    "gitlens.ai.vscode.model": "copilot:gpt-4.1",
-    "makefile.configureOnOpen": false,
     "http.systemCertificatesNode": true,
     "redhat.telemetry.enabled": false,
     "[go]": {
@@ -695,12 +691,7 @@
         ]
     },
     "window.zoomLevel": 0,
-    "sweetpad.system.taskExecutor": "v2",
-    "sweetpad.shellEnv.shell": "/bin/bash   ",
-    "sweetpad.shellEnv.timeout": 15000,
-    "sweetpad.system.logLevel": "debug",
     "git.ignoreRebaseWarning": true,
-    "chatgpt.localeOverride": "en-US",
     "window.density.editorTabHeight": "compact",
 
     "workbench.editor.tabSizing": "shrink",
@@ -713,9 +704,6 @@
     "npm.packageManager": "bun",
     "npm.scriptExplorerAction": "run",
     "task.quickOpen.history": 10,
-    "grok.summarizeRepliesAloud": false,
-    "grok.defaultEffort": "medium",
-    "cliLauncher.entries": [],
     "superset.cliLauncher.hidden": [],
     "superset.cliLauncher.entries": [],
     "superset.cliLauncher.focused": [
