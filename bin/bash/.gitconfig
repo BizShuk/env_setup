@@ -27,12 +27,15 @@
     push = push --follow-tags
 	logv = log --name-status --graph --decorate
 	rollback = checkout
+	graph = log --graph --oneline --all --decorate
+	lg = log --graph --all --oneline --decorate
 [pack]
 	windowMemory = 25m
 	SizeLimit = 25m
 	threads = 1
 [log]
 	date = local
+	graphColors = cyan,green,yellow,magenta,red,blue
 [core]
 	editor = vim
 	quotepath = false

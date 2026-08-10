@@ -223,7 +223,7 @@
     },
     "editor.fontFamily": "SF Mono",
     // [terminal]
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontSize": 12,
     "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.tabs.enabled": true,
@@ -279,6 +279,7 @@
     "git.untrackedChanges": "separate",
     "git.blame.editorDecoration.enabled": true,
     "git.blame.statusBarItem.enabled": false,
+    "git.graph.showAllBranches": true,
     // [go]
     "go.toolsManagement.autoUpdate": true,
     "go.diagnostic.vulncheck": "Off", // ???
