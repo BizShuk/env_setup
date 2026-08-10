@@ -1,0 +1,27 @@
+{
+    // 全域 Markdown lint 基準 (user-level baseline).
+    // 專案要繼承這份設定時, 在 repo 根目錄放 .markdownlint.jsonc:
+    //   { "extends": "${userHome}/.markdownlint.jsonc" }
+    "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint/v0.40.0/schema/markdownlint-config-schema.json",
+
+    "default": true,
+
+    // 允許跳階標題 (### 直接接在 # 之後)
+    "MD001": false,
+
+    // 巢狀清單縮排 4 空白, 對齊全域文件風格
+    "MD007": { "indent": 4 },
+
+    // 行尾 2 個空白視為換行 (hard break), 非 trailing space
+    "MD009": { "br_spaces": 2 },
+
+    "MD024": false, // 允許重複標題文字 (多節共用 "使用方式" 等小標)
+    "MD025": false, // 允許一份文件多個 H1
+    "MD028": false, // 允許 blockquote 中間夾空行
+    "MD029": false, // 不強制有序清單編號樣式
+    "MD033": false, // 允許 inline HTML
+    "MD036": false, // 允許用粗體當作視覺小標
+    "MD045": false, // 圖片不強制 alt text
+    "MD053": false, // 允許未被引用的 link reference 定義
+    "MD059": false // 允許 "here" 這類非描述性連結文字
+}

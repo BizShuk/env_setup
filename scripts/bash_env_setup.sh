@@ -25,6 +25,9 @@ safe_link "${REPO_DIR}/bin/bash/.gitignore" "${INSTALL_DIR}/.gitignore"
 safe_link "${REPO_DIR}/bin/bash/.gitconfig" "${INSTALL_DIR}/.gitconfig"
 safe_link "${REPO_DIR}/bin/bash/.gitmessage" "${INSTALL_DIR}/.gitmessage"
 
+### [markdownlint] ###
+safe_link "${REPO_DIR}/bin/bash/.markdownlint.jsonc" "${INSTALL_DIR}/.markdownlint.jsonc"
+
 ### [screen] ###
 safe_link "${REPO_DIR}/bin/bash/.screenrc" "${INSTALL_DIR}/.screenrc"
 # Keep the non-hidden convenience path in sync with the canonical screen config.
