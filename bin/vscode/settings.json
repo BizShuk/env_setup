@@ -3,6 +3,7 @@
     "window.openFoldersInNewWindow": "on",
     // [workbench]
     "workbench.startupEditor": "none",
+    "workbench.list.defaultFindMode": "filter",
     "workbench.colorCustomizations": {
         // 衝突 (Conflicted) 的顏色
         "gitDecoration.conflictingResourceForeground": "#FF0000",

@@ -744,5 +744,15 @@
     {
         "key": "alt+cmd+right",
         "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "cmd+f",
+        "command": "list.find",
+        "when": "filesExplorerFocus"
+    },
+    {
+        "key": "cmd+f",
+        "command": "list.toggleFindMode",
+        "when": "filesExplorerFocus && listFindWidgetVisible"
     }
 ]
