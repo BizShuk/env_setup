@@ -133,4 +133,4 @@ if [ -f "${HOME}/projects/ai/cc-plugin/scripts/aliases.sh" ]; then
     # shellcheck disable=SC1090
     . "${HOME}/projects/ai/cc-plugin/scripts/aliases.sh"
 fi
-
+alias cf="cloudflared"
