@@ -754,5 +754,14 @@
         "key": "cmd+f",
         "command": "list.toggleFindMode",
         "when": "filesExplorerFocus && listFindWidgetVisible"
+    },
+    {
+        "key": "cmd+r",
+        "command": "workbench.action.openRecent"
+    },
+    {
+        "key": "cmd+r",
+        "command": "-workbench.action.reloadWindow",
+        "when": "isDevelopment"
     }
 ]
