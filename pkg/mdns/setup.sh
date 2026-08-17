@@ -107,6 +107,12 @@ else
         sudo tee -a "${AVAHI_HOSTS}" >/dev/null
 fi
 
+# A leftover ad-hoc publisher for the same name (e.g. a manual `avahi-publish
+# -a`) makes the static entry fail with "Local name collision" at startup, and
+# the alias then silently disappears once that process exits.
+pkill -f "avahi-publish -a .*${REGISTRY_ALIAS_DOMAIN}" 2>/dev/null &&
+    warn "stopped a stray avahi-publish for ${REGISTRY_ALIAS_DOMAIN}"
+
 # --- 5. daemon ---------------------------------------------------------
 log "enabling avahi-daemon"
 sudo systemctl enable --now avahi-daemon
@@ -156,6 +162,8 @@ if [ "${alias_resolved}" = "${alias_ip}" ]; then
 else
     warn "${REGISTRY_ALIAS_DOMAIN} resolves to '${alias_resolved:-nothing}' (expected ${alias_ip}); \
 announce may take a few seconds — re-run ./verify.sh"
+    journalctl -u avahi-daemon -n 20 --no-pager 2>/dev/null |
+        grep -F "${REGISTRY_ALIAS_DOMAIN}" | tail -3 || true
 fi
 
 printf '\n'

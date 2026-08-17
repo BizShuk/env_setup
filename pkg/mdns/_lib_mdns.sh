@@ -158,5 +158,5 @@ mdns_resolve_ipv4() {
     else
         out="$(getent ahostsv4 "${name}" 2>/dev/null | awk '{ print $1 }')"
     fi
-    printf '%s\n' "${out}" | grep -E '^[0-9]+(\.[0-9]+){3}$' | sort -u
+    printf '%s\n' "${out}" | grep -E '^[0-9]+(\.[0-9]+){3}$' | sort -u || true
 }
