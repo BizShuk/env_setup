@@ -91,7 +91,12 @@ fi
 # --- 4. daemon ---------------------------------------------------------
 log "enabling avahi-daemon"
 sudo systemctl enable --now avahi-daemon
-sudo systemctl reload-or-restart avahi-daemon
+# Must be restart, NOT reload-or-restart. avahi's ExecReload only re-reads the
+# static service files under /etc/avahi/services/; avahi-daemon.conf is parsed
+# at startup only. A reload therefore reports success while leaving the daemon
+# running on the previous configuration — the package's own postinst has
+# already started it by this point, so a reload here changes nothing.
+sudo systemctl restart avahi-daemon
 systemctl is-active --quiet avahi-daemon ||
     die "avahi-daemon failed to start; see: journalctl -u avahi-daemon -n 50"
 ok "avahi-daemon active"
@@ -99,11 +104,24 @@ ok "avahi-daemon active"
 # --- 5. self-check -------------------------------------------------------
 # avahi-resolve proves the record is published; getent proves NSS is wired up.
 # They fail independently, so both are worth asserting.
-if avahi-resolve -n "${MDNS_DOMAIN}" >/dev/null 2>&1; then
-    ok "published: $(avahi-resolve -n "${MDNS_DOMAIN}")"
+published="$(avahi-resolve -n "${MDNS_DOMAIN}" 2>/dev/null | awk '{print $2}')"
+if [ -n "${published}" ]; then
+    ok "published: ${MDNS_DOMAIN} -> ${published}"
 else
     warn "avahi-resolve could not find ${MDNS_DOMAIN} yet (announce takes a few seconds)"
 fi
+
+# Publishing a Docker bridge address is the failure that looks like success:
+# the name resolves, and every client outside this box then dials an address
+# only this box can reach.
+case "${published}" in
+172.1[6-9].* | 172.2[0-9].* | 172.3[0-1].* | 127.*)
+    die "avahi is publishing ${published}, a Docker/loopback address no other \
+machine can reach. Re-run with --interface <lan-nic>, e.g.:
+    $0 --interface $(ip -4 -o addr show scope global |
+        awk '$2 !~ /^(docker|br-|veth|virbr)/ {print $2; exit}')"
+    ;;
+esac
 
 if getent hosts "${MDNS_DOMAIN}" >/dev/null 2>&1; then
     ok "resolvable via NSS: $(getent hosts "${MDNS_DOMAIN}" | head -1)"

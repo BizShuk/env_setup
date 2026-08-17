@@ -57,18 +57,10 @@ done
 
 require_cmd openssl
 
-# Without --server the target defaults to this machine's own name. That is
-# right on the registry host and silently wrong everywhere else: the CA would
-# land in a certs.d directory no push will ever look up.
+mdns_require_server "${server_given}"
 if [ "${server_given}" -eq 0 ]; then
-    if [ -f "${REGISTRY_CERT}" ]; then
-        log "no --server given; targeting this host (${MDNS_DOMAIN}) — \
+    log "no --server given; targeting this host (${MDNS_DOMAIN}) — \
 a registry certificate is present, so this looks like the server"
-    else
-        die "no --server given and no local registry certificate found.
-This machine is not the registry host, so the target would be its own name
-(${MDNS_DOMAIN}). Re-run with: --server <registry-hostname>"
-    fi
 fi
 
 # --- 1. name resolution --------------------------------------------------
@@ -87,10 +79,13 @@ if [ "$(mdns_os)" = "linux" ]; then
         warn "/etc/nsswitch.conf has no mdns source; run setup.sh on this machine too"
 fi
 
-if getent hosts "${MDNS_DOMAIN}" >/dev/null 2>&1; then
-    ok "resolves: $(getent hosts "${MDNS_DOMAIN}" | head -1)"
+resolved="$(mdns_resolve_ipv4 "${MDNS_DOMAIN}")"
+if [ -n "${resolved}" ]; then
+    ok "resolves: $(printf '%s' "${resolved}" | tr '\n' ' ')"
 else
-    warn "${MDNS_DOMAIN} does not resolve here yet — mDNS does not cross subnets"
+    warn "${MDNS_DOMAIN} does not resolve here yet — either setup.sh has not \
+run on the registry host, or the two machines are on different subnets \
+(mDNS does not cross them). Installing the CA still works; pushing will not."
 fi
 
 # --- 2. obtain the certificate -------------------------------------------

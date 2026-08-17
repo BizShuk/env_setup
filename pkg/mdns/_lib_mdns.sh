@@ -54,6 +54,24 @@ mdns_set_host() {
     export MDNS_HOSTNAME MDNS_DOMAIN REGISTRY_HOST DOCKER_CERTS_D
 }
 
+# Guard for every script that talks *to* the registry. Called with 1 when the
+# caller passed --server, 0 otherwise.
+#
+# The default target is this machine's own name, which is right only on the
+# registry host. Two ways it goes wrong on a client, and the second one is why
+# this refuses rather than warns: macOS with no hostname set reports its
+# reverse-DNS name, so `hostname -s` yields "192" out of "192.168.1.173" and
+# every check then runs against "192.local" — a target that looks plausible in
+# the output and cannot possibly work.
+mdns_require_server() {
+    [ "$1" -eq 1 ] && return 0
+    [ -f "${REGISTRY_CERT}" ] && return 0
+
+    die "no --server given and no local registry certificate found.
+This machine is not the registry host, so the target defaulted to its own
+name (${MDNS_DOMAIN}). Re-run with: --server <registry-hostname>"
+}
+
 # --- output --------------------------------------------------------------
 log() { printf '\033[0;36m==>\033[0m %s\n' "$*"; }
 ok() { printf '\033[0;32m ok\033[0m %s\n' "$*"; }
@@ -99,4 +117,25 @@ mdns_lan_ipv4() {
 
 mdns_cert_fingerprint() {
     openssl x509 -in "$1" -noout -fingerprint -sha256 | cut -d= -f2
+}
+
+# Resolve a name to IPv4 addresses, one per line; empty output means no answer.
+# macOS has no getent, so the Linux form silently "fails to resolve" there even
+# when the name is fine. Both branches go through the system resolver, which is
+# the same path dockerd takes.
+mdns_resolve_ipv4() {
+    local name="$1" out=""
+    if [ "$(mdns_os)" = "darwin" ]; then
+        out="$(dscacheutil -q host -a name "${name}" 2>/dev/null |
+            awk '/^ip_address:/ { print $2 }')"
+        # dscacheutil does not always consult mDNSResponder for .local; ping
+        # goes through getaddrinfo, which does.
+        if [ -z "${out}" ]; then
+            out="$(ping -c 1 -t 1 "${name}" 2>/dev/null |
+                sed -n '1s/.*(\([0-9.]*\)).*/\1/p')"
+        fi
+    else
+        out="$(getent ahostsv4 "${name}" 2>/dev/null | awk '{ print $1 }')"
+    fi
+    printf '%s\n' "${out}" | grep -E '^[0-9]+(\.[0-9]+){3}$' | sort -u
 }

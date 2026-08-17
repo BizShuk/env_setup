@@ -44,9 +44,26 @@ scp ubuntu-server.local:~/projects/env_setup/pkg/mdns/{client-setup.sh,_lib_mdns
 /tmp/client-setup.sh --server ubuntu-server --scp shuk@ubuntu-server.local
 ```
 
-`--server` 在非 registry 本機上`是必填`：預設值來自 `hostname -s`，在 server 上正確，
-在 client 上會指向 client 自己的名字，把 CA 放進一個永遠不會被查詢的 certs.d 目錄。
-沒給 `--server` 又找不到本機憑證時，`client-setup.sh` 直接報錯而不是照做。
+```bash
+/tmp/verify.sh --server ubuntu-server   # 事後確認，同樣要 --server
+```
+
+`--server` 在非 registry 本機上`是必填`，`client-setup.sh` 與 `verify.sh` 都一樣：
+預設值來自 `hostname -s`，在 server 上正確，在 client 上會指向 client 自己的名字。
+
+macOS 上這個預設特別危險。Mac 沒設 hostname 時會回報反解出來的名稱，於是
+`hostname -s` 從 `192.168.1.173` 取出 `192`，所有檢查都跑去測 `192.local`——
+一個在輸出裡看起來像模像樣、但不可能成立的目標：
+
+```console
+$ ./verify.sh          # 沒給 --server 的 Mac
+  ! FAIL 192.local does not resolve
+  ! FAIL build probe image
+  ...
+```
+
+因此 `mdns_require_server()` 在`沒有 --server 且本機沒有 registry 憑證`時`直接拒跑`，
+不是警告後照做——這種失敗的症狀離病因太遠，警告會被當成雜訊略過。
 
 推送：
 
