@@ -17,6 +17,19 @@ failed=0
 degraded=0
 server_given=0
 
+# One trap for the whole script: a second `trap ... EXIT` silently replaces the
+# first, which previously leaked the temp file holding the keychain copy of the
+# CA. Plain strings rather than an array — macOS still ships bash 3.2, where
+# expanding an empty array under `set -u` is itself an error.
+keychain_ca=""
+probe_dir=""
+cleanup() {
+    [ -n "${keychain_ca}" ] && rm -f "${keychain_ca}"
+    [ -n "${probe_dir}" ] && rm -rf "${probe_dir}"
+    return 0
+}
+trap cleanup EXIT
+
 usage() {
     sed -n '3,8p' "$0" | sed 's/^# \{0,1\}//'
     exit "${1:-0}"
@@ -97,10 +110,8 @@ fi
 # host's /etc/docker/certs.d, so on macOS the System keychain is the only
 # answer that means anything.
 ca=""
-keychain_ca=""
 if [ "$(mdns_os)" = "darwin" ]; then
     keychain_ca="$(mktemp)"
-    trap 'rm -f "${keychain_ca}"' EXIT
     if security find-certificate -c "${MDNS_DOMAIN}" -p \
         /Library/Keychains/System.keychain >"${keychain_ca}" 2>/dev/null &&
         [ -s "${keychain_ca}" ]; then
@@ -140,7 +151,7 @@ fi
 if [ "${do_push}" -eq 1 ]; then
     require_cmd docker
     tmp="$(mktemp -d)"
-    trap 'rm -rf "${tmp}"' EXIT
+    probe_dir="${tmp}"
 
     tag="${REGISTRY_HOST}/mdns-verify:probe"
     printf 'mdns registry probe\n' >"${tmp}/probe.txt"
