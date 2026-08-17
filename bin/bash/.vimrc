@@ -1,6 +1,8 @@
 " ref. http://www.study-area.org/tips/vim/Vim-9.html
 " ref. http://vimdoc.sourceforge.net/htmldoc/help.html
 
+" 以 Space 作為 Leader key，統一 workspace 快捷鍵。
+let mapleader = " "
 
 
 
@@ -60,6 +62,19 @@ set history=100  " 保留 100 個使用過的指令
 set laststatus=2
 set foldmethod=indent
 
+" 左側 Project Folder panel（使用 Vim 內建 netrw）。
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
+nnoremap <silent> <leader>e :Lexplore<CR>
+
+" 底部 Integrated Terminal；在 Terminal 中按 Esc Esc 回到 Normal mode。
+if has('terminal')
+  nnoremap <silent> <leader>t :botright 12new \| terminal ++curwin<CR>
+  tnoremap <Esc><Esc> <C-\><C-n>
+endif
+
 
 
 " Pathogen 
@@ -87,7 +102,7 @@ let g:go_highlight_build_constraints = 1
 
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
-au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>gt <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 
 " let g:go_fmt_command = "goimports" " 把go-fmt 換成 go-import 強烈推薦 :p
