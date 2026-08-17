@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Server side: publish this host as "<hostname>.local" over mDNS and make the
-# local resolver able to answer .local queries.
+# Server side: publish this host as "<hostname>.local" plus the registry
+# alias "docker-registry.local" over mDNS, and make the local resolver able to
+# answer .local queries.
 #
 # Idempotent: safe to re-run. Requires sudo for apt and /etc edits.
 #
@@ -14,6 +15,7 @@ set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/_lib_mdns.sh"
 
 AVAHI_CONF=/etc/avahi/avahi-daemon.conf
+AVAHI_HOSTS=/etc/avahi/hosts
 NSSWITCH=/etc/nsswitch.conf
 interface=""
 
@@ -88,7 +90,24 @@ if [ -n "${interface}" ]; then
     grep -E '^allow-interfaces=' "${AVAHI_CONF}"
 fi
 
-# --- 4. daemon ---------------------------------------------------------
+# --- 4. service alias --------------------------------------------------
+# avahi has no CNAME support, but /etc/avahi/hosts publishes extra A records
+# natively — no avahi-publish process to keep alive. The alias must point at
+# a LAN address, never a Docker bridge, so it goes through the same filter as
+# the certificate SANs.
+alias_ip="$(mdns_publish_ipv4 "${interface}")"
+[ -n "${alias_ip}" ] ||
+    die "no LAN IPv4 to publish ${REGISTRY_ALIAS_DOMAIN}${interface:+ on ${interface}}"
+if grep -qE "^${alias_ip}[[:space:]]+${REGISTRY_ALIAS_DOMAIN}\$" "${AVAHI_HOSTS}"; then
+    ok "${AVAHI_HOSTS} already publishes ${REGISTRY_ALIAS_DOMAIN} -> ${alias_ip}"
+else
+    log "publishing ${REGISTRY_ALIAS_DOMAIN} -> ${alias_ip} via ${AVAHI_HOSTS}"
+    sudo sed -i.bak -E "/[[:space:]]${REGISTRY_ALIAS_DOMAIN}\$/d" "${AVAHI_HOSTS}"
+    printf '%s %s\n' "${alias_ip}" "${REGISTRY_ALIAS_DOMAIN}" |
+        sudo tee -a "${AVAHI_HOSTS}" >/dev/null
+fi
+
+# --- 5. daemon ---------------------------------------------------------
 log "enabling avahi-daemon"
 sudo systemctl enable --now avahi-daemon
 # Must be restart, NOT reload-or-restart. avahi's ExecReload only re-reads the
@@ -101,7 +120,7 @@ systemctl is-active --quiet avahi-daemon ||
     die "avahi-daemon failed to start; see: journalctl -u avahi-daemon -n 50"
 ok "avahi-daemon active"
 
-# --- 5. self-check -------------------------------------------------------
+# --- 6. self-check -------------------------------------------------------
 # avahi-resolve proves the record is published; getent proves NSS is wired up.
 # They fail independently, so both are worth asserting.
 published="$(avahi-resolve -n "${MDNS_DOMAIN}" 2>/dev/null | awk '{print $2}')"
@@ -129,6 +148,16 @@ else
     die "getent cannot resolve ${MDNS_DOMAIN}; NSS is not using mdns"
 fi
 
+# The alias has no systemd-resolved fallback: if it does not resolve here, it
+# is not published at all.
+alias_resolved="$(getent ahostsv4 "${REGISTRY_ALIAS_DOMAIN}" 2>/dev/null | awk '{ print $1; exit }')"
+if [ "${alias_resolved}" = "${alias_ip}" ]; then
+    ok "alias resolvable: ${REGISTRY_ALIAS_DOMAIN} -> ${alias_resolved}"
+else
+    warn "${REGISTRY_ALIAS_DOMAIN} resolves to '${alias_resolved:-nothing}' (expected ${alias_ip}); \
+announce may take a few seconds — re-run ./verify.sh"
+fi
+
 printf '\n'
-log "domain ready: ${MDNS_DOMAIN}"
+log "domain ready: ${MDNS_DOMAIN} (alias ${REGISTRY_ALIAS_DOMAIN})"
 log "next: ./gen-cert.sh"

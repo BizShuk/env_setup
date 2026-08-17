@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Client side: teach this machine to reach the registry at
-# "<hostname>.local:5000" — resolve the name, and trust the self-signed
-# certificate. No client certificate is issued: the registry never asks one.
+# "<hostname>.local:5000" and "docker-registry.local:5000" — resolve the
+# names, and trust the self-signed certificate. No client certificate is issued: the registry never asks one.
 #
 # Copy this file and _lib_mdns.sh to the client; nothing else is needed.
 # On any machine that is not the registry host, --server is mandatory.
@@ -79,14 +79,16 @@ if [ "$(mdns_os)" = "linux" ]; then
         warn "/etc/nsswitch.conf has no mdns source; run setup.sh on this machine too"
 fi
 
-resolved="$(mdns_resolve_ipv4 "${MDNS_DOMAIN}")"
-if [ -n "${resolved}" ]; then
-    ok "resolves: $(printf '%s' "${resolved}" | tr '\n' ' ')"
-else
-    warn "${MDNS_DOMAIN} does not resolve here yet — either setup.sh has not \
+for name in "${MDNS_DOMAIN}" "${REGISTRY_ALIAS_DOMAIN}"; do
+    resolved="$(mdns_resolve_ipv4 "${name}")"
+    if [ -n "${resolved}" ]; then
+        ok "${name} resolves: $(printf '%s' "${resolved}" | tr '\n' ' ')"
+    else
+        warn "${name} does not resolve here yet — either setup.sh has not \
 run on the registry host, or the two machines are on different subnets \
 (mDNS does not cross them). Installing the CA still works; pushing will not."
-fi
+    fi
+done
 
 # --- 2. obtain the certificate -------------------------------------------
 staged="$(mktemp)"
@@ -126,25 +128,38 @@ openssl x509 -in "${staged}" -noout >/dev/null 2>&1 ||
 
 # A certificate without the name in its SANs will be rejected by dockerd no
 # matter where it is installed — catch that here rather than at push time.
-if ! openssl x509 -in "${staged}" -noout -ext subjectAltName 2>/dev/null |
-    grep -q "DNS:${MDNS_DOMAIN}"; then
-    die "certificate has no SAN for ${MDNS_DOMAIN}; regenerate with gen-cert.sh"
-fi
+for name in "${MDNS_DOMAIN}" "${REGISTRY_ALIAS_DOMAIN}"; do
+    openssl x509 -in "${staged}" -noout -ext subjectAltName 2>/dev/null |
+        grep -q "DNS:${name}" ||
+        die "certificate has no SAN for ${name}; regenerate with gen-cert.sh on the server"
+done
 
 # --- 3. install into the trust store -------------------------------------
 if [ "$(mdns_os)" = "darwin" ]; then
     # Docker Desktop runs dockerd inside a VM, so /etc/docker/certs.d on the
     # host is never read; the System keychain is what it imports.
-    log "adding to the System keychain (Docker Desktop reads it on restart)"
+    # Re-running after gen-cert.sh --force must replace, not accumulate: with
+    # two entries for the same CN, lookups return whichever comes first.
+    while sudo security find-certificate -c "${MDNS_DOMAIN}" \
+        /Library/Keychains/System.keychain >/dev/null 2>&1; do
+        log "removing previous System keychain entry for ${MDNS_DOMAIN}"
+        sudo security delete-certificate -c "${MDNS_DOMAIN}" \
+            /Library/Keychains/System.keychain >/dev/null 2>&1 || break
+    done
+    log "adding to the System keychain (Docker Desktop / OrbStack read it from there)"
     sudo security add-trusted-cert -d -r trustRoot \
         -k /Library/Keychains/System.keychain "${staged}"
-    ok "installed; restart Docker Desktop to pick it up"
+    ok "installed; restart Docker Desktop (OrbStack picks it up live) to be sure"
 else
-    log "installing ${DOCKER_CERTS_D}/ca.crt"
-    sudo mkdir -p "${DOCKER_CERTS_D}"
-    sudo cp "${staged}" "${DOCKER_CERTS_D}/ca.crt"
-    sudo chmod 0644 "${DOCKER_CERTS_D}/ca.crt"
-    ok "installed; dockerd re-reads this per connection — no restart needed"
+    # dockerd keys the drop-in on the exact host:port it was asked to dial, so
+    # the alias needs its own copy.
+    for dir in "${DOCKER_CERTS_D}" "${DOCKER_CERTS_D_ALIAS}"; do
+        log "installing ${dir}/ca.crt"
+        sudo mkdir -p "${dir}"
+        sudo cp "${staged}" "${dir}/ca.crt"
+        sudo chmod 0644 "${dir}/ca.crt"
+    done
+    ok "installed; dockerd re-reads these per connection — no restart needed"
 fi
 
 ok "SHA-256 $(mdns_cert_fingerprint "${staged}")"

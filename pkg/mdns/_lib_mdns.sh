@@ -18,6 +18,13 @@ MDNS_DOMAIN="${MDNS_HOSTNAME}.local"
 REGISTRY_PORT="${REGISTRY_PORT:-5000}"
 REGISTRY_HOST="${MDNS_DOMAIN}:${REGISTRY_PORT}"
 
+# Service alias, independent of which box hosts the registry. Published by
+# avahi from /etc/avahi/hosts (setup.sh), so it survives a hostname change and
+# lets clients pin "docker-registry.local" instead of a machine name.
+MDNS_REGISTRY_ALIAS="${MDNS_REGISTRY_ALIAS:-docker-registry}"
+REGISTRY_ALIAS_DOMAIN="${MDNS_REGISTRY_ALIAS}.local"
+REGISTRY_ALIAS_HOST="${REGISTRY_ALIAS_DOMAIN}:${REGISTRY_PORT}"
+
 # --- paths ---------------------------------------------------------------
 # Registry runtime state follows the platform/cloud convention: one
 # ~/.config/<app_name>/ per application, bind-mounted into the container.
@@ -36,11 +43,25 @@ REGISTRY_CERT_RELPATH=".config/registry/certs/registry.crt"
 # daemon restart. The ":${REGISTRY_PORT}" suffix is part of the directory
 # name — Docker looks up "<host>:<port>", not "<host>".
 DOCKER_CERTS_D="/etc/docker/certs.d/${REGISTRY_HOST}"
+DOCKER_CERTS_D_ALIAS="/etc/docker/certs.d/${REGISTRY_ALIAS_HOST}"
 
 export MDNS_HOSTNAME MDNS_DOMAIN REGISTRY_PORT REGISTRY_HOST
+export MDNS_REGISTRY_ALIAS REGISTRY_ALIAS_DOMAIN REGISTRY_ALIAS_HOST DOCKER_CERTS_D_ALIAS
 export REGISTRY_CONFIG_DIR REGISTRY_CERT_DIR REGISTRY_CERT REGISTRY_KEY
 export REGISTRY_CERT_RELPATH
 export DOCKER_CERTS_D
+
+# The IPv4 address avahi should publish for the alias: the given interface's
+# address, or the first LAN address when no interface is pinned.
+mdns_publish_ipv4() {
+    local iface="${1:-}"
+    if [ -n "${iface}" ]; then
+        ip -4 -o addr show dev "${iface}" scope global 2>/dev/null |
+            awk '{ split($4, a, "/"); print a[1]; exit }'
+    else
+        mdns_lan_ipv4 | head -1
+    fi
+}
 
 # Re-point every derived value at another host. The defaults above describe
 # "the registry is this machine", which is only true on the server; a client

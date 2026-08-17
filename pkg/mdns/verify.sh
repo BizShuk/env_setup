@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# End-to-end check: name resolution, TLS trust, and a real push/pull round
-# trip. Builds a two-layer image FROM scratch so it needs no upstream pull.
+# End-to-end check: name resolution (hostname + docker-registry.local alias),
+# TLS trust, and a real push/pull round trip. Builds a two-layer image FROM
+# scratch so it needs no upstream pull.
 #
 #   ./verify.sh                              # full check including push/pull
 #   ./verify.sh --no-push                    # resolution and TLS only
@@ -104,6 +105,20 @@ but no other machine on the LAN can. Run setup.sh."
     degraded=1
 fi
 
+# The alias is published from /etc/avahi/hosts only, so unlike the hostname it
+# has no systemd-resolved fallback: resolving here means avahi really answered.
+alias_addrs="$(mdns_resolve_ipv4 "${REGISTRY_ALIAS_DOMAIN}")"
+if [ -z "${alias_addrs}" ]; then
+    warn "FAIL ${REGISTRY_ALIAS_DOMAIN} does not resolve; re-run setup.sh on ${MDNS_HOSTNAME}"
+    failed=1
+elif [ -n "${lan_addrs}" ] && ! printf '%s\n' "${lan_addrs}" | grep -qxF "${alias_addrs}"; then
+    warn "FAIL ${REGISTRY_ALIAS_DOMAIN} -> ${alias_addrs}, not one of ${MDNS_DOMAIN}'s LAN \
+addresses; another host is publishing the alias, or setup.sh ran with a stale IP"
+    failed=1
+else
+    ok "${REGISTRY_ALIAS_DOMAIN} resolves -> $(printf '%s' "${alias_addrs}" | tr '\n' ' ')"
+fi
+
 # --- 2. TLS --------------------------------------------------------------
 # Where the CA lives is platform-specific, and must match what client-setup.sh
 # actually did: Docker Desktop runs dockerd inside a VM and never reads the
@@ -141,8 +156,19 @@ else
 fi
 
 if [ -n "${ca}" ]; then
+    # A stale trust store is the common failure after gen-cert.sh --force:
+    # every TLS check fails, and nothing says why. Compare what we trust with
+    # what the registry actually serves.
+    served="$(openssl s_client -connect "${REGISTRY_HOST}" -servername "${MDNS_DOMAIN}" \
+        </dev/null 2>/dev/null | openssl x509 -noout -fingerprint -sha256 2>/dev/null | cut -d= -f2)"
+    if [ -n "${served}" ] && [ "${served}" != "$(mdns_cert_fingerprint "${ca}")" ]; then
+        warn "trust store holds a different certificate than ${REGISTRY_HOST} serves \
+(server regenerated it?) — re-run client-setup.sh --server ${MDNS_HOSTNAME}"
+    fi
     check "registry API /v2/ answers over TLS" \
         curl -fsS --cacert "${ca}" "https://${REGISTRY_HOST}/v2/"
+    check "registry API /v2/ answers via ${REGISTRY_ALIAS_HOST}" \
+        curl -fsS --cacert "${ca}" "https://${REGISTRY_ALIAS_HOST}/v2/"
 fi
 
 # --- 3. round trip -------------------------------------------------------
@@ -150,6 +176,10 @@ fi
 # certs.d path, the mDNS lookup inside dockerd, and the storage backend.
 if [ "${do_push}" -eq 1 ]; then
     require_cmd docker
+    # Without a running daemon every step below fails identically, and the
+    # five FAIL lines read as a registry problem rather than a local one.
+    docker info >/dev/null 2>&1 ||
+        die "docker daemon is not running (docker info failed); start it and re-run"
     tmp="$(mktemp -d)"
     probe_dir="${tmp}"
 
@@ -162,6 +192,12 @@ if [ "${do_push}" -eq 1 ]; then
     check "drop local copy" docker rmi -f "${tag}"
     check "pull it back" docker pull "${tag}"
     docker rmi -f "${tag}" >/dev/null 2>&1 || true
+
+    # Same repository through the alias: exercises dockerd's own lookup of the
+    # alias name and its certs.d entry (or keychain) for that host:port.
+    alias_tag="${REGISTRY_ALIAS_HOST}/mdns-verify:probe"
+    check "pull via ${alias_tag}" docker pull "${alias_tag}"
+    docker rmi -f "${alias_tag}" >/dev/null 2>&1 || true
 
     if [ -n "${ca}" ]; then
         check "catalog lists the repository" \

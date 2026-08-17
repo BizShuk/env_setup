@@ -34,28 +34,37 @@ done
 mdns_assert_valid_hostname
 require_cmd openssl
 
+cert_has_san() {
+    openssl x509 -in "${REGISTRY_CERT}" -noout -ext subjectAltName 2>/dev/null |
+        grep -q "DNS:$1"
+}
+
 if [ -f "${REGISTRY_CERT}" ] && [ "${force}" -eq 0 ]; then
-    if openssl x509 -in "${REGISTRY_CERT}" -noout -checkend 0 >/dev/null 2>&1; then
+    if ! cert_has_san "${REGISTRY_ALIAS_DOMAIN}"; then
+        warn "existing certificate has no SAN for ${REGISTRY_ALIAS_DOMAIN}; regenerating"
+    elif openssl x509 -in "${REGISTRY_CERT}" -noout -checkend 0 >/dev/null 2>&1; then
         ok "certificate exists and is valid until \
 $(openssl x509 -in "${REGISTRY_CERT}" -noout -enddate | cut -d= -f2)"
         ok "SHA-256 $(mdns_cert_fingerprint "${REGISTRY_CERT}")"
         log "use --force to regenerate"
         exit 0
+    else
+        warn "existing certificate has expired; regenerating"
     fi
-    warn "existing certificate has expired; regenerating"
 fi
 
 # Go rejects a certificate that carries only a CN since 1.15, so every name a
 # client might type has to be an explicit SAN entry. IPs are included so the
 # registry stays reachable from networks mDNS does not cover (Tailscale, or a
 # client with no nss-mdns).
-sans=("DNS:${MDNS_DOMAIN}" "DNS:${MDNS_HOSTNAME}" "DNS:localhost")
+sans=("DNS:${MDNS_DOMAIN}" "DNS:${MDNS_HOSTNAME}" "DNS:${REGISTRY_ALIAS_DOMAIN}" "DNS:localhost")
 while read -r addr; do
     [ -n "${addr}" ] && sans+=("IP:${addr}")
 done < <(mdns_lan_ipv4)
 sans+=("IP:127.0.0.1")
 
 log "hostname : ${MDNS_DOMAIN}"
+log "alias    : ${REGISTRY_ALIAS_DOMAIN}"
 log "SAN      : $(
     IFS=,
     echo "${sans[*]}"
