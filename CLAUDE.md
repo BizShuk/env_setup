@@ -129,6 +129,13 @@
 │   │   ├── setup.sh / globalp.plist / README.md
 │   │   ├── LaunchAgents/          # plist 樣板
 │   │   └── applescript/           # toggleFn.scpt
+│   ├── mdns/                      # <hostname>.local 發佈 + registry TLS 佈建
+│   │   ├── _lib_mdns.sh           # 共用變數與 helper (僅供 source)
+│   │   ├── setup.sh               # server: avahi + NSS 解析
+│   │   ├── gen-cert.sh            # 自簽憑證 (含 SAN) → ~/.config/registry/certs/
+│   │   ├── client-setup.sh        # client: 解析器 + certs.d 信任佈署
+│   │   ├── verify.sh              # 解析 / TLS / push-pull round trip
+│   │   └── README.md
 │   ├── sysctl/pf.conf             # PF firewall 樣板 (其餘樣板見 docs/templates/sysctl/)
 │   └── README.md
 ├── plans/                         # 進行中計畫 (YYYY-MM-DD-<topic>.md)
