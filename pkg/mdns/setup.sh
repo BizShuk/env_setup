@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Server side: publish this host as "<hostname>.local" plus the registry
-# alias "docker-registry.local" over mDNS, and make the local resolver able to
-# answer .local queries.
+# alias "docker-registry.local" (systemd unit mdns-alias.service running
+# avahi-publish) over mDNS, and make the local resolver able to answer .local
+# queries.
 #
 # Idempotent: safe to re-run. Requires sudo for apt and /etc edits.
 #
@@ -16,6 +17,7 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/_lib_mdns.sh"
 
 AVAHI_CONF=/etc/avahi/avahi-daemon.conf
 AVAHI_HOSTS=/etc/avahi/hosts
+ALIAS_UNIT=/etc/systemd/system/mdns-alias.service
 NSSWITCH=/etc/nsswitch.conf
 interface=""
 
@@ -91,27 +93,53 @@ if [ -n "${interface}" ]; then
 fi
 
 # --- 4. service alias --------------------------------------------------
-# avahi has no CNAME support, but /etc/avahi/hosts publishes extra A records
-# natively — no avahi-publish process to keep alive. The alias must point at
-# a LAN address, never a Docker bridge, so it goes through the same filter as
-# the certificate SANs.
+# avahi has no CNAME support, and /etc/avahi/hosts cannot alias this host's
+# own address: it also registers a reverse PTR, which collides with the
+# hostname's own ("Local name collision", avahi/avahi#40). The only way to
+# publish an extra A record without the PTR is `avahi-publish -a -R`, so it
+# runs as a systemd unit tied to avahi-daemon. The alias must point at a LAN
+# address, never a Docker bridge, so it goes through the same filter as the
+# certificate SANs.
 alias_ip="$(mdns_publish_ipv4 "${interface}")"
 [ -n "${alias_ip}" ] ||
     die "no LAN IPv4 to publish ${REGISTRY_ALIAS_DOMAIN}${interface:+ on ${interface}}"
-if grep -qE "^${alias_ip}[[:space:]]+${REGISTRY_ALIAS_DOMAIN}\$" "${AVAHI_HOSTS}"; then
-    ok "${AVAHI_HOSTS} already publishes ${REGISTRY_ALIAS_DOMAIN} -> ${alias_ip}"
-else
-    log "publishing ${REGISTRY_ALIAS_DOMAIN} -> ${alias_ip} via ${AVAHI_HOSTS}"
+
+# Earlier revisions wrote the alias to /etc/avahi/hosts; that entry never
+# published (see above) and only produces a startup error, so drop it.
+if grep -qE "[[:space:]]${REGISTRY_ALIAS_DOMAIN}\$" "${AVAHI_HOSTS}"; then
+    log "removing ${REGISTRY_ALIAS_DOMAIN} from ${AVAHI_HOSTS} (superseded by ${ALIAS_UNIT})"
     sudo sed -i.bak -E "/[[:space:]]${REGISTRY_ALIAS_DOMAIN}\$/d" "${AVAHI_HOSTS}"
-    printf '%s %s\n' "${alias_ip}" "${REGISTRY_ALIAS_DOMAIN}" |
-        sudo tee -a "${AVAHI_HOSTS}" >/dev/null
+fi
+
+unit_body="[Unit]
+Description=mDNS alias ${REGISTRY_ALIAS_DOMAIN} -> ${alias_ip}
+Requires=avahi-daemon.service
+PartOf=avahi-daemon.service
+After=avahi-daemon.service
+
+[Service]
+ExecStart=$(command -v avahi-publish) -a -R ${REGISTRY_ALIAS_DOMAIN} ${alias_ip}
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
+"
+if [ -f "${ALIAS_UNIT}" ] && [ "$(cat "${ALIAS_UNIT}")" = "${unit_body%$'\n'}" ]; then
+    ok "${ALIAS_UNIT} already publishes ${REGISTRY_ALIAS_DOMAIN} -> ${alias_ip}"
+else
+    log "writing ${ALIAS_UNIT} (${REGISTRY_ALIAS_DOMAIN} -> ${alias_ip})"
+    printf '%s' "${unit_body}" | sudo tee "${ALIAS_UNIT}" >/dev/null
+    sudo systemctl daemon-reload
 fi
 
 # A leftover ad-hoc publisher for the same name (e.g. a manual `avahi-publish
-# -a`) makes the static entry fail with "Local name collision" at startup, and
-# the alias then silently disappears once that process exits.
-pkill -f "avahi-publish -a .*${REGISTRY_ALIAS_DOMAIN}" 2>/dev/null &&
-    warn "stopped a stray avahi-publish for ${REGISTRY_ALIAS_DOMAIN}"
+# -a`) would collide with the unit's record; the unit's own process is spared.
+unit_pid="$(systemctl show -p MainPID --value "${ALIAS_UNIT##*/}" 2>/dev/null || echo 0)"
+for pid in $(pgrep -f "avahi-publish -a .*${REGISTRY_ALIAS_DOMAIN}" 2>/dev/null); do
+    [ "${pid}" = "${unit_pid}" ] && continue
+    kill "${pid}" 2>/dev/null && warn "stopped a stray avahi-publish (pid ${pid}) for ${REGISTRY_ALIAS_DOMAIN}"
+done
 
 # --- 5. daemon ---------------------------------------------------------
 log "enabling avahi-daemon"
@@ -125,6 +153,14 @@ sudo systemctl restart avahi-daemon
 systemctl is-active --quiet avahi-daemon ||
     die "avahi-daemon failed to start; see: journalctl -u avahi-daemon -n 50"
 ok "avahi-daemon active"
+
+log "enabling ${ALIAS_UNIT##*/}"
+sudo systemctl enable --now "${ALIAS_UNIT##*/}"
+sudo systemctl restart "${ALIAS_UNIT##*/}"
+sleep 1
+systemctl is-active --quiet "${ALIAS_UNIT##*/}" ||
+    die "${ALIAS_UNIT##*/} failed to start; see: journalctl -u ${ALIAS_UNIT##*/} -n 20"
+ok "${ALIAS_UNIT##*/} active"
 
 # --- 6. self-check -------------------------------------------------------
 # avahi-resolve proves the record is published; getent proves NSS is wired up.
@@ -155,15 +191,18 @@ else
 fi
 
 # The alias has no systemd-resolved fallback: if it does not resolve here, it
-# is not published at all.
-alias_resolved="$(getent ahostsv4 "${REGISTRY_ALIAS_DOMAIN}" 2>/dev/null | awk '{ print $1; exit }')"
+# is not published at all. avahi-publish takes a moment to register.
+alias_resolved=""
+for _ in 1 2 3 4 5; do
+    alias_resolved="$(avahi-resolve -n "${REGISTRY_ALIAS_DOMAIN}" 2>/dev/null | awk '{ print $2 }')"
+    [ -n "${alias_resolved}" ] && break
+    sleep 1
+done
 if [ "${alias_resolved}" = "${alias_ip}" ]; then
     ok "alias resolvable: ${REGISTRY_ALIAS_DOMAIN} -> ${alias_resolved}"
 else
-    warn "${REGISTRY_ALIAS_DOMAIN} resolves to '${alias_resolved:-nothing}' (expected ${alias_ip}); \
-announce may take a few seconds — re-run ./verify.sh"
-    journalctl -u avahi-daemon -n 20 --no-pager 2>/dev/null |
-        grep -F "${REGISTRY_ALIAS_DOMAIN}" | tail -3 || true
+    die "${REGISTRY_ALIAS_DOMAIN} resolves to '${alias_resolved:-nothing}' (expected ${alias_ip}); \
+see: journalctl -u ${ALIAS_UNIT##*/} -n 20"
 fi
 
 printf '\n'
