@@ -149,7 +149,15 @@ if [ "$(mdns_os)" = "darwin" ]; then
     log "adding to the System keychain (Docker Desktop / OrbStack read it from there)"
     sudo security add-trusted-cert -d -r trustRoot \
         -k /Library/Keychains/System.keychain "${staged}"
-    ok "installed; restart Docker Desktop (OrbStack picks it up live) to be sure"
+    # Both engines snapshot the keychain at start-up; without a restart the
+    # next docker pull still fails with "certificate signed by unknown authority".
+    if command -v orbctl >/dev/null 2>&1; then
+        log "restarting OrbStack docker engine to reload trusted certificates"
+        orbctl restart docker
+        ok "installed; OrbStack docker engine restarted"
+    else
+        ok "installed; restart Docker Desktop to pick it up"
+    fi
 else
     # dockerd keys the drop-in on the exact host:port it was asked to dial, so
     # the alias needs its own copy.

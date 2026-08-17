@@ -1,8 +1,8 @@
 # pkg/mdns — 區域網域名稱 (mDNS) 與 registry TLS 佈建
 
 以 mDNS 把本機發佈成 `<hostname>.local` 與服務別名 `docker-registry.local`，
-並讓 Docker 能以任一名稱推送 image 到本機 registry。alias 由 avahi 內建的
-`/etc/avahi/hosts` 發佈，不需要額外常駐程序。
+並讓 Docker 能以任一名稱推送 image 到本機 registry。alias 由 systemd unit
+`mdns-alias.service` (`avahi-publish -a -R`) 常駐發佈。
 
 Registry 的 service 定義不在這裡，由
 [`platform/cloud/docker-compose.yml`](../../../platform/cloud/docker-compose.yml)
@@ -13,7 +13,7 @@ Registry 的 service 定義不在這裡，由
 | 路徑               | 職責                                                       |
 | ------------------ | ---------------------------------------------------------- |
 | `_lib_mdns.sh`     | 共用變數與 helper (僅供 source，不直接執行)                |
-| `setup.sh`         | Server 端：avahi 發佈 (hostname + alias) + NSS 解析 + 自我驗證 |
+| `setup.sh`         | Server 端：avahi 發佈 + `mdns-alias.service` + NSS 解析 + 自我驗證 |
 | `gen-cert.sh`      | 產生含 SAN 的自簽憑證至 `~/.config/registry/certs/`        |
 | `client-setup.sh`  | Client 端：安裝解析器 + 佈署信任憑證 (auto patch)          |
 | `verify.sh`        | 端到端驗證：解析 / TLS / push-pull round trip              |
@@ -76,11 +76,15 @@ docker push docker-registry.local:5000/msghub:latest
 
 ## 關鍵決策 (Key Decisions)
 
-- **hostname 之外只加一個服務別名，且用 `/etc/avahi/hosts`**。avahi 開箱即發佈
+- **hostname 之外只加一個服務別名，用 `avahi-publish -a -R` 常駐**。avahi 開箱即發佈
   `$(hostname -s).local`；`docker-registry.local` 讓 client 端的 tag 不綁機器名，
-  日後換主機只需改 server 端。avahi 沒有 CNAME，但 `/etc/avahi/hosts` 是內建的
-  static A record 發佈，比多養一支 `avahi-publish` 常駐程序簡單。alias 指向的
-  IP 由 `setup.sh` 依 `--interface`（或第一個 LAN 位址）決定，換 IP 需重跑。
+  日後換主機只需改 server 端。avahi 沒有 CNAME；`/etc/avahi/hosts` 看似更簡單但
+  `不能`為本機自己的 IP 建 alias——它會連帶註冊 reverse PTR，與 hostname 自身的
+  反解衝突，avahi 啟動時報 `Local name collision` 且靜默不發佈 (avahi/avahi#40)。
+  `-R` (no-reverse) 只有 `avahi-publish` 有，因此由 `setup.sh` 寫入
+  `/etc/systemd/system/mdns-alias.service`，`PartOf=avahi-daemon.service` 跟著
+  avahi 一起重啟。alias 指向的 IP 依 `--interface`（或第一個 LAN 位址）決定，
+  換 IP 需重跑 `setup.sh`。
 - **憑證 SAN 同時涵蓋 hostname 與 alias**。`gen-cert.sh` 偵測到既有憑證缺 alias
   SAN 會自動重簽；重簽後所有 client 必須重跑 `client-setup.sh`。Linux client 的
   `certs.d` 依 `<host>:<port>` 建目錄，所以 alias 要另放一份 `ca.crt`；macOS 的
@@ -136,7 +140,8 @@ avahi 與 systemd-resolved 可以共存：resolved 的 mDNS 預設關閉，port 
 | ----------------------------------------------------------- | -------------------------------------------------------------------- |
 | `verify.sh` 一連五個 `FAIL build/push/pull`                 | 本機 docker daemon 沒在跑（OrbStack / Docker Desktop 未啟動）；現在會直接 `die` 提示 |
 | `trust store holds a different certificate than ... serves` | server 重簽了憑證 (`gen-cert.sh`)；client 重跑 `client-setup.sh --server <host>` |
-| `docker-registry.local does not resolve`                    | server 端沒跑新版 `setup.sh`（`/etc/avahi/hosts` 缺 alias），或 avahi 未 restart |
+| `docker-registry.local does not resolve`                    | server 端 `mdns-alias.service` 沒在跑：`systemctl status mdns-alias`，或重跑 `setup.sh` |
+| avahi log `Static host name ...: Local name collision`       | `/etc/avahi/hosts` 殘留 alias 行（舊版 setup.sh）；重跑 `setup.sh` 會移除 |
 | `dial tcp: lookup ...local: no such host`                   | client 沒裝 `libnss-mdns`，或 `/etc/nsswitch.conf` 沒有 mdns source  |
 | `x509: certificate signed by unknown authority`             | `ca.crt` 沒放進 `/etc/docker/certs.d/<host>:5000/`（`:5000` 不可省） |
 | `x509: cannot validate ... because it doesn't contain any IP SANs` | 用 IP 連線但憑證 SAN 沒有該 IP；重跑 `gen-cert.sh --force`     |
