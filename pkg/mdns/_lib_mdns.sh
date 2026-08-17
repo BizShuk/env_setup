@@ -26,6 +26,12 @@ REGISTRY_CERT_DIR="${REGISTRY_CONFIG_DIR}/certs"
 REGISTRY_CERT="${REGISTRY_CERT_DIR}/registry.crt"
 REGISTRY_KEY="${REGISTRY_CERT_DIR}/registry.key"
 
+# Same location expressed relative to a home directory. scp resolves remote
+# paths in the remote user's home, so this is what must cross the wire — the
+# absolute form above is the *client's* home and would be wrong the moment the
+# two machines differ (a mac client would ask for /Users/... on a Linux host).
+REGISTRY_CERT_RELPATH=".config/registry/certs/registry.crt"
+
 # Docker reads this drop-in per connection, so deploying a CA here needs no
 # daemon restart. The ":${REGISTRY_PORT}" suffix is part of the directory
 # name — Docker looks up "<host>:<port>", not "<host>".
@@ -33,6 +39,7 @@ DOCKER_CERTS_D="/etc/docker/certs.d/${REGISTRY_HOST}"
 
 export MDNS_HOSTNAME MDNS_DOMAIN REGISTRY_PORT REGISTRY_HOST
 export REGISTRY_CONFIG_DIR REGISTRY_CERT_DIR REGISTRY_CERT REGISTRY_KEY
+export REGISTRY_CERT_RELPATH
 export DOCKER_CERTS_D
 
 # Re-point every derived value at another host. The defaults above describe

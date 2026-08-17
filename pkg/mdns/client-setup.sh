@@ -109,8 +109,8 @@ file)
     ;;
 scp)
     require_cmd scp
-    log "fetching ${source_arg}:${REGISTRY_CERT}"
-    scp -q "${source_arg}:${REGISTRY_CERT}" "${staged}"
+    log "fetching ${source_arg}:~/${REGISTRY_CERT_RELPATH}"
+    scp -q "${source_arg}:${REGISTRY_CERT_RELPATH}" "${staged}"
     ;;
 fetch)
     # Trust on first use: the certificate arrives over the very connection it
