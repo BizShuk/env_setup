@@ -37,6 +37,9 @@
 │   │   ├── import.go              # backup import command
 │   │   ├── init.go                # backup init command
 │   │   └── list.go                # backup list command
+│   ├── io/
+│   │   ├── io.go                  # io parent command
+│   │   └── probe.go               # io probe：裝置層 I/O 表格 + --bench
 │   ├── network/
 │   │   ├── network.go             # network parent command
 │   │   ├── private.go             # private route topology command
@@ -62,6 +65,7 @@
 ├── svc/backup/                    # backup service (與 macOS defaults/plutil 互動 + 邏輯)
 ├── svc/dump/                      # manifest commands、normalization、atomic write
 ├── svc/install/                   # Antigravity manifest install、diff、confirmed removal
+├── svc/io/                        # 裝置層 I/O probe：lsblk+sysfs / diskutil 探測、O_DIRECT benchmark
 ├── svc/network/                   # traceroute/nmap execution、parsing、topology rendering
 ├── svc/system/                    # system catalog、platform command execution/parsing
 ├── svc/uninstall/                 # immutable Codex target discovery、launchd/sudo apply
@@ -190,6 +194,7 @@
 - **backup metadata 是 snapshot time owner**：`backup list` 的 latest backup date 讀取 `backup.meta.json.timestamp`；legacy backup 缺少 metadata 時才 fallback 至最新 `.plist` modification time，沒有任何 backup 則顯示 `-`。
 - **manifest sync 是 Go-native service**：`env_setup dump mac|vscode-extension|antigravity-extension` 擁有 manifest export；`env_setup install antigravity-extension` 以 tracked manifest 安裝 extensions，並在移除 unlisted extensions 前要求 `y/Y` confirmation。IDE dump output 在完整取得後排序、去重並 atomic replace；舊 extension shell adapters 與 root symlinks 不再是 runtime boundary。
 - **system probes 與 disk verification 是 Go-native services**：`svc/system` 透過 injected `Runner` 執行 platform commands，並由 information-specific Go files 解析輸出；不依賴 repo path 或 shell adapters。`system show` 聚合全部 probes，`system <information> show` 執行單一 probe；`system disk verify <volume-path>` 在 macOS 以 `diskutil` + F3 驗證 removable media。
+- **I/O probe 是裝置層、跨平台的 Go-native service**：`svc/io` 以 `lsblk -J` + sysfs（Linux）或 `diskutil -plist` + `plutil`（macOS）列出每顆實體磁碟的 transport、USB id/link、host driver、queue depth、write cache、rotational 與 mounts；`--bench` 以 O_DIRECT / F_NOCACHE 略過 page cache，量循序寫入、4 KiB 同步寫入（Linux O_DSYNC、macOS F_FULLFSYNC）與 4 KiB 隨機讀取。`device_lsblk.go` / `device_diskutil.go` 由 `goos` 執行期分派（刻意不用 `_linux` / `_darwin` 檔名，否則會被當成 build constraint 而無法在對方平台測試）；只有 open flag 差異的 `bench_linux.go` / `bench_darwin.go` 才用 build tag。這支取代了 `cloud/scripts/usb_probe.sh`。
 - **network scans 是 Go-native services**：`svc/network` 透過 injected `Runner` 執行 `traceroute`、`nmap` 與 bounded ping fallback，並由 Go parser 解析 private hops、live hosts、services 與 topology；`bin/network/` 不再是 runtime boundary。
 - **cleanup apply 使用 immutable snapshot**：`svc/cleanup` 在 preview 時解析 exact targets 與 size；只有 `--apply` 且逐項確認後才套用該 snapshot，不在 apply 時重新擴大 glob scope。
 - **Codex uninstall 使用 immutable preview plan**：`env_setup uninstall codex` 預設只列出 exact app、CLI、user data 與 launchd targets；`--with-codexbar` / `--purge-system` 只擴大 inspection scope，仍需 `--apply` 與逐項確認。`svc/uninstall` 不在 apply 時重新展開 glob，且 external commands 不經 shell interpolation。
@@ -205,6 +210,7 @@
 | macOS Codex 移除 (macOS Codex Uninstall)          | `cmd/uninstall/`, `svc/uninstall/`                                                                                        | `env_setup uninstall codex`, `env_setup uninstall codex --apply`                 |
 | macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `cmd/cleanup/`, `model/cleanup/`, `svc/cleanup/`, `bin/mac/*_audit-mac.sh`                                                | `env_setup cleanup`, `env_setup cleanup --apply`                                 |
 | 網路與設備掃描 (Network & Device Scan)            | `cmd/network/`, `svc/network/`                                                                                            | `env_setup network private [target]`, `env_setup network target [cidr]`          |
+| 裝置層 I/O 探測 (Device I/O Probe)                | `cmd/io/`, `svc/io/`                                                                                                      | `env_setup io probe`, `env_setup io probe --bench [--dir DIR]`                   |
 | 開發者輔助工具 (Developer Helpers)                | `bin/` 根目錄 + `bin/bash/.bash_aliases`                                                                                  | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                        |
 | 觀測排程與稽核報告 (Observability Cron & Reports) | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                                                                          | `pm2 start ecosystem.config.js`                                                  |
 

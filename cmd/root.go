@@ -9,12 +9,14 @@ import (
 	cleanupcmd "github.com/bizshuk/env_setup/cmd/cleanup"
 	dumpcmd "github.com/bizshuk/env_setup/cmd/dump"
 	installcmd "github.com/bizshuk/env_setup/cmd/install"
+	iocmd "github.com/bizshuk/env_setup/cmd/io"
 	networkcmd "github.com/bizshuk/env_setup/cmd/network"
 	systemcmd "github.com/bizshuk/env_setup/cmd/system"
 	uninstallcmd "github.com/bizshuk/env_setup/cmd/uninstall"
 	cleanupsvc "github.com/bizshuk/env_setup/svc/cleanup"
 	dumpsvc "github.com/bizshuk/env_setup/svc/dump"
 	installsvc "github.com/bizshuk/env_setup/svc/install"
+	iosvc "github.com/bizshuk/env_setup/svc/io"
 	networksvc "github.com/bizshuk/env_setup/svc/network"
 	systemsvc "github.com/bizshuk/env_setup/svc/system"
 	uninstallsvc "github.com/bizshuk/env_setup/svc/uninstall"
@@ -30,13 +32,14 @@ func NewRootCommand(
 	uninstallService *uninstallsvc.Service,
 	systemService *systemsvc.Service,
 	networkService *networksvc.Service,
+	ioService *iosvc.Service,
 	in io.Reader,
 	out io.Writer,
 	errOut io.Writer,
 ) *cobra.Command {
 	root := &cobra.Command{
 		Use:           "env_setup",
-		Short:         "本機環境設定、install、uninstall、dump、system、network、cleanup 與 backup 工具",
+		Short:         "本機環境設定、install、uninstall、dump、system、network、io、cleanup 與 backup 工具",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 		RunE: func(command *cobra.Command, _ []string) error {
@@ -54,6 +57,7 @@ func NewRootCommand(
 		uninstallcmd.NewCommand(uninstallService, in, out, errOut),
 		systemcmd.NewCommand(systemService, out, errOut),
 		networkcmd.NewCommand(networkService, out, errOut),
+		iocmd.NewCommand(ioService, out, errOut),
 	)
 	metric.CobraCMDHook(root)
 	return root
@@ -75,6 +79,7 @@ func Execute(args []string, in io.Reader, out, errOut io.Writer) int {
 	}
 	systemService := systemsvc.NewDefault()
 	networkService := networksvc.NewDefault()
+	ioService := iosvc.NewDefault()
 	root := NewRootCommand(
 		cleanupService,
 		dumpService,
@@ -82,6 +87,7 @@ func Execute(args []string, in io.Reader, out, errOut io.Writer) int {
 		uninstallService,
 		systemService,
 		networkService,
+		ioService,
 		in,
 		out,
 		errOut,

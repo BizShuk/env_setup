@@ -52,6 +52,22 @@
 
 ---
 
+### 裝置層 I/O 探測 (Device I/O Probe)
+
+`env_setup io probe` 以磁碟為單位回答「這顆碟扛不扛得住 fsync 密集的工作（docker、registry、資料庫）」：每顆實體磁碟一列，欄位 `DEV / TRAN / ID / MODEL / SIZE / LINK / DRIVER / QD / WCACHE / ROTA / MOUNTS`。Linux 由 `lsblk` 與 sysfs 取得（USB 會顯示 vendor:product、link 速率、`uas` 或 `usb-storage`、queue depth 與 write cache），macOS 由 `diskutil` 取得（不揭露 QD/WCACHE，顯示 `-`）。
+
+`領域流程 (Domain Flow):`
+
+1. 使用者執行 `env_setup io probe`，先看表格判斷瓶頸來源（例如 `usb-storage` + `QD 2` + `write through` 就是隨身碟等級）。
+2. 需要數字時加 `--bench [--dir DIR]`：在 DIR 寫一個暫存檔量循序寫入 MB/s、4 KiB 同步寫入 IOPS（flush 延遲）與 4 KiB 隨機讀取 IOPS，全程略過 page cache，測完自動刪檔。
+3. 以 4 KiB 同步寫入 IOPS 判斷：數十 IOPS 只能放冷資料，上千 IOPS 才適合 container / DB。
+
+`核心實體 (Key Entities):` `區塊裝置 (Block Device)`, `延遲樣本 (Latency Sample)`
+
+`相關處理器 (Related Handlers):` `env_setup io probe`, `env_setup io probe --bench`, [svc/io](svc/io)
+
+---
+
 ### 開發環境清單同步 (Development Manifest Sync)
 
 `env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode-extension` 與 `dump antigravity-extension` 分別更新 `bin/vscode/*_extension_list.txt`。`env_setup install antigravity-extension` 則從 tracked manifest 安裝 Antigravity extensions，並在移除 manifest 外的 extensions 前要求明確確認。

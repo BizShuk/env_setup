@@ -8,6 +8,7 @@ import (
 	cleanupsvc "github.com/bizshuk/env_setup/svc/cleanup"
 	dumpsvc "github.com/bizshuk/env_setup/svc/dump"
 	installsvc "github.com/bizshuk/env_setup/svc/install"
+	iosvc "github.com/bizshuk/env_setup/svc/io"
 	networksvc "github.com/bizshuk/env_setup/svc/network"
 	systemsvc "github.com/bizshuk/env_setup/svc/system"
 	uninstallsvc "github.com/bizshuk/env_setup/svc/uninstall"
@@ -20,6 +21,7 @@ func TestRootContainsDomainSubcommands(t *testing.T) {
 	uninstallService := uninstallsvc.New(uninstallsvc.Options{})
 	systemService := systemsvc.New(systemsvc.Options{})
 	networkService := networksvc.New(networksvc.Options{})
+	ioService := iosvc.New(iosvc.Options{})
 	root := NewRootCommand(
 		cleanupService,
 		dumpService,
@@ -27,6 +29,7 @@ func TestRootContainsDomainSubcommands(t *testing.T) {
 		uninstallService,
 		systemService,
 		networkService,
+		ioService,
 		strings.NewReader(""),
 		&bytes.Buffer{},
 		&bytes.Buffer{},
@@ -40,6 +43,7 @@ func TestRootContainsDomainSubcommands(t *testing.T) {
 		"uninstall",
 		"system",
 		"network",
+		"io",
 	} {
 		command, _, err := root.Find([]string{name})
 		if err != nil {
