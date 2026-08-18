@@ -18,6 +18,7 @@ func (s *Service) dumpExtensions(
 	manifestName string,
 	out io.Writer,
 	errOut io.Writer,
+	extraArgs ...string,
 ) error {
 	if err := s.validateRepository(); err != nil {
 		return err
@@ -33,7 +34,7 @@ func (s *Service) dumpExtensions(
 		&commandOutput,
 		errOut,
 		commandName,
-		"--list-extensions",
+		append(extraArgs, "--list-extensions")...,
 	); err != nil {
 		return fmt.Errorf("run %s --list-extensions: %w", commandName, err)
 	}

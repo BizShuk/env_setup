@@ -6,11 +6,17 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
+	"strings"
 	"time"
 
 	gocmd "github.com/go-cmd/cmd"
 )
+
+// vscodeIPCHookEnv makes IDE CLIs forward their work to the surrounding editor window;
+// env_setup always configures the machine it runs on, so child commands never inherit it.
+const vscodeIPCHookEnv = "VSCODE_IPC_HOOK_CLI"
 
 // ExitError reports a command that completed with a non-zero exit code.
 type ExitError struct {
@@ -46,6 +52,7 @@ func (Runner) Run(
 				func(executable *exec.Cmd) {
 					executable.Stdout = out
 					executable.Stderr = errOut
+					executable.Env = localEnviron()
 				},
 			},
 		},
@@ -70,6 +77,18 @@ func (Runner) Run(
 		}
 		return contextErr
 	}
+}
+
+func localEnviron() []string {
+	environment := os.Environ()
+	local := make([]string, 0, len(environment))
+	for _, entry := range environment {
+		if strings.HasPrefix(entry, vscodeIPCHookEnv+"=") {
+			continue
+		}
+		local = append(local, entry)
+	}
+	return local
 }
 
 func stopWhenStarted(command *gocmd.Cmd, statusChannel <-chan gocmd.Status) error {

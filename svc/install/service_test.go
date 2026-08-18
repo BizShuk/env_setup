@@ -10,6 +10,7 @@ import (
 	"strings"
 	"testing"
 
+	rootsvc "github.com/bizshuk/env_setup/svc"
 	installsvc "github.com/bizshuk/env_setup/svc/install"
 )
 
@@ -100,6 +101,127 @@ func TestInstallVSCodeExtensionsInstallsManifest(t *testing.T) {
 	want := []string{
 		installCommandKey("code", "--install-extension", "A.publisher", "--force"),
 		installCommandKey("code", "--list-extensions"),
+	}
+	assertInstallCalls(t, runner.calls, want)
+}
+
+func TestInstallAntigravityExtensionsTargetsResolvedExtensionsDirectory(t *testing.T) {
+	repositoryDir := newInstallRepository(t, "A.publisher\n")
+	runner := &installRunner{outputs: map[string]string{
+		installCommandKey(
+			"agy-ide",
+			"--extensions-dir",
+			"/srv/extensions",
+			"--list-extensions",
+		): "A.publisher\n",
+	}}
+	service := installsvc.New(installsvc.Options{
+		RepositoryDir: repositoryDir,
+		ExtensionsDir: "/srv/extensions",
+		Runner:        runner,
+		LookPath:      installLookPath,
+	})
+	var output bytes.Buffer
+
+	err := service.InstallAntigravityExtensions(
+		t.Context(),
+		strings.NewReader(""),
+		&output,
+		io.Discard,
+	)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	want := []string{
+		installCommandKey(
+			"agy-ide",
+			"--extensions-dir",
+			"/srv/extensions",
+			"--install-extension",
+			"A.publisher",
+			"--force",
+		),
+		installCommandKey("agy-ide", "--extensions-dir", "/srv/extensions", "--list-extensions"),
+	}
+	assertInstallCalls(t, runner.calls, want)
+	if !strings.Contains(output.String(), "Antigravity extensions directory: /srv/extensions") {
+		t.Fatalf("output = %q, want extensions directory notice", output.String())
+	}
+}
+
+func TestInstallAntigravityExtensionsReportsRejectedExtensionsAfterFullPass(t *testing.T) {
+	repositoryDir := newInstallRepository(t, "A.publisher\nmissing.publisher\nB.publisher\n")
+	runner := &installRunner{
+		outputs: map[string]string{
+			installCommandKey("agy-ide", "--list-extensions"): "A.publisher\nB.publisher\n",
+		},
+		errors: map[string]error{
+			installCommandKey(
+				"agy-ide",
+				"--install-extension",
+				"missing.publisher",
+				"--force",
+			): &rootsvc.ExitError{Name: "agy-ide", Code: 1},
+		},
+	}
+	service := installsvc.New(installsvc.Options{
+		RepositoryDir: repositoryDir,
+		Runner:        runner,
+		LookPath:      installLookPath,
+	})
+	var output bytes.Buffer
+
+	err := service.InstallAntigravityExtensions(
+		t.Context(),
+		strings.NewReader(""),
+		&output,
+		io.Discard,
+	)
+
+	if err == nil || !strings.Contains(err.Error(), "missing.publisher") {
+		t.Fatalf("error = %v, want rejected extension summary", err)
+	}
+	want := []string{
+		installCommandKey("agy-ide", "--install-extension", "A.publisher", "--force"),
+		installCommandKey("agy-ide", "--install-extension", "missing.publisher", "--force"),
+		installCommandKey("agy-ide", "--install-extension", "B.publisher", "--force"),
+		installCommandKey("agy-ide", "--list-extensions"),
+	}
+	assertInstallCalls(t, runner.calls, want)
+	if !strings.Contains(output.String(), "Antigravity extensions already match the manifest.") {
+		t.Fatalf("output = %q, want manifest match result", output.String())
+	}
+}
+
+func TestInstallAntigravityExtensionsStopsOnRunnerFailure(t *testing.T) {
+	repositoryDir := newInstallRepository(t, "A.publisher\nB.publisher\n")
+	runner := &installRunner{errors: map[string]error{
+		installCommandKey(
+			"agy-ide",
+			"--install-extension",
+			"A.publisher",
+			"--force",
+		): errors.New("exec failed"),
+	}}
+	service := installsvc.New(installsvc.Options{
+		RepositoryDir: repositoryDir,
+		Runner:        runner,
+		LookPath:      installLookPath,
+	})
+
+	err := service.InstallAntigravityExtensions(
+		t.Context(),
+		strings.NewReader(""),
+		io.Discard,
+		io.Discard,
+	)
+
+	if err == nil || !strings.Contains(err.Error(), "install Antigravity extension A.publisher") {
+		t.Fatalf("error = %v, want runner failure", err)
+	}
+	want := []string{
+		installCommandKey("agy-ide", "--install-extension", "A.publisher", "--force"),
 	}
 	assertInstallCalls(t, runner.calls, want)
 }

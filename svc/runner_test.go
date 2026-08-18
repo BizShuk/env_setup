@@ -17,7 +17,10 @@ const (
 	helperOutput = "output"
 	helperExit   = "exit"
 	helperSleep  = "sleep"
+	helperEnv    = "env"
 )
+
+const runnerMarkerEnv = "ENV_SETUP_RUNNER_MARKER"
 
 func TestRunnerForwardsStdoutAndStderrWithoutChangingBytes(t *testing.T) {
 	var stdout bytes.Buffer
@@ -50,6 +53,21 @@ func TestRunnerReturnsStructuredExitError(t *testing.T) {
 	}
 }
 
+func TestRunnerRemovesEditorHookAndKeepsOtherEnvironment(t *testing.T) {
+	t.Setenv("VSCODE_IPC_HOOK_CLI", "/run/user/1000/vscode-ipc.sock")
+	t.Setenv(runnerMarkerEnv, "kept")
+	var stdout bytes.Buffer
+	name, args := helperCommand(helperEnv)
+
+	if err := svc.NewRunner().Run(t.Context(), nil, &stdout, io.Discard, name, args...); err != nil {
+		t.Fatal(err)
+	}
+
+	if got, want := stdout.String(), "|kept"; got != want {
+		t.Fatalf("child environment = %q, want %q", got, want)
+	}
+}
+
 func TestRunnerHonorsContextCancellation(t *testing.T) {
 	name, args := helperCommand(helperSleep)
 	ctx, cancel := context.WithTimeout(t.Context(), 100*time.Millisecond)
@@ -79,6 +97,12 @@ func TestProcessRunnerHelper(_ *testing.T) {
 		}
 		if _, err := io.WriteString(os.Stderr, "stderr\r\n"); err != nil {
 			os.Exit(71)
+		}
+		os.Exit(0)
+	case helperEnv:
+		hook := os.Getenv("VSCODE_IPC_HOOK_CLI")
+		if _, err := io.WriteString(os.Stdout, hook+"|"+os.Getenv(runnerMarkerEnv)); err != nil {
+			os.Exit(73)
 		}
 		os.Exit(0)
 	case helperExit:

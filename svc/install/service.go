@@ -7,6 +7,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	rootsvc "github.com/bizshuk/env_setup/svc"
 )
 
 const repositoryModule = "github.com/bizshuk/env_setup"
@@ -14,6 +16,7 @@ const repositoryModule = "github.com/bizshuk/env_setup"
 // Options configures manifest paths and external command boundaries.
 type Options struct {
 	RepositoryDir string
+	ExtensionsDir string
 	Runner        Runner
 	LookPath      func(string) (string, error)
 }
@@ -21,6 +24,7 @@ type Options struct {
 // Service installs development-tool state from tracked manifests.
 type Service struct {
 	repositoryDir string
+	extensionsDir string
 	runner        Runner
 	lookPath      func(string) (string, error)
 }
@@ -38,14 +42,15 @@ func New(options Options) *Service {
 	}
 	return &Service{
 		repositoryDir: options.RepositoryDir,
+		extensionsDir: options.ExtensionsDir,
 		runner:        options.Runner,
 		lookPath:      options.LookPath,
 	}
 }
 
-// NewDefault creates a Service for the current repository.
+// NewDefault creates a Service for the current repository and Antigravity install.
 func NewDefault() *Service {
-	return New(Options{})
+	return New(Options{ExtensionsDir: rootsvc.AntigravityExtensionsDir()})
 }
 
 func defaultRepositoryDir() string {

@@ -118,6 +118,42 @@ func TestDumpVSCodeWritesSortedUniqueManifest(t *testing.T) {
 	}
 }
 
+func TestDumpAntigravityListsResolvedExtensionsDirectory(t *testing.T) {
+	repositoryDir := newRepository(t)
+	runner := &fakeRunner{outputs: map[string]string{
+		commandKey(
+			"agy-ide",
+			"--extensions-dir",
+			"/srv/extensions",
+			"--list-extensions",
+		): "golang.go\n",
+	}}
+	service := dumpsvc.New(dumpsvc.Options{
+		RepositoryDir: repositoryDir,
+		ExtensionsDir: "/srv/extensions",
+		GOOS:          "linux",
+		Runner:        runner,
+		LookPath:      availableLookPath,
+	})
+
+	if err := service.DumpAntigravity(
+		context.Background(),
+		&bytes.Buffer{},
+		&bytes.Buffer{},
+	); err != nil {
+		t.Fatal(err)
+	}
+
+	path := filepath.Join(repositoryDir, "bin", "vscode", "agy-ide_extension_list.txt")
+	content, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, want := string(content), "golang.go\n"; got != want {
+		t.Fatalf("manifest = %q, want %q", got, want)
+	}
+}
+
 func TestDumpAntigravityWritesManifest(t *testing.T) {
 	repositoryDir := newRepository(t)
 	runner := &fakeRunner{outputs: map[string]string{

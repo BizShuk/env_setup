@@ -70,14 +70,14 @@
 
 ### 開發環境清單同步 (Development Manifest Sync)
 
-`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode-extension` 與 `dump antigravity-extension` 分別更新 `bin/vscode/*_extension_list.txt`。`env_setup install antigravity-extension` 則從 tracked manifest 安裝 Antigravity extensions，並在移除 manifest 外的 extensions 前要求明確確認。
+`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode-extension` 與 `dump antigravity-extension` 分別更新 `bin/vscode/*_extension_list.txt`。`env_setup install antigravity-extension` 則從 tracked manifest 安裝 Antigravity extensions，並在移除 manifest 外的 extensions 前要求明確確認。IDE CLI 一律作用在本機的 extensions directory，不會被所在 IDE terminal 轉送到別台機器的 window。
 
 `領域流程 (Domain Flow):`
 
 1. 使用者在 repo 內執行 `env_setup dump mac`、`env_setup dump vscode-extension` 或 `env_setup dump antigravity-extension`。
 2. Go service 先驗證 repo root 與必要 CLI，再執行 `brew bundle dump` 或 `<ide> --list-extensions`。
 3. IDE manifests 會排序、去重並以 atomic replacement 寫入，external command 失敗時保留舊檔。
-4. 使用者執行 `env_setup install antigravity-extension` 時，Go service 逐項以 `--force` 安裝 manifest entries；unlisted extensions 只會在回答 `y` 後移除。
+4. 使用者執行 `env_setup install antigravity-extension` 時，Go service 逐項以 `--force` 安裝 manifest entries；marketplace 沒有的 entry 會在全部跑完後彙總報錯，unlisted extensions 只會在回答 `y` 後移除。
 
 `核心實體 (Key Entities):` `Mac Manifest`, `IDE Extension Manifest`, `Extension Sync`, `Repository Root`
 

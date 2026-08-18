@@ -10,6 +10,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	rootsvc "github.com/bizshuk/env_setup/svc"
 )
 
 const antigravityManifestName = "agy-ide_extension_list.txt"
@@ -38,7 +40,11 @@ func (s *Service) InstallAntigravityExtensions(
 	if err != nil {
 		return err
 	}
-	if installErr := s.installManifestExtensions(ctx, extensions, out, errOut); installErr != nil {
+	if targetErr := s.writeExtensionsTarget(out); targetErr != nil {
+		return targetErr
+	}
+	rejected, installErr := s.installManifestExtensions(ctx, extensions, out, errOut)
+	if installErr != nil {
 		return installErr
 	}
 
@@ -46,33 +52,62 @@ func (s *Service) InstallAntigravityExtensions(
 	if err != nil {
 		return err
 	}
-	return s.removeUnlistedExtensions(ctx, in, out, errOut, unlisted)
+	if removeErr := s.removeUnlistedExtensions(ctx, in, out, errOut, unlisted); removeErr != nil {
+		return removeErr
+	}
+	return writeRejectedExtensions(out, rejected)
 }
 
+// antigravityArgs prefixes the resolved extensions directory so agy-ide never falls back
+// to the desktop directory on a machine that only serves Remote-SSH windows.
+func (s *Service) antigravityArgs(args ...string) []string {
+	if s.extensionsDir == "" {
+		return args
+	}
+	return append([]string{"--extensions-dir", s.extensionsDir}, args...)
+}
+
+func (s *Service) writeExtensionsTarget(out io.Writer) error {
+	if s.extensionsDir == "" {
+		return nil
+	}
+	if _, err := fmt.Fprintf(out, "Antigravity extensions directory: %s\n", s.extensionsDir); err != nil {
+		return fmt.Errorf("write extensions directory: %w", err)
+	}
+	return nil
+}
+
+// installManifestExtensions installs every manifest entry and returns the ones agy-ide
+// rejected, so a single unavailable extension cannot abort the whole sync.
 func (s *Service) installManifestExtensions(
 	ctx context.Context,
 	extensions []string,
 	out io.Writer,
 	errOut io.Writer,
-) error {
+) ([]string, error) {
+	var rejected []string
 	for _, extension := range extensions {
 		if _, err := fmt.Fprintf(out, "Installing Antigravity extension: %s\n", extension); err != nil {
-			return fmt.Errorf("write install progress: %w", err)
+			return nil, fmt.Errorf("write install progress: %w", err)
 		}
-		if err := s.runner.Run(
+		err := s.runner.Run(
 			ctx,
 			nil,
 			out,
 			errOut,
 			"agy-ide",
-			"--install-extension",
-			extension,
-			"--force",
-		); err != nil {
-			return fmt.Errorf("install Antigravity extension %s: %w", extension, err)
+			s.antigravityArgs("--install-extension", extension, "--force")...,
+		)
+		if err == nil {
+			continue
 		}
+		var exitErr *rootsvc.ExitError
+		if !errors.As(err, &exitErr) {
+			return nil, fmt.Errorf("install Antigravity extension %s: %w", extension, err)
+		}
+		rejected = append(rejected, extension)
 	}
-	return nil
+	return rejected, nil
 }
 
 func (s *Service) removeUnlistedExtensions(
@@ -113,8 +148,7 @@ func (s *Service) removeUnlistedExtensions(
 			out,
 			errOut,
 			"agy-ide",
-			"--uninstall-extension",
-			extension,
+			s.antigravityArgs("--uninstall-extension", extension)...,
 		); runErr != nil {
 			return fmt.Errorf("uninstall Antigravity extension %s: %w", extension, runErr)
 		}
@@ -134,7 +168,7 @@ func (s *Service) unlistedAntigravityExtensions(
 		&installedOutput,
 		errOut,
 		"agy-ide",
-		"--list-extensions",
+		s.antigravityArgs("--list-extensions")...,
 	); err != nil {
 		return nil, fmt.Errorf("list installed Antigravity extensions: %w", err)
 	}
@@ -191,6 +225,25 @@ func writeUnlistedExtensions(out io.Writer, extensions []string) error {
 		}
 	}
 	return nil
+}
+
+func writeRejectedExtensions(out io.Writer, rejected []string) error {
+	if len(rejected) == 0 {
+		return nil
+	}
+	if _, err := fmt.Fprintln(out, "Antigravity extensions the marketplace rejected:"); err != nil {
+		return fmt.Errorf("write rejected extension header: %w", err)
+	}
+	for _, extension := range rejected {
+		if _, err := fmt.Fprintf(out, "- %s\n", extension); err != nil {
+			return fmt.Errorf("write rejected extension: %w", err)
+		}
+	}
+	return fmt.Errorf(
+		"%d Antigravity extensions failed to install: %s",
+		len(rejected),
+		strings.Join(rejected, ", "),
+	)
 }
 
 func confirmUninstall(in io.Reader, out io.Writer) (bool, error) {

@@ -51,7 +51,8 @@
 | Mac Manifest | `env_setup dump mac` 寫入的 `scripts/Brewfile`；包含目前 Homebrew taps、formulae、casks 與可取得的 Mac App Store entries。 |
 | IDE Extension Manifest | `env_setup dump vscode-extension|antigravity-extension` 寫入的 tracked extension ID 清單；輸出固定排序、去重並以 newline 結尾。 |
 | Atomic Manifest Write | 先完整取得並正規化 extension output，再於目標目錄建立 temporary file 並 rename；external command 失敗時不覆寫既有 manifest。 |
-| Antigravity Extension Install | `env_setup install antigravity-extension`；逐項以 `--force` 安裝 manifest entries，列出 manifest 外的 installed extensions，且只有明確回答 `y/Y` 才會移除它們。 |
+| Antigravity Extension Install | `env_setup install antigravity-extension`；逐項以 `--force` 安裝 manifest entries，marketplace 沒有的 entry 只記錄不中斷，列出 manifest 外的 installed extensions，且只有明確回答 `y/Y` 才會移除它們。 |
+| Antigravity Extensions Directory | `agy-ide` 實際讀寫的 extensions 目錄；只跑 Remote-SSH server 的機器為 `~/.antigravity-ide-server/extensions`，desktop 機器維持 CLI 預設，`AGY_EXTENSIONS_DIR` 可覆寫。 |
 
 ## Network Scan Domain
 
