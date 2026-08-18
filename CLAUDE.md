@@ -117,7 +117,7 @@
 │   ├── bash_env_setup.sh          # dotfile 軟連結入口
 │   ├── bash.sh / settings.sh      # scripts 內部 settings
 │   ├── brew.sh                    # Homebrew 5.0.3 安裝
-│   ├── go.sh                      # Go 1.26.3 + golangci-lint
+│   ├── go.sh                      # Go 1.26.6 + golangci-lint
 │   ├── nodejs.sh / nodejs.md
 │   ├── openssl_setup.sh / openssl_mac_setup.sh / openssl.cnf / openssl.md
 │   ├── ctags_setup.sh
@@ -174,7 +174,7 @@
 - Build tool: `go build` (root CLI)；shell scripts 直接執行
 - Key dependencies:
     - `homebrew 5.0.3` (`scripts/brew.sh`)
-    - `go 1.26.3` + `golangci-lint v1.64.5` (`scripts/go.sh`)
+    - `go 1.26.6` + `golangci-lint v1.64.5` (`scripts/go.sh`)
     - `traceroute` / `nmap` (網路掃描前置)
     - `system_profiler` (macOS 硬體偵測)
     - `lshw` / `lsblk` (Linux 硬體偵測)

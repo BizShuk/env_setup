@@ -17,7 +17,7 @@ arm64)
     ;;
 esac
 
-GO_VER=${GO_VER:-1.26.3}
+GO_VER=${GO_VER:-1.26.6}
 GO_FULLVER="go${GO_VER}.${os}-${GO_ARCH}"
 GO_ROOT="$USER_LIB/$GO_FULLVER"    # go package dir
 GO_PATH="$USER_LIB/go" # Where the go dependency/library downloaded
@@ -26,11 +26,15 @@ GO_PATH="$USER_LIB/go" # Where the go dependency/library downloaded
 
 if [ ! -e "$USER_LIB"/"$GO_FULLVER" ]; then
     echo "$GO_FULLVER  installing...:" https://go.dev/dl/"${GO_FULLVER}".tar.gz
-    wget https://go.dev/dl/"${GO_FULLVER}".tar.gz --no-check-certificate -O /tmp/"$GO_FULLVER"
+    # Private staging dir: /tmp is world-writable, so a predictable name lets any
+    # local user pre-plant a symlink or a tarball of their choosing.
+    GO_TMP="$(mktemp -d)"
+    trap 'rm -rf "${GO_TMP}"' EXIT
+    # TLS verification stays on: the tarball is executed as the toolchain.
+    wget https://go.dev/dl/"${GO_FULLVER}".tar.gz -O "${GO_TMP}"/"${GO_FULLVER}".tar.gz
 
-    tar zxf /tmp/"$GO_FULLVER" -C /tmp
-    mv /tmp/go "$USER_LIB"/"$GO_FULLVER"
-
+    tar zxf "${GO_TMP}"/"${GO_FULLVER}".tar.gz -C "${GO_TMP}"
+    mv "${GO_TMP}"/go "$USER_LIB"/"$GO_FULLVER"
 fi
 
 echo -e "\n# [Go]" >> "${INSTALL_DIR}"/.bash_plugin
