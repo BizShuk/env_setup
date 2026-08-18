@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    # Weekly re-run so newly published advisories surface without a code change.
+    - cron: '0 3 * * 1'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          # Honours the `toolchain` directive, so CI compiles with the same
+          # patched stdlib the security fixes pin.
+          go-version-file: go.mod
+          cache: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # package.json owns the task list; the workflow only chooses when to run it.
+      - run: npm run ci

@@ -4,6 +4,8 @@
 
 ```text
 .
+├── .github/
+│   └── workflows/ci.yml           # GitHub Actions：push / PR / 每週排程跑 `npm run ci`
 ├── LICENSE
 ├── README.md                      # 業務定義 + domain flow
 ├── README.business.md             # 業務價值萃取
@@ -14,6 +16,7 @@
 ├── setup.sh                       # 互動式初始化 wizard (personal info / bash env / tools)
 ├── run.sh                         # 唯一 symlink 入口 + IDE profile 套用
 ├── ecosystem.config.js            # pm2 cron 任務
+├── package.json                   # 唯一任務清單 (lint / test / vuln / build / ci)
 ├── go.mod / go.sum                # env_setup Go module (Cobra + gosdk)
 ├── main.go                        # env_setup composition root
 ├── cmd/
@@ -186,6 +189,7 @@
 - **`bin/bash/settings.sh` 為唯一環境變數入口**：所有腳本 `source settings.sh` 取得 `USER_BIN`、`REPO_DIR`、`REPO_SCRIPTS`、`OS`、`ARCH`、`KERNEL_NAME` 等；個人敏感值 (`passwd`/`email`/`token`) 改由 `~/.config/env_setup/settings.private.sh` 提供 (git-ignored)。
 - **`~/bin` symlink 到 `bin/`**：在 `settings.sh` 內 `[ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"`，新工具直接落入 `bin/<area>/<tool>` 即可被 `PATH` 找到。
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。
+- **`package.json` 是唯一任務清單，CI 只決定何時跑**：`npm run ci` = `lint` → `test` → `vuln` → `build`，本機與 GitHub Actions 執行完全相同的鏈；workflow 只負責 checkout、裝 toolchain 與呼叫它，不重述任何指令。`vuln` 以 `go run golang.org/x/vuln/cmd/govulncheck@latest` 執行，不進相依圖。Go 版本由 `go-version-file: go.mod` 決定，因此 `toolchain` directive 的 stdlib 修補版本在 CI 一併生效。排程每週重跑一次，讓`新公布`的 advisory 不必等到有人推 commit 才浮現。
 - **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 與常駐任務，namespace = `Local`；`bin/` script 以 `./bin/<area>/<tool>` 全路徑註冊，`PATH` 內的 binary (`go`、`env_setup`) 以 bare name + `args` 陣列註冊。
 - **macOS 稽核與 cleanup 分流**：`env_setup cleanup` 擁有 cleanup catalog、preview 與逐項 confirmation；`bin/mac/*_audit-mac.sh` 保留 audit reports；跨平台硬體偵測由 `svc/system` 擁有。
 - **Cobra root 是唯一 Go CLI 入口**：`main.go` 初始化 gosdk config，`cmd/root.go` 組合 `cleanup`、`backup`、`install`、`uninstall`、`dump`、`system` 與 `network` subcommands；domain I/O 分別下沉至對應的 `svc/<domain>/`。
@@ -249,6 +253,15 @@ Root Go CLI 以 `go build -o ~/.local/bin/env_setup .` 建置並安裝（`~/.loc
 - `./bin/mac/launch_audit-mac.sh` 驗證 audit 報告輸出
 - `shellcheck bin/<area>/*.sh` (若已安裝)
 - `git grep -n 'smain\|project_setup'` 確認無殘留敘述
+
+### CI/CD
+
+GitHub Actions (`.github/workflows/ci.yml`) 於 push / PR 至 `master` 與每週一 03:00 UTC 執行 `npm run ci`：
+
+1. `npm run lint` — `gofmt -l .` + `go vet ./...`
+2. `npm run test` — `go test -count=1 ./...`
+3. `npm run vuln` — `govulncheck ./...`（相依與 stdlib 漏洞，取代靠 Dependabot 被動通知）
+4. `npm run build` — `go mod download` + `go build -o tmp/env_setup .`
 
 ### 部署 (Deploy)
 

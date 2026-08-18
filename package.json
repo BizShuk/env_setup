@@ -9,9 +9,10 @@
     "build": "go mod download && go build -o tmp/env_setup .",
     "deploy": "go install .",
     "lint": "gofmt -l . && go vet ./...",
+    "vuln": "go run golang.org/x/vuln/cmd/govulncheck@latest ./...",
     "clean": "rm -f tmp/env_setup && go clean -cache",
     "destroy": "pkill -f 'tmp/env_setup' || true",
-    "ci": "npm run lint && npm run test && npm run build",
+    "ci": "npm run lint && npm run test && npm run vuln && npm run build",
 
     "run:setup": "./run.sh",
     "run:bootstrap": "./setup.sh",
