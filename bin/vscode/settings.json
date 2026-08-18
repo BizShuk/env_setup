@@ -715,5 +715,6 @@
     "workbench.editor.limit.enabled": true,
     "workbench.editor.limit.value": 12,
     "workbench.editor.limit.perEditorGroup": true,
-    "extensions.autoCheckUpdates": false
+    "extensions.autoCheckUpdates": false,
+    "remote.autoForwardPortsSource": "hybrid"
 }
