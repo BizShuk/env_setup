@@ -52,7 +52,10 @@ func TestLatestBackupDateFallsBackToNewestPlistModificationTime(t *testing.T) {
 	if err != nil {
 		t.Fatalf("latestBackupDate() error: %v", err)
 	}
-	want := "2026-06-03 08:00:00 +08:00"
+	// Modification times carry no zone, so latestBackupDate renders them in the
+	// machine's local zone. Deriving want the same way keeps the assertion about
+	// which file wins rather than about where the test happens to run.
+	want := newer.In(time.Local).Format(latestBackupDateLayout)
 	if got != want {
 		t.Fatalf("latestBackupDate() = %q, want %q", got, want)
 	}
