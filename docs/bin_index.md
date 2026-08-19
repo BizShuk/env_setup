@@ -95,12 +95,12 @@ Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview�
 
 ### 5.1 Go toolchain 鎖版 (Phase 7.7)
 
-> `bin/bin/` 與 `bin/utils/` 為 Go 版本鎖版 wrapper, 透過 symlink 鏈固定到 `~/.local/go1.26.3.darwin-arm64/bin/go`, 避免系統 Go 切換造成專案編譯錯亂。
+> `bin/bin/` 與 `bin/utils/` 為 Go 版本鎖版 wrapper, 透過 symlink 鏈固定到 `~/.local/go1.26.6.darwin-arm64/bin/go`, 避免系統 Go 切換造成專案編譯錯亂。
 
 | 路徑 | 內容 |
 | --- | --- |
 | `bin/bin/go` | symlink → `../utils/go` |
-| `bin/utils/go` | symlink → `${HOME}/.local/go1.26.3.darwin-arm64/bin/go` |
+| `bin/utils/go` | symlink → `${HOME}/.local/go1.26.6.darwin-arm64/bin/go` |
 
 > 兩個 symlink 由 `bin/.gitignore` 排除（machine-local），換機後需自行重建。
 
