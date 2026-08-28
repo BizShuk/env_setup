@@ -45,7 +45,7 @@
     "workbench.editor.tabActionLocation": "right",
     "workbench.editorAssociations": {
         "*.copilotmd": "vscode.markdown.preview.editor",
-        "*.md": "vscode.markdown.preview.editor",
+        // "*.md": "vscode.markdown.preview.editor",
         "*.mm.md": "markmap-vscode.markmap",
         "*.markdown": "default",
         "*.csv": "csv.editor"
