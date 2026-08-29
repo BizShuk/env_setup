@@ -1,7 +1,5 @@
 # TODO
 
-- [ ] create mac setting backup and import tool
-- [ ] 決定 6 個 Open VSX 沒有的 manifest extensions 處置：改 VSIX 安裝或從 `bin/vscode/agy-ide_extension_list.txt` 移除 (`bierner.markdown-yaml-preamble`, `inferrinizzard.prettier-sql-vscode`, `nhoizey.gremlins`, `peterschmalfeldt.explorer-exclude`, `tht13.html-preview-vscode`, `yahyabatulu.vscode-markdown-alert`)；見 `docs/memory/2026-08-18-antigravity-extension-remote-install.md`
 - [x] replace `bin/network/scan_network.sh` with Go-native `env_setup network private|target` commands；remove `bin/network/` @2026-07-30_13:29:26 @Completed
 - [x] replace `bin/system/` shell adapters with Go-native `env_setup system` probes；rehome non-information tools and remove the folder @2026-07-30_13:15:35 @Completed
 - [x] add `env_setup system show` and individual `system <information> show` Cobra commands @2026-07-30_12:22:59 @Completed

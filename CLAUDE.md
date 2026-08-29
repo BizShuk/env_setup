@@ -138,15 +138,7 @@
 │   │   └── applescript/           # toggleFn.scpt
 │   ├── sysctl/pf.conf             # PF firewall 樣板 (其餘樣板見 docs/templates/sysctl/)
 │   └── README.md
-├── plans/                         # 進行中計畫 (YYYY-MM-DD-<topic>.md)
-│   ├── 2026-07-18-static-ip-suggestion.md
-│   ├── 2026-07-30-macos-cleanup-cobra-command.md
-│   ├── 2026-07-30-network-cobra-commands.md
-│   ├── 2026-07-30-system-go-replacement.md
-│   ├── 2026-07-30-system-info-cobra-commands.md
-│   ├── 2026-07-31-codex-uninstall-command.md
-│   ├── 2026-07-31-extension-commands.md
-│   └── archive/                   # 已結案計畫
+├── plans/                         # 進行中計畫 (YYYY-MM-DD-<topic>.md)；目前為空
 ├── docs/
 │   ├── bin_index.md               # bin/ 完整索引 (單一擁有者)
 │   ├── terminology.md             # 術語表
