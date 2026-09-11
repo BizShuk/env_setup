@@ -224,7 +224,7 @@
     },
     "editor.fontFamily": "SF Mono",
     // [terminal]
-    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.fontSize": 14,
     "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.copyOnSelection": true,
     "terminal.integrated.tabs.enabled": true,
@@ -268,7 +268,8 @@
     "git.autofetchPeriod": 1800,
     "git.autoStash": true,
     "git.confirmSync": false,
-    "git.detectSubmodules": false,
+    "git.detectSubmodules": true,
+    "git.detectSubmodulesLimit": 100,
     "git.enableSmartCommit": true,
     "git.fetchOnPull": true,
     "git.followTagsWhenSync": true,
@@ -675,7 +676,7 @@
             ".continue/**/*.yaml"
         ]
     },
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "git.ignoreRebaseWarning": true,
     "window.density.editorTabHeight": "compact",
 
