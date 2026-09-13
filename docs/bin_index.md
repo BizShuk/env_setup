@@ -103,6 +103,8 @@ Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview�
 
 > 此 symlink 由 `bin/.gitignore` 排除（machine-local）；換機或升版後重跑 `scripts/go.sh` 即重建, 指向的版本與 `go.sh` 的 `GO_VER` 一致。
 
+> `scripts/go.sh` 同時把 `export GOROOT=<GO_ROOT>` 追加到 `~/.bash_plugin`。`bin/go` 與該 `GOROOT` 必須指向同一版本, 否則會出現 `compile: version "goX" does not match go tool version "goY"` 的 build failure；升版後若只更新其中一邊, 重跑 `scripts/go.sh` 並清掉 `~/.bash_plugin` 內舊的 `GOROOT` 行即可對齊。
+
 > Phase 7 已刪 dead reference：`goswitch`, `bytedance_setup.sh`, `git-secret`, `system_link`, `system_performance.sh`, `raspi-config`, `system_service`, `network_topology_scan.sh`。
 > 2026-07-31 (commit `7e9b76e`) 再刪：`check_alive`, `check_service`, `listen_port`, `disk_analysis-mac.sh`, `list_big_files.sh`。
 

@@ -96,7 +96,7 @@ stateDiagram-v2
 - `敏感值不入版控 (Secrets out-of-vcs)`：依 `bin/bash/settings.sh:9-14`，明文 `passwd` / `email` / token 改由 git-ignored `~/.config/env_setup/settings.private.sh` 提供；含明文密碼的 `bin/bytedance_setup.sh` 已刪除 (紀錄見 `docs/specs/2026-07-08-env-setup-structural-cleanup.md` §4.3.1)。
 - `dotfile 唯一來源 (Dotfile single source of truth)`：所有 dotfiles (`.bashrc` / `.vimrc` / `.gitconfig` / `.screenrc` / `.npmrc` / `.toprc`) 由 `scripts/bash_env_setup.sh` 軟連結到 `~/`；修改應直接在 `bin/bash/` 內進行，不直接編輯 `~/` 副本。
 - `網路掃描前置依賴 (Network scan deps)`：`env_setup network private` 啟動時檢查 `traceroute` 與 `nmap`；`env_setup network target` 缺少 nmap 時只允許以 bounded concurrent ping fallback 掃描 `/24` 或更小的 IPv4 network。
-- `稽核報告輸出位置 (Audit report location)`：`bin/mac/*_audit-mac.sh` 寫入 `$HOME/.config/system/data/`。
+- `稽核報告輸出位置 (Audit report location)`：`bin/mac/*_audit-mac.sh` 寫入 `$HOME/.config/env_setup/data/`，與 gosdk `config.Default` 的 app 設定根目錄一致；`AUDIT_REPORT_DIR` 可覆寫。
 
 ## 風險偵測 (Risk Detection)
 

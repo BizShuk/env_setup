@@ -39,7 +39,7 @@
 │   ├── backup/
 │   │   ├── backup.go              # backup parent command
 │   │   ├── import.go              # backup import command
-│   │   ├── init.go                # backup init command
+│   │   ├── init.go                # backup init：建立預設 defaults domain manifest
 │   │   └── list.go                # backup list command
 │   ├── io/
 │   │   ├── io.go                  # io parent command
@@ -172,6 +172,7 @@
 
 ## 關鍵決策 (Key Decisions)
 
+- **`scripts/go.sh` 的 `.bash_plugin` 區塊是 idempotent 的**：Go 相關 export 以 `# >>> env_setup go >>>` / `# <<< env_setup go <<<` marker 包夾，重跑時先刪舊區塊 (含更早期未標記的 `GOROOT` / `GOPATH` / `PATH` 行) 再重寫，並以 `cat` 回寫保留原檔權限。`bin/go` symlink 與 `GOROOT` 必須同版，否則 `go` 會以新版 tool 搭配舊版 `compile`，全專案 build failed。
 - **`bin/bash/settings.sh` 為唯一環境變數入口**：所有腳本 `source settings.sh` 取得 `USER_BIN`、`REPO_DIR`、`REPO_SCRIPTS`、`OS`、`ARCH`、`KERNEL_NAME` 等；個人敏感值 (`passwd`/`email`/`token`) 改由 `~/.config/env_setup/settings.private.sh` 提供 (git-ignored)。
 - **`~/bin` symlink 到 `bin/`**：在 `settings.sh` 內 `[ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"`，新工具直接落入 `bin/<area>/<tool>` 即可被 `PATH` 找到。
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。
@@ -246,7 +247,7 @@ Root Go CLI 以 `go build -o ~/.local/bin/env_setup .` 建置並安裝（`~/.loc
 
 GitHub Actions (`.github/workflows/ci.yml`) 於 push / PR 至 `master` 與每週一 03:00 UTC 執行 `npm run ci`：
 
-1. `npm run lint` — `gofmt -l .` + `go vet ./...`
+1. `npm run lint` — `gofmt -l cmd svc model main.go` (列出即失敗) + `go vet ./...`；掃描範圍限定 module 自有的 Go 目錄，避開 `bin/bash/.vim/` 內 submodule 的刻意壞掉 fixture，使本機與 CI 跑出相同結果。新增 top-level Go package 時要一併加進這份清單。
 2. `npm run test` — `go test -count=1 ./...`
 3. `npm run vuln` — `govulncheck ./...`（相依與 stdlib 漏洞，取代靠 Dependabot 被動通知）
 4. `npm run build` — `go mod download` + `go build -o tmp/env_setup .`

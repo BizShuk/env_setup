@@ -31,18 +31,44 @@ if [ ! -e "$USER_LIB"/"$GO_FULLVER" ]; then
     GO_TMP="$(mktemp -d)"
     trap 'rm -rf "${GO_TMP}"' EXIT
     # TLS verification stays on: the tarball is executed as the toolchain.
-    wget https://go.dev/dl/"${GO_FULLVER}".tar.gz -O "${GO_TMP}"/"${GO_FULLVER}".tar.gz
+    # 用 curl 而非 wget: 部分 macOS 的 wget build 找不到 CA bundle, 會在憑證驗證處直接失敗。
+    curl -fL --proto '=https' --tlsv1.2 https://go.dev/dl/"${GO_FULLVER}".tar.gz \
+        -o "${GO_TMP}"/"${GO_FULLVER}".tar.gz
 
     tar zxf "${GO_TMP}"/"${GO_FULLVER}".tar.gz -C "${GO_TMP}"
     mv "${GO_TMP}"/go "$USER_LIB"/"$GO_FULLVER"
 fi
 
-echo -e "\n# [Go]" >> "${INSTALL_DIR}"/.bash_plugin
-echo "export GOROOT=${GO_ROOT}" >>"${INSTALL_DIR}"/.bash_plugin
-echo "export GOPATH=${GO_PATH}" >>"${INSTALL_DIR}"/.bash_plugin
-echo "export PATH=\$GOPATH/bin:\$PATH" >>"${INSTALL_DIR}"/.bash_plugin
-# echo "# [GOVCS] control which version control tool is used for go get from 1.16" >>"${INSTALL_DIR}"/.bash_plugin
-# echo "export GOVCS=git" >>"${INSTALL_DIR}"/.bash_plugin
+# .bash_plugin 的 Go 區塊以 marker 包夾, 每次重跑先刪除舊區塊再重寫,
+# 避免升版後累積指向舊 GOROOT 的 export 行 (go tool 與 compile 版本不符會 build failed)。
+BASH_PLUGIN="${INSTALL_DIR}/.bash_plugin"
+GO_BLOCK_BEGIN="# >>> env_setup go >>>"
+GO_BLOCK_END="# <<< env_setup go <<<"
+
+[ -f "${BASH_PLUGIN}" ] || touch "${BASH_PLUGIN}"
+
+# 一併清掉更早期沒有 marker 的 Go 設定行。以 cat 回寫保留原檔 inode 與權限。
+PLUGIN_TMP="$(mktemp)"
+sed -e "/^${GO_BLOCK_BEGIN}$/,/^${GO_BLOCK_END}$/d" \
+    -e '/^# \[Go\]$/d' \
+    -e '/^export GOROOT=/d' \
+    -e '/^export GOPATH=/d' \
+    -e '/^export PATH=\$GOPATH\/bin:\$PATH$/d' \
+    "${BASH_PLUGIN}" >"${PLUGIN_TMP}"
+cat "${PLUGIN_TMP}" >"${BASH_PLUGIN}"
+rm -f "${PLUGIN_TMP}"
+
+{
+    echo ""
+    echo "${GO_BLOCK_BEGIN}"
+    echo "# [Go] 由 scripts/go.sh 產生, 重跑會整段覆寫"
+    echo "export GOROOT=${GO_ROOT}"
+    echo "export GOPATH=${GO_PATH}"
+    echo 'export PATH=$GOPATH/bin:$PATH'
+    # [GOVCS] control which version control tool is used for go get from 1.16
+    # echo "export GOVCS=git"
+    echo "${GO_BLOCK_END}"
+} >>"${BASH_PLUGIN}"
 
 
 [ -L "$USER_BIN"/go ] && echo "go has already installed , now switch to $GO_FULLVER"

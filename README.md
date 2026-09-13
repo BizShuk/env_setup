@@ -87,14 +87,14 @@
 
 ### macOS 設定備份 (macOS Defaults Backup)
 
-`env_setup backup` 以 macOS `defaults` / `plutil` 匯出 tracked domains 的偏好設定為 `.plist` snapshot，供重灌或換機後還原；`backup list` 顯示最近一次快照時間與每個 domain 的狀態，`backup import` 還原，`backup init` 建立 backup 目錄與 metadata。
+`env_setup backup` 以 macOS `defaults` / `plutil` 匯出 tracked domains 的偏好設定為 `.plist` snapshot，供重灌或換機後還原；`backup list` 顯示最近一次快照時間與每個 domain 的狀態，`backup import` 還原，`backup init` 建立預設的 domain manifest。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者執行 `env_setup backup init` 建立 backup 目錄與 `backup.meta.json`。
+1. 使用者執行 `env_setup backup init` 建立預設的 domain manifest `~/.config/env_setup/mac_backup_domains.json`。
 2. 使用者執行 `env_setup backup` 匯出 tracked domains；每個 domain 寫成一份 `.plist`，並更新 metadata 的 snapshot timestamp。
 3. 使用者執行 `env_setup backup list` 檢視 latest backup date 與 domain status；缺少 metadata 的 legacy backup 才 fallback 到最新 `.plist` 的 modification time，完全沒有 backup 時顯示 `-`。
-4. 使用者在新機執行 `env_setup backup import` 把 snapshot 寫回 macOS defaults。
+4. 使用者在新機執行 `env_setup backup import` 把 snapshot 寫回 macOS defaults；預設先顯示 current 與 backup 的 diff 再逐一確認，`--yes` 全部同意、`--no-diff` 不顯示 diff。
 
 `核心實體 (Key Entities):` `Backup Domain`, `Backup Manifest`, `Backup Snapshot`
 
@@ -120,7 +120,7 @@
 
 ### macOS 系統稽核與清理 (macOS Audit & Cleanup)
 
-`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/system/data/`。
+`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/env_setup/data/` (可由 `AUDIT_REPORT_DIR` 覆寫)。
 
 `領域流程 (Domain Flow):`
 
