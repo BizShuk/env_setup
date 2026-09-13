@@ -89,10 +89,11 @@ step_bash_env() {
 
 # ----------------------------------------------------------------------------
 # Step 3 · 工具逐一安裝 (Tools, one by one)
-# 自動列舉 scripts/ 下所有 installer；以下兩者排除（非工具安裝）：
-#   settings.sh          — 僅供 source 的共用環境變數
-#   bash_env_setup.sh    — 已由 Step 2 處理
-TOOLS_EXCLUDE="settings.sh bash_env_setup.sh check_prereq.sh test_bash_plugin.sh _lib_bash_plugin.sh ubuntu_apt.sh ubuntu_locale.sh ubuntu_timezone.sh ubuntu_user.sh"
+# 自動列舉 scripts/ 下所有 installer；以下排除（非獨立工具安裝）：
+#   settings.sh / _lib_*.sh / check_prereq.sh / test_*.sh — 僅供 source 或檢查
+#   bash_env_setup.sh — 已由 Step 2 處理
+#   ubuntu_*.sh / nodejs_nvm.sh / pnpm.sh — 由對應 orchestrator 呼叫
+TOOLS_EXCLUDE="settings.sh bash_env_setup.sh check_prereq.sh test_bash_plugin.sh _lib_bash_plugin.sh ubuntu_apt.sh ubuntu_locale.sh ubuntu_timezone.sh ubuntu_user.sh nodejs_nvm.sh pnpm.sh"
 
 # tool_meta <file> -> 印出 "<友善名稱>|<偵測指令>|<os_tag>"
 #   os_tag: darwin（僅 brew 路徑）/ linux（僅 apt-get 路徑）/ any（無 OS 專屬指令，兩者皆可）
@@ -112,7 +113,7 @@ tool_meta() {
         openssl_setup.sh)      echo "OpenSSL (source build)|openssl|linux" ;;
         ubuntu.sh)             echo "Ubuntu 全套 bootstrap||linux" ;;
         go.sh)                 echo "Go toolchain|go|any" ;;
-        nodejs.sh)             echo "Node.js (nvm)|node|any" ;;
+        nodejs.sh)             echo "Node.js (nvm + pnpm)|node|any" ;;
         vim.sh)                echo "Vim + plugins|vim|any" ;;
         git-secret.sh)         echo "git-secret (source build)|git-secret|any" ;;
         *)                     echo "$1||any" ;;

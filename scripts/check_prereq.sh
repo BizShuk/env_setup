@@ -7,7 +7,7 @@ set -euo pipefail
 # Verifies:
 #   1. Git CLI ready
 #   2. Bash environment setup (dotfiles linked to repo, .bash_plugin present)
-#   3. Node.js runtime & npm CLI ready in PATH
+#   3. Node.js runtime & pnpm CLI ready in PATH
 #   4. Platform package manager (Homebrew on macOS / apt-get on Linux)
 #
 # Exit status:
@@ -68,20 +68,25 @@ else
          "Touch or run ./scripts/bash_env_setup.sh"
 fi
 
-# 3. Node.js & NPM CLI
-if command -v npm >/dev/null 2>&1 && command -v node >/dev/null 2>&1; then
+# 3. Node.js runtime & pnpm CLI
+if command -v node >/dev/null 2>&1; then
     ok "Node.js runtime: $(node --version) ($(command -v node))"
-    ok "NPM CLI: $(npm --version) ($(command -v npm))"
 else
-    # Check if NVM has node installed but not in current subshell PATH
     NVM_DIR="${USER_LIB}/nvm"
     if [ -s "${NVM_DIR}/nvm.sh" ]; then
-        fail "Node.js / NPM CLI not in current PATH (NVM found at ${NVM_DIR})" \
-             "Run: source ~/.bash_plugin or run: ./scripts/nodejs.sh to reconfigure"
+        fail "Node.js not in current PATH (NVM found at ${NVM_DIR})" \
+             "Run: source ~/.bash_plugin or run: ./scripts/nodejs_nvm.sh to reconfigure"
     else
-        fail "NPM CLI not found (node / npm missing in PATH)" \
-             "Run: ./scripts/nodejs.sh to install Node.js and npm via NVM"
+        fail "Node.js runtime not found" \
+             "Run: ./scripts/nodejs.sh (or ./scripts/nodejs_nvm.sh) to install Node.js via NVM"
     fi
+fi
+
+if command -v pnpm >/dev/null 2>&1; then
+    ok "pnpm CLI: $(pnpm --version) ($(command -v pnpm))"
+else
+    fail "pnpm CLI not found" \
+         "Run: ./scripts/pnpm.sh to install pnpm"
 fi
 
 # 4. OS Package Manager

@@ -1,50 +1,20 @@
 #!/bin/bash
 set -euo pipefail
-# [NVM github](https://github.com/nvm-sh/nvm)
 
-source "$(dirname "$0")/settings.sh"
-# shellcheck source=./_lib_bash_plugin.sh
-source "$(dirname "$0")/_lib_bash_plugin.sh"
+# ============================================================================
+# nodejs.sh — Node.js full bootstrap orchestrator
+# ============================================================================
+# Sequentially runs the modular Node.js setup steps:
+#   1. NVM + Node runtime (nodejs_nvm.sh)
+#   2. pnpm package manager + global packages (pnpm.sh)
+#
+# Individual steps can also be executed directly or via npm run:nodejs:*
+# ============================================================================
 
-NODE_VER=${NODE_VER:-v24.11.1}
-NVM_DIR=${USER_LIB}/nvm
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/settings.sh"
 
-rm -rf "${NVM_DIR}"
-mkdir "${NVM_DIR}"
+"${SCRIPT_DIR}/nodejs_nvm.sh"
+"${SCRIPT_DIR}/pnpm.sh"
 
-git clone https://github.com/nvm-sh/nvm.git "${NVM_DIR}"
-
-cd "${NVM_DIR}" || exit 1
-git checkout "$(git describe --abbrev=0 --tags)"
-
-# shellcheck source=/dev/null
-source "${NVM_DIR}/nvm.sh"
-
-# NODE installation """
-
-nvm install --lts
-nvm install "$NODE_VER"
-nvm use "$NODE_VER"
-nvm alias default "$NODE_VER"
-nvm use --delete-prefix "${NODE_VER}" --silent
-
-NPM_PREFIX=$(npm config get prefix)
-
-update_bash_plugin_block "nodejs" \
-    '/^# \[NodeJs:nvm\]$/d' \
-    '/^# \[NodeJs:npm\]$/d' \
-    '/^export NVM_DIR=/d' \
-    '/^source .*\/nvm\.sh$/d' \
-    '/^\[ -s ".*\/nvm\.sh" \] && /d' \
-    '/^export PATH=.*\/versions\/node\/.*\/bin/d' \
-    '/^export PATH=.*\/npm.*\/bin/d' <<EOF
-export NVM_DIR="${NVM_DIR}"
-[ -s "${NVM_DIR}/nvm.sh" ] && source "${NVM_DIR}/nvm.sh"
-export PATH="${NVM_DIR}/versions/node/${NODE_VER}/bin:\${PATH}"
-export PATH="${NPM_PREFIX}/bin:\${PATH}"
-EOF
-
-# shellcheck source=/dev/null
-source "${BASH_PLUGIN}"
-
-npm install -g pm2
+echo "Node.js bootstrap complete."
