@@ -36,6 +36,7 @@ export ARCH
 
 # Install path
 INSTALL_DIR=${HOME}
+export BASH_PLUGIN="${INSTALL_DIR}/.bash_plugin"
 
 
 

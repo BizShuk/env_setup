@@ -118,7 +118,11 @@
 │   │   ├── strip-docker-image-README.md
 │   │   └── settings.sh -> bash/settings.sh
 ├── scripts/                       # OS / tool installer
-│   ├── mac.sh / ubuntu.sh
+│   ├── check_prereq.sh            # 前置條件檢查 (bash env、npm CLI、套件庫)
+│   ├── _lib_bash_plugin.sh        # .bash_plugin idempotent 區塊替換共用函式
+│   ├── mac.sh / ubuntu.sh         # macOS / Ubuntu 全套 bootstrap 編排腳本
+│   ├── mac_basic.sh / uv.sh       # macOS 基礎工具 (curl/wget/jq) 與 Python uv
+│   ├── ubuntu_apt.sh / ubuntu_locale.sh / ubuntu_timezone.sh / ubuntu_user.sh
 │   ├── bash_env_setup.sh          # dotfile 軟連結入口
 │   ├── bash.sh / settings.sh      # scripts 內部 settings
 │   ├── brew.sh                    # Homebrew 5.0.3 安裝
@@ -172,7 +176,7 @@
 
 ## 關鍵決策 (Key Decisions)
 
-- **`scripts/go.sh` 的 `.bash_plugin` 區塊是 idempotent 的**：Go 相關 export 以 `# >>> env_setup go >>>` / `# <<< env_setup go <<<` marker 包夾，重跑時先刪舊區塊 (含更早期未標記的 `GOROOT` / `GOPATH` / `PATH` 行) 再重寫，並以 `cat` 回寫保留原檔權限。`bin/go` symlink 與 `GOROOT` 必須同版，否則 `go` 會以新版 tool 搭配舊版 `compile`，全專案 build failed。
+- **`~/.bash_plugin` 寫入全面落實 idempotent 區塊替換**：所有安裝腳本 (`brew.sh`, `go.sh`, `nodejs.sh`, `openssl_mac_setup.sh`, `mac.sh`, `ctags_setup.sh`) 統一透過 `scripts/_lib_bash_plugin.sh` 的 `update_bash_plugin_block` 管理。設定以 `# >>> env_setup <component> >>>` / `# <<< env_setup <component> <<<` marker 包夾，重跑時先刪除舊區塊與歷史未標記行再以原子方式覆寫，避免重複追加造成 PATH 膨脹與版本衝突。
 - **`bin/bash/settings.sh` 為唯一環境變數入口**：所有腳本 `source settings.sh` 取得 `USER_BIN`、`REPO_DIR`、`REPO_SCRIPTS`、`OS`、`ARCH`、`KERNEL_NAME` 等；個人敏感值 (`passwd`/`email`/`token`) 改由 `~/.config/env_setup/settings.private.sh` 提供 (git-ignored)。
 - **`~/bin` symlink 到 `bin/`**：在 `settings.sh` 內 `[ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"`，新工具直接落入 `bin/<area>/<tool>` 即可被 `PATH` 找到。
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。

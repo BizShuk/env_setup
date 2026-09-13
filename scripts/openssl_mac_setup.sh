@@ -2,6 +2,8 @@
 set -euo pipefail
 
 source "$(dirname "$0")/settings.sh"
+# shellcheck source=./_lib_bash_plugin.sh
+source "$(dirname "$0")/_lib_bash_plugin.sh"
 
 OPENSSL_VER="3.0.13"
 OPENSSL_TAR="openssl-${OPENSSL_VER}.tar.gz"
@@ -33,7 +35,11 @@ else
     rm -rf openssl-${OPENSSL_VER}
     rm -f ${OPENSSL_TAR}
 fi
-
-echo -e "\n# OpenSSL" >> "$INSTALL_DIR"/.bash_plugin
-echo "export PATH=$OPENSSL_LIB_PATH/bin:\$PATH" >> "$INSTALL_DIR"/.bash_plugin
-echo "export MANPATH=$OPENSSL_LIB_PATH/share/man:\$MANPATH" >> "$INSTALL_DIR"/.bash_plugin
+update_bash_plugin_block "openssl" \
+    '/^# OpenSSL$/d' \
+    '/^# \[openssl\]$/d' \
+    '/^export PATH=.*\/openssl\/bin/d' \
+    '/^export MANPATH=.*\/openssl/d' <<EOF
+export PATH="${OPENSSL_LIB_PATH}/bin:\${PATH}"
+export MANPATH="${OPENSSL_LIB_PATH}/share/man:\${MANPATH:-}"
+EOF

@@ -3,6 +3,8 @@ set -euo pipefail
 # [NVM github](https://github.com/nvm-sh/nvm)
 
 source "$(dirname "$0")/settings.sh"
+# shellcheck source=./_lib_bash_plugin.sh
+source "$(dirname "$0")/_lib_bash_plugin.sh"
 
 NODE_VER=${NODE_VER:-v24.11.1}
 NVM_DIR=${USER_LIB}/nvm
@@ -24,31 +26,25 @@ nvm install --lts
 nvm install "$NODE_VER"
 nvm use "$NODE_VER"
 nvm alias default "$NODE_VER"
-
-cat <<EOF >>~/.bash_plugin
-# [NodeJs:nvm]
-export NVM_DIR=${NVM_DIR}
-source ${NVM_DIR}/nvm.sh
-export PATH=\${NVM_DIR}/versions/node/${NODE_VER}/bin:\${PATH}
-
-EOF
-
 nvm use --delete-prefix "${NODE_VER}" --silent
 
-
-
-# shellcheck source=/dev/null
-source ${HOME}/.bash_plugin
-
 NPM_PREFIX=$(npm config get prefix)
-cat <<EOF >>~/.bash_plugin
-# [NodeJs:npm]
-export PATH=${NPM_PREFIX}/bin:\$PATH
 
+update_bash_plugin_block "nodejs" \
+    '/^# \[NodeJs:nvm\]$/d' \
+    '/^# \[NodeJs:npm\]$/d' \
+    '/^export NVM_DIR=/d' \
+    '/^source .*\/nvm\.sh$/d' \
+    '/^\[ -s ".*\/nvm\.sh" \] && /d' \
+    '/^export PATH=.*\/versions\/node\/.*\/bin/d' \
+    '/^export PATH=.*\/npm.*\/bin/d' <<EOF
+export NVM_DIR="${NVM_DIR}"
+[ -s "${NVM_DIR}/nvm.sh" ] && source "${NVM_DIR}/nvm.sh"
+export PATH="${NVM_DIR}/versions/node/${NODE_VER}/bin:\${PATH}"
+export PATH="${NPM_PREFIX}/bin:\${PATH}"
 EOF
 
 # shellcheck source=/dev/null
-source ${HOME}/.bash_plugin
-
+source "${BASH_PLUGIN}"
 
 npm install -g pm2

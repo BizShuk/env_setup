@@ -2,6 +2,8 @@
 set -euo pipefail
 
 . "$(dirname "$0")/settings.sh"
+# shellcheck source=./_lib_bash_plugin.sh
+. "$(dirname "$0")/_lib_bash_plugin.sh"
 
 # ctags 5.8 vendored 來源 (pkg/ctags-5.8) 已於 2026-07-09 結構清理時
 # 改為 git submodule (見 .gitmodules), 改用 Homebrew 安裝 universal-ctags。
@@ -23,7 +25,8 @@ else
     echo "ctags already installed: $(command -v ctags)"
 fi
 
-# 將 ctags 路徑加入 PATH (若 USER_LIB/bin 為對應 prefix)
-if [ -d "$USER_LIB/bin" ]; then
-    echo "export PATH=\$PATH:$USER_LIB/bin" >> $INSTALL_DIR/.bash_plugin
-fi
+# 清理舊版 ctags_setup.sh 重複寫入之 $USER_LIB/bin 路徑 (bin/bash/.bashrc 已全域設定 ~/.local/bin)
+update_bash_plugin_block "ctags" \
+    '/^export PATH=\$PATH:.*\.local\/bin$/d' \
+    '/^export PATH=\$PATH:\$USER_LIB\/bin$/d' <<EOF
+EOF

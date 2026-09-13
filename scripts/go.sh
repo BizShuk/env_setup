@@ -41,34 +41,21 @@ fi
 
 # .bash_plugin 的 Go 區塊以 marker 包夾, 每次重跑先刪除舊區塊再重寫,
 # 避免升版後累積指向舊 GOROOT 的 export 行 (go tool 與 compile 版本不符會 build failed)。
-BASH_PLUGIN="${INSTALL_DIR}/.bash_plugin"
-GO_BLOCK_BEGIN="# >>> env_setup go >>>"
-GO_BLOCK_END="# <<< env_setup go <<<"
+# shellcheck source=./_lib_bash_plugin.sh
+source "$(dirname "$0")/_lib_bash_plugin.sh"
 
-[ -f "${BASH_PLUGIN}" ] || touch "${BASH_PLUGIN}"
-
-# 一併清掉更早期沒有 marker 的 Go 設定行。以 cat 回寫保留原檔 inode 與權限。
-PLUGIN_TMP="$(mktemp)"
-sed -e "/^${GO_BLOCK_BEGIN}$/,/^${GO_BLOCK_END}$/d" \
-    -e '/^# \[Go\]$/d' \
-    -e '/^export GOROOT=/d' \
-    -e '/^export GOPATH=/d' \
-    -e '/^export PATH=\$GOPATH\/bin:\$PATH$/d' \
-    "${BASH_PLUGIN}" >"${PLUGIN_TMP}"
-cat "${PLUGIN_TMP}" >"${BASH_PLUGIN}"
-rm -f "${PLUGIN_TMP}"
-
-{
-    echo ""
-    echo "${GO_BLOCK_BEGIN}"
-    echo "# [Go] 由 scripts/go.sh 產生, 重跑會整段覆寫"
-    echo "export GOROOT=${GO_ROOT}"
-    echo "export GOPATH=${GO_PATH}"
-    echo 'export PATH=$GOPATH/bin:$PATH'
-    # [GOVCS] control which version control tool is used for go get from 1.16
-    # echo "export GOVCS=git"
-    echo "${GO_BLOCK_END}"
-} >>"${BASH_PLUGIN}"
+update_bash_plugin_block "go" \
+    '/^# \[Go\]$/d' \
+    '/^export GOROOT=/d' \
+    '/^export GOPATH=/d' \
+    '/^export PATH=\$GOPATH\/bin:\$PATH$/d' <<EOF
+# [Go] 由 scripts/go.sh 產生, 重跑會整段覆寫
+export GOROOT=${GO_ROOT}
+export GOPATH=${GO_PATH}
+export PATH=\$GOPATH/bin:\$PATH
+# [GOVCS] control which version control tool is used for go get from 1.16
+# echo "export GOVCS=git"
+EOF
 
 
 [ -L "$USER_BIN"/go ] && echo "go has already installed , now switch to $GO_FULLVER"

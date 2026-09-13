@@ -2,28 +2,32 @@
 set -euo pipefail
 
 source "$(dirname "$0")/settings.sh"
+# shellcheck source=./_lib_bash_plugin.sh
+source "$(dirname "$0")/_lib_bash_plugin.sh"
 
 homebrew_ver="5.0.3"
 
 pushd "${USER_LOCAL}" || exit 1
 
 rm -rf homebrew
-# mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 mkdir homebrew && curl -L https://github.com/Homebrew/brew/archive/refs/tags/${homebrew_ver}.tar.gz | tar xz --strip 1 -C homebrew
-
-# git clone https://github.com/Homebrew/brew homebrew
-
-echo -e "\n\n\n# Homebrew" >>"${HOME}/.bash_plugin"
-./homebrew/bin/brew shellenv >>"${HOME}/.bash_plugin"
 
 popd || exit 1
 
-# shellcheck source=/dev/null
-source "${HOME}/.bash_plugin"
-brew update --force
+update_bash_plugin_block "homebrew" \
+    '/^# Homebrew$/d' \
+    '/^# Homwbrew$/d' \
+    '/^export HOMEBREW_/d' \
+    '/^export SSL_CERT_FILE=.*ca-certificates/d' \
+    '/^\[ -z "\${MANPATH-}" \] || export MANPATH=/d' \
+    '/^export INFOPATH=.*homebrew/d' <<EOF
+$("${USER_LOCAL}/homebrew/bin/brew" shellenv)
+export SSL_CERT_FILE="$("${USER_LOCAL}/homebrew/bin/brew" --prefix)/etc/ca-certificates/cert.pem"
+EOF
 
-# for wget curl to get ca certificate
-echo export SSL_CERT_FILE="$(brew --prefix)/etc/ca-certificates/cert.pem" >> "${HOME}"/.bash_plugin
+# shellcheck source=/dev/null
+source "${BASH_PLUGIN}"
+brew update --force
 brew postinstall ca-certificates
 
 

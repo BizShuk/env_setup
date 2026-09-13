@@ -92,7 +92,7 @@ step_bash_env() {
 # 自動列舉 scripts/ 下所有 installer；以下兩者排除（非工具安裝）：
 #   settings.sh          — 僅供 source 的共用環境變數
 #   bash_env_setup.sh    — 已由 Step 2 處理
-TOOLS_EXCLUDE="settings.sh bash_env_setup.sh"
+TOOLS_EXCLUDE="settings.sh bash_env_setup.sh check_prereq.sh test_bash_plugin.sh _lib_bash_plugin.sh ubuntu_apt.sh ubuntu_locale.sh ubuntu_timezone.sh ubuntu_user.sh"
 
 # tool_meta <file> -> 印出 "<友善名稱>|<偵測指令>|<os_tag>"
 #   os_tag: darwin（僅 brew 路徑）/ linux（僅 apt-get 路徑）/ any（無 OS 專屬指令，兩者皆可）
@@ -105,6 +105,8 @@ tool_meta() {
         ctags_setup.sh)        echo "Exuberant ctags (brew)|ctags|darwin" ;;
         openssl_mac_setup.sh)  echo "OpenSSL (macOS)|openssl|darwin" ;;
         mac.sh)                echo "macOS 全套 bootstrap|brew|darwin" ;;
+        mac_basic.sh)          echo "macOS 基本工具 (curl/wget/jq)|curl|darwin" ;;
+        uv.sh)                 echo "uv (Python toolchain)|uv|any" ;;
         git.sh)                echo "git (apt-get build)|git|linux" ;;
         webmin.sh)             echo "Webmin|webmin|linux" ;;
         openssl_setup.sh)      echo "OpenSSL (source build)|openssl|linux" ;;
