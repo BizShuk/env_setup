@@ -117,7 +117,7 @@
 │   │   ├── ssh.md
 │   │   ├── strip-docker-image-README.md
 │   │   └── settings.sh -> bash/settings.sh
-├── scripts/                       # OS / tool installer
+├── scripts/                       # OS / tool installer 與純 Shell 領域工具
 │   ├── check_prereq.sh            # 前置條件檢查 (bash env、Node / pnpm CLI、套件庫)
 │   ├── _lib_bash_plugin.sh        # .bash_plugin idempotent 區塊替換共用函式
 │   ├── mac.sh / ubuntu.sh         # macOS / Ubuntu 全套 bootstrap 編排腳本
@@ -136,7 +136,28 @@
 │   ├── test_bash_plugin.sh        # .bash_plugin 區塊替換單元測試
 │   ├── test_docker_install.sh     # Docker 容器隔離安裝與命令驗證測試
 │   ├── Brewfile
+│   ├── backup/                    # defaults 偏好設定備份、還原與檢視
+│   │   ├── backup.sh / list.sh / import.sh / init.sh
+│   ├── cleanup/                   # 系統暫存、快取、日誌與容器清理
+│   │   ├── all.sh / _lib_cleanup.sh
+│   │   ├── system_log.sh / system_tmp.sh / cache_user.sh
+│   │   ├── docker.sh / brew.sh / node.sh / python.sh / go.sh
+│   │   └── ai.sh / browser.sh / app.sh
 │   ├── disk/                      # mount_disk.sh / mount_disk_by_fstab.sh
+│   ├── dump/                      # 開發環境清單匯出 (Homebrew, VS Code, Antigravity)
+│   │   ├── mac.sh / vscode.sh / antigravity.sh
+│   ├── install/                   # IDE 擴充套件安裝與同步
+│   │   ├── vscode.sh / antigravity.sh
+│   ├── io/                        # 裝置層 I/O 探測與基準評測
+│   │   ├── probe.sh / bench.sh
+│   ├── network/                   # 私有路由與目標網段掃描
+│   │   ├── private.sh / target.sh
+│   ├── system/                    # 硬體與系統各項狀態探測
+│   │   ├── show.sh / disk_verify.sh
+│   │   ├── os.sh / cpu.sh / memory.sh / gpu.sh / disk.sh
+│   │   └── usb.sh / display.sh / network.sh / input.sh / audio.sh
+│   ├── uninstall/                 # Codex 移除
+│   │   └── codex.sh
 │   └── README.md
 ├── pkg/                           # 第三方 source + 樣板
 │   ├── libgit2.sh                 # libgit2 helper (submodule pkg/libgit2 需自行 init)
@@ -204,13 +225,14 @@
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | 機器初始化與開發工具安裝 (Machine Bootstrap & Tooling Install) | `scripts/`, `bin/bash/settings.sh`                                                                                        | `./scripts/mac.sh`, `./scripts/ubuntu.sh`, `./scripts/go.sh`                     |
 | 使用者與 IDE 設定軟連結 (User Config & IDE Symlink Bootstrap) | `run.sh`, `bin/bash/`, `bin/vscode/`                                                                                      | `./run.sh` (含 `link_ide_config()` 函式)                                         |
-| 硬體與系統狀態偵測 (Hardware & System Probe)      | `cmd/system/`, `svc/system/`                                                                                               | `env_setup system show`, `env_setup system <information> show`, `env_setup system disk verify <volume-path>` |
-| 開發環境清單同步 (Development Manifest Sync) | `cmd/dump/`, `svc/dump/`, `cmd/install/`, `svc/install/`, `scripts/Brewfile`, `bin/vscode/*_extension_list.txt`             | `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install vscode-extension`, `env_setup install antigravity-extension` |
-| macOS 設定備份 (macOS Defaults Backup)            | `cmd/backup/`, `svc/backup/`                                                                                              | `env_setup backup`, `env_setup backup list`, `env_setup backup import`, `env_setup backup init` |
-| macOS Codex 移除 (macOS Codex Uninstall)          | `cmd/uninstall/`, `svc/uninstall/`                                                                                        | `env_setup uninstall codex`, `env_setup uninstall codex --apply`                 |
-| macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `cmd/cleanup/`, `model/cleanup/`, `svc/cleanup/`, `bin/mac/*_audit-mac.sh`                                                | `env_setup cleanup`, `env_setup cleanup --apply`                                 |
-| 網路拓撲與設備掃描 (Network Topology & Device Scan) | `cmd/network/`, `svc/network/`                                                                                            | `env_setup network private [target]`, `env_setup network target [cidr]`          |
-| 裝置層 I/O 探測 (Device I/O Probe)                | `cmd/io/`, `svc/io/`                                                                                                      | `env_setup io probe`, `env_setup io probe --bench [--dir DIR]`                   |
+| 硬體與系統狀態偵測 (Hardware & System Probe)      | `cmd/system/`, `svc/system/`, `scripts/system/`                                                                            | `env_setup system show`, `env_setup system <information> show`, `env_setup system disk verify <volume-path>`；純腳本：`scripts/system/*.sh`, `npm run run:system:*` |
+| 開發環境清單同步 (Development Manifest Sync)      | `cmd/dump/`, `svc/dump/`, `scripts/dump/`, `scripts/Brewfile`, `bin/vscode/*_extension_list.txt`                           | `env_setup dump mac|vscode-extension|antigravity-extension`；純腳本：`scripts/dump/*.sh`, `npm run run:dump:*` |
+| IDE 擴充套件同步 (IDE Extension Sync)             | `cmd/install/`, `svc/install/`, `scripts/install/`, `bin/vscode/*_extension_list.txt`                                     | `env_setup install vscode-extension|antigravity-extension`；純腳本：`scripts/install/*.sh`, `npm run run:install:*` |
+| macOS 設定備份 (macOS Defaults Backup)            | `cmd/backup/`, `svc/backup/`, `scripts/backup/`                                                                            | `env_setup backup`, `env_setup backup list`, `env_setup backup import`, `env_setup backup init`；純腳本：`scripts/backup/*.sh`, `npm run run:backup:*` |
+| macOS Codex 移除 (macOS Codex Uninstall)          | `cmd/uninstall/`, `svc/uninstall/`, `scripts/uninstall/`                                                                  | `env_setup uninstall codex`, `env_setup uninstall codex --apply`；純腳本：`scripts/uninstall/codex.sh`, `npm run run:uninstall:codex` |
+| macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `cmd/cleanup/`, `model/cleanup/`, `svc/cleanup/`, `scripts/cleanup/`, `bin/mac/*_audit-mac.sh`                             | `env_setup cleanup`, `env_setup cleanup --apply`；純腳本：`scripts/cleanup/*.sh`, `npm run run:cleanup:*` |
+| 網路拓撲與設備掃描 (Network Topology & Device Scan) | `cmd/network/`, `svc/network/`, `scripts/network/`                                                                        | `env_setup network private [target]`, `env_setup network target [cidr]`；純腳本：`scripts/network/*.sh`, `npm run run:network:*` |
+| 裝置層 I/O 探測 (Device I/O Probe)                | `cmd/io/`, `svc/io/`, `scripts/io/`                                                                                        | `env_setup io probe`, `env_setup io probe --bench [--dir DIR]`；純腳本：`scripts/io/*.sh`, `npm run run:io:*` |
 | 開發者輔助工具 (Developer Helpers)                | `bin/` 根目錄 + `bin/bash/.bash_aliases`                                                                                  | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                        |
 | 觀測排程與稽核報告 (Observability Cron & Audit Reports) | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                                                                          | `pm2 start ecosystem.config.js`                                                  |
 

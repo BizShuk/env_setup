@@ -38,115 +38,115 @@
 
 ### 硬體與系統狀態偵測 (Hardware & System Probe)
 
-`env_setup system` 是硬體與系統狀態的統一 CLI；`system show` 聚合全部 10 個 probes，每種 information 也有自己的 `<information> show` command。`system disk verify <volume-path>` 在 macOS 以 `diskutil`、`f3write` 與 `f3read` 驗證 removable media 的容量與資料完整性。`svc/system/` 直接執行 platform commands 並整理輸出，不依賴 shell adapters 或 repo path。
+`env_setup system` 是硬體與系統狀態的統一 CLI；`system show` 聚合全部 10 個 probes，每種 information 也有自己的 `<information> show` command。`system disk verify <volume-path>` 在 macOS 以 `diskutil`、`f3write` 與 `f3read` 驗證 removable media 的容量與資料完整性。`svc/system/` 直接執行 platform commands 並整理輸出，不依賴 shell adapters 或 repo path。同時提供 `scripts/system/` 與 `npm run run:system:*` 作為純 Shell 替代方案。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者執行 `env_setup system show`，或以 `env_setup system cpu show` 等 command 只查看單一 information。
-2. Go service 依 runtime platform 執行 `system_profiler` / `sysctl`（macOS）或對應 Linux commands，再由每個 probe file 解析並印到 stdout。
-3. 使用者執行 `env_setup system disk verify /Volumes/<name>`，確認 F3 write/read 操作後驗證 removable media；`--yes` 可略過互動確認。
+1. 使用者執行 `env_setup system show` (或純腳本 `npm run run:system:show`)，亦可指定單一 probe 如 `env_setup system cpu show` (或 `npm run run:system:cpu`) 只查看單一 information。
+2. Go service 或 Shell 腳本依 runtime platform 執行 `system_profiler` / `sysctl`（macOS）或對應 Linux commands，再由每個 probe file 解析並印到 stdout。
+3. 使用者執行 `env_setup system disk verify /Volumes/<name>` (或 `npm run run:system:disk-verify -- /Volumes/<name>`)，確認 F3 write/read 操作後驗證 removable media；`--yes` 可略過互動確認。
 
 `核心實體 (Key Entities):` `硬體元件 (Hardware Component)`, `系統工具輸出 (System Probe Output)`
 
-`相關處理器 (Related Handlers):` `env_setup system show`, `env_setup system <information> show`, `env_setup system disk verify <volume-path>`, [svc/system](svc/system)
+`相關處理器 (Related Handlers):` `env_setup system show`, `env_setup system <information> show`, `env_setup system disk verify <volume-path>`, [svc/system](svc/system), [scripts/system/](scripts/system/), `npm run run:system:*`
 
 ---
 
 ### 裝置層 I/O 探測 (Device I/O Probe)
 
-`env_setup io probe` 以磁碟為單位回答「這顆碟扛不扛得住 fsync 密集的工作（docker、registry、資料庫）」：每顆實體磁碟一列，欄位 `DEV / TRAN / ID / MODEL / SIZE / LINK / DRIVER / QD / WCACHE / ROTA / MOUNTS`。Linux 由 `lsblk` 與 sysfs 取得（USB 會顯示 vendor:product、link 速率、`uas` 或 `usb-storage`、queue depth 與 write cache），macOS 由 `diskutil` 取得（不揭露 QD/WCACHE，顯示 `-`）。
+`env_setup io probe` 以磁碟為單位回答「這顆碟扛不扛得住 fsync 密集的工作（docker、registry、資料庫）」：每顆實體磁碟一列，欄位 `DEV / TRAN / ID / MODEL / SIZE / LINK / DRIVER / QD / WCACHE / ROTA / MOUNTS`。Linux 由 `lsblk` 與 sysfs 取得（USB 會顯示 vendor:product、link 速率、`uas` 或 `usb-storage`、queue depth 與 write cache），macOS 由 `diskutil` 取得（不揭露 QD/WCACHE，顯示 `-`）。同時提供 `scripts/io/` 與 `npm run run:io:*` 作為純 Shell 替代方案。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者執行 `env_setup io probe`，先看表格判斷瓶頸來源（例如 `usb-storage` + `QD 2` + `write through` 就是隨身碟等級）。
-2. 需要數字時加 `--bench [--dir DIR]`：在 DIR 寫一個暫存檔量循序寫入 MB/s、4 KiB 同步寫入 IOPS（flush 延遲）與 4 KiB 隨機讀取 IOPS，全程略過 page cache，測完自動刪檔。
+1. 使用者執行 `env_setup io probe` (或純腳本 `npm run run:io:probe`)，先看表格判斷瓶頸來源（例如 `usb-storage` + `QD 2` + `write through` 就是隨身碟等級）。
+2. 需要數字時加 `--bench [--dir DIR]` (或純腳本 `npm run run:io:bench`)：在 DIR 寫一個暫存檔量循序寫入 MB/s、4 KiB 同步寫入 IOPS（flush 延遲）與 4 KiB 隨機讀取 IOPS，全程略過 page cache，測完自動刪檔。
 3. 以 4 KiB 同步寫入 IOPS 判斷：數十 IOPS 只能放冷資料，上千 IOPS 才適合 container / DB。
 
 `核心實體 (Key Entities):` `區塊裝置 (Block Device)`, `延遲樣本 (Latency Sample)`
 
-`相關處理器 (Related Handlers):` `env_setup io probe`, `env_setup io probe --bench`, [svc/io](svc/io)
+`相關處理器 (Related Handlers):` `env_setup io probe`, `env_setup io probe --bench`, [svc/io](svc/io), [scripts/io/](scripts/io/), `npm run run:io:*`
 
 ---
 
 ### 開發環境清單同步 (Development Manifest Sync)
 
-`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode-extension` 與 `dump antigravity-extension` 分別更新 `bin/vscode/*_extension_list.txt`。`env_setup install vscode-extension` 與 `env_setup install antigravity-extension` 則從 tracked manifest 安裝對應 IDE 的 extensions，並在移除 manifest 外的 extensions 前要求明確確認。IDE CLI 一律作用在本機的 extensions directory，不會被所在 IDE terminal 轉送到別台機器的 window。
+`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode-extension` 與 `dump antigravity-extension` 分別更新 `bin/vscode/*_extension_list.txt`。`env_setup install vscode-extension` 與 `env_setup install antigravity-extension` 則從 tracked manifest 安裝對應 IDE 的 extensions，並在移除 manifest 外的 extensions 前要求明確確認。IDE CLI 一律作用在本機的 extensions directory，不會被所在 IDE terminal 轉送到別台機器的 window。同時提供 `scripts/dump/`、`scripts/install/` 與 `npm run run:dump:*`、`npm run run:install:*` 作為純 Shell 替代方案。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者在 repo 內執行 `env_setup dump mac`、`env_setup dump vscode-extension` 或 `env_setup dump antigravity-extension`。
-2. Go service 先驗證 repo root 與必要 CLI，再執行 `brew bundle dump` 或 `<ide> --list-extensions`。
+1. 使用者在 repo 內執行 `env_setup dump mac`、`env_setup dump vscode-extension` 或 `env_setup dump antigravity-extension` (或純腳本 `npm run run:dump:mac`、`npm run run:dump:vscode`、`npm run run:dump:antigravity`)。
+2. Go service 或 Shell 腳本先驗證 repo root 與必要 CLI，再執行 `brew bundle dump` 或 `<ide> --list-extensions`。
 3. IDE manifests 會排序、去重並以 atomic replacement 寫入，external command 失敗時保留舊檔。
-4. 使用者執行 `env_setup install vscode-extension` 或 `env_setup install antigravity-extension` 時，Go service 逐項以 `--force` 安裝 manifest entries；marketplace 沒有的 entry 會在全部跑完後彙總報錯，unlisted extensions 只會在回答 `y` 後移除。
+4. 使用者執行 `env_setup install vscode-extension` 或 `env_setup install antigravity-extension` (或純腳本 `npm run run:install:vscode`、`npm run run:install:antigravity`) 時，逐項以 `--force` 安裝 manifest entries；marketplace 沒有的 entry 會在全部跑完後彙總報錯，unlisted extensions 只會在回答 `y` 後移除。
 
 `核心實體 (Key Entities):` `Mac Manifest`, `IDE Extension Manifest`, `Extension Sync`, `Repository Root`
 
-`相關處理器 (Related Handlers):` `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install vscode-extension`, `env_setup install antigravity-extension`, [svc/dump](svc/dump), [svc/install](svc/install)
+`相關處理器 (Related Handlers):` `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install vscode-extension`, `env_setup install antigravity-extension`, [svc/dump](svc/dump), [svc/install](svc/install), [scripts/dump/](scripts/dump/), [scripts/install/](scripts/install/), `npm run run:dump:*`, `npm run run:install:*`
 
 ---
 
 ### macOS 設定備份 (macOS Defaults Backup)
 
-`env_setup backup` 以 macOS `defaults` / `plutil` 匯出 tracked domains 的偏好設定為 `.plist` snapshot，供重灌或換機後還原；`backup list` 顯示最近一次快照時間與每個 domain 的狀態，`backup import` 還原，`backup init` 建立預設的 domain manifest。
+`env_setup backup` 以 macOS `defaults` / `plutil` 匯出 tracked domains 的偏好設定為 `.plist` snapshot，供重灌或換機後還原；`backup list` 顯示最近一次快照時間與每個 domain 的狀態，`backup import` 還原，`backup init` 建立預設的 domain manifest。同時提供 `scripts/backup/` 與 `npm run run:backup:*` 作為純 Shell 替代方案。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者執行 `env_setup backup init` 建立預設的 domain manifest `~/.config/env_setup/mac_backup_domains.json`。
-2. 使用者執行 `env_setup backup` 匯出 tracked domains；每個 domain 寫成一份 `.plist`，並更新 metadata 的 snapshot timestamp。
-3. 使用者執行 `env_setup backup list` 檢視 latest backup date 與 domain status；缺少 metadata 的 legacy backup 才 fallback 到最新 `.plist` 的 modification time，完全沒有 backup 時顯示 `-`。
-4. 使用者在新機執行 `env_setup backup import` 把 snapshot 寫回 macOS defaults；預設先顯示 current 與 backup 的 diff 再逐一確認，`--yes` 全部同意、`--no-diff` 不顯示 diff。
+1. 使用者執行 `env_setup backup init` (或純腳本 `npm run run:backup:init`) 建立預設的 domain manifest `~/.config/env_setup/mac_backup_domains.json`。
+2. 使用者執行 `env_setup backup` (或純腳本 `npm run run:backup`) 匯出 tracked domains；每個 domain 寫成一份 `.plist`，並更新 metadata 的 snapshot timestamp。
+3. 使用者執行 `env_setup backup list` (或純腳本 `npm run run:backup:list`) 檢視 latest backup date 與 domain status；缺少 metadata 的 legacy backup 才 fallback 到最新 `.plist` 的 modification time，完全沒有 backup 時顯示 `-`。
+4. 使用者在新機執行 `env_setup backup import` (或純腳本 `npm run run:backup:import`) 把 snapshot 寫回 macOS defaults；預設先顯示 current 與 backup 的 diff 再逐一確認，`--yes` 全部同意、`--no-diff` 不顯示 diff。
 
 `核心實體 (Key Entities):` `Backup Domain`, `Backup Manifest`, `Backup Snapshot`
 
-`相關處理器 (Related Handlers):` `env_setup backup`, `env_setup backup list`, `env_setup backup import`, `env_setup backup init`, [svc/backup](svc/backup)
+`相關處理器 (Related Handlers):` `env_setup backup`, `env_setup backup list`, `env_setup backup import`, `env_setup backup init`, [svc/backup](svc/backup), [scripts/backup/](scripts/backup/), `npm run run:backup:*`
 
 ---
 
 ### macOS Codex 移除 (macOS Codex Uninstall)
 
-`env_setup uninstall codex` 以 preview-first workflow 管理 Codex desktop app、per-user CLI、`~/.codex`、Library data 與 matching user launchd services。預設只列出 inspection 時解析完成的 exact targets；只有 `--apply` 才逐項詢問 `[y/N]` 並移除明確同意的 target。
+`env_setup uninstall codex` 以 preview-first workflow 管理 Codex desktop app、per-user CLI、`~/.codex`、Library data 與 matching user launchd services。預設只列出 inspection 時解析完成的 exact targets；只有 `--apply` 才逐項詢問 `[y/N]` 並移除明確同意的 target。同時提供 `scripts/uninstall/codex.sh` 與 `npm run run:uninstall:codex` 作為純 Shell 替代方案。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者先執行 `env_setup uninstall codex`，查看 app、CLI、configuration、cache、preferences、containers 與 launchd targets；此時不會 quit app 或修改檔案。
+1. 使用者先執行 `env_setup uninstall codex` (或純腳本 `npm run run:uninstall:codex`)，查看 app、CLI、configuration、cache、preferences、containers 與 launchd targets；此時不會 quit app 或修改檔案。
 2. `--with-codexbar` 將 `/Applications/CodexBar.app` 納入 scope；`--purge-system` 將 matching `/Library` launchd files 與 `/etc/codex` 納入需要 `sudo` 的 scope。
 3. 使用者加上 `--apply` 後，每個 available target 都必須個別確認。Apply 只使用同一份 immutable snapshot，不重新展開 glob。
 
 `核心實體 (Key Entities):` `Codex Uninstall Plan`, `Exact Target`, `Optional Uninstall Scope`, `launchd Label`
 
-`相關處理器 (Related Handlers):` `env_setup uninstall codex`, `env_setup uninstall codex --apply`, [svc/uninstall](svc/uninstall)
+`相關處理器 (Related Handlers):` `env_setup uninstall codex`, `env_setup uninstall codex --apply`, [svc/uninstall](svc/uninstall), [scripts/uninstall/](scripts/uninstall/), `npm run run:uninstall:codex`
 
 ---
 
 ### macOS 系統稽核與清理 (macOS Audit & Cleanup)
 
-`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/env_setup/data/audit/` (可由 `AUDIT_REPORT_DIR` 覆寫)。
+`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/env_setup/data/audit/` (可由 `AUDIT_REPORT_DIR` 覆寫)。同時提供 `scripts/cleanup/` 與 `npm run run:cleanup` / `npm run run:cleanup:<target>` 作為純 Shell 替代方案。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者先執行 `env_setup cleanup`，查看每個 cleanup item 的 size 與 description；preview 不修改檔案。
-2. 使用者執行 `env_setup cleanup --apply` 後，CLI 才逐項顯示 `[y/N]` confirmation，且只套用明確同意的 item。
+1. 使用者先執行 `env_setup cleanup` (或純腳本 `npm run run:cleanup`)，查看每個 cleanup item 的 size 與 description；preview 不修改檔案。亦可透過 `npm run run:cleanup:<target>` 針對特定類別 (如 `docker`, `brew`, `node` 等) 檢視。
+2. 使用者執行 `env_setup cleanup --apply` (或純腳本加上 `--apply`) 後，CLI 或腳本才逐項顯示 `[y/N]` confirmation，且只套用明確同意的 item。
 3. pm2 在 `0 5 * * 5` (每週五 05:00) 觸發 audit scripts；它們檢查 `LaunchAgents/LaunchDaemons`、登入帳戶、開啟通訊埠與敏感目錄權限，再寫出帶時間戳的報告。
 
 `核心實體 (Key Entities):` `稽核報告 (Audit Report)`, `磁碟垃圾 (Disk Junk)`, `LaunchAgent`, `開啟通訊埠 (Open Port)`
 
-`相關處理器 (Related Handlers):` `env_setup cleanup`, [bin/mac/launch_audit-mac.sh](bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](bin/mac/network_security_audit-mac.sh)
+`相關處理器 (Related Handlers):` `env_setup cleanup`, [bin/mac/launch_audit-mac.sh](bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](bin/mac/network_security_audit-mac.sh), [scripts/cleanup/](scripts/cleanup/), `npm run run:cleanup:*`
 
 ---
 
 ### 網路拓撲與設備掃描 (Network Topology & Device Scan)
 
-`env_setup network` 是統一入口：`network private [target]` 以 `traceroute` + `nmap` 分析本機所連私有網段並產出 `network.topo`；`network target [cidr]` 對指定 IPv4 CIDR 執行 host discovery。
+`env_setup network` 是統一入口：`network private [target]` 以 `traceroute` + `nmap` 分析本機所連私有網段並產出 `network.topo`；`network target [cidr]` 對指定 IPv4 CIDR 執行 host discovery。同時提供 `scripts/network/` 與 `npm run run:network:*` 作為純 Shell 替代方案。
 
 `領域流程 (Domain Flow):`
 
-1. `network private` 先檢查 `traceroute` 與 `nmap`；`network target` 優先使用 `nmap`，缺少時只對 `/24` 或更小的 IPv4 network 使用 bounded concurrent ping fallback。
-2. Go service 判斷每個 hop 是否位於 RFC1918 / CGNAT (`100.64/10`) 段；持續 traceroute 直到遇見公網 IP。
+1. `network private` (或純腳本 `npm run run:network:private`) 先檢查 `traceroute` 與 `nmap`；`network target` (或純腳本 `npm run run:network:target`) 優先使用 `nmap`，缺少時只對 `/24` 或更小的 IPv4 network 使用 bounded concurrent ping fallback。
+2. Go service 或 Shell 腳本判斷每個 hop 是否位於 RFC1918 / CGNAT (`100.64/10`) 段；持續 traceroute 直到遇見公網 IP。
 3. `nmap` 對私有 subnet 進行 host / port discovery；`private` 寫入 topology file，`target` 將 live hosts 印到 stdout。
 
 `核心實體 (Key Entities):` `私有 IP (Private IP)`, `Hop 節點`, `通訊埠掃描結果 (Port Scan Result)`, `網路拓樸報告 (Network Topology Report)`
 
-`相關處理器 (Related Handlers):` `env_setup network private`, `env_setup network target`, [svc/network](svc/network)
+`相關處理器 (Related Handlers):` `env_setup network private`, `env_setup network target`, [svc/network](svc/network), [scripts/network/](scripts/network/), `npm run run:network:*`
 
 ---
 
@@ -220,44 +220,76 @@ flowchart TD
 ### 3. 硬體 / 系統偵測
 
 ```bash
+# Go CLI
 go build -o ~/.local/bin/env_setup .
 env_setup system show
 env_setup system cpu show
 env_setup system network show
 env_setup system disk verify /Volumes/backup
+
+# 純 Shell 腳本
+npm run run:system:show
+npm run run:system:cpu
+npm run run:system:network
+npm run run:system:disk-verify -- /Volumes/backup
 ```
 
 ### 3.1 同步開發環境清單
 
 ```bash
+# Go CLI
 env_setup dump mac
 env_setup dump vscode-extension
 env_setup dump antigravity-extension
 env_setup install vscode-extension
 env_setup install antigravity-extension
+
+# 純 Shell 腳本
+npm run run:dump:mac
+npm run run:dump:vscode
+npm run run:dump:antigravity
+npm run run:install:vscode
+npm run run:install:antigravity
 ```
 
 ### 3.2 macOS Codex 移除
 
 ```bash
+# Go CLI
 env_setup uninstall codex                            # preview only
 env_setup uninstall codex --apply                    # 逐項確認
 env_setup uninstall codex --with-codexbar            # preview CodexBar scope
 env_setup uninstall codex --purge-system             # preview sudo scope
+
+# 純 Shell 腳本
+npm run run:uninstall:codex                          # preview only
+npm run run:uninstall:codex -- --apply               # 逐項確認
 ```
 
 ### 3.3 裝置層 I/O 探測
 
 ```bash
+# Go CLI
 env_setup io probe
 env_setup io probe --bench --dir /Volumes/backup
+
+# 純 Shell 腳本
+npm run run:io:probe
+npm run run:io:bench -- /Volumes/backup
 ```
 
 ### 4. macOS 稽核與清理
 ```bash
+# Go CLI
 go build -o ~/.local/bin/env_setup .
 env_setup cleanup
 env_setup cleanup --apply
+
+# 純 Shell 腳本
+npm run run:cleanup                                  # preview all
+npm run run:cleanup -- --apply                       # 逐項確認清理
+npm run run:cleanup:docker
+
 ./bin/mac/launch_audit-mac.sh
 ./bin/mac/login_audit-mac.sh
 ```
@@ -265,19 +297,31 @@ env_setup cleanup --apply
 ### 4.1 macOS 設定備份
 
 ```bash
+# Go CLI
 env_setup backup
 env_setup backup list    # 顯示 latest backup date 與 domain status
 env_setup backup import
 env_setup backup init
+
+# 純 Shell 腳本
+npm run run:backup
+npm run run:backup:list
+npm run run:backup:import
+npm run run:backup:init
 ```
 
 ### 5. 網路掃描
 
 ```bash
+# Go CLI
 go build -o ~/.local/bin/env_setup .
 env_setup network private                         # traceroute 至 8.8.8.8，產出 ./network.topo
 env_setup network private 1.1.1.1 --output topology.txt
 env_setup network target 192.168.1.0/24
+
+# 純 Shell 腳本
+npm run run:network:private
+npm run run:network:target -- 192.168.1.0/24
 ```
 
 ### 6. macOS 固定區域網路 IP
