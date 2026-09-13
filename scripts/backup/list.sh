@@ -91,7 +91,7 @@ fi
 
 if [ -z "${latest}" ] || [ "${latest}" = "-" ]; then
     if [ -d "${BACKUP_DIR}" ]; then
-        newest_plist=$(find "${BACKUP_DIR}" -maxdepth 1 -name "*.plist" -type f -print0 2>/dev/null | xargs -0 ls -t 2>/dev/null | head -n 1 || true)
+        newest_plist=$(ls -1t "${BACKUP_DIR}"/*.plist 2>/dev/null | head -n 1 || true)
         if [ -n "${newest_plist}" ] && [ -f "${newest_plist}" ]; then
             latest=$(stat -f "%Sm" -t "%Y-%m-%d %H:%M:%S %z" "${newest_plist}" 2>/dev/null | sed -E 's/([+-][0-9]{2})([0-9]{2})$/\1:\2/' || echo "-")
         fi
