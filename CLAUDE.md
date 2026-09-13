@@ -133,6 +133,8 @@
 │   ├── git-secret.sh / git.sh / git.md
 │   ├── vim.sh / vim.md
 │   ├── webmin.sh
+│   ├── test_bash_plugin.sh        # .bash_plugin 區塊替換單元測試
+│   ├── test_docker_install.sh     # Docker 容器隔離安裝與命令驗證測試
 │   ├── Brewfile
 │   ├── disk/                      # mount_disk.sh / mount_disk_by_fstab.sh
 │   └── README.md
@@ -247,6 +249,7 @@ Root Go CLI 以 `go build -o ~/.local/bin/env_setup .` 建置並安裝（`~/.loc
 - `./bin/mac/launch_audit-mac.sh` 驗證 audit 報告輸出
 - `shellcheck bin/<area>/*.sh` (若已安裝)
 - `git grep -n 'smain\|project_setup'` 確認無殘留敘述
+- `npm run test:docker` 於隔離的 Ubuntu 容器中驗證完整 toolchain 安裝與 CLI 建置（需本機 Docker 或 Colima 運作中）
 
 ### CI/CD
 
