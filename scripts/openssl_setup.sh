@@ -4,7 +4,9 @@ set -euo pipefail
 openssl_ver="3.0.13"
 openssl="openssl-${openssl_ver}"
 
-wget https://www.openssl.org/source/${openssl}.tar.gz
+# 用 curl 而非 wget: 部分 macOS 的 wget build 找不到 CA bundle, 會在憑證驗證處直接失敗。
+curl -fL --proto '=https' --tlsv1.2 -O \
+    "https://www.openssl.org/source/${openssl}.tar.gz"
 
 tar zxvf ${openssl}.tar.gz
 

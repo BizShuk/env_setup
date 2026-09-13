@@ -30,7 +30,7 @@ NC='\033[0m' # No Color
 # ----------------------------------------------------------------------------
 # 報告路徑 (Report Paths)
 # ----------------------------------------------------------------------------
-REPORT_DIR="${AUDIT_REPORT_DIR:-$HOME/.config/env_setup/data}"
+REPORT_DIR="${AUDIT_REPORT_DIR:-$HOME/.config/env_setup/data/audit}"
 mkdir -p "$REPORT_DIR"
 
 # ----------------------------------------------------------------------------

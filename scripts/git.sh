@@ -14,7 +14,9 @@ tmpdir=$(mktemp -d)
 
 pushd "$tmpdir" || exit
 
-wget https://www.kernel.org/pub/software/scm/git/"${GIT_DISTRIBUTION}".tar.gz
+# 用 curl 而非 wget: 部分 macOS 的 wget build 找不到 CA bundle, 會在憑證驗證處直接失敗。
+curl -fL --proto '=https' --tlsv1.2 -O \
+    https://www.kernel.org/pub/software/scm/git/"${GIT_DISTRIBUTION}".tar.gz
 tar zxf "${GIT_DISTRIBUTION}".tar.gz
 rm "${GIT_DISTRIBUTION}.tar.gz"
 cd "${GIT_DISTRIBUTION}" || exit

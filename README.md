@@ -120,7 +120,7 @@
 
 ### macOS 系統稽核與清理 (macOS Audit & Cleanup)
 
-`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/env_setup/data/` (可由 `AUDIT_REPORT_DIR` 覆寫)。
+`env_setup cleanup` 提供互動式磁碟清理；`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/env_setup/data/audit/` (可由 `AUDIT_REPORT_DIR` 覆寫)。
 
 `領域流程 (Domain Flow):`
 
