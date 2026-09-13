@@ -25,16 +25,20 @@ IMAGE_NAME="${DOCKER_TEST_IMAGE:-ubuntu:24.04}"
 
 # Step 3: Register trap for automatic cleanup on exit or termination
 cleanup() {
+    local exit_code=$?
     echo "Cleaning up container: ${CONTAINER_NAME}..."
     docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+    exit "${exit_code}"
 }
-trap cleanup EXIT INT TERM
+trap cleanup EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 
-# Step 4: Start isolated container mounting repo to /workspace
+# Step 4: Start isolated container mounting repo read-only to /repo
 echo "Starting test container: ${CONTAINER_NAME} (${IMAGE_NAME})..."
 docker run -d \
     --name "${CONTAINER_NAME}" \
-    -v "${REPO_DIR}:/workspace" \
+    -v "${REPO_DIR}:/repo:ro" \
     -w /workspace \
     -e DEBIAN_FRONTEND=noninteractive \
     "${IMAGE_NAME}" \
@@ -45,6 +49,9 @@ echo "Running installation and verification in container..."
 docker exec -i "${CONTAINER_NAME}" bash <<'EOF'
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
+
+# Copy repository from read-only mount to internal container workspace
+mkdir -p /workspace && cp -a /repo/. /workspace/ && cd /workspace
 
 echo "=== Phase 1: Installing base prerequisites ==="
 apt-get update
@@ -110,6 +117,7 @@ echo "=== Phase 4: Asserting installed commands ==="
 echo -n "Checking go: " && go version
 echo -n "Checking node: " && node -v
 echo -n "Checking npm: " && npm -v
+command -v pnpm >/dev/null && echo -n "Checking pnpm: " && pnpm -v || true
 echo -n "Checking git: " && git --version
 echo -n "Checking vim: " && vim --version | head -n 1
 echo "Checking env_setup system os show:"
