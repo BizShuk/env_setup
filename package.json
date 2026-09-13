@@ -64,6 +64,52 @@
     "run:webmin": "./scripts/webmin.sh",
     "run:mount-disk": "bash scripts/disk/mount_disk.sh",
     "run:mount-disk-fstab": "bash scripts/disk/mount_disk_by_fstab.sh",
-    "run:pm2-apply": "pm2 apply"
+    "run:pm2-apply": "pm2 apply",
+
+    "run:dump:mac": "bash scripts/dump/mac.sh",
+    "run:dump:vscode": "bash scripts/dump/vscode.sh",
+    "run:dump:antigravity": "bash scripts/dump/antigravity.sh",
+
+    "run:install:vscode": "bash scripts/install/vscode.sh",
+    "run:install:antigravity": "bash scripts/install/antigravity.sh",
+
+    "run:backup": "bash scripts/backup/backup.sh",
+    "run:backup:list": "bash scripts/backup/list.sh",
+    "run:backup:import": "bash scripts/backup/import.sh",
+    "run:backup:init": "bash scripts/backup/init.sh",
+
+    "run:cleanup": "bash scripts/cleanup/all.sh",
+    "run:cleanup:system-log": "bash scripts/cleanup/system_log.sh",
+    "run:cleanup:system-tmp": "bash scripts/cleanup/system_tmp.sh",
+    "run:cleanup:cache-user": "bash scripts/cleanup/cache_user.sh",
+    "run:cleanup:docker": "bash scripts/cleanup/docker.sh",
+    "run:cleanup:brew": "bash scripts/cleanup/brew.sh",
+    "run:cleanup:node": "bash scripts/cleanup/node.sh",
+    "run:cleanup:python": "bash scripts/cleanup/python.sh",
+    "run:cleanup:go": "bash scripts/cleanup/go.sh",
+    "run:cleanup:ai": "bash scripts/cleanup/ai.sh",
+    "run:cleanup:browser": "bash scripts/cleanup/browser.sh",
+    "run:cleanup:app": "bash scripts/cleanup/app.sh",
+
+    "run:system:show": "bash scripts/system/show.sh",
+    "run:system:cpu": "bash scripts/system/cpu.sh",
+    "run:system:memory": "bash scripts/system/memory.sh",
+    "run:system:disk": "bash scripts/system/disk.sh",
+    "run:system:network": "bash scripts/system/network.sh",
+    "run:system:os": "bash scripts/system/os.sh",
+    "run:system:gpu": "bash scripts/system/gpu.sh",
+    "run:system:display": "bash scripts/system/display.sh",
+    "run:system:usb": "bash scripts/system/usb.sh",
+    "run:system:input": "bash scripts/system/input.sh",
+    "run:system:audio": "bash scripts/system/audio.sh",
+    "run:system:disk-verify": "bash scripts/system/disk_verify.sh",
+
+    "run:network:private": "bash scripts/network/private.sh",
+    "run:network:target": "bash scripts/network/target.sh",
+
+    "run:uninstall:codex": "bash scripts/uninstall/codex.sh",
+
+    "run:io:probe": "bash scripts/io/probe.sh",
+    "run:io:bench": "bash scripts/io/bench.sh"
   }
 }
