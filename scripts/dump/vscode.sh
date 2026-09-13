@@ -26,7 +26,10 @@ TEMP_FILE="$(mktemp "${TARGET_FILE}.tmp.XXXXXX")"
 ERR_FILE="$(mktemp "${TARGET_FILE}.err.XXXXXX")"
 trap 'rm -f "${TEMP_FILE}" "${ERR_FILE}"' EXIT
 
-if ! code --list-extensions 2>"${ERR_FILE}" | tr -d '\r' | grep -v '^[[:space:]]*$' | sort -u > "${TEMP_FILE}"; then
+if ! code --list-extensions 2>"${ERR_FILE}" \
+    | tr -d '\r' \
+    | { grep -v '^[[:space:]]*$' || true; } \
+    | sort -u > "${TEMP_FILE}"; then
     cat "${ERR_FILE}" >&2
     echo "Error: failed to list VS Code extensions." >&2
     exit 1
