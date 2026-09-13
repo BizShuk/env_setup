@@ -31,6 +31,7 @@
 │   │   └── antigravity-extension.go # Antigravity extensions manifest
 │   ├── install/
 │   │   ├── install.go             # install parent command
+│   │   ├── vscode-extension.go    # VS Code extension restore/sync
 │   │   └── antigravity-extension.go # Antigravity extension restore/sync
 │   ├── uninstall/
 │   │   ├── uninstall.go           # uninstall parent command
@@ -63,6 +64,7 @@
 │       └── audio.go / audioShow.go
 ├── model/cleanup/                 # cleanup preview 純資料模型
 ├── svc/runner.go                  # shared go-cmd lifecycle、byte-preserving I/O、cancellation
+├── svc/antigravity.go             # Antigravity extensions directory 解析 (唯一 owner)
 ├── svc/ownership_test.go          # runner ownership 契約 (單一 concrete implementation)
 ├── svc/cleanup/                   # discovery、size、exact-target apply
 ├── svc/backup/                    # backup service (與 macOS defaults/plutil 互動 + 邏輯)
@@ -102,8 +104,8 @@
 │   │   ├── snippets/
 │   │   ├── agy-ide_extension_list.txt / vscode_extension_list.txt
 │   │   └── README.md
-│   ├── bin/go -> ../utils/go      # Go 版本鎖版 wrapper (machine-local, gitignored)
-│   ├── utils/go -> ~/.local/go<version>/bin/go
+│   ├── go -> ~/.local/go<version>/bin/go  # scripts/go.sh 建立的鎖版 symlink (machine-local, bin/.gitignore 排除)
+│   ├── config/ / share/           # machine-local 執行期資料 (bin/.gitignore 排除)
 │   ├── 根目錄 helpers             # 詳見 docs/bin_index.md
 │   │   ├── json / git_signing / find_symbolic_link
 │   │   ├── iconv_big5_utf8 / file_encoding / reverse_ln
@@ -138,7 +140,6 @@
 │   │   └── applescript/           # toggleFn.scpt
 │   ├── sysctl/pf.conf             # PF firewall 樣板 (其餘樣板見 docs/templates/sysctl/)
 │   └── README.md
-├── plans/                         # 進行中計畫 (YYYY-MM-DD-<topic>.md)；目前為空
 ├── docs/
 │   ├── bin_index.md               # bin/ 完整索引 (單一擁有者)
 │   ├── terminology.md             # 術語表
@@ -162,7 +163,7 @@
 - Build tool: `go build` (root CLI)；shell scripts 直接執行
 - Key dependencies:
     - `homebrew 5.0.3` (`scripts/brew.sh`)
-    - `go 1.26.6` + `golangci-lint v1.64.5` (`scripts/go.sh`)
+    - `go 1.26.6` + `golangci-lint v2.13.2` (`scripts/go.sh`)
     - `traceroute` / `nmap` (網路掃描前置)
     - `system_profiler` (macOS 硬體偵測)
     - `lshw` / `lsblk` (Linux 硬體偵測)
@@ -177,11 +178,11 @@
 - **`package.json` 是唯一任務清單，CI 只決定何時跑**：`npm run ci` = `lint` → `test` → `vuln` → `build`，本機與 GitHub Actions 執行完全相同的鏈；workflow 只負責 checkout、裝 toolchain 與呼叫它，不重述任何指令。`vuln` 以 `go run golang.org/x/vuln/cmd/govulncheck@latest` 執行，不進相依圖。Go 版本由 `go-version-file: go.mod` 決定，因此 `toolchain` directive 的 stdlib 修補版本在 CI 一併生效。排程每週重跑一次，讓`新公布`的 advisory 不必等到有人推 commit 才浮現。
 - **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 與常駐任務，namespace = `Local`；`bin/` script 以 `./bin/<area>/<tool>` 全路徑註冊，`PATH` 內的 binary (`go`、`env_setup`) 以 bare name + `args` 陣列註冊。
 - **macOS 稽核與 cleanup 分流**：`env_setup cleanup` 擁有 cleanup catalog、preview 與逐項 confirmation；`bin/mac/*_audit-mac.sh` 保留 audit reports；跨平台硬體偵測由 `svc/system` 擁有。
-- **Cobra root 是唯一 Go CLI 入口**：`main.go` 初始化 gosdk config，`cmd/root.go` 組合 `cleanup`、`backup`、`install`、`uninstall`、`dump`、`system` 與 `network` subcommands；domain I/O 分別下沉至對應的 `svc/<domain>/`。
+- **Cobra root 是唯一 Go CLI 入口**：`main.go` 初始化 gosdk config，`cmd/root.go` 組合 `cleanup`、`backup`、`install`、`uninstall`、`dump`、`system`、`network` 與 `io` subcommands；domain I/O 分別下沉至對應的 `svc/<domain>/`。
 - **Cobra command 一個檔案一個 command**：檔名採 package-relative command path，不重複 package prefix。Package/root command 使用 `<package>.go`，direct child 使用 `<child>.go`，更深層 command 串接剩餘 path（例如 `cmd/backup/import.go`、`cmd/system/osShow.go`）。Host app 使用 constructor injection 建立 fresh command tree，避免 package-level flag state 在 tests 間殘留。
 - **external process lifecycle 由 shared go-cmd adapter 擁有**：`svc.Runner` 是 cleanup、dump、install、network、system 與 uninstall production runners 的唯一 concrete implementation；各 domain 保留 consumer-defined small interface。Adapter 透過 go-cmd 管理 process group、exit status 與 cancellation，並以 `BeforeExec` 維持 byte-preserving stdin/stdout/stderr。
 - **backup metadata 是 snapshot time owner**：`backup list` 的 latest backup date 讀取 `backup.meta.json.timestamp`；legacy backup 缺少 metadata 時才 fallback 至最新 `.plist` modification time，沒有任何 backup 則顯示 `-`。
-- **manifest sync 是 Go-native service**：`env_setup dump mac|vscode-extension|antigravity-extension` 擁有 manifest export；`env_setup install antigravity-extension` 以 tracked manifest 安裝 extensions，並在移除 unlisted extensions 前要求 `y/Y` confirmation。IDE dump output 在完整取得後排序、去重並 atomic replace；舊 extension shell adapters 與 root symlinks 不再是 runtime boundary。
+- **manifest sync 是 Go-native service**：`env_setup dump mac|vscode-extension|antigravity-extension` 擁有 manifest export；`env_setup install vscode-extension|antigravity-extension` 以 tracked manifest 安裝 extensions，並在移除 unlisted extensions 前要求 `y/Y` confirmation。IDE dump output 在完整取得後排序、去重並 atomic replace；舊 extension shell adapters 與 root symlinks 不再是 runtime boundary。
 - **IDE CLI 只作用在本機**：`svc.Runner` 從 child environment 移除 `VSCODE_IPC_HOOK_CLI`，避免在 IDE integrated terminal 內執行時被轉送到該 window（Remote-SSH 情境下會 install 失敗）。`svc.AntigravityExtensionsDir()` 是 extensions directory 的單一 owner：只跑 Remote-SSH server 的機器解析為 `~/.antigravity-ide-server/extensions`，desktop 機器維持 CLI 預設，`AGY_EXTENSIONS_DIR` 可覆寫；`dump` 與 `install antigravity-extension` 共用同一個解析結果。
 - **system probes 與 disk verification 是 Go-native services**：`svc/system` 透過 injected `Runner` 執行 platform commands，並由 information-specific Go files 解析輸出；不依賴 repo path 或 shell adapters。`system show` 聚合全部 probes，`system <information> show` 執行單一 probe；`system disk verify <volume-path>` 在 macOS 以 `diskutil` + F3 驗證 removable media。
 - **I/O probe 是裝置層、跨平台的 Go-native service**：`svc/io` 以 `lsblk -J` + sysfs（Linux）或 `diskutil -plist` + `plutil`（macOS）列出每顆實體磁碟的 transport、USB id/link、host driver、queue depth、write cache、rotational 與 mounts；`--bench` 以 O_DIRECT / F_NOCACHE 略過 page cache，量循序寫入、4 KiB 同步寫入（Linux O_DSYNC、macOS F_FULLFSYNC）與 4 KiB 隨機讀取。`device_lsblk.go` / `device_diskutil.go` 由 `goos` 執行期分派（刻意不用 `_linux` / `_darwin` 檔名，否則會被當成 build constraint 而無法在對方平台測試）；只有 open flag 差異的 `bench_linux.go` / `bench_darwin.go` 才用 build tag。這支取代了 `cloud/scripts/usb_probe.sh`。
@@ -193,16 +194,17 @@
 
 | 業務領域 (Domain)                                 | 套件/模組 (Package/Module)                                                                                                | 進入點 (Entry Point)                                                             |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| 機器初始化與開發工具安裝 (Bootstrap & Tooling)    | `scripts/`, `bin/bash/settings.sh`                                                                                        | `./scripts/mac.sh`, `./scripts/ubuntu.sh`, `./scripts/go.sh`                     |
-| 使用者與 IDE 設定軟連結 (User Config & IDE Link)  | `run.sh`, `bin/bash/`, `bin/vscode/`                                                                                      | `./run.sh` (含 `link_ide_config()` 函式)                                         |
+| 機器初始化與開發工具安裝 (Machine Bootstrap & Tooling Install) | `scripts/`, `bin/bash/settings.sh`                                                                                        | `./scripts/mac.sh`, `./scripts/ubuntu.sh`, `./scripts/go.sh`                     |
+| 使用者與 IDE 設定軟連結 (User Config & IDE Symlink Bootstrap) | `run.sh`, `bin/bash/`, `bin/vscode/`                                                                                      | `./run.sh` (含 `link_ide_config()` 函式)                                         |
 | 硬體與系統狀態偵測 (Hardware & System Probe)      | `cmd/system/`, `svc/system/`                                                                                               | `env_setup system show`, `env_setup system <information> show`, `env_setup system disk verify <volume-path>` |
-| 開發環境清單同步 (Development Manifest Sync)      | `cmd/dump/`, `svc/dump/`, `cmd/install/`, `svc/install/`, `scripts/Brewfile`, `bin/vscode/*_extension_list.txt`             | `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install antigravity-extension` |
+| 開發環境清單同步 (Development Manifest Sync) | `cmd/dump/`, `svc/dump/`, `cmd/install/`, `svc/install/`, `scripts/Brewfile`, `bin/vscode/*_extension_list.txt`             | `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install vscode-extension`, `env_setup install antigravity-extension` |
+| macOS 設定備份 (macOS Defaults Backup)            | `cmd/backup/`, `svc/backup/`                                                                                              | `env_setup backup`, `env_setup backup list`, `env_setup backup import`, `env_setup backup init` |
 | macOS Codex 移除 (macOS Codex Uninstall)          | `cmd/uninstall/`, `svc/uninstall/`                                                                                        | `env_setup uninstall codex`, `env_setup uninstall codex --apply`                 |
 | macOS 系統稽核與清理 (macOS Audit & Cleanup)      | `cmd/cleanup/`, `model/cleanup/`, `svc/cleanup/`, `bin/mac/*_audit-mac.sh`                                                | `env_setup cleanup`, `env_setup cleanup --apply`                                 |
-| 網路與設備掃描 (Network & Device Scan)            | `cmd/network/`, `svc/network/`                                                                                            | `env_setup network private [target]`, `env_setup network target [cidr]`          |
+| 網路拓撲與設備掃描 (Network Topology & Device Scan) | `cmd/network/`, `svc/network/`                                                                                            | `env_setup network private [target]`, `env_setup network target [cidr]`          |
 | 裝置層 I/O 探測 (Device I/O Probe)                | `cmd/io/`, `svc/io/`                                                                                                      | `env_setup io probe`, `env_setup io probe --bench [--dir DIR]`                   |
 | 開發者輔助工具 (Developer Helpers)                | `bin/` 根目錄 + `bin/bash/.bash_aliases`                                                                                  | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                        |
-| 觀測排程與稽核報告 (Observability Cron & Reports) | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                                                                          | `pm2 start ecosystem.config.js`                                                  |
+| 觀測排程與稽核報告 (Observability Cron & Audit Reports) | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                                                                          | `pm2 start ecosystem.config.js`                                                  |
 
 ## 開發指南 (Development Guide)
 

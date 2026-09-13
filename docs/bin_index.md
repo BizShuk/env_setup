@@ -8,7 +8,7 @@
 | ----------------------------- | ----------- | --------------------------------------------------------------------- |
 | `settings.sh`                 | 來源檔      | 共用環境變數入口 (`USER_BIN`、`REPO_DIR`、`OS`、`ARCH`)               |
 | `.bashrc`                     | dotfile     | 互動式 bash 啟動                                                      |
-| `.bash_aliases`               | dotfile     | `claude`、`codex`、`codexm`、`claudep`、`claudew-s`、`claudew-b`、`claudew2` 等 alias；token 變數由 `~/.bash_local` 提供 |
+| `.bash_aliases`               | dotfile     | env_setup 自有 alias；先 source `~/.bash_local` 取得 token 變數, 再 source `~/projects/ai/cc-plugin/scripts/aliases.sh` 取得 LLM CLI alias (`claude*` / `codex*`)，後者為該組 alias 的唯一擁有者 |
 | `.bash_function`              | dotfile     | 共用 shell function                                                   |
 | `.bash_logout`                | dotfile     | logout hook                                                           |
 | `.gitconfig` / `.gitmessage`  | dotfile     | git 設定 / commit 樣板                                                |
@@ -79,7 +79,7 @@ Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview�
 | `generator_pem.sh`            | 憑證              | 產生 PEM                                                       |
 | `backup` / `backupSync`       | 備份              | 備份單檔 / 同步備份                                              |
 | `ssoLogin.sh` / `ssoLogin_faas.sh` | 登入          | SSO / FaaS 登入                                                |
-| `claudew` / `claudem`         | Claude CLI 包裝 | alias 已升格為實體腳本（commit `38e3556`），引用 `~/.bash_local` 之 token env var；為唯一入口 |
+| `claudew` / `claudem`         | Claude CLI 包裝 | 已由 alias 升格為實體腳本（commit `38e3556`），引用 `~/.bash_local` 之 token env var；為這兩個指令的唯一入口 |
 | `ssh_config` / `sshd_config`  | SSH               | ssh client / server 設定                                        |
 | `ssh_keygen` / `ssh_key_compare` | SSH            | 產生 / 比對 ssh key（Phase 7.2 `ssh_keygen` 改用 `git config --global user.email` + fallback `noreply@local`） |
 | `ssh.md`                      | 文件             | 個人 notes                                                      |
@@ -95,14 +95,13 @@ Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview�
 
 ### 5.1 Go toolchain 鎖版 (Phase 7.7)
 
-> `bin/bin/` 與 `bin/utils/` 為 Go 版本鎖版 wrapper, 透過 symlink 鏈固定到 `~/.local/go1.26.6.darwin-arm64/bin/go`, 避免系統 Go 切換造成專案編譯錯亂。
+> `bin/go` 為 Go 版本鎖版 symlink, 由 `scripts/go.sh` 以 `ln -sf "$GO_ROOT"/bin/go "$USER_BIN"/go` 建立, 固定到 `GO_VER` 指定的 tarball, 避免系統 Go 切換造成專案編譯錯亂。
 
 | 路徑 | 內容 |
 | --- | --- |
-| `bin/bin/go` | symlink → `../utils/go` |
-| `bin/utils/go` | symlink → `${HOME}/.local/go1.26.6.darwin-arm64/bin/go` |
+| `bin/go` | symlink → `${HOME}/.local/go${GO_VER}.<os>-<arch>/bin/go` |
 
-> 兩個 symlink 由 `bin/.gitignore` 排除（machine-local），換機後需自行重建。
+> 此 symlink 由 `bin/.gitignore` 排除（machine-local）；換機或升版後重跑 `scripts/go.sh` 即重建, 指向的版本與 `go.sh` 的 `GO_VER` 一致。
 
 > Phase 7 已刪 dead reference：`goswitch`, `bytedance_setup.sh`, `git-secret`, `system_link`, `system_performance.sh`, `raspi-config`, `system_service`, `network_topology_scan.sh`。
 > 2026-07-31 (commit `7e9b76e`) 再刪：`check_alive`, `check_service`, `listen_port`, `disk_analysis-mac.sh`, `list_big_files.sh`。

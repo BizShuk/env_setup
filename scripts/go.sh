@@ -51,6 +51,18 @@ ln -sf "$GO_ROOT"/bin/go "$USER_BIN"/go
 
 
 
-# golangci linter
-curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.64.5
+# golangci linter (remove legacy v1 before installing v2+)
+GOPATH_BIN="$(go env GOPATH)/bin"
+if [ -x "${GOPATH_BIN}/golangci-lint" ]; then
+    LINT_VER="$("${GOPATH_BIN}/golangci-lint" --version 2>/dev/null || true)"
+    if ! echo "${LINT_VER}" | grep -qE "version (v)?2\."; then
+        echo "Removing legacy golangci-lint (${LINT_VER})..."
+        rm -f "${GOPATH_BIN}/golangci-lint"
+        rm -rf "${HOME}/Library/Caches/golangci-lint" "${HOME}/.cache/golangci-lint"
+    fi
+fi
+rm -f "${GOPATH_BIN}/golangci-lint-v2"
+
+GOLANGCI_LINT_VER=${GOLANGCI_LINT_VER:-v2.13.2}
+curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b "${GOPATH_BIN}" "${GOLANGCI_LINT_VER}"
 ln -sf "${HOME}/bin/.golangci.yml" ~/

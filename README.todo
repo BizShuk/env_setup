@@ -4,11 +4,11 @@
 - [x] replace `bin/system/` shell adapters with Go-native `env_setup system` probes；rehome non-information tools and remove the folder @2026-07-30_13:15:35 @Completed
 - [x] add `env_setup system show` and individual `system <information> show` Cobra commands @2026-07-30_12:22:59 @Completed
 - [x] merge three mac cleanup scripts into `env_setup cleanup`; preview 列出 size/description，`--apply` 逐項 confirmation @2026-07-30_11:47:42 @Completed
-- [x] 執行 `plans/2026-07-08-env-setup-structural-cleanup.md` — env_setup 結構整理 (truthful docs / 去重 / sanitization / scalability / bugfix) @2026-07-09_16:55:00 @Completed
+- [x] 執行 `docs/specs/2026-07-08-env-setup-structural-cleanup.md` — env_setup 結構整理 (truthful docs / 去重 / sanitization / scalability / bugfix) @2026-07-09_16:55:00 @Completed
 
 ## <structural-cleanup>
 
-> 對應 `plans/2026-07-08-env-setup-structural-cleanup.md`。
+> 對應 `docs/specs/2026-07-08-env-setup-structural-cleanup.md`。
 > 體檢後新增項目: (a) `bin/system/system_info:8` BASE_DIR bug；(b) `bin/system/README.md` 標題錯置 (寫「安全性稽核」, 實為「硬體偵測」)；(c) `run.sh` 與 `bin/system/system_link` 之目標路徑分歧 (`./tmp/` vs `./config/`)；(d) 23 個未列入原 plan 的 `bin/` 入口 (見 `docs/bin_index.md`)；(e) `pkg/linux/*.md` 7 份 ubuntu 筆記需搬遷；(f) `bin/scan_target_network` 為第三個 network scanner；(g) `bin/system/brew_bundle_dump` 與 `bin/mac/mac_cleanup` 都硬編 Brewfile 路徑。
 
 - [x] Phase 2 — 安全化 (sanitize) @2026-07-09_16:50:00 @Completed @<structural-cleanup>
@@ -36,7 +36,7 @@
     - `bin/mac/disk_analysis-mac.sh` 仍能寫出 markdown 報告
     - `bin/network/scan_network.sh --mode=topology-no-scan` 可用, 產出拓樸報告
     - shellcheck 未安裝於本機, 跳過
-    - `git grep 'cmd/'` / `git grep 'project_setup'` / `git grep 'smain'` 殘留僅在歷史歸檔 (CLAUDE.md / README.todo / plans/2026-05-22 ARCHIVED 標頭), **無活躍引用**
+    - `git grep 'cmd/'` / `git grep 'project_setup'` / `git grep 'smain'` 殘留僅在歷史歸檔 (CLAUDE.md / README.todo / 已歸檔並移除的 2026-05-22 plan 標頭), **無活躍引用**
 
 ## Open Questions
 
@@ -81,14 +81,14 @@
     - 修改 `CLAUDE.md` 移除 Cobra / logrus 依賴；同步目錄結構
     - 改寫 `specs/20260217-fix-agent-symlink.md` 為 `20260217-agent-dir-rename.md`
     - 標 `specs/20260218-monitoring-system-update.md` 為 `OUT_OF_SCOPE` (本 repo 不含 devops)
-    - `plans/2026-05-22-*.md`, `plans/2026-05-24-*.md` 標 `## ARCHIVED`
+    - 2026-05-22 / 2026-05-24 兩份 plan 標 `## ARCHIVED` (檔案其後已移除)
     - 修正 `bin/system/README.md` 標題與內容
 
 - [x] Phase 7 — 閉環 (closure) @2026-07-15_12:30:00 @Completed @<structural-cleanup>
     - 刪除 `bin/network_topology_scan.sh` (root symlink) 與 `bin/system/network_topology_scan.sh` (source via `git rm`)；dispatcher 為唯一入口
     - `bin/ssh_keygen` Phase 7.2 ROLLED BACK 2026-07-15 → hardcode `biz.shuk@gmail.com`；保留 `. "$SCRIPT_DIR/settings.sh"` 路徑修正為獨立 bug fix
     - `bin/bash/.gitconfig` Phase 7.3 ROLLED BACK 2026-07-15 → 復原 `email = biz.shuk@gmail.com`（使用者決定: `.gitconfig` 為個人層級, tracked repo 可含個人 email）
-    - `pkg/mac/README.md` Phase 7.5 REVISED 2026-07-15 → 拆分: 目錄簡介 (`pkg/mac/README.md`, 約 1.5KB) + reference `specs/2026-07-15-macos-backup-checklist.md` (59KB checklist)
+    - `pkg/mac/README.md` Phase 7.5 REVISED 2026-07-15 → 拆分: 目錄簡介 (`pkg/mac/README.md`, 約 1.5KB) + reference `docs/specs/2026-07-15-macos-backup-checklist.md` (59KB checklist)
     - 從 `.gitmodules` 移除 `pkg/ctags-5.8/` (URL 404, scripts 仍 brew fallback)
-    - `docs/bin_index.md` 補 `bin/bin/` + `bin/utils/` Go wrapper 索引；移除 dead reference
-    - 對應 audit: `plans/2026-07-15-env-setup-plan-revision.md`
+    - `docs/bin_index.md` 補 Go wrapper 索引；移除 dead reference (當時的 `bin/bin/` + `bin/utils/` 鏈其後已簡化為 `scripts/go.sh` 建立的單一 `bin/go` symlink)
+    - 對應 audit: `docs/specs/2026-07-15-env-setup-plan-revision.md`

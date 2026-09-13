@@ -12,8 +12,11 @@
 - `產出 macOS 安全稽核報告 (Generate macOS security audit report)` — 開發者手動跑 `bin/mac/{launch_audit,login_audit,network_security_audit}-mac.sh`，或由 pm2 週五 05:00 自動觸發，產出 markdown 報告。
 - `清理 macOS 磁碟垃圾 (Clean macOS junk)` — 開發者執行 `env_setup cleanup` 檢視 `/private/var/log`、`~/Library/Caches`、`~/.Trash`、舊 Time Machine snapshots 的可回收空間，再以 `--apply` 逐項確認後刪除。
 - `掃描本機所連私有網路拓樸 (Scan private network topology)` — 開發者執行 `env_setup network private [target]`，traceroute 走到第一個公網 hop，再依 public-to-local 順序對私有 `/24` subnets 跑 nmap。
-- `匯出 / 還原套件清單 (Dump / restore packages)` — 開發者執行 `env_setup dump mac|vscode|antigravity`，分別更新 Brewfile、VS Code extensions 與 Antigravity extensions manifests。
-- `排程 (Schedule)` — pm2 讀 `ecosystem.config.js` 註冊 `Golang Clean Cache`、`Disk Analysis`、`Launch Audit`、`Login Audit` (cron 週五) 與 `Port Listenor` / `File Watcher` (常駐)。
+- `匯出 / 還原套件清單 (Dump / restore packages)` — 開發者執行 `env_setup dump mac|vscode-extension|antigravity-extension`，分別更新 Brewfile、VS Code extensions 與 Antigravity extensions manifests；反向以 `env_setup install vscode-extension|antigravity-extension` 從 manifest 還原 IDE extensions。
+- `排程 (Schedule)` — pm2 讀 `ecosystem.config.js` 註冊 `Golang Clean Cache` / `Golang Clean ModCache` (週五 10:00) 與 `Disk Cleanup Preview` / `Launch Audit` / `Login Audit` (週五 05:00)；`Port Listenor` / `File Watcher` / `Infra Compose` 目前為註解狀態，待對應工具到位才啟用。
+- `移除 macOS Codex (Uninstall Codex)` — 開發者執行 `env_setup uninstall codex` 預覽 app、CLI、user data 與 launchd targets，再以 `--apply` 逐項確認移除。
+- `評估磁碟 I/O 體質 (Probe device I/O)` — 開發者執行 `env_setup io probe` 看每顆實體磁碟的 transport / driver / queue depth / write cache，必要時以 `--bench` 量循序寫入與 4 KiB 同步寫入 IOPS。
+- `備份與還原 macOS 設定 (Backup macOS defaults)` — 開發者執行 `env_setup backup` 匯出 macOS defaults domains，以 `backup list` 查看最近一次快照時間與 domain status，並以 `backup import` 還原。
 
 ## 上下游服務 (Upstream / Downstream)
 
@@ -22,7 +25,7 @@ flowchart LR
     subgraph upstream [上游 Upstream]
         A1[開發者於新機 clone repo]
         A2[Homebrew upstream 5.0.3 tarball]
-        A3[go.dev/dl Go 1.26.3 tarball]
+        A3[go.dev/dl Go 1.26.6 tarball]
         A4[golangci-lint install.sh]
         A5[OS package manager apt/brew]
         A6[/etc/* 系統設定]
@@ -32,7 +35,7 @@ flowchart LR
         B2[bin/bash/settings.sh 共用變數]
         B3[run.sh symlink 重建]
         B4[env_setup system 硬體偵測]
-        B5[bin/mac/* 稽核與清理]
+        B5[env_setup cleanup 與 bin/mac/* 稽核]
         B6[env_setup network 網路掃描]
         B7[ecosystem.config.js pm2 cron]
     end
@@ -76,9 +79,10 @@ stateDiagram-v2
     Operational --> Audited: bin/mac/*_audit-mac.sh 產出報告
     Audited --> Operational: 報告已收
     Operational --> Dumped: env_setup dump <target> 完成
+    Dumped --> Restored: env_setup install <ide>-extension 還原
+    Restored --> Operational: extensions 已同步
     Dumped --> Operational: dump 已存
-    Operational --> Scrubbed: bin/mac/mac_cleanup.sh 執行
-    Operational --> Scrubbed: bin/mac/mac_cleanup.sh 執行
+    Operational --> Scrubbed: env_setup cleanup --apply 執行
     Scrubbed --> Operational: 磁碟釋放
     Symlinked --> DriftDetected: 手動編輯 /etc/* 或 ~/.*
     DriftDetected --> Symlinked: run.sh 重新對齊
@@ -87,7 +91,7 @@ stateDiagram-v2
 ## 業務約束 (Constraints)
 
 - `硬體平台覆蓋 (Hardware coverage)`：腳本需同時支援 macOS (Darwin) 與 Ubuntu Linux；以 `uname` 為單一分支依據 (`scripts/mac.sh` 為 macOS 專屬，`scripts/ubuntu.sh` 為 Ubuntu 專屬)。來源：`scripts/mac.sh:1`、`scripts/ubuntu.sh:1`。
-- `Go 版本對齊 (Go version pinning)`：`scripts/go.sh` 寫死 `GO_VER=1.26.3` (來自 `go.sh:20`)，新機部署後會下載對應 tarball 與 `golangci-lint v1.64.5`，避免工具鏈漂移。
+- `Go 版本對齊 (Go version pinning)`：`scripts/go.sh` 預設 `GO_VER=1.26.6` (來自 `go.sh:20`，可由環境變數覆寫)，新機部署後會下載對應 tarball 與 `golangci-lint v2.13.2`，避免工具鏈漂移。
 - `權限分級 (Privilege tier)`：cleanup apply 與 OS bootstrap 可能需要 `sudo`；`env_setup system <information> show` 的 hardware probes 不需 sudo。
 - `敏感值不入版控 (Secrets out-of-vcs)`：依 `bin/bash/settings.sh:9-14`，明文 `passwd` / `email` / token 改由 git-ignored `~/.config/env_setup/settings.private.sh` 提供；含明文密碼的 `bin/bytedance_setup.sh` 已刪除 (紀錄見 `docs/specs/2026-07-08-env-setup-structural-cleanup.md` §4.3.1)。
 - `dotfile 唯一來源 (Dotfile single source of truth)`：所有 dotfiles (`.bashrc` / `.vimrc` / `.gitconfig` / `.screenrc` / `.npmrc` / `.toprc`) 由 `scripts/bash_env_setup.sh` 軟連結到 `~/`；修改應直接在 `bin/bash/` 內進行，不直接編輯 `~/` 副本。
@@ -101,7 +105,7 @@ stateDiagram-v2
 | 身分/合規 (KYC/AML) | 不適用 — 本 repo 無金流 / 身分處理 (只處理 OS 設定與本機網路)                                    |
 | 隱私 (Privacy)      | 有 — `bin/bash/settings.sh` 早期版本含明文 `passwd` / `email`；含明文密碼的 `bin/bytedance_setup.sh` 已刪除；目前以 `settings.private.sh` 守衛，git history 內的舊值仍未清除 |
 | 資料完整性          | 有 — `run.sh` 重做 symlink 採用「`[ -L target ]` → 刪後重建」邏輯，若 `target` 是普通檔案會 `continue` 跳過；潛在情境：使用者先前以普通檔案覆蓋了 dotfile，重跑 `run.sh` 不會還原為 symlink，需手動介入 |
-| 依賴風險            | 有 — 多個子工具依賴外部 CLI：`traceroute` / `nmap` (網路掃描)、`traceroute` (Hop 探測)；`pm2` 與 `bizshuk/skills` 由 `go install` 在 `run.sh` 內部下載，無網路時 `run.sh` 直接失敗 |
+| 依賴風險            | 有 — 多個子工具依賴外部 CLI：`traceroute` / `nmap` (網路掃描)、`f3` (removable media 驗證)、`diskutil` / `system_profiler` (macOS 硬體與 I/O 探測)；`pm2` 與 `bizshuk/skills` 由 `go install` 在 `run.sh` 內部下載，無網路時 `run.sh` 直接失敗 |
 
 ## 核心業務 (Core Business)
 
@@ -111,9 +115,11 @@ stateDiagram-v2
 
 ## 非核心業務 (Non-core Business)
 
-- `macOS 磁碟清理` (`bin/mac/mac_cleanup.sh`) — 不直接產生開發產出，但能避免磁碟滿載導致 `go build` / Docker 失敗；每週排程可預防問題。
-- `macOS 磁碟清理` (`bin/mac/mac_cleanup.sh`) — 不直接產生開發產出，但能避免磁碟滿載導致 `go build` / Docker 失敗；每週排程可預防問題。
+- `macOS 磁碟清理` (`env_setup cleanup`) — 不直接產生開發產出，但能避免磁碟滿載導致 `go build` / Docker 失敗；每週排程的 preview 可預防問題。
 - `macOS 安全稽核` (`bin/mac/*_audit-mac.sh`) — 不直接產生開發產出，但能提早發現 LaunchAgent 異常植入 / 不預期通訊埠開放 / 自動登入開啟等風險，支撐開發者安全作業。
 - `網路拓樸掃描` (`env_setup network private|target`) — 支援離線除錯、VPN 路由驗證；非每日例行但出問題時是主要診斷手段。
 - `pm2 排程` (`ecosystem.config.js`) — 把上述稽核 / 清理變成背景任務，避免依賴人為記得執行；本身非業務產出，但支撐稽核與清理的可持續性。
+- `macOS Codex 移除` (`env_setup uninstall codex`) — 一次性作業，價值在於以 preview-first 流程避免誤刪其他 app 的 launchd 與 Library 資料。
+- `裝置層 I/O 探測` (`env_setup io probe`) — 選購或啟用外接磁碟時判斷是否撐得住 container / DB 的 fsync 密度，避免事後搬移資料。
+- `macOS 設定備份` (`env_setup backup`) — 重灌前保存 defaults domains，縮短新機回到熟悉手感的時間。
 - `開發者 helper 工具` (`bin/json`、`bin/git_signing`、`bin/find_symbolic_link` 等) — 提升日常除錯效率；不直接影響環境正確性，屬於輔助 UX。

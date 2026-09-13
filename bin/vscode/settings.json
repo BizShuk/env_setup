@@ -308,7 +308,7 @@
     // "go.formatTool": "goimports",
     "go.lintFlags": ["--path-mode=abs", "--fast-only"],
     "go.alternateTools": {
-        "customFormatter": "golangci-lint-v2"
+        "customFormatter": "golangci-lint"
     },
     "go.formatFlags": ["fmt", "--stdin"],
     // [go test]

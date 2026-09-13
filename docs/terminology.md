@@ -44,6 +44,16 @@
 | Disk Verification | `env_setup system disk verify <volume-path>`；macOS-only command，先確認 write operation，再依序執行 `diskutil info`、`f3write` 與 `f3read`。 |
 | F3 | Fight Flash Fraud；以 write/read test files 驗證 removable media 的實際容量與資料完整性。Verification 會使用目標 volume 的可用空間。 |
 
+## Device I/O Domain
+
+| 術語 | 定義 |
+| --- | --- |
+| Block Device | `env_setup io probe` 輸出的一列；一顆實體磁碟及其 transport、USB id/link、host driver、queue depth、write cache、rotational 與 mounts。 |
+| Queue Depth | 裝置可同時接受的未完成 I/O 請求數；Linux 由 sysfs 取得，macOS 不揭露而顯示 `-`。低 queue depth 代表隨身碟等級的併發能力。 |
+| Write Cache | 裝置回報的寫入快取策略 (`write back` / `write through`)；`write through` 表示每次寫入都直達介質，同步寫入延遲高。 |
+| Cache-bypassed Benchmark | `env_setup io probe --bench`；以 Linux O_DIRECT 或 macOS `F_NOCACHE` 略過 page cache，量循序寫入吞吐、4 KiB 同步寫入 IOPS (Linux `O_DSYNC`、macOS `F_FULLFSYNC`) 與 4 KiB 隨機讀取 IOPS，測完刪除暫存檔。 |
+| Latency Sample | Benchmark 期間單次 I/O 操作的耗時樣本；4 KiB 同步寫入 IOPS 由其推導，是判斷能否承載 container / DB 的主要指標。 |
+
 ## Manifest Sync Domain
 
 | 術語 | 定義 |
@@ -51,6 +61,7 @@
 | Mac Manifest | `env_setup dump mac` 寫入的 `scripts/Brewfile`；包含目前 Homebrew taps、formulae、casks 與可取得的 Mac App Store entries。 |
 | IDE Extension Manifest | `env_setup dump vscode-extension|antigravity-extension` 寫入的 tracked extension ID 清單；輸出固定排序、去重並以 newline 結尾。 |
 | Atomic Manifest Write | 先完整取得並正規化 extension output，再於目標目錄建立 temporary file 並 rename；external command 失敗時不覆寫既有 manifest。 |
+| VS Code Extension Install | `env_setup install vscode-extension`；以 `code --install-extension --force` 逐項安裝 tracked manifest entries，並在移除 manifest 外的 installed extensions 前要求明確回答 `y/Y`。 |
 | Antigravity Extension Install | `env_setup install antigravity-extension`；逐項以 `--force` 安裝 manifest entries，marketplace 沒有的 entry 只記錄不中斷，列出 manifest 外的 installed extensions，且只有明確回答 `y/Y` 才會移除它們。 |
 | Antigravity Extensions Directory | `agy-ide` 實際讀寫的 extensions 目錄；只跑 Remote-SSH server 的機器為 `~/.antigravity-ide-server/extensions`，desktop 機器維持 CLI 預設，`AGY_EXTENSIONS_DIR` 可覆寫。 |
 
@@ -62,3 +73,21 @@
 | Target Scan | `env_setup network target [cidr]`；優先以 nmap host discovery 列出 live hosts，缺少 nmap 時只對 `/24` 或更小的 IPv4 network 使用 bounded concurrent ping fallback。 |
 | Topology Layer | 一個由 private route hop 推導的 `/24` subnet，以及排除 route hops 後的 discovered hosts、open services 與 OS hint。 |
 | Network Runner | `svc/network.Runner`；network service 與 Process Runner 之間的一方法 consumer boundary，可注入 tests。 |
+
+## 業務領域正名 (Canonical Domain Names)
+
+`README.md` 的章節標題為各業務領域的`唯一正名`；`CLAUDE.md` 模組對應表與其他文件一律沿用同一組名稱，不得另取簡稱。
+
+| 正名 (Canonical) | 過往出現過的別名 (Deprecated) |
+| --- | --- |
+| 機器初始化與開發工具安裝 (Machine Bootstrap & Tooling Install) | Bootstrap & Tooling |
+| 使用者與 IDE 設定軟連結 (User Config & IDE Symlink Bootstrap) | User Config & IDE Link |
+| 硬體與系統狀態偵測 (Hardware & System Probe) | — |
+| 裝置層 I/O 探測 (Device I/O Probe) | — |
+| 開發環境清單同步 (Development Manifest Sync) | — |
+| macOS 設定備份 (macOS Defaults Backup) | — |
+| macOS Codex 移除 (macOS Codex Uninstall) | — |
+| macOS 系統稽核與清理 (macOS Audit & Cleanup) | — |
+| 網路拓撲與設備掃描 (Network Topology & Device Scan) | 網路與設備掃描 (Network & Device Scan) |
+| 開發者輔助工具 (Developer Helpers) | — |
+| 觀測排程與稽核報告 (Observability Cron & Audit Reports) | Observability Cron & Reports |

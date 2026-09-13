@@ -1,6 +1,6 @@
 # env_setup
 
-`env_setup` 是一個 framework 層級的機器初始化與開發者工具箱 (developer toolbox) repo：負責在 macOS / Ubuntu 新機器上安裝 OS 與開發工具 (Go, Node, brew, ctags, openssl, git-secret)，把 bash / vim / ssh / vscode 等 dotfiles 透過 `run.sh` 軟連結到使用者家目錄，並以 `env_setup` Go CLI 提供 install、uninstall、dump、system、cleanup、backup 與 network commands；`bin/` 保留 macOS 稽核與開發者 helpers，pm2 負責 cron 排程。
+`env_setup` 是一個 framework 層級的機器初始化與開發者工具箱 (developer toolbox) repo：負責在 macOS / Ubuntu 新機器上安裝 OS 與開發工具 (Go, Node, brew, ctags, openssl, git-secret)，把 bash / vim / ssh / vscode 等 dotfiles 透過 `run.sh` 軟連結到使用者家目錄，並以 `env_setup` Go CLI 提供 install、uninstall、dump、system、io、cleanup、backup 與 network commands；`bin/` 保留 macOS 稽核與開發者 helpers，pm2 負責 cron 排程。
 
 ## 業務領域 (Business Domains)
 
@@ -12,7 +12,7 @@
 
 1. 使用者在新機器 clone repo 並執行 `./scripts/mac.sh` (或 `./scripts/ubuntu.sh`)。
 2. `mac.sh` 內部 `source settings.sh`，再依序呼叫 `bash_env_setup.sh`、`brew.sh`、`go.sh`，並補上 `curl / wget / jq` 與 `uv` (Python toolchain installer)。
-3. `brew.sh` 安裝指定版本 Homebrew 並輸出 `~/.bash_plugin`；`go.sh` 下載 `go1.26.6` tarball 解到 `~/.local/`，同時把 `go` 與 `golangci-lint v1.64.5` 軟連結到 `~/bin/`。
+3. `brew.sh` 安裝指定版本 Homebrew 並輸出 `~/.bash_plugin`；`go.sh` 下載 `go1.26.6` tarball 解到 `~/.local/`，同時把 `go` 與 `golangci-lint v2.13.2` 軟連結到 `~/bin/`。
 
 `核心實體 (Key Entities):` `安裝腳本 (Install Script)`, `Homebrew`, `Go Toolchain`, `Brewfile`
 
@@ -70,18 +70,35 @@
 
 ### 開發環境清單同步 (Development Manifest Sync)
 
-`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode-extension` 與 `dump antigravity-extension` 分別更新 `bin/vscode/*_extension_list.txt`。`env_setup install antigravity-extension` 則從 tracked manifest 安裝 Antigravity extensions，並在移除 manifest 外的 extensions 前要求明確確認。IDE CLI 一律作用在本機的 extensions directory，不會被所在 IDE terminal 轉送到別台機器的 window。
+`env_setup dump` 將目前機器的 Homebrew 與 IDE extension state 寫回 repo 內的 canonical manifests。`dump mac` 更新 `scripts/Brewfile`；`dump vscode-extension` 與 `dump antigravity-extension` 分別更新 `bin/vscode/*_extension_list.txt`。`env_setup install vscode-extension` 與 `env_setup install antigravity-extension` 則從 tracked manifest 安裝對應 IDE 的 extensions，並在移除 manifest 外的 extensions 前要求明確確認。IDE CLI 一律作用在本機的 extensions directory，不會被所在 IDE terminal 轉送到別台機器的 window。
 
 `領域流程 (Domain Flow):`
 
 1. 使用者在 repo 內執行 `env_setup dump mac`、`env_setup dump vscode-extension` 或 `env_setup dump antigravity-extension`。
 2. Go service 先驗證 repo root 與必要 CLI，再執行 `brew bundle dump` 或 `<ide> --list-extensions`。
 3. IDE manifests 會排序、去重並以 atomic replacement 寫入，external command 失敗時保留舊檔。
-4. 使用者執行 `env_setup install antigravity-extension` 時，Go service 逐項以 `--force` 安裝 manifest entries；marketplace 沒有的 entry 會在全部跑完後彙總報錯，unlisted extensions 只會在回答 `y` 後移除。
+4. 使用者執行 `env_setup install vscode-extension` 或 `env_setup install antigravity-extension` 時，Go service 逐項以 `--force` 安裝 manifest entries；marketplace 沒有的 entry 會在全部跑完後彙總報錯，unlisted extensions 只會在回答 `y` 後移除。
 
 `核心實體 (Key Entities):` `Mac Manifest`, `IDE Extension Manifest`, `Extension Sync`, `Repository Root`
 
-`相關處理器 (Related Handlers):` `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install antigravity-extension`, [svc/dump](svc/dump), [svc/install](svc/install)
+`相關處理器 (Related Handlers):` `env_setup dump mac`, `env_setup dump vscode-extension`, `env_setup dump antigravity-extension`, `env_setup install vscode-extension`, `env_setup install antigravity-extension`, [svc/dump](svc/dump), [svc/install](svc/install)
+
+---
+
+### macOS 設定備份 (macOS Defaults Backup)
+
+`env_setup backup` 以 macOS `defaults` / `plutil` 匯出 tracked domains 的偏好設定為 `.plist` snapshot，供重灌或換機後還原；`backup list` 顯示最近一次快照時間與每個 domain 的狀態，`backup import` 還原，`backup init` 建立 backup 目錄與 metadata。
+
+`領域流程 (Domain Flow):`
+
+1. 使用者執行 `env_setup backup init` 建立 backup 目錄與 `backup.meta.json`。
+2. 使用者執行 `env_setup backup` 匯出 tracked domains；每個 domain 寫成一份 `.plist`，並更新 metadata 的 snapshot timestamp。
+3. 使用者執行 `env_setup backup list` 檢視 latest backup date 與 domain status；缺少 metadata 的 legacy backup 才 fallback 到最新 `.plist` 的 modification time，完全沒有 backup 時顯示 `-`。
+4. 使用者在新機執行 `env_setup backup import` 把 snapshot 寫回 macOS defaults。
+
+`核心實體 (Key Entities):` `Backup Domain`, `Backup Manifest`, `Backup Snapshot`
+
+`相關處理器 (Related Handlers):` `env_setup backup`, `env_setup backup list`, `env_setup backup import`, `env_setup backup init`, [svc/backup](svc/backup)
 
 ---
 
@@ -141,7 +158,7 @@
 
 1. 使用者在 `${HOME}/bin` (symlink 指向 `bin/`) 內直接呼叫 `json < file` 或 `find_symbolic_link ~/bin`。
 2. 各工具多為薄殼腳本：呼叫系統 CLI (`nmap` / `traceroute` / `openssl` / `git`) 並加入預設參數。
-3. 與 `bin/bash/.bash_aliases` 內的 `claude`, `codex`, `codexm`, `claudep`, `claudew-s`, `claudew-b`, `claudew2` 等 alias 連動；基礎 `claudew` / `claudem` 為 `bin/claudew` / `bin/claudem` 實體 script file；alias 引用的 token 變數由 git-ignored 的 `~/.bash_local` 提供。
+3. 與 LLM CLI alias (`claude*` / `codex*`) 連動：這組 alias 的唯一擁有者是 `~/projects/ai/cc-plugin/scripts/aliases.sh`，`bin/bash/.bash_aliases` 只負責 source 它；基礎 `claudew` / `claudem` 為 `bin/claudew` / `bin/claudem` 實體 script file；alias 引用的 token 變數由 git-ignored 的 `~/.bash_local` 提供。
 
 `核心實體 (Key Entities):` `Helper Script`, `Symlink 目標`, `Bash Alias`
 
@@ -216,6 +233,7 @@ env_setup system disk verify /Volumes/backup
 env_setup dump mac
 env_setup dump vscode-extension
 env_setup dump antigravity-extension
+env_setup install vscode-extension
 env_setup install antigravity-extension
 ```
 
@@ -226,6 +244,13 @@ env_setup uninstall codex                            # preview only
 env_setup uninstall codex --apply                    # 逐項確認
 env_setup uninstall codex --with-codexbar            # preview CodexBar scope
 env_setup uninstall codex --purge-system             # preview sudo scope
+```
+
+### 3.3 裝置層 I/O 探測
+
+```bash
+env_setup io probe
+env_setup io probe --bench --dir /Volumes/backup
 ```
 
 ### 4. macOS 稽核與清理
@@ -279,11 +304,11 @@ pm2 start ecosystem.config.js
 
 ## 改善建議 (Improvement Suggestions)
 
-依實際檔案系統分析（參照 `plans/2026-07-08-env-setup-structural-cleanup.md` 的體檢結果）：
+依實際檔案系統分析（參照 `docs/specs/2026-07-08-env-setup-structural-cleanup.md` 的體檢結果）：
 
 - [x] **移除 system shell adapter layer**：`env_setup system` 已由 `svc/system` 直接執行與解析 platform commands；舊 adapter folder 與 `system_info` symlink 已移除。
 - [x] **移除 network shell adapter layer**：`env_setup network private|target` 已由 `svc/network` 直接執行與解析 network tools；`bin/network/` 已移除。
 - [x] **合併舊 system link 邏輯**：`run.sh` 是唯一 symlink setup 入口，目標統一為 `./tmp/`。
 - [x] **移除 vendored 與 dead code**：`git-secret` 改用 package manager，舊 Raspberry Pi / service one-liners 與其他 dead scripts 已移除。
-- [ ] **安全化 `bin/bash/settings.sh`**：移除明文 `passwd` / `email`，改以 git-ignored `~/.config/env_setup/settings.private.sh` 提供；`.gitignore` 補上 `settings.private.sh`, `.bash_local`, `log/`, `tmp/`。
-- [ ] **補 `bin/README.md` 與 `docs/bin_index.md` 索引**：`bin/` 根目錄目前 23 個入口無索引，新工具加入位置無慣例；建立 `bin/<area>/_lib_*.sh` 共用 helper 慣例並寫入文件。
+- [x] **安全化 `bin/bash/settings.sh`**：明文 `passwd` / `email` 已移除，改由 git-ignored `~/.config/env_setup/settings.private.sh` 提供；`.gitignore` 已含 `settings.private.sh`, `.bash_local`, `log/`, `tmp/`。
+- [x] **補 `bin/README.md` 與 `docs/bin_index.md` 索引**：兩份索引皆已建立，`bin/<area>/_lib_*.sh` 共用 helper 慣例已寫入 `CLAUDE.md` 與 `bin/README.md`。
