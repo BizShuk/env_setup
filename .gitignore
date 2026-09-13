@@ -409,6 +409,8 @@ archive/
 !cmd/backup/*.go
 !svc/backup/
 !svc/backup/*.go
+!scripts/backup/
+!scripts/backup/*.sh
 _.bak
 _.tmp
 _.temp
