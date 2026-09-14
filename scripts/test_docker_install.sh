@@ -109,9 +109,9 @@ if [ -f "${HOME}/.bash_plugin" ]; then
 fi
 export PATH="${HOME}/bin:${HOME}/.local/bin:${PATH}"
 
-echo "=== Phase 3: Building env_setup CLI ==="
-mkdir -p tmp
-go build -o tmp/env_setup .
+echo "=== Phase 3: Validating pure shell scripts and test suite ==="
+npm run lint
+npm test
 
 echo "=== Phase 4: Asserting installed commands ==="
 echo -n "Checking go: " && go version
@@ -120,10 +120,25 @@ echo -n "Checking npm: " && npm -v
 command -v pnpm >/dev/null && echo -n "Checking pnpm: " && pnpm -v || true
 echo -n "Checking git: " && git --version
 echo -n "Checking vim: " && vim --version | head -n 1
-echo "Checking env_setup system os show:"
-./tmp/env_setup system os show
-echo "Checking env_setup system cpu show:"
-./tmp/env_setup system cpu show
+echo "Checking scripts/system/os.sh:"
+./scripts/system/os.sh
+echo "Checking scripts/system/cpu.sh:"
+./scripts/system/cpu.sh
+
+echo "=== Phase 5: Asserting macOS tasks exit 0 on Linux ==="
+./bin/mac/launch_audit-mac.sh
+./bin/mac/login_audit-mac.sh
+./bin/mac/network_security_audit-mac.sh
+./scripts/backup/list.sh
+./scripts/backup/backup.sh
+./scripts/backup/init.sh
+./scripts/backup/import.sh
+./scripts/dump/mac.sh
+./scripts/uninstall/codex.sh
+./scripts/mac.sh
+./scripts/mac_basic.sh
+./scripts/openssl_mac_setup.sh
+echo "All macOS tasks exited 0 successfully on Linux container!"
 
 echo "=== Verification completed successfully! ==="
 EOF

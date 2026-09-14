@@ -5,6 +5,11 @@ source "$(dirname "$0")/settings.sh"
 # shellcheck source=./_lib_bash_plugin.sh
 source "$(dirname "$0")/_lib_bash_plugin.sh"
 
+if [ "$(uname -s)" != "Darwin" ]; then
+    echo "Notice: openssl_mac_setup.sh is intended for macOS only (current: $(uname -s)). Skipping."
+    exit 0
+fi
+
 OPENSSL_VER="3.0.13"
 OPENSSL_TAR="openssl-${OPENSSL_VER}.tar.gz"
 OPENSSL_INSTALL_PATH="${USER_LIB}/openssl-${OPENSSL_VER}"

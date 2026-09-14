@@ -9,6 +9,11 @@ source "$(dirname "$0")/settings.sh"
 # shellcheck source=./_lib_bash_plugin.sh
 source "$(dirname "$0")/_lib_bash_plugin.sh"
 
+if [ "$(uname -s)" != "Darwin" ]; then
+    echo "Notice: mac_basic.sh is intended for macOS only (current: $(uname -s)). Skipping."
+    exit 0
+fi
+
 if ! command -v brew >/dev/null 2>&1; then
     echo "ERROR: Homebrew is required for mac_basic.sh. Run ./scripts/brew.sh first." >&2
     exit 1

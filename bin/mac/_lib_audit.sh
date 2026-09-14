@@ -88,11 +88,12 @@ status() {
 }
 
 # ----------------------------------------------------------------------------
-# 環境守衛 (Pre-flight): 僅允許 macOS
+# 環境守衛 (Pre-flight): 僅允許 macOS (非 macOS 略過並 exit 0)
 # ----------------------------------------------------------------------------
 audit_require_macos() {
     if [ "$(uname -s)" != "Darwin" ]; then
-        echo "ERROR: This audit script requires macOS. Current: $(uname -s)" >&2
-        exit 1
+        echo "Notice: This task requires macOS (Darwin). Current OS: $(uname -s). Skipping."
+        exit 0
     fi
 }
+audit_require_macos

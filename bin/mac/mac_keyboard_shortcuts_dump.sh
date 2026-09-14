@@ -19,6 +19,11 @@ done
 # shellcheck source=../bash/settings.sh
 source "$(cd "$(dirname "${_self}")" && pwd)/../bash/settings.sh"
 
+if [ "${OS:-$(uname -s | tr '[:upper:]' '[:lower:]')}" != "darwin" ]; then
+    echo "Notice: mac_keyboard_shortcuts_dump requires macOS. Skipping."
+    exit 0
+fi
+
 EXPORT_DIR="${REPO_DIR}/bin/mac/keyboard_shortcuts"
 APP_DIR="${EXPORT_DIR}/app"
 MANIFEST="${EXPORT_DIR}/manifest.txt"

@@ -14,8 +14,12 @@ _self="${BASH_SOURCE[0]}"
 while [ -L "${_self}" ]; do
     _self="$(cd "$(dirname "${_self}")" && pwd)/$(readlink "${_self}")"
 done
-# shellcheck source=../bash/settings.sh
 source "$(cd "$(dirname "${_self}")" && pwd)/../bash/settings.sh"
+ 
+if [ "${OS:-$(uname -s | tr '[:upper:]' '[:lower:]')}" != "darwin" ]; then
+    echo "Notice: mac_keyboard_shortcuts_restore requires macOS. Skipping."
+    exit 0
+fi
 
 EXPORT_DIR="${REPO_DIR}/bin/mac/keyboard_shortcuts"
 APP_DIR="${EXPORT_DIR}/app"

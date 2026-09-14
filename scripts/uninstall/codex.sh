@@ -13,8 +13,8 @@ REPO_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Validate operating system
 if [ "$(uname -s)" != "Darwin" ]; then
-    echo "Error: Codex uninstall is supported only on macOS (Darwin). Current OS: $(uname -s)" >&2
-    exit 1
+    echo "Notice: Codex uninstall is supported only on macOS (Darwin). Current OS: $(uname -s). Skipping."
+    exit 0
 fi
 
 print_help() {

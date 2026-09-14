@@ -12,8 +12,8 @@ REPO_DIR="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Validate operating system
 if [ "$(uname -s)" != "Darwin" ]; then
-    echo "Error: Mac manifest dump requires macOS (current: $(uname -s))" >&2
-    exit 1
+    echo "Notice: Mac manifest dump requires macOS (current: $(uname -s)). Skipping."
+    exit 0
 fi
 
 # Validate brew command

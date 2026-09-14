@@ -37,8 +37,14 @@ die() {
 }
 
 require_macos() {
-    [ "${OS}" = "darwin" ] || die "this command only supports macOS"
-    command -v networksetup >/dev/null 2>&1 || die "networksetup was not found"
+    if [ "${OS}" != "darwin" ]; then
+        echo "Notice: mac_static_ip only supports macOS (current OS: ${OS}). Skipping."
+        exit 0
+    fi
+    command -v networksetup >/dev/null 2>&1 || {
+        echo "Notice: networksetup was not found. Skipping."
+        exit 0
+    }
 }
 
 is_ipv4() {

@@ -17,6 +17,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/settings.sh"
 
+if [ "$(uname -s)" != "Darwin" ]; then
+    echo "Notice: mac.sh is intended for macOS only (current: $(uname -s)). Skipping."
+    exit 0
+fi
+
 # 1. Dotfiles environment
 "${SCRIPT_DIR}/bash_env_setup.sh"
 
