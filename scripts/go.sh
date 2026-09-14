@@ -24,6 +24,15 @@ GO_PATH="$USER_LIB/go" # Where the go dependency/library downloaded
 
 [ ! -d "${GO_PATH}" ] && mkdir -p "${GO_PATH}"
 
+# Remove previous Go versions before installing target version
+for old_go in "$USER_LIB"/go[0-9]*; do
+    if [ -d "${old_go}" ] && [ "${old_go}" != "${GO_ROOT}" ]; then
+        echo "Removing previous Go version: $(basename "${old_go}")..."
+        chmod -R u+w "${old_go}" 2>/dev/null || true
+        rm -rf "${old_go}"
+    fi
+done
+
 if [ ! -e "$USER_LIB"/"$GO_FULLVER" ]; then
     echo "$GO_FULLVER  installing...:" https://go.dev/dl/"${GO_FULLVER}".tar.gz
     # Private staging dir: /tmp is world-writable, so a predictable name lets any
@@ -48,11 +57,12 @@ update_bash_plugin_block "go" \
     '/^# \[Go\]$/d' \
     '/^export GOROOT=/d' \
     '/^export GOPATH=/d' \
-    '/^export PATH=\$GOPATH\/bin:\$PATH$/d' <<EOF
+    '/^export PATH=\$GOPATH\/bin:\$PATH$/d' \
+    '/^export PATH=\$GOROOT\/bin:\$GOPATH\/bin:\$PATH$/d' <<EOF
 # [Go] 由 scripts/go.sh 產生, 重跑會整段覆寫
 export GOROOT=${GO_ROOT}
 export GOPATH=${GO_PATH}
-export PATH=\$GOPATH/bin:\$PATH
+export PATH=\$GOROOT/bin:\$GOPATH/bin:\$PATH
 # [GOVCS] control which version control tool is used for go get from 1.16
 # echo "export GOVCS=git"
 EOF
