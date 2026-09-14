@@ -27,6 +27,15 @@ module.exports = {
             script: "./scripts/system/show.sh",
             cron: "0 4 * * 1"
         },
+        // 能耗與喚醒探測 (每日 10:00/14:00/18:00/22:00)：取樣耗能排行與喚醒風暴，找出低 CPU 卻高喚醒的耗電來源
+        // 刻意排在工作時段而非其他稽核的凌晨時段：機器在 04:00 是閒置或睡眠狀態，量到的耗電排行沒有意義
+        {
+            namespace: "Local",
+            name: "Energy Wakeup Probe",
+            script: "./scripts/system/energy.sh",
+            args: ["--interval", "10", "--top", "20"],
+            cron: "0 10,14,18,22 * * *"
+        },
         // 實體儲存裝置探測 (週一 05:00)：探測本機實體磁碟、NVMe/SATA/USB 傳輸介面、型號與掛載點
         {
             namespace: "Local",

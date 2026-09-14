@@ -96,7 +96,8 @@
 │   ├── system/                    # 硬體與系統各項狀態探測
 │   │   ├── show.sh / disk_verify.sh
 │   │   ├── os.sh / cpu.sh / memory.sh / gpu.sh / disk.sh
-│   │   └── usb.sh / display.sh / network.sh / input.sh / audio.sh
+│   │   ├── usb.sh / display.sh / network.sh / input.sh / audio.sh
+│   │   └── energy.sh                # 耗電與喚醒風暴分析 (macOS only)
 │   ├── uninstall/                 # Codex 移除
 │   │   └── codex.sh
 │   └── README.md

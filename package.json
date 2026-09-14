@@ -97,6 +97,7 @@
     "run:system:usb": "bash scripts/system/usb.sh",
     "run:system:input": "bash scripts/system/input.sh",
     "run:system:audio": "bash scripts/system/audio.sh",
+    "run:system:energy": "bash scripts/system/energy.sh",
     "run:system:disk-verify": "bash scripts/system/disk_verify.sh",
 
     "run:network:private": "bash scripts/network/private.sh",

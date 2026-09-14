@@ -168,7 +168,7 @@
 
 ### 觀測排程與稽核報告 (Observability Cron & Audit Reports)
 
-`ecosystem.config.js` 透過 pm2 註冊一組 `Local` namespace 的非安裝類檢測任務：`Disk Cleanup Preview` (`./scripts/cleanup/all.sh`)、安全稽核 (`Launch Audit` / `Login Audit` / `Network Security Audit`)、`System Health Probe` (`./scripts/system/show.sh`)、`Storage Device Probe` (`./scripts/io/probe.sh`)、`Backup Status Audit` (`./scripts/backup/list.sh`) 與 `Private Route Topology` (`./scripts/network/private.sh`)。
+`ecosystem.config.js` 透過 pm2 註冊一組 `Local` namespace 的非安裝類檢測任務：`Disk Cleanup Preview` (`./scripts/cleanup/all.sh`)、安全稽核 (`Launch Audit` / `Login Audit` / `Network Security Audit`)、`System Health Probe` (`./scripts/system/show.sh`)、`Storage Device Probe` (`./scripts/io/probe.sh`)、`Backup Status Audit` (`./scripts/backup/list.sh`)、`Energy Wakeup Probe` (`./scripts/system/energy.sh`) 與 `Private Route Topology` (`./scripts/network/private.sh`)。
 
 `領域流程 (Domain Flow):`
 
