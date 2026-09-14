@@ -8,15 +8,15 @@
 
 - `在新機器一次性建立工作環境 (Bootstrap a new machine)` — 開發者 clone repo、執行 `scripts/mac.sh` 或 `scripts/ubuntu.sh`，把 Homebrew / Go / Node / openssl / ctags 與 git-secret 一次裝好。
 - `重做使用者設定與 IDE profile (Re-link user configs and IDE profile)` — 開發者執行 `run.sh`，把 `/etc/*` 與 `~/.*` 重新指向 `bin/`，並把 `bin/vscode/` 套用到 VSCode + Antigravity IDE。
-- `查看本機硬體 (Inspect hardware)` — 開發者執行 `env_setup system show` 一次看完 10 個 hardware/system probes，或執行 `env_setup system <information> show` 查看單項。
-- `產出 macOS 安全稽核報告 (Generate macOS security audit report)` — 開發者手動跑 `bin/mac/{launch_audit,login_audit,network_security_audit}-mac.sh`，或由 pm2 週五 05:00 自動觸發，產出 markdown 報告。
-- `清理 macOS 磁碟垃圾 (Clean macOS junk)` — 開發者執行 `env_setup cleanup` 檢視 `/private/var/log`、`~/Library/Caches`、`~/.Trash`、舊 Time Machine snapshots 的可回收空間，再以 `--apply` 逐項確認後刪除。
-- `掃描本機所連私有網路拓樸 (Scan private network topology)` — 開發者執行 `env_setup network private [target]`，traceroute 走到第一個公網 hop，再依 public-to-local 順序對私有 `/24` subnets 跑 nmap。
-- `匯出 / 還原套件清單 (Dump / restore packages)` — 開發者執行 `env_setup dump mac|vscode-extension|antigravity-extension`，分別更新 Brewfile、VS Code extensions 與 Antigravity extensions manifests；反向以 `env_setup install vscode-extension|antigravity-extension` 從 manifest 還原 IDE extensions。
-- `排程 (Schedule)` — pm2 讀 `ecosystem.config.js` 註冊 `Golang Clean Cache` / `Golang Clean ModCache` (週五 10:00) 與 `Disk Cleanup Preview` / `Launch Audit` / `Login Audit` (週五 05:00)；`Port Listenor` / `File Watcher` / `Infra Compose` 目前為註解狀態，待對應工具到位才啟用。
-- `移除 macOS Codex (Uninstall Codex)` — 開發者執行 `env_setup uninstall codex` 預覽 app、CLI、user data 與 launchd targets，再以 `--apply` 逐項確認移除。
-- `評估磁碟 I/O 體質 (Probe device I/O)` — 開發者執行 `env_setup io probe` 看每顆實體磁碟的 transport / driver / queue depth / write cache，必要時以 `--bench` 量循序寫入與 4 KiB 同步寫入 IOPS。
-- `備份與還原 macOS 設定 (Backup macOS defaults)` — 開發者執行 `env_setup backup` 匯出 macOS defaults domains，以 `backup list` 查看最近一次快照時間與 domain status，並以 `backup import` 還原。
+- `查看本機硬體 (Inspect hardware)` — 開發者執行 `npm run run:system:show` (或 `./scripts/system/show.sh`) 一次看完 10 個 hardware/system probes，或執行 `npm run run:system:<information>` 查看單項。
+- `產出 macOS 安全稽核報告 (Generate macOS security audit report)` — 開發者手動跑 `bin/mac/{launch_audit,login_audit,network_security_audit}-mac.sh`，或由 pm2 離峰分散排程自動觸發，產出 markdown 報告。
+- `清理 macOS 磁碟垃圾 (Clean macOS junk)` — 開發者執行 `npm run run:cleanup` (或 `./scripts/cleanup/all.sh`) 檢視 `/private/var/log`、`~/Library/Caches`、`~/.Trash`、舊 Time Machine snapshots 的可回收空間，再以 `--apply` 逐項確認後刪除。
+- `掃描本機所連私有網路拓樸 (Scan private network topology)` — 開發者執行 `npm run run:network:private` (或 `./scripts/network/private.sh`)，traceroute 走到第一個公網 hop，再依 public-to-local 順序對私有 `/24` subnets 跑 nmap。
+- `匯出 / 還原套件清單 (Dump / restore packages)` — 開發者執行 `npm run run:dump:<target>` (或 `./scripts/dump/<target>.sh`)，分別更新 Brewfile、VS Code extensions 與 Antigravity extensions manifests；反向以 `npm run run:install:<ide>` 從 manifest 還原 IDE extensions。
+- `排程 (Schedule)` — pm2 讀 `ecosystem.config.js` 註冊離峰分散排程任務 (`System Health Probe` 週一 04:00、`Storage Device Probe` 週一 05:00、`Backup Status Audit` 週二 04:30、`Private Route Topology` 週三 04:00、`Network Security Audit` 週四 04:00、`Launch Audit` 週五 04:00、`Login Audit` 週五 04:30、`Disk Cleanup Preview` 週六 05:00)；`Port Listenor` / `File Watcher` / `Infra Compose` 目前為註解狀態，待對應工具到位才啟用。
+- `移除 macOS Codex (Uninstall Codex)` — 開發者執行 `npm run run:uninstall:codex` (或 `./scripts/uninstall/codex.sh`) 預覽 app、CLI、user data 與 launchd targets，再以 `--apply` 逐項確認移除。
+- `評估磁碟 I/O 體質 (Probe device I/O)` — 開發者執行 `npm run run:io:probe` (或 `./scripts/io/probe.sh`) 看每顆實體磁碟的 transport / driver / queue depth / write cache，必要時以 `--bench` 量循序寫入與 4 KiB 同步寫入 IOPS。
+- `備份與還原 macOS 設定 (Backup macOS defaults)` — 開發者執行 `npm run run:backup` (或 `./scripts/backup/backup.sh`) 匯出 macOS defaults domains，以 `npm run run:backup:list` 查看最近一次快照時間與 domain status，並以 `npm run run:backup:import` 還原。
 
 ## 上下游服務 (Upstream / Downstream)
 

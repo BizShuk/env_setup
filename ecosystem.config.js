@@ -22,51 +22,51 @@ module.exports = {
         // },
         {
             namespace: "Local",
-            name: "Disk Cleanup Preview",
-            script: "./scripts/cleanup/all.sh",
-            cron: "0 5 * * 5"
-        },
-        {
-            namespace: "Local",
-            name: "Launch Audit",
-            script: "./bin/mac/launch_audit-mac.sh",
-            cron: "0 5 * * 5"
-        },
-        {
-            namespace: "Local",
-            name: "Login Audit",
-            script: "./bin/mac/login_audit-mac.sh",
-            cron: "0 5 * * 5"
-        },
-        {
-            namespace: "Local",
-            name: "Network Security Audit",
-            script: "./bin/mac/network_security_audit-mac.sh",
-            cron: "0 5 * * 5"
-        },
-        {
-            namespace: "Local",
             name: "System Health Probe",
             script: "./scripts/system/show.sh",
-            cron: "0 6 * * 1"
+            cron: "0 4 * * 1"
         },
         {
             namespace: "Local",
             name: "Storage Device Probe",
             script: "./scripts/io/probe.sh",
-            cron: "0 6 * * 1"
+            cron: "0 5 * * 1"
         },
         {
             namespace: "Local",
             name: "Backup Status Audit",
             script: "./scripts/backup/list.sh",
-            cron: "0 7 * * 1"
+            cron: "30 4 * * 2"
         },
         {
             namespace: "Local",
             name: "Private Route Topology",
             script: "./scripts/network/private.sh",
-            cron: "0 8 * * 1"
+            cron: "0 4 * * 3"
+        },
+        {
+            namespace: "Local",
+            name: "Network Security Audit",
+            script: "./bin/mac/network_security_audit-mac.sh",
+            cron: "0 4 * * 4"
+        },
+        {
+            namespace: "Local",
+            name: "Launch Audit",
+            script: "./bin/mac/launch_audit-mac.sh",
+            cron: "0 4 * * 5"
+        },
+        {
+            namespace: "Local",
+            name: "Login Audit",
+            script: "./bin/mac/login_audit-mac.sh",
+            cron: "30 4 * * 5"
+        },
+        {
+            namespace: "Local",
+            name: "Disk Cleanup Preview",
+            script: "./scripts/cleanup/all.sh",
+            cron: "0 5 * * 6"
         }
     ]
 };

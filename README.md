@@ -126,7 +126,7 @@
 
 1. 使用者先執行 `npm run run:cleanup` (或 `./scripts/cleanup/all.sh`)，查看每個 cleanup item 的 size 與 description；preview 不修改檔案。亦可透過 `npm run run:cleanup:<target>` 針對特定類別 (如 `docker`, `brew`, `node` 等) 檢視。
 2. 使用者執行 `npm run run:cleanup -- --apply` (或腳本加上 `--apply`) 後，才逐項顯示 `[y/N]` confirmation，且只套用明確同意的 item。
-3. pm2 在 `0 5 * * 5` (每週五 05:00) 觸發 audit scripts 與 cleanup preview；稽核腳本檢查 `LaunchAgents/LaunchDaemons`、登入帳戶、開啟通訊埠與敏感目錄權限，再寫出帶時間戳的報告。
+3. pm2 依分散排程 (週五 04:00~04:30、週六 05:00) 觸發 audit scripts 與 cleanup preview；稽核腳本檢查 `LaunchAgents/LaunchDaemons`、登入帳戶、開啟通訊埠與敏感目錄權限，再寫出帶時間戳的報告。
 
 `核心實體 (Key Entities):` `稽核報告 (Audit Report)`, `磁碟垃圾 (Disk Junk)`, `LaunchAgent`, `開啟通訊埠 (Open Port)`
 
@@ -172,7 +172,7 @@
 
 `領域流程 (Domain Flow):`
 
-1. pm2 啟動時讀取 `ecosystem.config.js` 註冊任務；cron 任務由 pm2 內部排程於指定時間週期性觸發。
+1. pm2 啟動時讀取 `ecosystem.config.js` 註冊任務；cron 任務依分散離峰時間 (週一至週六各時段) 由 pm2 內部排程週期性觸發，避免並行衝突。
 2. 稽核類任務以 `./bin/mac/<audit>-mac.sh` 全路徑執行，輸出 markdown 報告至 `$HOME/.config/env_setup/data/audit/`。
 3. 檢測類任務以 `./scripts/<domain>/<tool>.sh` 全路徑執行，記錄健康狀態、儲存裝置規格與備份清單。
 
