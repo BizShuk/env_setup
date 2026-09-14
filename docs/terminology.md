@@ -4,17 +4,17 @@
 
 | 術語 | 定義 |
 | --- | --- |
-| Process Runner | `svc.Runner`；以 go-cmd 管理 external process lifecycle，保留 byte-oriented stdin/stdout/stderr，並在 context cancellation 時停止 process group。 |
-| Process Exit Error | external command 正常啟動但以 non-zero code 結束時回傳的 structured error；保留 command name 與 exit code。 |
+| Shell Execution Safety | 透過 `set -euo pipefail`、`trap` 訊號管理與引號跳脫保障 Shell 腳本之執行安全與未捕捉例外中斷。 |
+| Process Exit Error | 外部指令非零狀態碼結束時回傳之錯誤，並由腳本即時輸出錯誤原因並終止。 |
 
 ## Cleanup Domain
 
 | 術語 | 定義 |
 | --- | --- |
 | Cleanup Item | 可獨立列出、量測、確認與套用的一個清理單位。每個 item 有穩定 ID、size、description 與 availability。 |
-| Preview Mode | `env_setup cleanup` 的預設模式；只建立並顯示 cleanup plan，不讀取 confirmation，也不修改檔案。 |
-| Apply Mode | `env_setup cleanup --apply`；顯示相同 plan 後逐項詢問 `[y/N]`，只執行明確回答 `y` 或 `yes` 的 item。 |
-| Exact Target | Preview discovery 已解析完成的實際 path。Apply 使用同一份 snapshot，不重新展開 glob；若 target 本身是 directory，會清除該 directory 的 subtree。 |
+| Preview Mode | `scripts/cleanup/*.sh` 的預設模式；只建立並顯示清理預覽，不修改檔案。 |
+| Apply Mode | `scripts/cleanup/*.sh --apply`；顯示預覽後逐項詢問 `[y/N]`，只執行明確回答 `y` 或 `yes` 的項目。 |
+| Exact Target | Preview discovery 已解析完成的實際 path。Apply 使用同一份 snapshot，若 target 本身是 directory，會清除該 directory 的 subtree。 |
 | Command Action | 透過 argument array 執行的 external command（例如 `go clean -cache`），不經 shell interpolation。無法可靠估算 size 時顯示 `N/A`。 |
 
 ## Uninstall Domain
@@ -22,7 +22,7 @@
 | 術語 | 定義 |
 | --- | --- |
 | Codex Uninstall Plan | `env_setup uninstall codex` 在 preview 時建立的 immutable item snapshot；包含 exact filesystem paths 與 matching user launchd labels，預設不修改 machine state。 |
-| Codex Uninstall Apply | `env_setup uninstall codex --apply`；逐一詢問 available targets，只有回答 `y` 或 `yes` 的 item 才會執行，且 apply 不重新展開 glob。 |
+| Codex Uninstall Apply | `scripts/uninstall/codex.sh --apply`；逐一詢問 available targets，只有回答 `y` 或 `yes` 的 item 才會執行，且 apply 不重新展開 glob。 |
 | Optional Uninstall Scope | `--with-codexbar` 將 CodexBar app 納入 plan；`--purge-system` 將 matching `/Library` launchd files 與 `/etc/codex` 納入需要 `sudo` 的 plan。兩者都不會隱含啟用 apply。 |
 
 ## Backup Domain
@@ -31,48 +31,46 @@
 | --- | --- |
 | Backup Domain | 一個 macOS `defaults` 設定網域及其人類可讀說明。 |
 | Backup Manifest | `~/.config/env_setup/mac_backup_domains.json`，定義要處理的 Backup Domains。 |
-| Backup Snapshot | `~/.config/env_setup/data/backup/mac/` 下由 `env_setup backup` 匯出的 plist 與 metadata；`backup list` 的 latest backup date 以 metadata timestamp 為準，legacy snapshot 缺少 metadata 時 fallback 至最新 plist modification time。 |
+| Backup Snapshot | `~/.config/env_setup/backup/` 下由 `scripts/backup/backup.sh` 匯出的 plist 與 metadata；`backup/list.sh` 的 latest backup date 以 metadata timestamp 為準，legacy snapshot 缺少 metadata 時 fallback 至最新 plist modification time。 |
 
 ## System Information Domain
 
 | 術語 | 定義 |
 | --- | --- |
-| Information Command | `env_setup system` 下的一種系統資訊分類，例如 `cpu`、`memory` 或 `network`；實際執行入口固定為其 `show` child command。 |
-| Aggregate Show | `env_setup system show`；依 catalog 順序執行全部 10 個 Information Commands。 |
-| Native Probe | `svc/system/<information>.go` 中負責 macOS/Linux command selection、output parsing 與 presentation 的 Go implementation。 |
-| Command Runner | `svc/system.Runner`；system probes 與 Process Runner 之間的一方法 consumer boundary，可注入 tests。 |
-| Disk Verification | `env_setup system disk verify <volume-path>`；macOS-only command，先確認 write operation，再依序執行 `diskutil info`、`f3write` 與 `f3read`。 |
+| Information Command | `scripts/system/` 下的一種系統資訊分類腳本，例如 `cpu.sh`、`memory.sh` 或 `network.sh`。 |
+| Aggregate Show | `scripts/system/show.sh`；依序執行全部 10 個 Information Commands 產出全系統摘要。 |
+| Native Probe | `scripts/system/<information>.sh` 中負責 macOS/Linux 指令分流、輸出整理與排版之純 Shell 實作。 |
+| Disk Verification | `scripts/system/disk_verify.sh <volume-path>`；macOS-only 腳本，先確認 write operation，再依序執行 `diskutil info`、`f3write` 與 `f3read`。 |
 | F3 | Fight Flash Fraud；以 write/read test files 驗證 removable media 的實際容量與資料完整性。Verification 會使用目標 volume 的可用空間。 |
 
 ## Device I/O Domain
 
 | 術語 | 定義 |
 | --- | --- |
-| Block Device | `env_setup io probe` 輸出的一列；一顆實體磁碟及其 transport、USB id/link、host driver、queue depth、write cache、rotational 與 mounts。 |
+| Block Device | `scripts/io/probe.sh` 輸出的一列；一顆實體磁碟及其 transport、USB id/link、host driver、queue depth、write cache、rotational 與 mounts。 |
 | Queue Depth | 裝置可同時接受的未完成 I/O 請求數；Linux 由 sysfs 取得，macOS 不揭露而顯示 `-`。低 queue depth 代表隨身碟等級的併發能力。 |
 | Write Cache | 裝置回報的寫入快取策略 (`write back` / `write through`)；`write through` 表示每次寫入都直達介質，同步寫入延遲高。 |
-| Cache-bypassed Benchmark | `env_setup io probe --bench`；以 Linux O_DIRECT 或 macOS `F_NOCACHE` 略過 page cache，量循序寫入吞吐、4 KiB 同步寫入 IOPS (Linux `O_DSYNC`、macOS `F_FULLFSYNC`) 與 4 KiB 隨機讀取 IOPS，測完刪除暫存檔。 |
+| Cache-bypassed Benchmark | `scripts/io/bench.sh`；以 Linux direct 或 macOS `sync` 略過 page cache，量循序寫入吞吐、4 KiB 同步寫入 IOPS 與 4 KiB 隨機讀取 IOPS，測完刪除暫存檔。 |
 | Latency Sample | Benchmark 期間單次 I/O 操作的耗時樣本；4 KiB 同步寫入 IOPS 由其推導，是判斷能否承載 container / DB 的主要指標。 |
 
 ## Manifest Sync Domain
 
 | 術語 | 定義 |
 | --- | --- |
-| Mac Manifest | `env_setup dump mac` 寫入的 `scripts/Brewfile`；包含目前 Homebrew taps、formulae、casks 與可取得的 Mac App Store entries。 |
-| IDE Extension Manifest | `env_setup dump vscode-extension|antigravity-extension` 寫入的 tracked extension ID 清單；輸出固定排序、去重並以 newline 結尾。 |
-| Atomic Manifest Write | 先完整取得並正規化 extension output，再於目標目錄建立 temporary file 並 rename；external command 失敗時不覆寫既有 manifest。 |
-| VS Code Extension Install | `env_setup install vscode-extension`；以 `code --install-extension --force` 逐項安裝 tracked manifest entries，並在移除 manifest 外的 installed extensions 前要求明確回答 `y/Y`。 |
-| Antigravity Extension Install | `env_setup install antigravity-extension`；逐項以 `--force` 安裝 manifest entries，marketplace 沒有的 entry 只記錄不中斷，列出 manifest 外的 installed extensions，且只有明確回答 `y/Y` 才會移除它們。 |
+| Mac Manifest | `scripts/dump/mac.sh` 寫入的 `scripts/Brewfile`；包含目前 Homebrew taps、formulae、casks 與可取得的 Mac App Store entries。 |
+| IDE Extension Manifest | `scripts/dump/vscode.sh` 與 `scripts/dump/antigravity.sh` 寫入的 tracked extension ID 清單；輸出固定排序、去重並以 newline 結尾。 |
+| Atomic Manifest Write | 先完整取得並正規化 extension output，再於目標目錄建立 temporary file 並 rename；外部命令失敗時不覆寫既有 manifest。 |
+| VS Code Extension Install | `scripts/install/vscode.sh`；以 `code --install-extension --force` 逐項安裝 tracked manifest entries。 |
+| Antigravity Extension Install | `scripts/install/antigravity.sh`；逐項以 `--force` 安裝 manifest entries，marketplace 沒有的 entry 只記錄不中斷。 |
 | Antigravity Extensions Directory | `agy-ide` 實際讀寫的 extensions 目錄；只跑 Remote-SSH server 的機器為 `~/.antigravity-ide-server/extensions`，desktop 機器維持 CLI 預設，`AGY_EXTENSIONS_DIR` 可覆寫。 |
 
 ## Network Scan Domain
 
 | 術語 | 定義 |
 | --- | --- |
-| Private Scan | `env_setup network private [target]`；沿 traceroute 收集 RFC1918/CGNAT hops，以 public-to-local 順序掃描其 `/24` subnets，並產出 topology file。 |
-| Target Scan | `env_setup network target [cidr]`；優先以 nmap host discovery 列出 live hosts，缺少 nmap 時只對 `/24` 或更小的 IPv4 network 使用 bounded concurrent ping fallback。 |
-| Topology Layer | 一個由 private route hop 推導的 `/24` subnet，以及排除 route hops 後的 discovered hosts、open services 與 OS hint。 |
-| Network Runner | `svc/network.Runner`；network service 與 Process Runner 之間的一方法 consumer boundary，可注入 tests。 |
+| Private Scan | `scripts/network/private.sh [target]`；沿 traceroute 收集 RFC1918/CGNAT hops，產出 topology 清單。 |
+| Target Scan | `scripts/network/target.sh [cidr]`；優先以 nmap host discovery 列出 live hosts，缺少 nmap 時只對 `/24` 或更小的 IPv4 network 使用 bounded concurrent ping fallback。 |
+| Topology Layer | 一個由 private route hop 推導的 `/24` subnet，以及排除 route hops 後的 discovered hosts。 |
 
 ## 業務領域正名 (Canonical Domain Names)
 
