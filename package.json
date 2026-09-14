@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "go run .",
     "test": "go test -count=1 ./... && bash scripts/test_bash_plugin.sh",
-    "test:docker": "bash scripts/test_docker_install.sh",
+    "test:docker": "DOCKER_TEST_IMAGE=\"${DOCKER_TEST_IMAGE:-ubuntu:26.04}\" bash scripts/test_docker_install.sh",
     "build": "go mod download && go build -o tmp/env_setup .",
     "deploy": "go install .",
     "lint": "! gofmt -l cmd svc model main.go | grep . && go vet ./...",

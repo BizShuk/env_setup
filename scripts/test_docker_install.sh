@@ -21,7 +21,7 @@ fi
 
 # Step 2: Set unique container name and image
 CONTAINER_NAME="env_setup_test_$(date +%s)_$$"
-IMAGE_NAME="${DOCKER_TEST_IMAGE:-ubuntu:24.04}"
+IMAGE_NAME="${DOCKER_TEST_IMAGE:-ubuntu:26.04}"
 
 # Step 3: Register trap for automatic cleanup on exit or termination
 cleanup() {
