@@ -1,19 +1,5 @@
 module.exports = {
     apps: [
-        {
-            namespace: "Local",
-            name: "Golang Clean Cache",
-            script: "go",
-            args: ["clean", "-cache"],
-            cron: "0 10 * * 5"
-        },
-        {
-            namespace: "Local",
-            name: "Golang Clean ModCache",
-            script: "go",
-            args: ["clean", "-modcache"],
-            cron: "0 10 * * 5"
-        },
         // { // has problme with pm2
         //     namespace: "Local",
         //     name: "Infra Compose",
@@ -37,8 +23,7 @@ module.exports = {
         {
             namespace: "Local",
             name: "Disk Cleanup Preview",
-            script: "env_setup",
-            args: ["cleanup"],
+            script: "./scripts/cleanup/all.sh",
             cron: "0 5 * * 5"
         },
         {
@@ -52,6 +37,36 @@ module.exports = {
             name: "Login Audit",
             script: "./bin/mac/login_audit-mac.sh",
             cron: "0 5 * * 5"
+        },
+        {
+            namespace: "Local",
+            name: "Network Security Audit",
+            script: "./bin/mac/network_security_audit-mac.sh",
+            cron: "0 5 * * 5"
+        },
+        {
+            namespace: "Local",
+            name: "System Health Probe",
+            script: "./scripts/system/show.sh",
+            cron: "0 6 * * 1"
+        },
+        {
+            namespace: "Local",
+            name: "Storage Device Probe",
+            script: "./scripts/io/probe.sh",
+            cron: "0 6 * * 1"
+        },
+        {
+            namespace: "Local",
+            name: "Backup Status Audit",
+            script: "./scripts/backup/list.sh",
+            cron: "0 7 * * 1"
+        },
+        {
+            namespace: "Local",
+            name: "Private Route Topology",
+            script: "./scripts/network/private.sh",
+            cron: "0 8 * * 1"
         }
     ]
 };
