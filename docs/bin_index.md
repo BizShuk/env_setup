@@ -1,6 +1,6 @@
 # `bin/` 完整索引 (Full Entry Point Catalog)
 
-> `bin/` 內的 scripts 經 `~/bin` symlink 後可直接以 bare name 呼叫；manifest sync、Codex uninstall、macOS cleanup、system information 與 network scan 已移至 root Go CLI 的 `env_setup install` / `env_setup uninstall` / `env_setup dump` / `env_setup cleanup` / `env_setup system` / `env_setup network`。
+> `bin/` 內的 scripts 經 `~/bin` symlink 後可直接以 bare name 呼叫；領域專屬任務（manifest sync、Codex uninstall、macOS cleanup、system information、network scan 與 backup）已整合至 `scripts/<domain>/` 純 Shell 腳本並由 `package.json` 的 `npm run run:<domain>:*` 提供統一任務入口。
 
 ## 1. `bin/bash/` — dotfiles 與設定
 
@@ -36,23 +36,20 @@
 
 ## 3. Domain Utilities
 
-`env_setup system` 與 `env_setup network` 已直接以 Go 實作 cross-platform probes/scans，不再需要 `bin/` adapter folders。原本混放的其他工具依 ownership 搬至：
+原本混放於 `bin/` 的領域工具已依職責重構至 `scripts/<domain>/` 純 Shell 腳本，不再需要 `bin/` adapter folders。工具歸屬如下：
 
-| Area | 項目 | 說明 |
-| --- | --- | --- |
-| `pkg/sysctl/` | `pf.conf` | PF firewall template（非 executable） |
-| `scripts/disk/` | `mount_disk.sh` / `mount_disk_by_fstab.sh` | 掛載 helper（非 `bin/` 入口） |
-
-Network scan 入口為 `env_setup network private [target]` 與
-`env_setup network target [cidr]`；implementation 位於 `cmd/network/` 與 `svc/network/`。
-F3 media validation 入口為 `env_setup system disk verify <volume-path>`；
-implementation 位於 `cmd/system/diskVerify.go` 與 `svc/system/diskVerify.go`。
-Manifest export 入口為 `env_setup dump mac|vscode-extension|antigravity-extension`；
-implementation 位於 `cmd/dump/` 與 `svc/dump/`。
-Antigravity extension restore 入口為 `env_setup install antigravity-extension`；
-implementation 位於 `cmd/install/` 與 `svc/install/`。
-Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview，
-`--apply` 才逐項確認；implementation 位於 `cmd/uninstall/` 與 `svc/uninstall/`。
+| 領域 | 腳本目錄 | npm 任務入口 | 說明 |
+| --- | --- | --- | --- |
+| 系統狀態探測 | `scripts/system/` | `npm run run:system:*` | 硬體與系統狀態探測、磁碟驗證 (`disk_verify.sh`) |
+| 裝置層 I/O 探測 | `scripts/io/` | `npm run run:io:*` | 磁碟層規格探測 (`probe.sh`) 與基準測試 (`bench.sh`) |
+| 開發環境清單同步 | `scripts/dump/` | `npm run run:dump:*` | Homebrew (`mac.sh`)、VSCode 與 Antigravity 擴充清單匯出 |
+| IDE 擴充套件同步 | `scripts/install/` | `npm run run:install:*` | VSCode 與 Antigravity 擴充套件同步還原 |
+| macOS 設定備份 | `scripts/backup/` | `npm run run:backup:*` | Defaults 偏好設定備份、檢視、還原與初始化 |
+| macOS Codex 移除 | `scripts/uninstall/` | `npm run run:uninstall:codex` | Codex 移除 preview 與 `--apply` 確認清理 |
+| macOS 系統清理 | `scripts/cleanup/` | `npm run run:cleanup:*` | 系統暫存、快取、日誌與容器清理 preview 與 `--apply` 清理 |
+| 網路拓撲掃描 | `scripts/network/` | `npm run run:network:*` | 私有路由拓撲 (`private.sh`) 與目標網段掃描 (`target.sh`) |
+| 磁碟掛載 | `scripts/disk/` | `npm run run:mount-disk` | 磁碟掛載 helper (`mount_disk.sh`, `mount_disk_by_fstab.sh`) |
+| 防火牆樣板 | `pkg/sysctl/` | — | PF firewall template (`pf.conf`，非 executable) |
 
 ## 4. `bin/vscode/` — IDE Profile
 
@@ -110,8 +107,7 @@ Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview�
 
 ## 6. Network Scan Migration
 
-`bin/network/` 已移除。Network scan domain 由 root Go CLI 的
-`env_setup network private|target` 與 `svc/network/` 擁有。
+`bin/network/` 已移除。網路掃描全面由 `scripts/network/` 純 Shell 腳本 (`private.sh` / `target.sh`) 與 `npm run run:network:*` 擁有。
 
 ## 加入流程 (Add New Tool)
 
@@ -119,7 +115,7 @@ Codex removal 入口為 `env_setup uninstall codex`；default mode 只 preview�
 2. 在 `bin/<area>/<tool>` 撰寫；需要共用 helper 時 `source bin/<area>/_lib_*.sh`
 3. 若需 root 入口, 在 `bin/<tool>` 加 symlink `bin/<tool> -> <area>/<tool>`
 4. 將工具補入本檔對應分類
-5. 若需排程, 在 `ecosystem.config.js` 用 `./bin/<area>/<tool>` 全路徑註冊
+5. 若需排程, 在 `ecosystem.config.js` 用 `./bin/<area>/<tool>` 或 `./scripts/<domain>/<tool>.sh` 全路徑註冊
 
 ## 共用 helper 慣例 (Shared Helper Convention)
 
@@ -142,5 +138,4 @@ log "使用者層級項目: ${COUNT} 筆"
 ## 排程 (Scheduling)
 
 `ecosystem.config.js` 之 `Local` namespace 統一管理本機排程;
-`bin/` 內的 script task 必須以 `./bin/<area>/<tool>` 全路徑註冊, 避免 pm2 切換工作目錄後找不到入口;
-已安裝於 `PATH` 的 binary (`go`、`env_setup`) 則以 bare name + `args` 陣列註冊。
+排程任務必須以 `./bin/<area>/<tool>` 或 `./scripts/<domain>/<tool>.sh` 全路徑註冊, 避免 pm2 切換工作目錄後找不到入口。
