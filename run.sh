@@ -70,7 +70,6 @@ declare -a SYMLINKS=(
 
     # User home directory configurations
     "${HOME}/.bash_plugin:${REPO_DIR}/tmp/.bash_plugin"
-    "${HOME}/.colima:${REPO_DIR}/tmp/.colima"
     "${HOME}/.config:${REPO_DIR}/tmp/.config"
     "${HOME}/.config/env_setup:${REPO_DIR}/tmp/env_setup"
     "${HOME}/.gemini:${REPO_DIR}/tmp/.gemini"
