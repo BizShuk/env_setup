@@ -1,6 +1,6 @@
 # env_setup
 
-`env_setup` 是一個 framework 層級的機器初始化與開發者工具箱 (developer toolbox) repo：負責在 macOS / Ubuntu 新機器上安裝 OS 與開發工具 (Go, Node, brew, ctags, openssl, git-secret)，把 bash / vim / ssh / vscode 等 dotfiles 透過 `run.sh` 軟連結到使用者家目錄，並透過 `scripts/<domain>/` 純 Shell 腳本與 `package.json` npm scripts 提供 install、uninstall、dump、system、io、cleanup、backup 與 network 任務；`bin/` 保留 macOS 稽核與開發者 helpers，pm2 負責 cron 排程。
+`env_setup` 是一個 framework 層級的機器初始化與開發者工具箱 (developer toolbox) repo：負責在 macOS / Ubuntu 新機器上安裝 OS 與開發工具 (Go, Node, brew, ctags, openssl, git-secret)，把 bash / vim / ssh / vscode 等 dotfiles 透過 `run.sh` 軟連結到使用者家目錄，並透過 `scripts/<domain>/` 純 Shell 腳本與 `package.json` 的 pnpm scripts 提供 install、uninstall、dump、system、io、cleanup、backup 與 network 任務；`bin/` 保留 macOS 稽核與開發者 helpers，pm2 負責 cron 排程。
 
 ## 業務領域 (Business Domains)
 
@@ -38,115 +38,115 @@
 
 ### 硬體與系統狀態偵測 (Hardware & System Probe)
 
-`scripts/system/` 是硬體與系統狀態的統一探測工具集；`system/show.sh` 聚合全部 10 個 probes，每種 information 也有獨立的探測腳本（如 `cpu.sh`、`memory.sh`、`disk.sh`、`network.sh` 等）。`system/disk_verify.sh` 在 macOS 以 `diskutil`、`f3write` 與 `f3read` 驗證 removable media 的容量與資料完整性。由 `package.json` 的 `npm run run:system:*` 提供統一任務入口。
+`scripts/system/` 是硬體與系統狀態的統一探測工具集；`system/show.sh` 聚合全部 10 個 probes，每種 information 也有獨立的探測腳本（如 `cpu.sh`、`memory.sh`、`disk.sh`、`network.sh` 等）。`system/disk_verify.sh` 在 macOS 以 `diskutil`、`f3write` 與 `f3read` 驗證 removable media 的容量與資料完整性。由 `package.json` 的 `pnpm run run:system:*` 提供統一任務入口。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者執行 `npm run run:system:show` (或 `./scripts/system/show.sh`) 查看聚合報告，亦可指定單一 probe 如 `npm run run:system:cpu` 查看特定資訊。
+1. 使用者執行 `pnpm run run:system:show` (或 `./scripts/system/show.sh`) 查看聚合報告，亦可指定單一 probe 如 `pnpm run run:system:cpu` 查看特定資訊。
 2. 腳本依 runtime platform 執行 `system_profiler` / `sysctl`（macOS）或對應 Linux commands (`lshw`, `lscpu` 等)，格式化後輸出至 stdout。
-3. 使用者執行 `npm run run:system:disk-verify -- /Volumes/<name>` (或 `./scripts/system/disk_verify.sh /Volumes/<name>`)，確認 F3 write/read 操作後驗證 removable media；`--yes` 可略過互動確認。
+3. 使用者執行 `pnpm run run:system:disk-verify -- /Volumes/<name>` (或 `./scripts/system/disk_verify.sh /Volumes/<name>`)，確認 F3 write/read 操作後驗證 removable media；`--yes` 可略過互動確認。
 
 `核心實體 (Key Entities):` `硬體元件 (Hardware Component)`, `系統工具輸出 (System Probe Output)`
 
-`相關處理器 (Related Handlers):` [scripts/system/show.sh](scripts/system/show.sh), [scripts/system/disk_verify.sh](scripts/system/disk_verify.sh), [scripts/system/](scripts/system/), `npm run run:system:*`
+`相關處理器 (Related Handlers):` [scripts/system/show.sh](scripts/system/show.sh), [scripts/system/disk_verify.sh](scripts/system/disk_verify.sh), [scripts/system/](scripts/system/), `pnpm run run:system:*`
 
 ---
 
 ### 裝置層 I/O 探測 (Device I/O Probe)
 
-`scripts/io/probe.sh` 以磁碟為單位回答「這顆碟扛不扛得住 fsync 密集的工作（docker、registry、資料庫）」：每顆實體磁碟一列，欄位 `DEV / TRAN / ID / MODEL / SIZE / LINK / DRIVER / QD / WCACHE / ROTA / MOUNTS`。Linux 由 `lsblk` 與 sysfs 取得（USB 會顯示 vendor:product、link 速率、`uas` 或 `usb-storage`、queue depth 與 write cache），macOS 由 `diskutil` 取得。`scripts/io/bench.sh` 進行循序寫入與延遲測試。由 `npm run run:io:*` 提供統一任務入口。
+`scripts/io/probe.sh` 以磁碟為單位回答「這顆碟扛不扛得住 fsync 密集的工作（docker、registry、資料庫）」：每顆實體磁碟一列，欄位 `DEV / TRAN / ID / MODEL / SIZE / LINK / DRIVER / QD / WCACHE / ROTA / MOUNTS`。Linux 由 `lsblk` 與 sysfs 取得（USB 會顯示 vendor:product、link 速率、`uas` 或 `usb-storage`、queue depth 與 write cache），macOS 由 `diskutil` 取得。`scripts/io/bench.sh` 進行循序寫入與延遲測試。由 `pnpm run run:io:*` 提供統一任務入口。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者執行 `npm run run:io:probe` (或 `./scripts/io/probe.sh`)，先看表格判斷瓶頸來源（例如 `usb-storage` + `QD 2` + `write through` 就是隨身碟等級）。
-2. 需要數字時執行 `npm run run:io:bench -- /Volumes/target` (或 `./scripts/io/bench.sh --dir DIR`)：在指定目錄寫暫存檔量測循序寫入與讀取速度，略過 page cache，測完自動刪檔。
+1. 使用者執行 `pnpm run run:io:probe` (或 `./scripts/io/probe.sh`)，先看表格判斷瓶頸來源（例如 `usb-storage` + `QD 2` + `write through` 就是隨身碟等級）。
+2. 需要數字時執行 `pnpm run run:io:bench -- /Volumes/target` (或 `./scripts/io/bench.sh --dir DIR`)：在指定目錄寫暫存檔量測循序寫入與讀取速度，略過 page cache，測完自動刪檔。
 3. 以同步寫入 IOPS 判斷：數十 IOPS 只能放冷資料，上千 IOPS 才適合 container / DB。
 
 `核心實體 (Key Entities):` `區塊裝置 (Block Device)`, `延遲樣本 (Latency Sample)`
 
-`相關處理器 (Related Handlers):` [scripts/io/probe.sh](scripts/io/probe.sh), [scripts/io/bench.sh](scripts/io/bench.sh), `npm run run:io:*`
+`相關處理器 (Related Handlers):` [scripts/io/probe.sh](scripts/io/probe.sh), [scripts/io/bench.sh](scripts/io/bench.sh), `pnpm run run:io:*`
 
 ---
 
 ### 開發環境清單同步 (Development Manifest Sync)
 
-`scripts/dump/` 將目前機器的 Homebrew 與 IDE extension 狀態寫回 repo 內的 canonical manifests：`mac.sh` 更新 `scripts/Brewfile`；`vscode.sh` 與 `antigravity.sh` 分別更新 `bin/vscode/*_extension_list.txt`。`scripts/install/` 則依 tracked manifest 安裝對應 IDE 的 extensions，並在移除未列管 extensions 前要求明確確認。由 `npm run run:dump:*` 與 `npm run run:install:*` 提供統一任務入口。
+`scripts/dump/` 將目前機器的 Homebrew 與 IDE extension 狀態寫回 repo 內的 canonical manifests：`mac.sh` 更新 `scripts/Brewfile`；`vscode.sh` 與 `antigravity.sh` 分別更新 `bin/vscode/*_extension_list.txt`。`scripts/install/` 則依 tracked manifest 安裝對應 IDE 的 extensions，並在移除未列管 extensions 前要求明確確認。由 `pnpm run run:dump:*` 與 `pnpm run run:install:*` 提供統一任務入口。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者在 repo 內執行 `npm run run:dump:mac`、`npm run run:dump:vscode` 或 `npm run run:dump:antigravity` (或直接執行 `scripts/dump/*.sh`)。
+1. 使用者在 repo 內執行 `pnpm run run:dump:mac`、`pnpm run run:dump:vscode` 或 `pnpm run run:dump:antigravity` (或直接執行 `scripts/dump/*.sh`)。
 2. 腳本先驗證 repo root 與必要 CLI，再執行 `brew bundle dump` 或 `<ide> --list-extensions`。
 3. IDE manifests 會排序、去重並以原子覆寫方式寫入，external command 失敗時保留舊檔。
-4. 使用者執行 `npm run run:install:vscode` 或 `npm run run:install:antigravity` (或直接執行 `scripts/install/*.sh`) 時，逐項安裝 manifest entries；未列管的 extensions 只有在回答 `y` 確認後才會被移除。
+4. 使用者執行 `pnpm run run:install:vscode` 或 `pnpm run run:install:antigravity` (或直接執行 `scripts/install/*.sh`) 時，逐項安裝 manifest entries；未列管的 extensions 只有在回答 `y` 確認後才會被移除。
 
 `核心實體 (Key Entities):` `Mac Manifest`, `IDE Extension Manifest`, `Extension Sync`, `Repository Root`
 
-`相關處理器 (Related Handlers):` [scripts/dump/mac.sh](scripts/dump/mac.sh), [scripts/dump/vscode.sh](scripts/dump/vscode.sh), [scripts/dump/antigravity.sh](scripts/dump/antigravity.sh), [scripts/install/vscode.sh](scripts/install/vscode.sh), [scripts/install/antigravity.sh](scripts/install/antigravity.sh), `npm run run:dump:*`, `npm run run:install:*`
+`相關處理器 (Related Handlers):` [scripts/dump/mac.sh](scripts/dump/mac.sh), [scripts/dump/vscode.sh](scripts/dump/vscode.sh), [scripts/dump/antigravity.sh](scripts/dump/antigravity.sh), [scripts/install/vscode.sh](scripts/install/vscode.sh), [scripts/install/antigravity.sh](scripts/install/antigravity.sh), `pnpm run run:dump:*`, `pnpm run run:install:*`
 
 ---
 
 ### macOS 設定備份 (macOS Defaults Backup)
 
-`scripts/backup/` 以 macOS `defaults` / `plutil` 匯出 tracked domains 的偏好設定為 `.plist` snapshot，供重灌或換機後還原：`list.sh` 顯示最近一次快照時間與每個 domain 的狀態，`import.sh` 還原，`init.sh` 建立預設的 domain manifest，`backup.sh` 執行備份快照。由 `npm run run:backup:*` 提供統一任務入口。
+`scripts/backup/` 以 macOS `defaults` / `plutil` 匯出 tracked domains 的偏好設定為 `.plist` snapshot，供重灌或換機後還原：`list.sh` 顯示最近一次快照時間與每個 domain 的狀態，`import.sh` 還原，`init.sh` 建立預設的 domain manifest，`backup.sh` 執行備份快照。由 `pnpm run run:backup:*` 提供統一任務入口。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者執行 `npm run run:backup:init` (或 `./scripts/backup/init.sh`) 建立預設的 domain manifest `~/.config/env_setup/mac_backup_domains.json`。
-2. 使用者執行 `npm run run:backup` (或 `./scripts/backup/backup.sh`) 匯出 tracked domains；每個 domain 寫成一份 `.plist`，並更新 metadata 的 snapshot timestamp。
-3. 使用者執行 `npm run run:backup:list` (或 `./scripts/backup/list.sh`) 檢視 latest backup date 與 domain status；缺少 metadata 的 legacy backup 才 fallback 到最新 `.plist` 的 modification time，完全沒有 backup 時顯示 `-`。
-4. 使用者在新機執行 `npm run run:backup:import` (或 `./scripts/backup/import.sh`) 把 snapshot 寫回 macOS defaults；預設先顯示 diff 再逐一確認，`--yes` 全部同意、`--no-diff` 不顯示 diff。
+1. 使用者執行 `pnpm run run:backup:init` (或 `./scripts/backup/init.sh`) 建立預設的 domain manifest `~/.config/env_setup/mac_backup_domains.json`。
+2. 使用者執行 `pnpm run run:backup` (或 `./scripts/backup/backup.sh`) 匯出 tracked domains；每個 domain 寫成一份 `.plist`，並更新 metadata 的 snapshot timestamp。
+3. 使用者執行 `pnpm run run:backup:list` (或 `./scripts/backup/list.sh`) 檢視 latest backup date 與 domain status；缺少 metadata 的 legacy backup 才 fallback 到最新 `.plist` 的 modification time，完全沒有 backup 時顯示 `-`。
+4. 使用者在新機執行 `pnpm run run:backup:import` (或 `./scripts/backup/import.sh`) 把 snapshot 寫回 macOS defaults；預設先顯示 diff 再逐一確認，`--yes` 全部同意、`--no-diff` 不顯示 diff。
 
 `核心實體 (Key Entities):` `Backup Domain`, `Backup Manifest`, `Backup Snapshot`
 
-`相關處理器 (Related Handlers):` [scripts/backup/backup.sh](scripts/backup/backup.sh), [scripts/backup/list.sh](scripts/backup/list.sh), [scripts/backup/import.sh](scripts/backup/import.sh), [scripts/backup/init.sh](scripts/backup/init.sh), `npm run run:backup:*`
+`相關處理器 (Related Handlers):` [scripts/backup/backup.sh](scripts/backup/backup.sh), [scripts/backup/list.sh](scripts/backup/list.sh), [scripts/backup/import.sh](scripts/backup/import.sh), [scripts/backup/init.sh](scripts/backup/init.sh), `pnpm run run:backup:*`
 
 ---
 
 ### macOS Codex 移除 (macOS Codex Uninstall)
 
-`scripts/uninstall/codex.sh` 以 preview-first workflow 管理 Codex desktop app、per-user CLI、`~/.codex`、Library data 與 matching user launchd services。預設只列出 targets；只有加上 `--apply` 才逐項詢問 `[y/N]` 並移除明確同意的 target。由 `npm run run:uninstall:codex` 提供統一任務入口。
+`scripts/uninstall/codex.sh` 以 preview-first workflow 管理 Codex desktop app、per-user CLI、`~/.codex`、Library data 與 matching user launchd services。預設只列出 targets；只有加上 `--apply` 才逐項詢問 `[y/N]` 並移除明確同意的 target。由 `pnpm run run:uninstall:codex` 提供統一任務入口。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者先執行 `npm run run:uninstall:codex` (或 `./scripts/uninstall/codex.sh`)，查看 app、CLI、configuration、cache、preferences、containers 與 launchd targets；此時不會 quit app 或修改檔案。
+1. 使用者先執行 `pnpm run run:uninstall:codex` (或 `./scripts/uninstall/codex.sh`)，查看 app、CLI、configuration、cache、preferences、containers 與 launchd targets；此時不會 quit app 或修改檔案。
 2. `--with-codexbar` 將 `/Applications/CodexBar.app` 納入 scope；`--purge-system` 將 matching `/Library` launchd files 與 `/etc/codex` 納入需要 `sudo` 的 scope。
 3. 使用者加上 `--apply` 後，每個 available target 都必須個別確認後始執行移除。
 
 `核心實體 (Key Entities):` `Codex Uninstall Plan`, `Exact Target`, `Optional Uninstall Scope`, `launchd Label`
 
-`相關處理器 (Related Handlers):` [scripts/uninstall/codex.sh](scripts/uninstall/codex.sh), `npm run run:uninstall:codex`
+`相關處理器 (Related Handlers):` [scripts/uninstall/codex.sh](scripts/uninstall/codex.sh), `pnpm run run:uninstall:codex`
 
 ---
 
 ### macOS 系統稽核與清理 (macOS Audit & Cleanup)
 
-`scripts/cleanup/` 提供系統與快取清理；預設為 safe-by-default preview，加上 `--apply` 才進行確認清理。`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/env_setup/data/audit/` (可由 `AUDIT_REPORT_DIR` 覆寫)。由 `npm run run:cleanup` 與 `npm run run:cleanup:<target>` 提供統一任務入口。
+`scripts/cleanup/` 提供系統與快取清理；預設為 safe-by-default preview，加上 `--apply` 才進行確認清理。`bin/mac/` 保留三個安全稽核腳本 (`launch_audit-mac.sh`、`login_audit-mac.sh`、`network_security_audit-mac.sh`)，產出 markdown 報告寫入 `$HOME/.config/env_setup/data/audit/` (可由 `AUDIT_REPORT_DIR` 覆寫)。由 `pnpm run run:cleanup` 與 `pnpm run run:cleanup:<target>` 提供統一任務入口。
 
 `領域流程 (Domain Flow):`
 
-1. 使用者先執行 `npm run run:cleanup` (或 `./scripts/cleanup/all.sh`)，查看每個 cleanup item 的 size 與 description；preview 不修改檔案。亦可透過 `npm run run:cleanup:<target>` 針對特定類別 (如 `docker`, `brew`, `node` 等) 檢視。
-2. 使用者執行 `npm run run:cleanup -- --apply` (或腳本加上 `--apply`) 後，才逐項顯示 `[y/N]` confirmation，且只套用明確同意的 item。
+1. 使用者先執行 `pnpm run run:cleanup` (或 `./scripts/cleanup/all.sh`)，查看每個 cleanup item 的 size 與 description；preview 不修改檔案。亦可透過 `pnpm run run:cleanup:<target>` 針對特定類別 (如 `docker`, `brew`, `node` 等) 檢視。
+2. 使用者執行 `pnpm run run:cleanup -- --apply` (或腳本加上 `--apply`) 後，才逐項顯示 `[y/N]` confirmation，且只套用明確同意的 item。
 3. pm2 依分散排程 (週五 04:00~04:30、週六 05:00) 觸發 audit scripts 與 cleanup preview；稽核腳本檢查 `LaunchAgents/LaunchDaemons`、登入帳戶、開啟通訊埠與敏感目錄權限，再寫出帶時間戳的報告。
 
 `核心實體 (Key Entities):` `稽核報告 (Audit Report)`, `磁碟垃圾 (Disk Junk)`, `LaunchAgent`, `開啟通訊埠 (Open Port)`
 
-`相關處理器 (Related Handlers):` [scripts/cleanup/all.sh](scripts/cleanup/all.sh), [bin/mac/launch_audit-mac.sh](bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](bin/mac/network_security_audit-mac.sh), [scripts/cleanup/](scripts/cleanup/), `npm run run:cleanup:*`
+`相關處理器 (Related Handlers):` [scripts/cleanup/all.sh](scripts/cleanup/all.sh), [bin/mac/launch_audit-mac.sh](bin/mac/launch_audit-mac.sh), [bin/mac/login_audit-mac.sh](bin/mac/login_audit-mac.sh), [bin/mac/network_security_audit-mac.sh](bin/mac/network_security_audit-mac.sh), [scripts/cleanup/](scripts/cleanup/), `pnpm run run:cleanup:*`
 
 ---
 
 ### 網路拓撲與設備掃描 (Network Topology & Device Scan)
 
-`scripts/network/` 提供網路掃描任務：`private.sh` 以 `traceroute` + `nmap` 分析本機所連私有網段並產出 `network.topo`；`target.sh` 對指定 IPv4 CIDR 執行 host discovery。由 `npm run run:network:private` 與 `npm run run:network:target` 提供統一任務入口。
+`scripts/network/` 提供網路掃描任務：`private.sh` 以 `traceroute` + `nmap` 分析本機所連私有網段並產出 `network.topo`；`target.sh` 對指定 IPv4 CIDR 執行 host discovery。由 `pnpm run run:network:private` 與 `pnpm run run:network:target` 提供統一任務入口。
 
 `領域流程 (Domain Flow):`
 
-1. 執行 `npm run run:network:private` (或 `./scripts/network/private.sh`) 先檢查 `traceroute` 與 `nmap`；`npm run run:network:target` (或 `./scripts/network/target.sh`) 優先使用 `nmap`，缺少時只對 `/24` 或更小的 IPv4 network 使用 bounded ping fallback。
+1. 執行 `pnpm run run:network:private` (或 `./scripts/network/private.sh`) 先檢查 `traceroute` 與 `nmap`；`pnpm run run:network:target` (或 `./scripts/network/target.sh`) 優先使用 `nmap`，缺少時只對 `/24` 或更小的 IPv4 network 使用 bounded ping fallback。
 2. 腳本判斷每個 hop 是否位於 RFC1918 / CGNAT (`100.64/10`) 段；持續 traceroute 直到遇見公網 IP。
 3. `nmap` 對私有 subnet 進行 host / port discovery；`private` 寫入 topology file，`target` 將 live hosts 印到 stdout。
 
 `核心實體 (Key Entities):` `私有 IP (Private IP)`, `Hop 節點`, `通訊埠掃描結果 (Port Scan Result)`, `網路拓樸報告 (Network Topology Report)`
 
-`相關處理器 (Related Handlers):` [scripts/network/private.sh](scripts/network/private.sh), [scripts/network/target.sh](scripts/network/target.sh), `npm run run:network:*`
+`相關處理器 (Related Handlers):` [scripts/network/private.sh](scripts/network/private.sh), [scripts/network/target.sh](scripts/network/target.sh), `pnpm run run:network:*`
 
 ---
 
@@ -220,11 +220,11 @@ flowchart TD
 ### 3. 硬體 / 系統偵測
 
 ```bash
-# npm run (推薦)
-npm run run:system:show
-npm run run:system:cpu
-npm run run:system:network
-npm run run:system:disk-verify -- /Volumes/backup
+# pnpm run (推薦)
+pnpm run run:system:show
+pnpm run run:system:cpu
+pnpm run run:system:network
+pnpm run run:system:disk-verify -- /Volumes/backup
 
 # 直接執行腳本
 ./scripts/system/show.sh
@@ -235,12 +235,12 @@ npm run run:system:disk-verify -- /Volumes/backup
 ### 3.1 同步開發環境清單
 
 ```bash
-# npm run (推薦)
-npm run run:dump:mac
-npm run run:dump:vscode
-npm run run:dump:antigravity
-npm run run:install:vscode
-npm run run:install:antigravity
+# pnpm run (推薦)
+pnpm run run:dump:mac
+pnpm run run:dump:vscode
+pnpm run run:dump:antigravity
+pnpm run run:install:vscode
+pnpm run run:install:antigravity
 
 # 直接執行腳本
 ./scripts/dump/mac.sh
@@ -253,9 +253,9 @@ npm run run:install:antigravity
 ### 3.2 macOS Codex 移除
 
 ```bash
-# npm run (推薦)
-npm run run:uninstall:codex                          # preview only
-npm run run:uninstall:codex -- --apply               # 逐項確認
+# pnpm run (推薦)
+pnpm run run:uninstall:codex                          # preview only
+pnpm run run:uninstall:codex -- --apply               # 逐項確認
 
 # 直接執行腳本
 ./scripts/uninstall/codex.sh                         # preview only
@@ -267,9 +267,9 @@ npm run run:uninstall:codex -- --apply               # 逐項確認
 ### 3.3 裝置層 I/O 探測
 
 ```bash
-# npm run (推薦)
-npm run run:io:probe
-npm run run:io:bench -- /Volumes/backup
+# pnpm run (推薦)
+pnpm run run:io:probe
+pnpm run run:io:bench -- /Volumes/backup
 
 # 直接執行腳本
 ./scripts/io/probe.sh
@@ -278,10 +278,10 @@ npm run run:io:bench -- /Volumes/backup
 
 ### 4. macOS 稽核與清理
 ```bash
-# npm run (推薦)
-npm run run:cleanup                                  # preview all
-npm run run:cleanup -- --apply                       # 逐項確認清理
-npm run run:cleanup:docker
+# pnpm run (推薦)
+pnpm run run:cleanup                                  # preview all
+pnpm run run:cleanup -- --apply                       # 逐項確認清理
+pnpm run run:cleanup:docker
 
 # 直接執行腳本
 ./scripts/cleanup/all.sh                             # preview all
@@ -295,11 +295,11 @@ npm run run:cleanup:docker
 ### 4.1 macOS 設定備份
 
 ```bash
-# npm run (推薦)
-npm run run:backup
-npm run run:backup:list                              # 顯示 latest backup date 與 domain status
-npm run run:backup:import
-npm run run:backup:init
+# pnpm run (推薦)
+pnpm run run:backup
+pnpm run run:backup:list                              # 顯示 latest backup date 與 domain status
+pnpm run run:backup:import
+pnpm run run:backup:init
 
 # 直接執行腳本
 ./scripts/backup/backup.sh
@@ -311,9 +311,9 @@ npm run run:backup:init
 ### 5. 網路掃描
 
 ```bash
-# npm run (推薦)
-npm run run:network:private
-npm run run:network:target -- 192.168.1.0/24
+# pnpm run (推薦)
+pnpm run run:network:private
+pnpm run run:network:target -- 192.168.1.0/24
 
 # 直接執行腳本
 ./scripts/network/private.sh                         # traceroute 至 8.8.8.8，產出 ./network.topo
@@ -339,15 +339,15 @@ npm run run:network:target -- 192.168.1.0/24
 
 ### 8. 啟動排程
 ```bash
-pm2 start ecosystem.config.js
+pm2 apply
 ```
 
 ## 改善建議 (Improvement Suggestions)
 
 依實際檔案系統分析（參照 `docs/specs/2026-07-08-env-setup-structural-cleanup.md` 的體檢結果）：
 
-- [x] **移除 system shell adapter layer 並整合成純 Shell 領域腳本**：硬體與系統探測全面由 `scripts/system/*.sh` 提供，並以 `npm run run:system:*` 作為統一入口。
-- [x] **移除 network shell adapter layer 並整合成純 Shell 領域腳本**：網路拓撲與目標網段掃描全面由 `scripts/network/*.sh` 提供，並以 `npm run run:network:*` 作為統一入口。
+- [x] **移除 system shell adapter layer 並整合成純 Shell 領域腳本**：硬體與系統探測全面由 `scripts/system/*.sh` 提供，並以 `pnpm run run:system:*` 作為統一入口。
+- [x] **移除 network shell adapter layer 並整合成純 Shell 領域腳本**：網路拓撲與目標網段掃描全面由 `scripts/network/*.sh` 提供，並以 `pnpm run run:network:*` 作為統一入口。
 - [x] **合併舊 system link 邏輯**：`run.sh` 是唯一 symlink setup 入口，目標統一為 `./tmp/`。
 - [x] **移除 vendored 與 dead code**：`git-secret` 改用 package manager，舊 Raspberry Pi / service one-liners 與其他 dead scripts 已移除。
 - [x] **安全化 `bin/bash/settings.sh`**：明文 `passwd` / `email` 已移除，改由 git-ignored `~/.config/env_setup/settings.private.sh` 提供；`.gitignore` 已含 `settings.private.sh`, `.bash_local`, `log/`, `tmp/`。

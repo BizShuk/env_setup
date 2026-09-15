@@ -211,7 +211,7 @@
                 "envFile": "${userHome}/.env"
             },
             {
-                // Should setup ts-node `npm i -d ts-node; npm i -g typescript`
+                // Should setup ts-node `pnpm add -D ts-node; pnpm add -g typescript`
                 "type": "node",
                 "name": "ts file",
                 "request": "launch",
@@ -686,8 +686,8 @@
     "yaml.disableSchemaDetection": [],
     "superset.editorLayout.maxRatio": 0.9,
     "npm.autoDetect": "on",
-    "npm.scriptRunner": "bun",
-    "npm.packageManager": "bun",
+    "npm.scriptRunner": "pnpm",
+    "npm.packageManager": "pnpm",
     "npm.scriptExplorerAction": "run",
     "task.quickOpen.history": 10,
     "superset.cliLauncher.hidden": [],

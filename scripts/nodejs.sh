@@ -8,7 +8,7 @@ set -euo pipefail
 #   1. NVM + Node runtime (nodejs_nvm.sh)
 #   2. pnpm package manager + global packages (pnpm.sh)
 #
-# Individual steps can also be executed directly or via npm run:nodejs:*
+# Individual steps can also be executed directly or via pnpm run:nodejs:*
 # ============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

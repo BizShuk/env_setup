@@ -1,6 +1,6 @@
 # `bin/` 完整索引 (Full Entry Point Catalog)
 
-> `bin/` 內的 scripts 經 `~/bin` symlink 後可直接以 bare name 呼叫；領域專屬任務（manifest sync、Codex uninstall、macOS cleanup、system information、network scan 與 backup）已整合至 `scripts/<domain>/` 純 Shell 腳本並由 `package.json` 的 `npm run run:<domain>:*` 提供統一任務入口。
+> `bin/` 內的 scripts 經 `~/bin` symlink 後可直接以 bare name 呼叫；領域專屬任務（manifest sync、Codex uninstall、macOS cleanup、system information、network scan 與 backup）已整合至 `scripts/<domain>/` 純 Shell 腳本並由 `package.json` 的 `pnpm run run:<domain>:*` 提供統一任務入口。
 
 ## 1. `bin/bash/` — dotfiles 與設定
 
@@ -14,7 +14,7 @@
 | `.gitconfig` / `.gitmessage`  | dotfile     | git 設定 / commit 樣板                                                |
 | `.gitignore`                  | dotfile     | 全域忽略                                                              |
 | `.vimrc` / `.vim/`            | dotfile     | vim 設定與 9 個 plugin git submodules                                  |
-| `.screenrc` / `.toprc` / `.npmrc` | dotfile | screen / top / npm 設定                                                |
+| `.screenrc` / `.toprc` | dotfile | screen / top 設定                                                |
 | `backup.ignore`               | 設定        | 備份排除清單                                                          |
 | `cmd_usage.md`                | 文件        | 個人 cheat notes                                                      |
 | `shell_script_sample.sh`      | 樣板        | shell 腳本範本                                                        |
@@ -38,17 +38,17 @@
 
 原本混放於 `bin/` 的領域工具已依職責重構至 `scripts/<domain>/` 純 Shell 腳本，不再需要 `bin/` adapter folders。工具歸屬如下：
 
-| 領域 | 腳本目錄 | npm 任務入口 | 說明 |
+| 領域 | 腳本目錄 | pnpm 任務入口 | 說明 |
 | --- | --- | --- | --- |
-| 系統狀態探測 | `scripts/system/` | `npm run run:system:*` | 硬體與系統狀態探測、磁碟驗證 (`disk_verify.sh`) |
-| 裝置層 I/O 探測 | `scripts/io/` | `npm run run:io:*` | 磁碟層規格探測 (`probe.sh`) 與基準測試 (`bench.sh`) |
-| 開發環境清單同步 | `scripts/dump/` | `npm run run:dump:*` | Homebrew (`mac.sh`)、VSCode 與 Antigravity 擴充清單匯出 |
-| IDE 擴充套件同步 | `scripts/install/` | `npm run run:install:*` | VSCode 與 Antigravity 擴充套件同步還原 |
-| macOS 設定備份 | `scripts/backup/` | `npm run run:backup:*` | Defaults 偏好設定備份、檢視、還原與初始化 |
-| macOS Codex 移除 | `scripts/uninstall/` | `npm run run:uninstall:codex` | Codex 移除 preview 與 `--apply` 確認清理 |
-| macOS 系統清理 | `scripts/cleanup/` | `npm run run:cleanup:*` | 系統暫存、快取、日誌與容器清理 preview 與 `--apply` 清理 |
-| 網路拓撲掃描 | `scripts/network/` | `npm run run:network:*` | 私有路由拓撲 (`private.sh`) 與目標網段掃描 (`target.sh`) |
-| 磁碟掛載 | `scripts/disk/` | `npm run run:mount-disk` | 磁碟掛載 helper (`mount_disk.sh`, `mount_disk_by_fstab.sh`) |
+| 系統狀態探測 | `scripts/system/` | `pnpm run run:system:*` | 硬體與系統狀態探測、磁碟驗證 (`disk_verify.sh`) |
+| 裝置層 I/O 探測 | `scripts/io/` | `pnpm run run:io:*` | 磁碟層規格探測 (`probe.sh`) 與基準測試 (`bench.sh`) |
+| 開發環境清單同步 | `scripts/dump/` | `pnpm run run:dump:*` | Homebrew (`mac.sh`)、VSCode 與 Antigravity 擴充清單匯出 |
+| IDE 擴充套件同步 | `scripts/install/` | `pnpm run run:install:*` | VSCode 與 Antigravity 擴充套件同步還原 |
+| macOS 設定備份 | `scripts/backup/` | `pnpm run run:backup:*` | Defaults 偏好設定備份、檢視、還原與初始化 |
+| macOS Codex 移除 | `scripts/uninstall/` | `pnpm run run:uninstall:codex` | Codex 移除 preview 與 `--apply` 確認清理 |
+| macOS 系統清理 | `scripts/cleanup/` | `pnpm run run:cleanup:*` | 系統暫存、快取、日誌與容器清理 preview 與 `--apply` 清理 |
+| 網路拓撲掃描 | `scripts/network/` | `pnpm run run:network:*` | 私有路由拓撲 (`private.sh`) 與目標網段掃描 (`target.sh`) |
+| 磁碟掛載 | `scripts/disk/` | `pnpm run run:mount-disk` | 磁碟掛載 helper (`mount_disk.sh`, `mount_disk_by_fstab.sh`) |
 | 防火牆樣板 | `pkg/sysctl/` | — | PF firewall template (`pf.conf`，非 executable) |
 
 ## 4. `bin/vscode/` — IDE Profile
@@ -107,7 +107,7 @@
 
 ## 6. Network Scan Migration
 
-`bin/network/` 已移除。網路掃描全面由 `scripts/network/` 純 Shell 腳本 (`private.sh` / `target.sh`) 與 `npm run run:network:*` 擁有。
+`bin/network/` 已移除。網路掃描全面由 `scripts/network/` 純 Shell 腳本 (`private.sh` / `target.sh`) 與 `pnpm run run:network:*` 擁有。
 
 ## 加入流程 (Add New Tool)
 

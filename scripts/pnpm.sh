@@ -2,16 +2,22 @@
 set -euo pipefail
 
 # ============================================================================
-# pnpm.sh — Install pinned pnpm and global packages
+# pnpm.sh — Install pinned pnpm
 # ============================================================================
-# Requires Node.js on PATH (or nvm at ${USER_LIB}/nvm) for global Node packages.
+# Requires Node.js on PATH (or nvm at ${USER_LIB}/nvm).
 # ============================================================================
 
 source "$(dirname "$0")/settings.sh"
 # shellcheck source=./_lib_bash_plugin.sh
 source "$(dirname "$0")/_lib_bash_plugin.sh"
 
-PNPM_VER=${PNPM_VER:-12.4.1}
+# package.json:packageManager is the single source of truth for the pnpm
+# version, so corepack, CI and this installer all land on the same build.
+PNPM_VER=${PNPM_VER:-$(sed -n 's/.*"packageManager": *"pnpm@\([^"]*\)".*/\1/p' "${REPO_DIR}/package.json")}
+if [ -z "${PNPM_VER}" ]; then
+    echo "cannot read packageManager (pnpm@<version>) from ${REPO_DIR}/package.json" >&2
+    exit 1
+fi
 PNPM_HOME="${USER_LIB}/pnpm"
 NVM_DIR="${USER_LIB}/nvm"
 
@@ -83,4 +89,7 @@ EOF
 source "${BASH_PLUGIN}"
 
 export PATH="${PNPM_HOME}:${PNPM_HOME}/bin:${PATH}"
-"${PNPM_HOME}/pnpm" add -g pm2
+
+# No global Node packages here: this repo's `pm2` is the Go implementation
+# installed by scripts/default_tools.sh (go install github.com/bizshuk/pm2),
+# which is a different tool from the same-named npm package.

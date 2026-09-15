@@ -10,7 +10,7 @@ set -euo pipefail
 #   3. Timezone configuration (ubuntu_timezone.sh)
 #   4. User setup (ubuntu_user.sh)
 #
-# Individual steps can also be executed directly or via npm run:ubuntu:*
+# Individual steps can also be executed directly or via pnpm run:ubuntu:*
 # ============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

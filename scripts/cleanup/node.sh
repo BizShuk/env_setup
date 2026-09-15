@@ -21,6 +21,8 @@ parse_cleanup_args "$@"
 
 NPX_DIR="${HOME}/.npm/_npx"
 NPM_CACHE_DIR="${HOME}/.npm/_cacache"
+PNPM_STORE_DIR="${HOME}/Library/pnpm/store"
+[ -d "${PNPM_STORE_DIR}" ] || PNPM_STORE_DIR="${HOME}/.local/share/pnpm/store"
 BUN_CACHE_DIR="${HOME}/.bun/install/cache"
 PROJECTS_DIR="${USER_PROJECT:-${HOME}/projects}"
 
@@ -32,13 +34,18 @@ find_node_modules() {
 }
 
 if [ "${APPLY}" != true ]; then
-    print_preview_header "Node.js & Bun"
+    print_preview_header "Node.js, pnpm & Bun"
     
     size_npx=$(get_path_size "${NPX_DIR}")
     print_preview_target "${NPX_DIR}" "${size_npx}" "npx temporary packages"
 
     size_npm=$(get_path_size "${NPM_CACHE_DIR}")
     print_preview_target "${NPM_CACHE_DIR}" "${size_npm}" "npm cache (npm cache clean --force)"
+
+    if command -v pnpm >/dev/null 2>&1 || [ -d "${PNPM_STORE_DIR}" ]; then
+        size_pnpm=$(get_path_size "${PNPM_STORE_DIR}")
+        print_preview_target "${PNPM_STORE_DIR}" "${size_pnpm}" "pnpm content-addressable store (pnpm store prune)"
+    fi
 
     if command -v bun >/dev/null 2>&1 || [ -d "${BUN_CACHE_DIR}" ]; then
         size_bun=$(get_path_size "${BUN_CACHE_DIR}")
@@ -81,6 +88,14 @@ if command -v npm >/dev/null 2>&1; then
     if confirm_action "npm 快取 (${size_npm}) (npm cache clean --force)"; then
         npm cache clean --force
         echo "  ✓ 已清理 npm 快取"
+    fi
+fi
+
+if command -v pnpm >/dev/null 2>&1; then
+    size_pnpm=$(get_path_size "${PNPM_STORE_DIR}")
+    if confirm_action "pnpm store (${size_pnpm}) (pnpm store prune)"; then
+        pnpm store prune
+        echo "  ✓ 已清理 pnpm store"
     fi
 fi
 

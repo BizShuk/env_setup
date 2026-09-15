@@ -89,7 +89,7 @@ if [ -f "${HOME}/.bash_plugin" ]; then
 fi
 export PATH="${HOME}/bin:${HOME}/.local/bin:${PATH}"
 
-echo "--> Installing Node.js & npm..."
+echo "--> Installing Node.js & pnpm..."
 ./scripts/nodejs.sh
 
 if [ -f "${HOME}/.bash_plugin" ]; then
@@ -110,14 +110,13 @@ fi
 export PATH="${HOME}/bin:${HOME}/.local/bin:${PATH}"
 
 echo "=== Phase 3: Validating pure shell scripts and test suite ==="
-npm run lint
-npm test
+pnpm run lint
+pnpm test
 
 echo "=== Phase 4: Asserting installed commands ==="
 echo -n "Checking go: " && go version
 echo -n "Checking node: " && node -v
-echo -n "Checking npm: " && npm -v
-command -v pnpm >/dev/null && echo -n "Checking pnpm: " && pnpm -v || true
+echo -n "Checking pnpm: " && pnpm -v
 echo -n "Checking git: " && git --version
 echo -n "Checking vim: " && vim --version | head -n 1
 echo "Checking scripts/system/os.sh:"

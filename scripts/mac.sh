@@ -11,7 +11,7 @@ set -euo pipefail
 #   4. Go toolchain (go.sh)
 #   5. uv Python toolchain (uv.sh)
 #
-# Individual steps can also be executed directly or via npm run:mac:*
+# Individual steps can also be executed directly or via pnpm run:mac:*
 # ============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

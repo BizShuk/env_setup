@@ -2,7 +2,7 @@
 #
 # 這是 maratori 的 golden config(v2)加上`本專案刻意的例外`。
 # 之所以複製一份而不是靠 ~/.golangci.yml:feedback 是獨立 repo,
-# 別台機器 clone 下來跑 `npm run lint` 必須得到`一樣的結果`,
+# 別台機器 clone 下來跑 `pnpm run lint` 必須得到`一樣的結果`,
 # 不能依賴維護者家目錄裡剛好有什麼。
 #
 # 專案例外集中在檔案末端的 linters.exclusions.rules,每條都附理由。

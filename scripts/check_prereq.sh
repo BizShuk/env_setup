@@ -50,14 +50,14 @@ if [ -L "${BASHRC_DEST}" ]; then
         ok "Bash environment: ${BASHRC_DEST} -> ${TARGET}"
     else
         fail "Bash environment: ${BASHRC_DEST} points to ${TARGET} (expected ${BASHRC_SRC})" \
-             "Run: ./scripts/bash_env_setup.sh (or npm run run:bash-env) to relink dotfiles"
+             "Run: ./scripts/bash_env_setup.sh (or pnpm run run:bash-env) to relink dotfiles"
     fi
 elif [ -f "${BASHRC_DEST}" ]; then
     fail "Bash environment: ${BASHRC_DEST} exists but is not a symlink to repo" \
-         "Run: ./scripts/bash_env_setup.sh (or npm run run:bash-env) to backup and link dotfiles"
+         "Run: ./scripts/bash_env_setup.sh (or pnpm run run:bash-env) to backup and link dotfiles"
 else
     fail "Bash environment: ${BASHRC_DEST} not found" \
-         "Run: ./scripts/bash_env_setup.sh (or npm run run:bash-env) to setup dotfiles"
+         "Run: ./scripts/bash_env_setup.sh (or pnpm run run:bash-env) to setup dotfiles"
 fi
 
 # Check .bash_plugin existence
@@ -108,7 +108,7 @@ fi
 
 echo ""
 if [ "${FAILED}" -eq 0 ]; then
-    echo -e "${GREEN}All prerequisites are satisfied! Ready to run npm-package tasks.${NC}"
+    echo -e "${GREEN}All prerequisites are satisfied! Ready to run package tasks.${NC}"
     exit 0
 else
     echo -e "${RED}Prerequisite check failed (${#ERRORS[@]} issue(s) detected):${NC}"
