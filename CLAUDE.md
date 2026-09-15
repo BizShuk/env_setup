@@ -145,7 +145,8 @@
 - **`bin/bash/settings.sh` 為唯一環境變數入口**：所有腳本 `source settings.sh` 取得 `USER_BIN`、`REPO_DIR`、`REPO_SCRIPTS`、`OS`、`ARCH`、`KERNEL_NAME` 等；個人敏感值 (`passwd`/`email`/`token`) 改由 `~/.config/env_setup/settings.private.sh` 提供 (git-ignored)。
 - **`~/bin` symlink 到 `bin/`**：在 `settings.sh` 內 `[ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"`，新工具直接落入 `bin/<area>/<tool>` 即可被 `PATH` 找到。
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。
-- **`package.json` 是唯一任務清單**：`pnpm run ci` = `lint` → `test`，統一透過 npm scripts 管理所有安裝、同步、探測與生命週期任務；`lint` 透過 `bash -n` 靜態語法檢查驗證 `scripts/` 與 `bin/` 所有腳本；`clean` 僅清除日誌與暫存廢棄檔，安全保留 `tmp/` 目錄與符號連結。
+- **`package.json` 是唯一任務清單**：`pnpm run ci` = `lint` → `test`，統一透過 pnpm scripts 管理所有安裝、同步、探測與生命週期任務；`lint` 透過 `bash -n` 靜態語法檢查驗證 `scripts/` 與 `bin/` 所有腳本；`clean` 僅清除日誌與暫存廢棄檔，安全保留 `tmp/` 目錄與符號連結。
+- **pnpm 是唯一 node package manager**：`scripts/nodejs_nvm.sh` 在裝完 Node.js 後即從每個 runtime 版本移除 `npm` / `npx` / `corepack`，`scripts/pnpm.sh` 再以 standalone binary 安裝鎖版 pnpm 並保留 `alias npm=pnpm` 作為誤打轉導；`scripts/check_prereq.sh` 會在 npm 仍留在 PATH 時提出警告，`scripts/cleanup/node.sh` 則直接刪除 `~/.npm` 殘留快取而非呼叫已不存在的 `npm cache clean`。
 - **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 任務，namespace = `Local`；所有任務統一以 `./scripts/<domain>/<tool>.sh` 或 `./bin/<area>/<tool>` 全路徑註冊，包含磁碟清理 preview、macOS 安全稽核、硬體與 I/O 探測、備份狀態檢測以及網路拓撲探測等全套非安裝類檢查任務；排程於離峰時段分散執行（週一至週六各時段），避免資源與網路競爭。
 - **macOS 稽核與清理分流**：`scripts/cleanup/` 擁有 cleanup catalog、preview 與逐項 confirmation；`bin/mac/*_audit-mac.sh` 保留 audit reports；跨平台硬體偵測由 `scripts/system/` 擁有。
 - **純 Shell 領域腳本架構**：廢除 Go CLI，所有領域功能（backup、cleanup、dump、install、io、network、system、uninstall）全面下沉為 `scripts/<domain>/` 下的純 Shell 獨立腳本，並透過 `package.json` 的 pnpm scripts 提供統一執行介面。

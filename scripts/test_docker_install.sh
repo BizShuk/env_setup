@@ -117,6 +117,7 @@ echo "=== Phase 4: Asserting installed commands ==="
 echo -n "Checking go: " && go version
 echo -n "Checking node: " && node -v
 echo -n "Checking pnpm: " && pnpm -v
+echo -n "Checking npm is absent: " && { command -v npm >/dev/null 2>&1 && { echo "FAIL (npm found at $(command -v npm))"; exit 1; } || echo "OK"; }
 echo -n "Checking git: " && git --version
 echo -n "Checking vim: " && vim --version | head -n 1
 echo "Checking scripts/system/os.sh:"

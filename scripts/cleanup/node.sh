@@ -1,5 +1,5 @@
 #!/bin/bash
-# node.sh: 清理 Node.js / Bun 快取與專案 node_modules
+# node.sh: 清理 pnpm store, npm 殘留快取, Bun 快取與專案 node_modules
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -8,7 +8,7 @@ source "${SCRIPT_DIR}/_lib_cleanup.sh"
 
 print_help() {
     echo "Usage: $(basename "$0") [--apply] [--yes|-y] [--dry-run|-n] [--help|-h]"
-    echo "清理 Node.js/Bun 快取 (npm, bun, _npx) 與專案中的 node_modules。"
+    echo "清理 pnpm store, npm 殘留快取 (~/.npm), Bun 快取與專案中的 node_modules。"
     echo ""
     echo "Options:"
     echo "  --apply        執行實際清理 (預設為預覽模式 Preview Mode)"
@@ -19,6 +19,8 @@ print_help() {
 
 parse_cleanup_args "$@"
 
+# npm is uninstalled by scripts/nodejs_nvm.sh, so ~/.npm is pure leftover:
+# remove the directory directly instead of shelling out to `npm cache clean`.
 NPX_DIR="${HOME}/.npm/_npx"
 NPM_CACHE_DIR="${HOME}/.npm/_cacache"
 PNPM_STORE_DIR="${HOME}/Library/pnpm/store"
@@ -40,7 +42,7 @@ if [ "${APPLY}" != true ]; then
     print_preview_target "${NPX_DIR}" "${size_npx}" "npx temporary packages"
 
     size_npm=$(get_path_size "${NPM_CACHE_DIR}")
-    print_preview_target "${NPM_CACHE_DIR}" "${size_npm}" "npm cache (npm cache clean --force)"
+    print_preview_target "${NPM_CACHE_DIR}" "${size_npm}" "npm 殘留快取 (npm 已移除, 直接刪除目錄)"
 
     if command -v pnpm >/dev/null 2>&1 || [ -d "${PNPM_STORE_DIR}" ]; then
         size_pnpm=$(get_path_size "${PNPM_STORE_DIR}")
@@ -83,11 +85,11 @@ if [ -d "${NPX_DIR}" ]; then
     fi
 fi
 
-if command -v npm >/dev/null 2>&1; then
+if [ -d "${NPM_CACHE_DIR}" ]; then
     size_npm=$(get_path_size "${NPM_CACHE_DIR}")
-    if confirm_action "npm 快取 (${size_npm}) (npm cache clean --force)"; then
-        npm cache clean --force
-        echo "  ✓ 已清理 npm 快取"
+    if confirm_action "npm 殘留快取 (${NPM_CACHE_DIR} - ${size_npm})"; then
+        clean_path "${NPM_CACHE_DIR}"
+        echo "  ✓ 已清理 npm 殘留快取"
     fi
 fi
 

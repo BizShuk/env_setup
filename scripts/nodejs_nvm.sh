@@ -29,6 +29,19 @@ nvm use "$NODE_VER"
 nvm alias default "$NODE_VER"
 nvm use --delete-prefix "${NODE_VER}" --silent
 
+# pnpm is this repo's only package manager. Every Node.js tarball ships npm,
+# npx and corepack; strip them from each installed version so no command,
+# script or editor can silently fall back to npm.
+for node_root in "${NVM_DIR}"/versions/node/*; do
+    [ -d "${node_root}" ] || continue
+    rm -rf \
+        "${node_root}/lib/node_modules/npm" \
+        "${node_root}/lib/node_modules/corepack" \
+        "${node_root}/bin/npm" \
+        "${node_root}/bin/npx" \
+        "${node_root}/bin/corepack"
+done
+
 update_bash_plugin_block "nodejs" \
     '/^# \[NodeJs:nvm\]$/d' \
     '/^export NVM_DIR=/d' \

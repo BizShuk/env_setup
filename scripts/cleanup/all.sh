@@ -14,7 +14,7 @@ print_help() {
     echo "  3. cache_user.sh  - 使用者快取 (~/.cache, ~/Library/Caches, ~/.Trash)"
     echo "  4. docker.sh      - Docker 容器、映像與建置快取 prune"
     echo "  5. brew.sh        - Homebrew 快取清理與 bundle 整理"
-    echo "  6. node.sh        - npm/bun 快取與專案 node_modules"
+    echo "  6. node.sh        - pnpm store, npm 殘留與 bun 快取, 專案 node_modules"
     echo "  7. python.sh      - pip/uv 快取與專案 venv"
     echo "  8. go.sh          - Go 建置快取與 workspace source"
     echo "  9. ai.sh          - Claude/Codex/Gemini 過期 sessions 與暫存"

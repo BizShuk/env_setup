@@ -12,7 +12,9 @@ source "$(dirname "$0")/settings.sh"
 source "$(dirname "$0")/_lib_bash_plugin.sh"
 
 # package.json:packageManager is the single source of truth for the pnpm
-# version, so corepack, CI and this installer all land on the same build.
+# version, so every machine and CI run lands on the same build. pnpm is
+# installed as a standalone binary because npm and corepack are removed
+# from the Node.js runtime by scripts/nodejs_nvm.sh.
 PNPM_VER=${PNPM_VER:-$(sed -n 's/.*"packageManager": *"pnpm@\([^"]*\)".*/\1/p' "${REPO_DIR}/package.json")}
 if [ -z "${PNPM_VER}" ]; then
     echo "cannot read packageManager (pnpm@<version>) from ${REPO_DIR}/package.json" >&2
@@ -82,6 +84,7 @@ update_bash_plugin_block "pnpm" \
     '/^alias npm=pnpm$/d' <<EOF
 export PNPM_HOME="${PNPM_HOME}"
 export PATH="\${PNPM_HOME}:\${PNPM_HOME}/bin:\${PATH}"
+# npm is uninstalled; redirect muscle memory instead of failing.
 alias npm=pnpm
 EOF
 

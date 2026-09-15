@@ -7,7 +7,7 @@ set -euo pipefail
 # Verifies:
 #   1. Git CLI ready
 #   2. Bash environment setup (dotfiles linked to repo, .bash_plugin present)
-#   3. Node.js runtime & pnpm CLI ready in PATH
+#   3. Node.js runtime & pnpm CLI ready in PATH (and npm absent)
 #   4. Platform package manager (Homebrew on macOS / apt-get on Linux)
 #
 # Exit status:
@@ -30,6 +30,7 @@ ERRORS=()
 ok()   { echo -e "  ${GREEN}✔${NC} $1"; }
 fail() { echo -e "  ${RED}✘${NC} $1"; FAILED=1; ERRORS+=("$2"); }
 info() { echo -e "${BLUE}==>${NC} $1"; }
+warn() { echo -e "  ${YELLOW}!${NC} $1"; }
 
 info "Checking system prerequisites (${OS}-${ARCH})..."
 
@@ -87,6 +88,14 @@ if command -v pnpm >/dev/null 2>&1; then
 else
     fail "pnpm CLI not found" \
          "Run: ./scripts/pnpm.sh to install pnpm"
+fi
+
+# pnpm is the only package manager: npm / npx / corepack are stripped from the
+# Node.js runtime by scripts/nodejs_nvm.sh, so anything still on PATH is foreign.
+if NPM_PATH="$(command -v npm 2>/dev/null)"; then
+    warn "npm still on PATH (${NPM_PATH}) - reinstall Node.js with ./scripts/nodejs_nvm.sh or remove it manually"
+else
+    ok "npm not on PATH (pnpm is the only package manager)"
 fi
 
 # 4. OS Package Manager
