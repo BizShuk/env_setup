@@ -108,6 +108,8 @@
 │   │   ├── setup.sh / globalp.plist / README.md
 │   │   ├── LaunchAgents/          # plist 樣板
 │   │   └── applescript/           # toggleFn.scpt
+│   ├── ollama/
+│   │   └── qwen3.5-4b.Modelfile   # Qwen3.5 4B 80K context 樣板
 │   ├── sysctl/pf.conf             # PF firewall 樣板 (其餘樣板見 docs/templates/sysctl/)
 │   └── README.md
 ├── docs/

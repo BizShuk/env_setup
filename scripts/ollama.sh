@@ -63,8 +63,11 @@ if ! ollama list >/dev/null 2>&1; then
     fi
 fi
 
-# 6. Ask whether to download qwen3.5:4b-q4_K_M
+# 6. Ask whether to download qwen3.5:4b-q4_K_M and create qwen3.5-4b-80k
 DEFAULT_MODEL="qwen3.5:4b-q4_K_M"
+CUSTOM_MODEL="qwen3.5-4b-80k"
+MODELFILE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/pkg/ollama/qwen3.5-4b.Modelfile"
+
 AUTO_CONFIRM=false
 for arg in "$@"; do
     case "$arg" in
@@ -72,11 +75,14 @@ for arg in "$@"; do
     esac
 done
 
+downloaded_or_updated=false
+
 if ollama list 2>/dev/null | awk '{print $1}' | grep -q "^${DEFAULT_MODEL}$"; then
     echo "Model '${DEFAULT_MODEL}' is already downloaded."
     if [ "$AUTO_CONFIRM" = true ]; then
         echo "Auto-confirm enabled: re-pulling ${DEFAULT_MODEL}..."
         ollama pull "${DEFAULT_MODEL}"
+        downloaded_or_updated=true
     else
         printf "Model '%s' is already downloaded. Do you want to re-download/update it? [y/N]: " "${DEFAULT_MODEL}"
         if ! read -r ans; then
@@ -88,6 +94,7 @@ if ollama list 2>/dev/null | awk '{print $1}' | grep -q "^${DEFAULT_MODEL}$"; th
         if [[ "${ans}" =~ ^[Yy]$ ]]; then
             echo "Pulling model '${DEFAULT_MODEL}'..."
             ollama pull "${DEFAULT_MODEL}"
+            downloaded_or_updated=true
         fi
     fi
 else
@@ -110,8 +117,23 @@ else
     if [ "$should_download" = true ]; then
         echo "Downloading model '${DEFAULT_MODEL}'..."
         ollama pull "${DEFAULT_MODEL}"
+        downloaded_or_updated=true
     else
         echo "Skipped downloading '${DEFAULT_MODEL}'."
+    fi
+fi
+
+# 7. Create custom model qwen3.5-4b-80k from Modelfile if base model was downloaded/updated
+# or if base model is present but custom model has not yet been created.
+if [ -f "${MODELFILE}" ]; then
+    custom_model_exists=false
+    if ollama list 2>/dev/null | awk '{print $1}' | grep -q "^${CUSTOM_MODEL}:latest$"; then
+        custom_model_exists=true
+    fi
+
+    if [ "${downloaded_or_updated}" = true ] || { ollama list 2>/dev/null | awk '{print $1}' | grep -q "^${DEFAULT_MODEL}$" && [ "${custom_model_exists}" = false ]; }; then
+        echo "Creating customized model '${CUSTOM_MODEL}' from ${MODELFILE}..."
+        ollama create "${CUSTOM_MODEL}" -f "${MODELFILE}"
     fi
 fi
 
