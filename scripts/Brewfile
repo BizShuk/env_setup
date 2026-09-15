@@ -18,6 +18,7 @@ brew "himalaya"
 brew "htop"
 brew "mysql-client"
 brew "nmap"
+brew "ollama"
 brew "python@3.13", link: false
 brew "shellcheck"
 brew "uv"

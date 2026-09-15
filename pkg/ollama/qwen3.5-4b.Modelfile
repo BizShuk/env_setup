@@ -1,0 +1,25 @@
+# Ollama Modelfile —— Qwen3.5 4B / Q4_K_M / 80K context
+#
+# 建立與使用：
+#   ollama create qwen3.5-4b-80k -f pkg/ollama/qwen3.5-4b.Modelfile
+#   ollama run qwen3.5-4b-80k
+#
+# `num_ctx 81920` = 80 × 1024。模型上限是 GGUF metadata 的
+# `qwen35.context_length = 262144`（256K），所以這裡只用了`上限的 31%`，
+# 是刻意留白而非硬體限制。上限可當場驗證：
+#   ollama show qwen3.5:4b-q4_K_M | grep -i 'context length'
+#
+# 記憶體（本機 16 GB，Metal wired limit 預設約 10.6 GB）：
+#   weights 3.4 GB + KV cache 約 1.25 GB ≒ 4.7 GB。
+#   KV 之所以這麼小，是因為 qwen35 是 hybrid 架構：
+#   `full_attention_interval = 4` —— 32 層裡只有 8 層是 full attention 要存 KV，
+#   其餘 24 層是 SSM（固定大小的狀態，不隨 context 成長）。
+#   同樣 80K 放在純 attention 的 4B 模型上，KV 會是這個數字的四倍。
+#
+# `不覆寫取樣參數`：上游 tag 自帶的 params layer 已宣告 temperature 1 /
+# top_k 20 / top_p 0.95 / presence_penalty 1.5。在這裡重抄一份，
+# 只會在上游調整時產生第二份會過期的事實。
+
+FROM qwen3.5:4b-q4_K_M
+
+PARAMETER num_ctx 81920

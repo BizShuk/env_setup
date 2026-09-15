@@ -20,6 +20,18 @@ module.exports = {
         //     script: "file_watcher",
         //     args: ["monitor"]
         // },
+        // 本機 Ollama LLM 服務 (常駐背景執行)：提供本地大語言模型推理服務 (keep-alive 5m, 單一模型)
+        {
+            namespace: "Agent",
+            name: "Ollama",
+            script: "ollama",
+            args: ["serve"],
+            instances: 1,
+            env: {
+                OLLAMA_KEEP_ALIVE: "5m",
+                OLLAMA_MAX_LOADED_MODELS: "1"
+            }
+        },
         // 系統健康探測 (週一 04:00)：每週一開工前聚合探測 CPU、記憶體、作業系統、GPU、螢幕、音訊與實體介面狀態
         {
             namespace: "Local",

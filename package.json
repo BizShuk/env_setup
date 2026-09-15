@@ -30,6 +30,7 @@
     "run:mac:openssl": "./scripts/openssl_mac_setup.sh",
     "run:mac:ctags": "./scripts/ctags_setup.sh",
     "run:mac:vim": "./scripts/vim.sh",
+    "run:mac:ollama": "./scripts/ollama.sh",
 
     "run:ubuntu": "./scripts/ubuntu.sh",
     "run:ubuntu:prereq": "./scripts/check_prereq.sh",
@@ -51,6 +52,7 @@
     "run:nodejs": "./scripts/nodejs.sh",
     "run:nodejs:nvm": "./scripts/nodejs_nvm.sh",
     "run:pnpm": "./scripts/pnpm.sh",
+    "run:ollama": "./scripts/ollama.sh",
     "run:vim": "./scripts/vim.sh",
     "run:git": "./scripts/git.sh",
     "run:git-secret": "./scripts/git-secret.sh",

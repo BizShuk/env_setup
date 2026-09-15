@@ -107,6 +107,7 @@ tool_meta() {
         openssl_mac_setup.sh)  echo "OpenSSL (macOS)|openssl|darwin" ;;
         mac.sh)                echo "macOS 全套 bootstrap|brew|darwin" ;;
         mac_basic.sh)          echo "macOS 基本工具 (curl/wget/jq)|curl|darwin" ;;
+        ollama.sh)             echo "Ollama (LLM runner)|ollama|darwin" ;;
         uv.sh)                 echo "uv (Python toolchain)|uv|any" ;;
         git.sh)                echo "git (apt-get build)|git|linux" ;;
         webmin.sh)             echo "Webmin|webmin|linux" ;;

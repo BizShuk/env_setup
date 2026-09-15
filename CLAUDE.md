@@ -69,6 +69,7 @@
 │   ├── brew.sh                    # Homebrew 5.0.3 安裝
 │   ├── go.sh                      # Go 1.26.6 + golangci-lint
 │   ├── nodejs.sh / nodejs_nvm.sh / pnpm.sh / nodejs.md
+│   ├── ollama.sh                  # Ollama LLM 安裝與環境變數 (5m keep-alive, 1 model)
 │   ├── openssl_setup.sh / openssl_mac_setup.sh / openssl.cnf / openssl.md
 │   ├── ctags_setup.sh
 │   ├── git-secret.sh / git.sh / git.md
@@ -141,7 +142,7 @@
 
 ## 關鍵決策 (Key Decisions)
 
-- **`~/.bash_plugin` 寫入全面落實 idempotent 區塊替換**：所有安裝腳本 (`brew.sh`, `go.sh`, `nodejs_nvm.sh`, `pnpm.sh`, `openssl_mac_setup.sh`, `mac.sh`, `ctags_setup.sh`) 統一透過 `scripts/_lib_bash_plugin.sh` 的 `update_bash_plugin_block` 管理。設定以 `# >>> env_setup <component> >>>` / `# <<< env_setup <component> <<<` marker 包夾，重跑時先刪除舊區塊與歷史未標記行再以原子方式覆寫，避免重複追加造成 PATH 膨脹與版本衝突。
+- **`~/.bash_plugin` 寫入全面落實 idempotent 區塊替換**：所有安裝腳本 (`brew.sh`, `go.sh`, `nodejs_nvm.sh`, `pnpm.sh`, `openssl_mac_setup.sh`, `mac.sh`, `ctags_setup.sh`, `ollama.sh`) 統一透過 `scripts/_lib_bash_plugin.sh` 的 `update_bash_plugin_block` 管理。設定以 `# >>> env_setup <component> >>>` / `# <<< env_setup <component> <<<` marker 包夾，重跑時先刪除舊區塊與歷史未標記行再以原子方式覆寫，避免重複追加造成 PATH 膨脹與版本衝突。
 - **`bin/bash/settings.sh` 為唯一環境變數入口**：所有腳本 `source settings.sh` 取得 `USER_BIN`、`REPO_DIR`、`REPO_SCRIPTS`、`OS`、`ARCH`、`KERNEL_NAME` 等；個人敏感值 (`passwd`/`email`/`token`) 改由 `~/.config/env_setup/settings.private.sh` 提供 (git-ignored)。
 - **`~/bin` symlink 到 `bin/`**：在 `settings.sh` 內 `[ ! -e "$USER_BIN" ] && ln -s "$USER_PROJECT/env_setup/bin" "$USER_BIN"`，新工具直接落入 `bin/<area>/<tool>` 即可被 `PATH` 找到。
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。
@@ -173,6 +174,7 @@
 | 網路拓撲與設備掃描 (Network Topology & Device Scan) | `scripts/network/`                                                                                                        | `pnpm run run:network:private`, `pnpm run run:network:target`；純腳本：`scripts/network/*.sh` |
 | 裝置層 I/O 探測 (Device I/O Probe)                | `scripts/io/`                                                                                                             | `pnpm run run:io:probe`, `pnpm run run:io:bench`；純腳本：`scripts/io/*.sh`         |
 | 開發者輔助工具 (Developer Helpers)                | `bin/` 根目錄 + `bin/bash/.bash_aliases`                                                                                  | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                        |
+| 本機 LLM 服務與管理 (Local LLM Service & Daemon)  | `scripts/ollama.sh`, `ecosystem.config.js`                                                                                | `pnpm run run:ollama`, `pnpm run run:mac:ollama`, `pm2 apply`                     |
 | 觀測排程與稽核報告 (Observability Cron & Audit Reports) | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                                                                          | `pm2 apply`                                                  |
 
 ## 開發指南 (Development Guide)
