@@ -42,6 +42,10 @@ for node_root in "${NVM_DIR}"/versions/node/*; do
         "${node_root}/bin/corepack"
 done
 
+# Non-interactive shells (ssh <host> cmd, pm2, webhook deploys) return before
+# ~/.bash_plugin loads nvm; ~/bin is on their PATH, same as go and pnpm.
+ln -sf "${NVM_DIR}/versions/node/${NODE_VER}/bin/node" "${USER_BIN}/node"
+
 update_bash_plugin_block "nodejs" \
     '/^# \[NodeJs:nvm\]$/d' \
     '/^export NVM_DIR=/d' \
