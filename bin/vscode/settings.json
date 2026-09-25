@@ -79,7 +79,7 @@
         "*.go": "${capture}_test.go,${capture}_string.go,${capture}.sql,${capture}*.jsonc,${capture}*.md,.env*,${capture}*.tmpl,${capture}.csv",
         "*.md": "${capture}*.md",
         "*.sh": "${capture}*.md",
-        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,*.code-workspace,crontab.*,dashboard*,ecosystem.config.js,.markdownlint*,local.sql,README.todo",
+        "README.md": "LICENSE,.gitignore,.pre-commit-config.yaml,sample_markdown.md,GEMINI.md,AGENTS.md,CLAUDE.md,.geminiignore,.gitmodules,build.sh,run.sh,daemon.sh,docker-compose.yml,Dockerfile,.dockerignore,*.code-workspace,crontab.*,dashboard*,ecosystem.config.js,.markdownlint*,local.sql,README.todo",
         "*.sqlite": "${capture}.${extname}-*",
         "*.db": "${capture}.${extname}-*",
         "*.sqlite3": "${capture}.${extname}-*",
@@ -133,15 +133,14 @@
     // [diff editor]
     "diffEditor.ignoreTrimWhitespace": false,
     "diffEditor.codeLens": true,
-    "diffEditor.renderSideBySide": true,
+    "diffEditor.renderSideBySide": false,
     "diffEditor.useInlineViewWhenSpaceIsLimited": true,
-    "diffEditor.hideUnchangedRegions.enabled": true,
     // [files]
     "files.autoSave": "off",
     "files.eol": "\n",
     "files.exclude": {
         // 系統與中繼資料 (System & Metadata - Human non-readable)
-        "{.DS_Store,Thumbs.db,**/.svn,**/.hg}": true,
+        "{**/.DS_Store,Thumbs.db,**/.svn,**/.hg}": true,
         // 專案快取與套件依賴 (Dependencies & Caches)
         "{**/node_modules,**/__pycache__,**/.venv,**/.mvn}": true,
         // 建置產出與自動產生代碼 (Build Artifacts & Generated Code)
