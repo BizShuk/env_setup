@@ -125,7 +125,8 @@
     },
     {
         "key": "cmd+1",
-        "command": "workbench.action.toggleEditorWidths"
+        "command": "workbench.action.toggleEditorWidths",
+        "when": "!panelFocus"
     },
     {
         "key": "cmd+2",
@@ -138,25 +139,13 @@
         "when": "!editorTextFocus && !editorFocus && !terminalEditorFocus"
     },
     {
-        "key": "cmd+3",
-        "command": "workbench.action.togglePanel",
-        "when": "!panelVisible"
-    },
-    {
-        "key": "cmd+3",
+        "key": "cmd+1",
         "command": "workbench.action.toggleMaximizedPanel",
-        "when": "panelVisible && !panelMaximized"
+        "when": "panelVisible && panelFocus"
     },
     {
         "key": "cmd+3",
-        "command": "runCommands",
-        "args": {
-            "commands": [
-                "workbench.action.toggleMaximizedPanel",
-                "workbench.action.togglePanel"
-            ]
-        },
-        "when": "panelVisible && panelMaximized"
+        "command": "workbench.action.togglePanel"
     },
     {
         "key": "cmd+4",
