@@ -20,7 +20,11 @@ if [ -z "${PNPM_VER}" ]; then
     echo "cannot read packageManager (pnpm@<version>) from ${REPO_DIR}/package.json" >&2
     exit 1
 fi
-PNPM_HOME="${USER_LIB}/pnpm"
+case "${OS}" in
+darwin) PNPM_HOME="${HOME}/Library/pnpm" ;;
+linux)  PNPM_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/pnpm" ;;
+*)      PNPM_HOME="${HOME}/Library/pnpm" ;;
+esac
 NVM_DIR="${USER_LIB}/nvm"
 
 if [ -s "${NVM_DIR}/nvm.sh" ]; then

@@ -196,3 +196,14 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init.bash 2>/dev/null || :
+
+# pnpm
+case "$(uname -s)" in
+  Darwin) export PNPM_HOME="${HOME}/Library/pnpm" ;;
+  *)      export PNPM_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/pnpm" ;;
+esac
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
