@@ -8,8 +8,7 @@
 ├── README.md                      # 業務定義 + domain flow
 ├── README.business.md             # 業務價值萃取
 ├── README.todo                    # 待辦 + 已完成 Archive
-├── CLAUDE.md
-├── AGENTS.md -> CLAUDE.md
+├── AGENTS.md
 ├── GEMINI.md -> CLAUDE.md
 ├── setup.sh                       # 互動式初始化 wizard (personal info / bash env / tools)
 ├── run.sh                         # 唯一 symlink 入口 + IDE profile 套用
