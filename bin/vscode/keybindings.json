@@ -126,7 +126,7 @@
     {
         "key": "cmd+1",
         "command": "workbench.action.toggleEditorWidths",
-        "when": "!panelFocus"
+        "when": "!panelFocus && (editorFocus || terminalEditorFocus || sideBarFocus || !auxiliaryBarVisible)"
     },
     {
         "key": "cmd+2",
@@ -152,14 +152,14 @@
         "command": "workbench.action.toggleAuxiliaryBar"
     },
     {
-        "key": "cmd+5",
+        "key": "cmd+1",
         "command": "workbench.action.maximizeAuxiliaryBar",
-        "when": "auxiliaryBarVisible && !auxiliaryBarMaximized"
+        "when": "auxiliaryBarVisible && !editorFocus && !panelFocus && !sideBarFocus && !auxiliaryBarMaximized"
     },
     {
-        "key": "cmd+5",
+        "key": "cmd+1",
         "command": "workbench.action.restoreAuxiliaryBar",
-        "when": "auxiliaryBarVisible && auxiliaryBarMaximized"
+        "when": "auxiliaryBarVisible && !editorFocus && !panelFocus && !sideBarFocus && auxiliaryBarMaximized"
     },
     {
         "key": "shift+cmd+alt+f",
