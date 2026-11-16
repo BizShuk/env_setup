@@ -1,20 +1,15 @@
 #!/bin/bash
 
-## alias cmd ##
-#ref: [30 Handy Bash Shell Aliases](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
+# ref: [30 Handy Bash Shell Aliases](http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html)
 
-## code ##
-if which python3 >/dev/null; then
-    alias python='python3'
-    alias python-config='python3-config'
-else
-    alias python='python2.7'
-    alias python-config='python2.7-config'
+## Local Environment Variables ##
+# 載入個人化私密環境變數/密碼 (若 ~/.bash_local 存在，於 alias 定義前載入)
+if [ -f "${HOME}/.bash_local" ]; then
+    # shellcheck disable=SC1090
+    . "${HOME}/.bash_local"
 fi
 
-alias py-config='python-config'
-
-## system operator ##
+## System & Process Management ##
 alias update='sudo apt-get update && sudo apt-get upgrade'
 alias shutdown_reboot='sudo /sbin/reboot'
 alias shutdown_poweroff='sudo /sbin/poweroff'
@@ -31,36 +26,22 @@ alias j='jobs -l'
 #alias chmod='chmod --preserve-root'
 #alias chgrp='chgrp --preserve-root'
 
-#size of disks , dirs , and files
+## Disk & Storage ##
 #   -h , for human readable
 #   -s , for summary
-#
 alias disk_size="df -h"
 alias file_size="du -sh *"
 alias dir_size="du -sh"
-
-## Add default option for CMDs ##
-
-#alias dir='dir --color=auto'        # = ls
-#alias vdir='vdir --color=auto'      # = ls -l
-alias grep='grep --color=auto -e' # -x , line-regexp  ,  -i , ignore case  , -n , show line number
-alias fgrep='fgrep --color=auto'
-if [ "$os" == "darwin" ]; then
-    alias grep='egrep --color=auto'
+if [ "$os" != "darwin" ]; then
+    alias lsblk='lsblk -e 7 -o NAME,SIZE,FSTYPE,FSAVAIL,FSUSE%,LABEL,MOUNTPOINT,TRAN,MODEL'
 fi
-alias e='egrep --color=auto'
-alias vi='vim'
-alias edit='vim'
-alias ping='ping -c 5'            # Stop after sending count ECHO_REQUEST packets
-alias pingfast='ping -c 100 -s.2' # Do not wait interval 1 second, go fast
-alias wget='wget --show-progress'
-# confirmation #
-#alias mv='mv -i'
-#alias cp='cp -i'
-#alias ln='ln -i'
-alias diff='colordiff'
 
-## ls ##
+## File & Directory Listing ##
+# enable color support of ls
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
 #   -F = --file-type , show different with file type
 #   -G = --color=auto , with color
 if [ "$os" == "darwin" ]; then
@@ -72,36 +53,52 @@ else
     #alias rm='rm -I --preserve-root'
 fi
 alias ll="ls -lF --color=auto"
+alias tree='tree -N --noreport'
+#alias dir='dir --color=auto'        # = ls
+#alias vdir='vdir --color=auto'      # = ls -l
 
-## New CMDs ##
+## File Editing & Safety ##
+alias vi='vim'
+alias edit='vim'
+alias diff='colordiff'
+# confirmation #
+#alias mv='mv -i'
+#alias cp='cp -i'
+#alias ln='ln -i'
+
+## Search (grep) ##
+alias grep='grep --color=auto -e' # -x , line-regexp  ,  -i , ignore case  , -n , show line number
+alias fgrep='fgrep --color=auto'
+if [ "$os" == "darwin" ]; then
+    alias grep='egrep --color=auto'
+fi
+alias e='egrep --color=auto'
+
+## Network & Tunneling ##
+alias ping='ping -c 5'            # Stop after sending count ECHO_REQUEST packets
+alias pingfast='ping -c 100 -s.2' # Do not wait interval 1 second, go fast
+alias wget='wget --show-progress'
+alias cf="cloudflared"
+
+## Shell Utilities & Time ##
 alias path='echo -e ${PATH//:/\\n}'
 alias now='date +"%T"'
 alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
-alias tree='tree -N --noreport'
+
+## Documentation & Markdown ##
 alias mdtree="tree -f --charset utf8 | sed -E  -e 's:\./::g' -e 's:─ (.*)/(.*)$:─ [\2](\1/\2):g' -e 's/^(.── )(.*)$/\1[\2](\2)/g' -e 's/$/  /g'"
 alias genREADME='echo $(basename $(pwd)) >README.md; mdtree >> README.md'
 
-
-## Npm ##
-alias lt1="config ls -l"
-
-# undoc
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+## Development & Python ##
+if which python3 >/dev/null; then
+    alias python='python3'
+    alias python-config='python3-config'
+else
+    alias python='python2.7'
+    alias python-config='python2.7-config'
 fi
-
-## Music player : mplayer
-alias music_play="mplyaer -shuffle -- */**.mp3"
-
-alias oc="openclaw"
-alias ocl="openclaw logs --follow"
-alias pc="picoclaw"
-
-alias jieli="HUB_URL=https://hl9h6ru7.fn-boe.bytedance.net jieli"
-
+alias py-config='python-config'
 
 # 取得 Python 設定路徑 (Get Python configuration directory)
 get_python-config-dir () {
@@ -117,15 +114,12 @@ get_python-config-dir () {
     echo "${python_config_dir}"
 }
 
+alias lt1="config ls -l"
 
+## Media ##
+# Music player : mplayer
+alias music_play="mplyaer -shuffle -- */**.mp3"
 
-
-
-# 載入個人化私密環境變數/密碼 (若 ~/.bash_local 存在)
-if [ -f "${HOME}/.bash_local" ]; then
-    # shellcheck disable=SC1090
-    . "${HOME}/.bash_local"
-fi
 
 # 載入 LLM CLI alias (claude / codex 各 provider profile)
 # 來源 (owner): ~/projects/ai/cc-plugin/scripts/aliases.sh
@@ -133,4 +127,3 @@ if [ -f "${HOME}/projects/ai/cc-plugin/scripts/aliases.sh" ]; then
     # shellcheck disable=SC1090
     . "${HOME}/projects/ai/cc-plugin/scripts/aliases.sh"
 fi
-alias cf="cloudflared"
