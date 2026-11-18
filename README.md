@@ -173,7 +173,7 @@
 `領域流程 (Domain Flow):`
 
 1. pm2 啟動時讀取 `ecosystem.config.js` 註冊任務；cron 任務依分散離峰時間 (週一至週六各時段) 由 pm2 內部排程週期性觸發，避免並行衝突。
-2. 稽核類任務以 `./bin/mac/<audit>-mac.sh` 全路徑執行，輸出 markdown 報告至 `$HOME/.config/env_setup/data/audit/`。
+2. 稽核類任務以 `./bin/mac/<audit>-mac.sh` 全路徑執行，輸出 markdown 報告至 `$HOME/.config/env_setup/data/audit/<prefix>/`，並由 `run.sh` 軟連結至 `~/projects/default/tmp/reports/<script>`。
 3. 檢測類任務以 `./scripts/<domain>/<tool>.sh` 全路徑執行，記錄健康狀態、儲存裝置規格與備份清單。
 
 `核心實體 (Key Entities):` `pm2 App`, `Cron 排程`, `稽核報告 (Audit Report)`, `Cleanup Preview`

@@ -49,6 +49,12 @@ link_ide_config() {
 # Ensure runtime dirs exist
 # ----------------------------------------------------------------------------
 mkdir -p "${REPO_DIR}/tmp"
+AUDIT_DIR="${HOME}/.config/env_setup/data/audit"
+REPORTS_DIR="${USER_PROJECT}/default/tmp/reports"
+mkdir -p "${REPORTS_DIR}" \
+         "${AUDIT_DIR}/launch_audit" \
+         "${AUDIT_DIR}/login_audit" \
+         "${AUDIT_DIR}/network_security_audit"
 
 # ----------------------------------------------------------------------------
 # Symlink table: source -> target (relative to repo root, all under ./tmp/)
@@ -77,6 +83,11 @@ declare -a SYMLINKS=(
     "${HOME}/.ssh:${REPO_DIR}/tmp/.ssh"
     "${HOME}/.vscode:${REPO_DIR}/tmp/.vscode"
     "${HOME}/lib:${REPO_DIR}/tmp/lib"
+
+    # pm2 audit reports: expose each script's report dir under default/tmp/reports/<script>
+    "${AUDIT_DIR}/launch_audit:${REPORTS_DIR}/launch_audit-mac"
+    "${AUDIT_DIR}/login_audit:${REPORTS_DIR}/login_audit-mac"
+    "${AUDIT_DIR}/network_security_audit:${REPORTS_DIR}/network_security_audit-mac"
 )
 
 for link_pair in "${SYMLINKS[@]}"; do

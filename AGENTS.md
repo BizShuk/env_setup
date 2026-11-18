@@ -150,7 +150,7 @@
 - **IDE profile 由 `run.sh` 依 OS 雙綁**：同時把 `bin/vscode/{settings,keybindings,snippets}` 連結到 VSCode (`Code/User`) 與 Antigravity IDE 的 `User/` 目錄。
 - **`package.json` 是唯一任務清單**：`pnpm run ci` = `lint` → `test`，統一透過 pnpm scripts 管理所有安裝、同步、探測與生命週期任務；`lint` 透過 `bash -n` 靜態語法檢查驗證 `scripts/` 與 `bin/` 所有腳本；`clean` 僅清除日誌與暫存廢棄檔，安全保留 `tmp/` 目錄與符號連結。
 - **pnpm 是唯一 node package manager**：`scripts/nodejs_nvm.sh` 在裝完 Node.js 後即從每個 runtime 版本移除 `npm` / `npx` / `corepack`，`scripts/pnpm.sh` 再以 standalone binary 安裝鎖版 pnpm 並保留 `alias npm=pnpm` 作為誤打轉導；`scripts/check_prereq.sh` 會在 npm 仍留在 PATH 時提出警告，`scripts/cleanup/node.sh` 則直接刪除 `~/.npm` 殘留快取而非呼叫已不存在的 `npm cache clean`。
-- **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 任務，namespace = `Local`；所有任務統一以 `./scripts/<domain>/<tool>.sh` 或 `./bin/<area>/<tool>` 全路徑註冊，包含磁碟清理 preview、macOS 安全稽核、硬體與 I/O 探測、備份狀態檢測以及網路拓撲探測等全套非安裝類檢查任務；排程於離峰時段分散執行（週一至週六各時段），避免資源與網路競爭。
+- **pm2 為唯一排程器**：`ecosystem.config.js` 集中所有 cron 任務，namespace = `Local`；所有任務統一以 `./scripts/<domain>/<tool>.sh` 或 `./bin/<area>/<tool>` 全路徑註冊，包含磁碟清理 preview、Go build / module cache 清理、macOS 安全稽核、硬體與 I/O 探測、備份狀態檢測以及網路拓撲探測等全套非安裝類檢查任務；排程於離峰時段分散執行（週一至週六各時段），避免資源與網路競爭。
 - **macOS 稽核與清理分流**：`scripts/cleanup/` 擁有 cleanup catalog、preview 與逐項 confirmation；`bin/mac/*_audit-mac.sh` 保留 audit reports；跨平台硬體偵測由 `scripts/system/` 擁有。
 - **純 Shell 領域腳本架構**：廢除 Go CLI，所有領域功能（backup、cleanup、dump、install、io、network、system、uninstall）全面下沉為 `scripts/<domain>/` 下的純 Shell 獨立腳本，並透過 `package.json` 的 pnpm scripts 提供統一執行介面。
 - **backup metadata 是 snapshot time owner**：`scripts/backup/list.sh` 的 latest backup date 讀取 `backup.meta.json.timestamp`；legacy backup 缺少 metadata 時才 fallback 至最新 `.plist` modification time，沒有任何 backup 則顯示 `-`。
@@ -176,7 +176,7 @@
 | 網路拓撲與設備掃描 (Network Topology & Device Scan) | `scripts/network/`                                                                                                        | `pnpm run run:network:private`, `pnpm run run:network:target`；純腳本：`scripts/network/*.sh` |
 | 裝置層 I/O 探測 (Device I/O Probe)                | `scripts/io/`                                                                                                             | `pnpm run run:io:probe`, `pnpm run run:io:bench`；純腳本：`scripts/io/*.sh`         |
 | 開發者輔助工具 (Developer Helpers)                | `bin/` 根目錄 + `bin/bash/.bash_aliases`                                                                                  | 任意 `bin/<tool>` (因 `~/bin` 已 symlink)                                        |
-| 本機 LLM 服務與管理 (Local LLM Service & Daemon)  | `scripts/ollama.sh`, `ecosystem.config.js`                                                                                | `pnpm run run:ollama`, `pnpm run run:mac:ollama`, `pm2 apply`                     |
+| 本機 LLM 安裝 (Local LLM Install)                 | `scripts/ollama.sh` (常駐 daemon 由 `~/projects/platform/inf/hosts/mac-server/ecosystem.config.js` 擁有)                  | `pnpm run run:ollama`, `pnpm run run:mac:ollama`                                 |
 | 觀測排程與稽核報告 (Observability Cron & Audit Reports) | `ecosystem.config.js` + `bin/mac/*_audit-mac.sh`                                                                          | `pm2 apply`                                                  |
 
 ## 開發指南 (Development Guide)

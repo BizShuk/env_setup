@@ -37,11 +37,12 @@ mkdir -p "$REPORT_DIR"
 # audit_init: 設定報告檔名
 #   $1 = 報告前綴 (例: "disk_analysis"), 預設 "audit"
 #   $2 = 副檔名前綴, 預設與 $1 同
-#   範例: audit_init "disk_analysis"  ->  ${REPORT_DIR}/disk_analysis-YYYYMMDD.report.md
+#   範例: audit_init "disk_analysis"  ->  ${REPORT_DIR}/disk_analysis/disk_analysis-YYYYMMDD.report.md
 # ----------------------------------------------------------------------------
 audit_init() {
     local prefix="${1:-audit}"
-    local report_file="${REPORT_DIR}/${prefix}-$(date +%Y%m%d).report.md"
+    mkdir -p "${REPORT_DIR}/${prefix}"
+    local report_file="${REPORT_DIR}/${prefix}/${prefix}-$(date +%Y%m%d).report.md"
     # 將變數綁到 caller 的 scope
     # shellcheck disable=SC2034
     REPORT_FILE="$report_file"
