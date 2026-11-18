@@ -5,18 +5,19 @@
 set -euo pipefail
 
 TOOLS=(
-    pm2
-    skills
-    dux
-    port
-    sessiond
-    autop
-    auth
-    proxy
-    mdserver
-    vdl
-    gx
-    img
+    bizshuk/pm2
+    bizshuk/skills
+    bizshuk/dux
+    bizshuk/port
+    bizshuk/sessiond
+    bizshuk/autop
+    bizshuk/auth
+    bizshuk/proxy
+    bizshuk/mdserver
+    bizshuk/vdl
+    bizshuk/gx
+    bizshuk/img
+    bizshuk/inf
 )
 
 command -v go >/dev/null || {
@@ -26,8 +27,8 @@ command -v go >/dev/null || {
 
 failed=()
 for tool in "${TOOLS[@]}"; do
-    printf '==> go install github.com/bizshuk/%s@master\n' "$tool"
-    if ! go install "github.com/bizshuk/${tool}@master"; then
+    printf '==> go install github.com/%s@master\n' "$tool"
+    if ! go install "github.com/${tool}@master"; then
         failed+=("$tool")
     fi
 done
