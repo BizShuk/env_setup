@@ -67,7 +67,7 @@
 │   ├── bash_env_setup.sh          # dotfile 軟連結入口
 │   ├── bash.sh / settings.sh      # scripts 內部 settings
 │   ├── brew.sh                    # Homebrew 5.0.3 安裝
-│   ├── go.sh                      # Go 1.26.6 + golangci-lint
+│   ├── go.sh                      # Go 1.26.11 + golangci-lint
 │   ├── nodejs.sh / nodejs_nvm.sh / pnpm.sh / nodejs.md
 │   ├── ollama.sh                  # Ollama LLM 安裝與環境變數 (5m keep-alive, 1 model)
 │   ├── openssl_setup.sh / openssl_mac_setup.sh / openssl.cnf / openssl.md
@@ -90,6 +90,8 @@
 │   │   ├── mac.sh / vscode.sh / antigravity.sh
 │   ├── install/                   # IDE 擴充套件安裝與同步
 │   │   ├── vscode.sh / antigravity.sh
+│   ├── git/                       # ~/projects 全 repo fast-forward pull master
+│   │   └── pull.sh
 │   ├── io/                        # 裝置層 I/O 探測與基準評測
 │   │   ├── probe.sh / bench.sh
 │   ├── network/                   # 私有路由與目標網段掃描
@@ -134,7 +136,7 @@
 - Scheduler: `pm2` (`ecosystem.config.js` 集中管理定時稽核與系統探測)
 - Key dependencies:
     - `homebrew 5.0.3` (`scripts/brew.sh`)
-    - `go 1.26.6` (`scripts/go.sh`)
+    - `go 1.26.11` (`scripts/go.sh`)
     - `node v24.11.1` via nvm (`scripts/nodejs_nvm.sh`) + `pnpm 12.4.1` (`scripts/pnpm.sh`)
     - `traceroute` / `nmap` (網路掃描前置)
     - `system_profiler` (macOS 硬體偵測)

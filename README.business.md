@@ -25,7 +25,7 @@ flowchart LR
     subgraph upstream [上游 Upstream]
         A1[開發者於新機 clone repo]
         A2[Homebrew upstream 5.0.3 tarball]
-        A3[go.dev/dl Go 1.26.6 tarball]
+        A3[go.dev/dl Go 1.26.11 tarball]
         A4[golangci-lint install.sh]
         A5[OS package manager apt/brew]
         A6[/etc/* 系統設定]
@@ -91,7 +91,7 @@ stateDiagram-v2
 ## 業務約束 (Constraints)
 
 - `硬體平台覆蓋 (Hardware coverage)`：腳本需同時支援 macOS (Darwin) 與 Ubuntu Linux；以 `uname` 為單一分支依據 (`scripts/mac.sh` 為 macOS 專屬，`scripts/ubuntu.sh` 為 Ubuntu 專屬)。來源：`scripts/mac.sh:1`、`scripts/ubuntu.sh:1`。
-- `Go 版本對齊 (Go version pinning)`：`scripts/go.sh` 預設 `GO_VER=1.26.6` (來自 `go.sh:20`，可由環境變數覆寫)，新機部署後會下載對應 tarball 與 `golangci-lint v2.13.2`，避免工具鏈漂移。
+- `Go 版本對齊 (Go version pinning)`：`scripts/go.sh` 預設 `GO_VER=1.26.11` (來自 `go.sh:20`，可由環境變數覆寫)，新機部署後會下載對應 tarball 與 `golangci-lint v2.13.2`，避免工具鏈漂移。
 - `權限分級 (Privilege tier)`：cleanup apply 與 OS bootstrap 可能需要 `sudo`；`env_setup system <information> show` 的 hardware probes 不需 sudo。
 - `敏感值不入版控 (Secrets out-of-vcs)`：依 `bin/bash/settings.sh:9-14`，明文 `passwd` / `email` / token 改由 git-ignored `~/.config/env_setup/settings.private.sh` 提供；含明文密碼的 `bin/bytedance_setup.sh` 已刪除 (紀錄見 `docs/specs/2026-07-08-env-setup-structural-cleanup.md` §4.3.1)。
 - `dotfile 唯一來源 (Dotfile single source of truth)`：所有 dotfiles (`.bashrc` / `.vimrc` / `.gitconfig` / `.screenrc` / `.toprc`) 由 `scripts/bash_env_setup.sh` 軟連結到 `~/`；修改應直接在 `bin/bash/` 內進行，不直接編輯 `~/` 副本。
