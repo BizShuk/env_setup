@@ -64,6 +64,7 @@
     "run:mount-disk-fstab": "bash scripts/disk/mount_disk_by_fstab.sh",
     "run:pm2-apply": "pm2 apply",
 
+    "run:git:pull": "./scripts/git/pull.sh",
     "run:dump:mac": "bash scripts/dump/mac.sh",
     "run:dump:vscode": "bash scripts/dump/vscode.sh",
     "run:dump:antigravity": "bash scripts/dump/antigravity.sh",

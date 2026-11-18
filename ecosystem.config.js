@@ -20,6 +20,13 @@ module.exports = {
         //     script: "file_watcher",
         //     args: ["monitor"]
         // },
+        // 專案同步 (每日 03:00)：對 ~/projects/* 與 ~/projects/*/* 的 git repo 執行 fast-forward pull master，跳過非 master、有未提交變更或無 upstream 的 repo
+        {
+            namespace: "Local",
+            name: "Projects Git Pull - Daily",
+            script: "./scripts/git/pull.sh",
+            cron: "0 3 * * *"
+        },
         // 系統健康探測 (週一 04:00)：每週一開工前聚合探測 CPU、記憶體、作業系統、GPU、螢幕、音訊與實體介面狀態
         {
             namespace: "Local",
