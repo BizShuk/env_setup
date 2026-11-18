@@ -53,6 +53,7 @@
 │   │   ├── backup / backupSync
 │   │   ├── ssoLogin.sh / ssoLogin_faas.sh
 │   │   ├── claudew / claudem / devcontainer
+│   │   ├── go_default_tools.sh / skills_default.sh
 │   │   ├── ssh_config / sshd_config / ssh_keygen / ssh_key_compare
 │   │   ├── ssh.md
 │   │   ├── strip-docker-image-README.md

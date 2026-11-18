@@ -68,6 +68,8 @@
 | `json`                        | 開發者 helper     | JSON pretty-print                                              |
 | `git_signing`                 | 開發者 helper     | GPG 簽章指引                                                  |
 | `git_submodule_master`        | Git helper        | 掃描 `~/projects/*/*` Git repos，fetch 後切換或建立追蹤 `origin/master` 的 local `master` |
+| `go_default_tools.sh`         | 安裝 helper       | 以 `go install ...@master` 安裝 12 個預設 BizShuk Go CLI，失敗者列出並以非零結束 |
+| `skills_default.sh`           | 安裝 helper       | 對 6 個預設 skill source 執行 `skills add`，額外參數 (如 `--yes`) 原樣轉傳 |
 | `find_symbolic_link`          | 開發者 helper     | 找出目錄下所有 symlink                                          |
 | `iconv_big5_utf8`             | 開發者 helper     | Big5 ↔ UTF-8 編碼轉換                                          |
 | `file_encoding`               | 開發者 helper     | 編碼偵測                                                      |
