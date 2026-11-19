@@ -150,9 +150,9 @@
         // IDE 與開發工具設定 (IDE & Tool Settings)
         "{**/.classpath,**/.project,**/.settings,**/.antigravity,**/.playwright-cli,**/.devops,**/.superpowers,**/.next}": true,
         // 備份與封存 (Backups & Archives)
-        "{*.bak*}": true,
+        "{**/*.bak*,**/*.lock*}": true,
         // AI 智能體配置 (AI Agents Meta)
-        "{**/AGENTS.md,**/GEMINI.md}": true,
+        "{**/CLAUDE.md,**/GEMINI.md}": true,
 
         "{**/.geminiignore,**/.claudeignore,**/.grok,**/.claude}": true,
         // 測試與非必要文件 (Tests & Documentation)
