@@ -33,7 +33,7 @@ alias disk_size="df -h"
 alias file_size="du -sh *"
 alias dir_size="du -sh"
 if [ "$os" != "darwin" ]; then
-    alias lsblk='lsblk -e 7 -o NAME,SIZE,FSTYPE,FSAVAIL,FSUSE%,LABEL,MOUNTPOINT,TRAN,MODEL'
+    alias lsblk='lsblk -e 7 -o NAME,SIZE,FSTYPE,FSAVAIL,FSUSE%,LABEL,UUID,MOUNTPOINT,TRAN,MODEL'
 fi
 
 ## File & Directory Listing ##
