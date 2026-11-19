@@ -25,7 +25,7 @@ module.exports = {
             namespace: "Local",
             name: "Projects Git Pull - Daily",
             script: "./scripts/git/pull.sh",
-            cron: "0 3 * * *"
+            cron: "50 * * * *"
         },
         // 系統健康探測 (週一 04:00)：每週一開工前聚合探測 CPU、記憶體、作業系統、GPU、螢幕、音訊與實體介面狀態
         {
