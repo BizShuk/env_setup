@@ -27,6 +27,13 @@ module.exports = {
             script: "./scripts/git/pull.sh",
             cron: "50 * * * *"
         },
+        // 預設 Go 工具每日更新 (每日 18:30)：以 go install ...@master 重裝 bin/go_default_tools.sh 清單內所有 BizShuk Go CLI
+        {
+            namespace: "Local",
+            name: "Go Default Tools Update - Daily",
+            script: "./bin/go_default_tools.sh",
+            cron: "30 18 * * *"
+        },
         // 系統健康探測 (週一 04:00)：每週一開工前聚合探測 CPU、記憶體、作業系統、GPU、螢幕、音訊與實體介面狀態
         {
             namespace: "Local",
