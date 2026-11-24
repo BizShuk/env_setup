@@ -394,7 +394,6 @@ yarn.lock.bak
 tmp/
 temp/
 scratch/
-example/
 docs/_build/
 docs/build/
 site/
