@@ -15,6 +15,8 @@
     // 行尾 2 個空白視為換行 (hard break), 非 trailing space
     "MD009": { "br_spaces": 2 },
 
+    "MD013": false, // 不限制單行長度
+
     "MD024": false, // 允許重複標題文字 (多節共用 "使用方式" 等小標)
     "MD025": false, // 允許一份文件多個 H1
     "MD028": false, // 允許 blockquote 中間夾空行
