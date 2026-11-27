@@ -64,6 +64,15 @@ export REPO_PKG=${REPO_DIR}/pkg
 export REPO_SCRIPTS=${REPO_DIR}/scripts
 
 
+# Guard against stale CA paths inherited from an older shell session
+# (e.g. after brew.sh migrates from ~/.local/homebrew to /opt/homebrew).
+if [ -n "${SSL_CERT_FILE:-}" ] && [ ! -s "${SSL_CERT_FILE}" ]; then
+    unset SSL_CERT_FILE
+fi
+if [ -n "${CURL_CA_BUNDLE:-}" ] && [ ! -s "${CURL_CA_BUNDLE}" ]; then
+    unset CURL_CA_BUNDLE
+fi
+
 # system folder
 [ ! -d "/etc/local" ] && sudo mkdir "/etc/local"
 export SYSTEMD_DIR=/etc/systemd/system

@@ -28,6 +28,19 @@ fi
 # 2. Package manager
 "${SCRIPT_DIR}/brew.sh"
 
+# Refresh Homebrew PATH and CA env for subsequent steps in this subshell
+for _brew_bin in /opt/homebrew/bin/brew "${USER_LOCAL}/homebrew/bin/brew"; do
+    if [ -x "${_brew_bin}" ]; then
+        eval "$("${_brew_bin}" shellenv)"
+        _brew_cert="$("${_brew_bin}" --prefix)/etc/ca-certificates/cert.pem"
+        if [ -s "${_brew_cert}" ]; then
+            export SSL_CERT_FILE="${_brew_cert}"
+        fi
+        break
+    fi
+done
+unset _brew_bin _brew_cert
+
 # 3. Basic utilities (curl, wget, jq)
 "${SCRIPT_DIR}/mac_basic.sh"
 
