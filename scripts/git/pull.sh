@@ -16,13 +16,13 @@ for dir in "$ROOT"/*/ "$ROOT"/*/*/; do
 
     branch=$(git -C "$dir" symbolic-ref --short -q HEAD || echo "detached")
     if [ "$branch" != "master" ]; then
-        echo "SKIP    $dir (branch: $branch)"; skipped=$((skipped + 1)); continue
+        skipped=$((skipped + 1)); continue
     fi
     if ! git -C "$dir" rev-parse -q --verify '@{upstream}' >/dev/null; then
-        echo "SKIP    $dir (no upstream)"; skipped=$((skipped + 1)); continue
+        skipped=$((skipped + 1)); continue
     fi
     if [ -n "$(git -C "$dir" status --porcelain --untracked-files=no)" ]; then
-        echo "SKIP    $dir (uncommitted changes)"; skipped=$((skipped + 1)); continue
+        skipped=$((skipped + 1)); continue
     fi
 
     before=$(git -C "$dir" rev-parse HEAD)
