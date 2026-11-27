@@ -42,7 +42,7 @@ safe_link "${REPO_DIR}/bin/bash/.vim" "${INSTALL_DIR}/.vim"
 safe_link "${REPO_DIR}/bin/bash/.toprc" "${INSTALL_DIR}/.toprc"
 
 ### [ssh] ###
-mkdir "${INSTALL_DIR}/.ssh" 2>/dev/null
+mkdir -p "${INSTALL_DIR}/.ssh"
 # cat "${REPO_PKG}/sshd/.ssh/id_rsa.pub" >> "${INSTALL_DIR}/.ssh/authorized_keys"
 
 ### for [mac] ###

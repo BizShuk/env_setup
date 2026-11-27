@@ -28,7 +28,18 @@ EOF
 # shellcheck source=/dev/null
 source "${BASH_PLUGIN}"
 brew update --force
-brew postinstall ca-certificates
+
+# postinstall on a formula that is not installed fails with FormulaUnavailableError
+if brew list --versions ca-certificates >/dev/null; then
+    brew postinstall ca-certificates
+else
+    brew install ca-certificates
+fi
+
+if [ ! -s "${SSL_CERT_FILE}" ]; then
+    echo "ERROR: ${SSL_CERT_FILE} missing after ca-certificates setup" >&2
+    exit 1
+fi
 
 
 chmod -R go-w "$(brew --prefix)/share/zsh"
