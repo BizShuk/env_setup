@@ -26,5 +26,5 @@ TARGET_FILE="${REPO_DIR}/scripts/Brewfile"
 mkdir -p "$(dirname "${TARGET_FILE}")"
 
 echo "Dumping Mac Homebrew manifest to ${TARGET_FILE}..."
-brew bundle dump --force --file="${TARGET_FILE}"
+brew bundle dump --force --no-vscode --file="${TARGET_FILE}"
 echo "Mac manifest dumped to ${TARGET_FILE}"

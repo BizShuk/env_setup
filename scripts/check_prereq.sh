@@ -102,6 +102,8 @@ fi
 if [ "${OS}" = "darwin" ]; then
     if command -v brew >/dev/null 2>&1; then
         ok "Homebrew CLI: $(command -v brew) ($(brew --version | head -n1))"
+    elif [ -x "/opt/homebrew/bin/brew" ]; then
+        ok "Homebrew CLI: /opt/homebrew/bin/brew"
     elif [ -x "${USER_LOCAL}/homebrew/bin/brew" ]; then
         ok "Homebrew CLI (local): ${USER_LOCAL}/homebrew/bin/brew"
     else
