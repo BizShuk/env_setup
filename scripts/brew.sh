@@ -12,6 +12,7 @@ else
     homebrew_dir="${USER_LOCAL}/homebrew"
 fi
 cert_file="${homebrew_dir}/etc/ca-certificates/cert.pem"
+libarchive_pkgconfig="${homebrew_dir}/opt/libarchive/lib/pkgconfig"
 
 # The inherited SSL_CERT_FILE may point at a cert.pem that does not exist yet;
 # keep it unset until ca-certificates is installed, or curl exits 77.
@@ -36,16 +37,22 @@ else
     curl -fL "https://github.com/Homebrew/brew/archive/refs/tags/${homebrew_ver}.tar.gz" | tar xz --strip 1 -C "${homebrew_dir}"
 fi
 
+# Append Homebrew bin/sbin to PATH instead of prepending so it never shadows
+# managed toolchains (e.g., ~/.local/go<ver>/bin, ~/bin, nvm) in ~/.bash_plugin.
+brew_shellenv="$(SHELL=/bin/bash "${homebrew_dir}/bin/brew" shellenv | sed "s|export PATH=\"${homebrew_dir}/bin:${homebrew_dir}/sbin\${PATH+:\\\$PATH}\"|export PATH=\"\${PATH:+\$PATH:}${homebrew_dir}/bin:${homebrew_dir}/sbin\"|")"
+
 update_bash_plugin_block "homebrew" \
     '/^# Homebrew$/d' \
     '/^# Homwbrew$/d' \
     '/^export HOMEBREW_/d' \
     '/^export PATH=.*homebrew\/bin/d' \
     '/^export SSL_CERT_FILE=.*ca-certificates/d' \
+    '/^export PKG_CONFIG_PATH=.*libarchive/d' \
     '/^\[ -z "\${MANPATH-}" \] || export MANPATH=/d' \
     '/^export INFOPATH=.*homebrew/d' <<EOF
-$("${homebrew_dir}/bin/brew" shellenv)
+${brew_shellenv}
 if [ -s "${cert_file}" ]; then export SSL_CERT_FILE="${cert_file}"; fi
+if [ -d "${libarchive_pkgconfig}" ]; then case ":\${PKG_CONFIG_PATH:-}:" in *":${libarchive_pkgconfig}:"*) ;; *) export PKG_CONFIG_PATH="${libarchive_pkgconfig}\${PKG_CONFIG_PATH:+:\$PKG_CONFIG_PATH}" ;; esac; fi
 EOF
 
 # Load the target Homebrew environment directly so inherited HOMEBREW_* / PATH
@@ -77,6 +84,13 @@ if [ "${OS}" = "darwin" ] && [ -f "${brewfile}" ]; then
         fi
     done < <(sed -n 's/^[[:space:]]*tap[[:space:]]*"\([^"]*\)".*/\1/p' "${brewfile}")
     brew bundle --file="${brewfile}"
+fi
+
+if [ -d "${libarchive_pkgconfig}" ]; then
+    case ":${PKG_CONFIG_PATH:-}:" in
+        *":${libarchive_pkgconfig}:"*) ;;
+        *) export PKG_CONFIG_PATH="${libarchive_pkgconfig}${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}" ;;
+    esac
 fi
 
 if [ -d "$(brew --prefix)/share/zsh" ]; then

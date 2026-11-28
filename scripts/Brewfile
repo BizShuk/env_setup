@@ -32,10 +32,14 @@ brew "mysql-client"
 brew "nmap"
 # Create, run, and share large language models (LLMs)
 brew "ollama"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Image processing library
+brew "vips"
 # Internet file retriever
 brew "wget"
 # Feature-rich command-line audio/video downloader

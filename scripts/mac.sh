@@ -36,10 +36,17 @@ for _brew_bin in /opt/homebrew/bin/brew "${USER_LOCAL}/homebrew/bin/brew"; do
         if [ -s "${_brew_cert}" ]; then
             export SSL_CERT_FILE="${_brew_cert}"
         fi
+        _brew_libarchive_pc="$("${_brew_bin}" --prefix)/opt/libarchive/lib/pkgconfig"
+        if [ -d "${_brew_libarchive_pc}" ]; then
+            case ":${PKG_CONFIG_PATH:-}:" in
+                *":${_brew_libarchive_pc}:"*) ;;
+                *) export PKG_CONFIG_PATH="${_brew_libarchive_pc}${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}" ;;
+            esac
+        fi
         break
     fi
 done
-unset _brew_bin _brew_cert
+unset _brew_bin _brew_cert _brew_libarchive_pc
 
 # 3. Basic utilities (curl, wget, jq)
 "${SCRIPT_DIR}/mac_basic.sh"
